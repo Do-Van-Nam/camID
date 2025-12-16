@@ -1,3 +1,4 @@
+import 'package:cam_id/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -26,11 +27,11 @@ class CustomBottomNav extends StatelessWidget {
           Positioned.fill(
             child: Row(
               children: [
-                Expanded(child: _buildNavItem(0, Icons.home, "Home")),
-                Expanded(child: _buildNavItem(1, Icons.card_giftcard, "Loyalty")),
-                Expanded(child: _buildCenterItem()),
-                Expanded(child: _buildNavItem(3, Icons.games, "Entertainment")),
-                Expanded(child: _buildNavItem(4, Icons.support_agent, "Help Center")),
+                Expanded(child: _buildNavItem(0, Icons.home, AppLocalizations.of(context)!.home)),
+                Expanded(child: _buildNavItem(1, Icons.card_giftcard, AppLocalizations.of(context)!.reward)),
+                Expanded(child: _buildCenterItem(context)),
+                Expanded(child: _buildNavItem(3, Icons.games, AppLocalizations.of(context)!.entertainment)),
+                Expanded(child: _buildNavItem(4, Icons.support_agent, AppLocalizations.of(context)!.help_center)),
               ],
             ),
           ),
@@ -63,7 +64,7 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildCenterItem() {
+  Widget _buildCenterItem(context) {
     final bool isSelected = currentIndex == 2;
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -74,7 +75,7 @@ class CustomBottomNav extends StatelessWidget {
           children: [
             const SizedBox(height: 26),
             Text(
-              "Metfone",
+              AppLocalizations.of(context)!.metfone,
               style: TextStyle(
                 fontSize: 11,
                 color: isSelected ? Colors.red : Colors.grey,

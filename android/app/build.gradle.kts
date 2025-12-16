@@ -21,13 +21,21 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId = "com.example.cam_id"
+        applicationId = "com.metfone.selfcare"
         // You can update the following values to match your application needs.
         // For more information, see: https://flutter.dev/to/review-gradle-config.
         minSdk = flutter.minSdkVersion
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+    }
+    signingConfigs {
+        create("release") {
+            keyAlias = "key0"
+            keyPassword = "ViettelaA#123456"
+            storeFile = file("keystores/mymetfone.jks")
+            storePassword = "ViettelaA#123456"
+        }
     }
 
     buildTypes {
