@@ -1,3 +1,4 @@
+import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/ui/language/language_bloc.dart';
 import 'package:cam_id/main/ui/language/language_event.dart';
 import 'package:cam_id/main/ui/language/languge_state.dart';
@@ -10,7 +11,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class App extends StatelessWidget {
-  const App({Key? key}) : super(key: key);
+  const App({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -32,11 +33,13 @@ class App extends StatelessWidget {
                   GlobalMaterialLocalizations.delegate,
                   GlobalWidgetsLocalizations.delegate,
                   GlobalCupertinoLocalizations.delegate,
+                  AppLocalizations.delegate
                 ],
                 locale: languageState.locale,
                 supportedLocales: const [
                   Locale("en"),
                   Locale("vi"),
+                  Locale("km")
                 ],
                 routerConfig: router,
               );
