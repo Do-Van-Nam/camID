@@ -9,7 +9,11 @@ class HelpCenterPage extends StatefulWidget {
   State<HelpCenterPage> createState() => _HelpCenterPageState();
 }
 
-class _HelpCenterPageState extends State<HelpCenterPage> with AutomaticKeepAliveClientMixin{
+class _HelpCenterPageState extends State<HelpCenterPage>
+    with AutomaticKeepAliveClientMixin {
+
+  bool isLoading = true;
+
   @override
   bool get wantKeepAlive => true;
   @override
@@ -17,13 +21,15 @@ class _HelpCenterPageState extends State<HelpCenterPage> with AutomaticKeepAlive
     super.build(context);
     return Scaffold(
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Container(
             width: double.infinity,
             height: kToolbarHeight + MediaQuery.of(context).padding.top,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+            ),
             color: AppColors.colorMain,
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.centerLeft,
             child: IconButton(
               icon: const Icon(Icons.menu_sharp, color: Colors.white),
               onPressed: () {

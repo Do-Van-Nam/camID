@@ -7,7 +7,7 @@ import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/logger.dart';
-import 'package:cam_id/main/utils/widget/loading_widget.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -72,14 +72,22 @@ class _LoginPageState extends State<LoginPage> {
                         ElevatedButton(
                           onPressed: () {
                             if (!showOtp) {
-                              LoadingWidget.show(context);
-                              context.read<LoginBloc>().add(SignUpEvent(phoneController.text, false, "123456"));
+                              LoadingOverlayWidget.show(context);
+                              context.read<LoginBloc>().add(
+                                SignUpEvent(
+                                  phoneController.text,
+                                  false,
+                                  "123456",
+                                ),
+                              );
                             } else {
-                              LoadingWidget.show(context);
-                              context.read<LoginBloc>().add(SignInEvent(
-                                phoneController.text,
-                                otpController.text,
-                              ));
+                              LoadingOverlayWidget.show(context);
+                              context.read<LoginBloc>().add(
+                                SignInEvent(
+                                  phoneController.text,
+                                  otpController.text,
+                                ),
+                              );
                             }
                           },
                           child: Text(AppLocalizations.of(context)!.login),
@@ -99,52 +107,54 @@ class _LoginPageState extends State<LoginPage> {
               ),
             );
           },
-            listener: (context, state) {
-              if(state is SignUpSuccess) {
-                context.read<LoginBloc>().add(GenerateOTPEvent(phoneController.text));
-                setState(() {
-                  showOtp = true;
-                });
-                LoadingWidget.hide();
-              }
-
-              if(state is SignUpFailure) {
-                LoadingWidget.hide();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
-              if (state is GenerateOTPSuccess) {}
-
-              if (state is GenerateOTPFailure) {}
-
-              if (state is SignInSuccess) {
-                _onSaveToken(state.data);
-                // LoadingWidget.hide();
-                // context.go(PATH_HOME);
-              }
-
-              if (state is SignInFailure) {
-                LoadingWidget.hide();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-                AppLogger().logError("Login123: ${state.message}");
-              }
-
-              if(state is GetUserInfoSuccess) {
-                LoadingWidget.hide();
-                _onSaveUserInfo(state.user);
-                context.go(PATH_HOME);
-              }
-
-              if(state is GetUserInfoFailure) {
-                LoadingWidget.hide();
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
+          listener: (context, state) {
+            if (state is SignUpSuccess) {
+              context.read<LoginBloc>().add(
+                GenerateOTPEvent(phoneController.text),
+              );
+              setState(() {
+                showOtp = true;
+              });
+              LoadingOverlayWidget.hide();
             }
+
+            if (state is SignUpFailure) {
+              LoadingOverlayWidget.hide();
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+            if (state is GenerateOTPSuccess) {}
+
+            if (state is GenerateOTPFailure) {}
+
+            if (state is SignInSuccess) {
+              _onSaveToken(state.data);
+              // LoadingWidget.hide();
+              // context.go(PATH_HOME);
+            }
+
+            if (state is SignInFailure) {
+              LoadingOverlayWidget.hide();
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppLogger().logError("Login123: ${state.message}");
+            }
+
+            if (state is GetUserInfoSuccess) {
+              LoadingOverlayWidget.hide();
+              _onSaveUserInfo(state.user);
+              context.go(PATH_HOME);
+            }
+
+            if (state is GetUserInfoFailure) {
+              LoadingOverlayWidget.hide();
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+          },
         ),
       ),
     );
@@ -166,10 +176,7 @@ class _LoginPageState extends State<LoginPage> {
       ShareKey.KEY_PHONE_NUMBER,
       phoneController.text,
     );
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_ACCESS_TOKEN,
-      token,
-    );
+    await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
     await SharePreferenceUtil.setString(
       ShareKey.KEY_REFRESH_TOKEN,
       model.refreshToken,
