@@ -49,5 +49,12 @@
 		<true/>
 		<key>UIViewControllerBasedStatusBarAppearance</key>
 		<false/>
+		<key>NSAppTransportSecurity</key>
+			<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			</dict>
+			<key>IOsAllowHTTP</key>
+			<true/>
 	</dict>
 </plist>

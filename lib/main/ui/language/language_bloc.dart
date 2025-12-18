@@ -5,21 +5,25 @@ import 'package:cam_id/main/ui/language/language_event.dart';
 import 'package:cam_id/main/ui/language/languge_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LanguageBloc extends Bloc<LanguageEvent, LanguageState>{
-
-  LanguageBloc(): super(const LanguageState(Locale('en','US'))){
+class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
+  LanguageBloc() : super(const LanguageState(Locale('en'))) {
     on<ChangeLanguageEvent>(_onChangeLanguage);
     on<LoadLanguageEvent>(_onLoadLanguage);
   }
 
-  void _onChangeLanguage(ChangeLanguageEvent event, Emitter<LanguageState> emit) async {
-    SharePreferenceUtil.saveLanguage(event.locale.languageCode);
+  Future<void> _onChangeLanguage(
+      ChangeLanguageEvent event,
+      Emitter<LanguageState> emit,
+      ) async {
+    await SharePreferenceUtil.saveLanguage(event.locale.languageCode);
     emit(LanguageState(event.locale));
   }
 
-  void _onLoadLanguage(LoadLanguageEvent event, Emitter<LanguageState> emit) async {
-    Locale locale = Locale(await SharePreferenceUtil.getLanguageCode());
-    emit(LanguageState(locale));
+  Future<void> _onLoadLanguage(
+      LoadLanguageEvent event,
+      Emitter<LanguageState> emit,
+      ) async {
+    final code = await SharePreferenceUtil.getLanguageCode();
+    emit(LanguageState(Locale(code)));
   }
-
 }

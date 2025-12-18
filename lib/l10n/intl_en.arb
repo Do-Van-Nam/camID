@@ -1,8 +1,19 @@
 {
+    "app_name": "CamID",
     "login":"Login",
     "home": "Home",
     "reward":"Reward",
     "entertainment":"Entertainment",
     "help_center": "Help Center",
-    "metfone": "Metfone"
+    "metfone": "Metfone",
+    "phone_number": "Phone number",
+    "enter_your_otp": "Enter your OTP",
+    "skip": "Skip",
+    "setting": "Setting",
+    "language": "Language",
+    "title_drawer": "Click here to log in",
+    "logout": "Logout",
+    "vietnamese": "Tiếng Việt",
+    "english": "English",
+    "khmer": "ខ្មែរ"
 }

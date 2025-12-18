@@ -101,6 +101,7 @@ class CustomBottomNav extends StatelessWidget {
             const SizedBox(height: 2),
             Text(
               label,
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 11,
                 color: isSelected ? Colors.red : Colors.grey,
