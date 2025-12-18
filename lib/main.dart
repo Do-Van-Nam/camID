@@ -18,7 +18,7 @@ void main() async {
   );
 
   WidgetsBinding.instance.addObserver(AppLifecycleHandler());
-
+  await SharePreferenceUtil.getUser();
   runApp(const App());
 }
 
