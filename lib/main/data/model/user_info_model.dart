@@ -107,4 +107,38 @@ class UserInfoModel {
       'is_scan': isScan,
     };
   }
+
+  void clear() {
+    phoneNumber = "";
+    fullName = "";
+    username = "";
+    email = "";
+    address = "";
+    gender = -1;
+    avatar = "";
+    verified = "";
+    province = "";
+    district = "";
+    code = "";
+    userId = 0;
+    dateOfBirth = "";
+    identityNumber = "";
+    contact = "";
+    commune = "";
+    street = "";
+    nationality = "";
+    invitedCode = "";
+    fbId = "";
+    homeNo = "";
+    idType = "";
+    identityType = "";
+    issueDate = "";
+    expireDate = "";
+    visaExpireDate = "";
+    imageFront = "";
+    imageBack = "";
+    imageSelfie = "";
+    imageType = "";
+    isScan = "false";
+  }
 }

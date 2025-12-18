@@ -1,5 +1,6 @@
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -75,9 +76,14 @@ class AppDrawer extends StatelessWidget {
             ListTile(
               leading: const Icon(Icons.logout),
               title: Text(AppLocalizations.of(context)!.logout),
-              onTap: () {
+              onTap: () async {
                 Navigator.of(context).pop();
-
+                await SharePreferenceUtil.removeKey(ShareKey.KEY_USER_INFO);
+                await SharePreferenceUtil.removeKey(ShareKey.KEY_ACCESS_TOKEN);
+                await SharePreferenceUtil.removeKey(ShareKey.KEY_REFRESH_TOKEN);
+                UserInfoModel.instance.clear();
+                if (!context.mounted) return;
+                context.go(PATH_LOGIN);
               },
             ),
         ],
