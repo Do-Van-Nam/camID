@@ -19,17 +19,14 @@ class _LoyaltyPageState extends State<LoyaltyPage> with AutomaticKeepAliveClient
         children: [
           Container(
             width: double.infinity,
-            height: 100,
+            height: kToolbarHeight + MediaQuery.of(context).padding.top,
             color: AppColors.colorMain,
             alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.all(16),
-            child: const Text(
-              "Selfcare",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            child: IconButton(
+              icon: const Icon(Icons.menu_sharp, color: Colors.white),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             ),
           ),
         ],

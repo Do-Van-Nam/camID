@@ -1,8 +1,19 @@
 {
+    "app_name": "CamID",
     "login":"Đăng nhập",
     "home": "Trang chủ",
     "reward":"Đổi thưởng",
     "entertainment":"Giải trí",
-    "help_center": "Trung tâm trợ giúp",
-    "metfone": "Metfone"
+    "help_center": "Hỗ trợ",
+    "metfone": "Metfone",
+    "phone_number": "Số điện thoại",
+    "enter_your_otp": "Nhập mã OTP của bạn",
+    "skip": "Bỏ qua",
+    "setting": "Cài đặt",
+    "language": "Ngôn ngữ",
+    "title_drawer": "Nhấp vào đây để đăng nhập",
+    "logout": "Đăng xuất",
+    "vietnamese": "Tiếng Việt",
+    "english": "English",
+    "khmer": "ខ្មែរ"
 }

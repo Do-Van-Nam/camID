@@ -1,6 +1,6 @@
 class BaseResponse {
   String? message;
-  int? code;
+  String? code;
   dynamic data;
   int? status;
   String? errMessage;
@@ -10,6 +10,6 @@ class BaseResponse {
 
   BaseResponse.error(this.message, {this.data, this.code});
 
-  bool get isSuccess => code != null && code == 200;
+  bool get isSuccess => code != null && code == "00";
   bool get isStatusSuccess => status == 200;
 }

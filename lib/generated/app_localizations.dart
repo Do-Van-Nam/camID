@@ -100,6 +100,12 @@ abstract class AppLocalizations {
     Locale('vi'),
   ];
 
+  /// No description provided for @app_name.
+  ///
+  /// In en, this message translates to:
+  /// **'CamID'**
+  String get app_name;
+
   /// No description provided for @login.
   ///
   /// In en, this message translates to:
@@ -135,6 +141,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Metfone'**
   String get metfone;
+
+  /// No description provided for @phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phone_number;
+
+  /// No description provided for @enter_your_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your OTP'**
+  String get enter_your_otp;
+
+  /// No description provided for @skip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skip;
+
+  /// No description provided for @setting.
+  ///
+  /// In en, this message translates to:
+  /// **'Setting'**
+  String get setting;
+
+  /// No description provided for @language.
+  ///
+  /// In en, this message translates to:
+  /// **'Language'**
+  String get language;
+
+  /// No description provided for @title_drawer.
+  ///
+  /// In en, this message translates to:
+  /// **'Click here to log in'**
+  String get title_drawer;
+
+  /// No description provided for @logout.
+  ///
+  /// In en, this message translates to:
+  /// **'Logout'**
+  String get logout;
+
+  /// No description provided for @vietnamese.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiếng Việt'**
+  String get vietnamese;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
+
+  /// No description provided for @khmer.
+  ///
+  /// In en, this message translates to:
+  /// **'ខ្មែរ'**
+  String get khmer;
 }
 
 class _AppLocalizationsDelegate

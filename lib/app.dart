@@ -48,52 +48,5 @@ class App extends StatelessWidget {
         },
       ),
     );
-
-    // return MultiBlocProvider(
-    //   providers: [
-    //   //   BlocProvider(
-    //   //     create: (context) => LanguageBloc()..add(LoadLanguageEvent()),
-    //   //   ),
-    //   //   BlocProvider(
-    //   //     create: (context) {
-    //   //       return NetworkBloc();
-    //   //     },
-    //   //   ),
-    //   //   BlocProvider(create: (context) => VideoBloc()),
-    //   //   BlocProvider(create: (context) => DetailVideoBloc()),
-    //   ],
-    //   child: MultiBlocListener(
-    //     listeners: [
-    //       // BlocListener<NetworkBloc, NetworkState>(
-    //       //   listener: (context, state) {},
-    //       // ),
-    //     ],
-    //     child: BlocBuilder<LanguageBloc, LanguageState>(
-    //       builder: (context, languageState) {
-    //         return ScreenUtilInit(
-    //           designSize: const Size(375, 812),
-    //           minTextAdapt: true,
-    //           splitScreenMode: true,
-    //           builder: (_, child) {
-    //             return MaterialApp.router(
-    //               title: "CamID",
-    //               theme: themeData,
-    //               debugShowCheckedModeBanner: false,
-    //               localizationsDelegates: [
-    //                 // AppLocalizations.delegate,
-    //                 GlobalMaterialLocalizations.delegate,
-    //                 GlobalWidgetsLocalizations.delegate,
-    //                 GlobalCupertinoLocalizations.delegate,
-    //               ],
-    //               locale: languageState.locale,
-    //               supportedLocales: [Locale("en"), Locale("vi")],
-    //               routerConfig: router,
-    //             );
-    //           },
-    //         );
-    //       },
-    //     ),
-    //   ),
-    // );
   }
 }
