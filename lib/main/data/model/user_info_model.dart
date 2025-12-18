@@ -38,7 +38,6 @@ class UserInfoModel {
   String imageType = "";
   String isScan = "false";
 
-  /// parse từ API
   void fromJson(Map<String, dynamic> json) {
     phoneNumber = json['phone_number'] ?? "";
     fullName = json['full_name'] ?? "";
@@ -73,7 +72,6 @@ class UserInfoModel {
     isScan = json['is_scan']?.toString() ?? "false";
   }
 
-  /// convert ngược lại để gửi API
   Map<String, dynamic> toJson() {
     return {
       'phone_number': phoneNumber,

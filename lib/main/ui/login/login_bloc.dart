@@ -2,6 +2,7 @@ import 'package:cam_id/main/base/base_response.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
 import 'package:cam_id/main/data/response/sign_in_response.dart';
+import 'package:cam_id/main/data/response/user_info_response.dart';
 import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -11,6 +12,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
     on<SignUpEvent>(_onSignUp);
     on<GenerateOTPEvent>(_onGenerateOTP);
     on<SignInEvent>(_onSignIn);
+    on<GetUserInfoEvent>(_onGetUserInfo);
   }
 
   Future<void> _onSignUp(SignUpEvent event, Emitter<LoginState> emit) async {
@@ -36,10 +38,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
       if(result.isSuccess){
         emit(SignUpSuccess(result.message ?? ""));
       } else {
-        emit(SignUpFailure(result.message ?? ""));
+        emit(SignUpFailure(result.message ?? "Fail"));
       }
     } catch (e) {
-      emit(SignInFailure("Network error: ${e.toString()}"));
+      emit(SignUpFailure("Network error: ${e.toString()}"));
     }
   }
 
@@ -64,10 +66,10 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
       if(result.isSuccess){
         emit(GenerateOTPSuccess(result.message ?? ""));
       } else {
-        emit(GenerateOTPFailure(result.message ?? ""));
+        emit(GenerateOTPFailure(result.message ?? "Fail"));
       }
     } catch (e) {
-      emit(SignInFailure("Network error: ${e.toString()}"));
+      emit(GenerateOTPFailure("Network error: ${e.toString()}"));
     }
   }
 
@@ -99,10 +101,32 @@ class LoginBloc extends Bloc<LoginEvent, LoginState>{
       if (result.isSuccess && result.signInData != null) {
         emit(SignInSuccess(result.message ?? "", result.signInData!));
       } else {
-        emit(SignInFailure(result.message ?? "SignIn failed"));
+        emit(SignInFailure(result.message ?? "Failed"));
       }
     } catch (e) {
       emit(SignInFailure("Network error: ${e.toString()}"));
+    }
+  }
+
+  Future<void> _onGetUserInfo(GetUserInfoEvent event, Emitter<LoginState> emit) async {
+    Map<String, dynamic> headers = {
+      "Authorization": event.token,
+    };
+
+    try {
+      UserInfoResponse result = await ApiUtil.getInstance()!.get<UserInfoResponse>(
+        url: ApiEndPoint.API_GET_USER_INFO,
+        headers: headers,
+        fromJson: (json) => UserInfoResponse.fromJson(json),
+      );
+
+      if (result.isSuccess && result.user != null) {
+        emit(GetUserInfoSuccess(result.message ?? "", result.user, result.services, result.imageKyc));
+      } else {
+        emit(GetUserInfoFailure(result.message ?? "Fail"));
+      }
+    } catch (e) {
+      emit(GetUserInfoFailure("Network error: ${e.toString()}"));
     }
   }
 

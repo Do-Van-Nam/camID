@@ -1,11 +1,19 @@
+import 'dart:convert';
+
+import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ShareKey {
-  static const String KEY_CHANGE_LANGUAGE = "change_language";
-  static const String KEY_USER_INFO = "user_info";
-  static const String KEY_FB_TOKEN = "fb_token";
-  static const String KEY_LOG_FILE = "log_file";
-  static const String KEY_FIRST_OPEN_APP = "first_open_app";
+  static const String KEY_CHANGE_LANGUAGE = "KEY_CHANGE_LANGUAGE";
+  static const String KEY_USER_INFO = "KEY_USER_INFO";
+  static const String KEY_FB_TOKEN = "KEY_FB_TOKEN";
+  static const String KEY_LOG_FILE = "KEY_LOG_FILE";
+  static const String KEY_FIRST_OPEN_APP = "KEY_FIRST_OPEN_APP";
+  static const String KEY_ACCESS_TOKEN = "KEY_ACCESS_TOKEN";
+  static const String KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER";
+  static const String KEY_REFRESH_TOKEN = "KEY_REFRESH_TOKEN";
+  static const String KEY_LOGIN_WITH_OTP = "KEY_LOGIN_WITH_OTP";
+
 }
 
 class SharePreferenceUtil {
@@ -86,12 +94,18 @@ class SharePreferenceUtil {
     );
   }
 
-  static Future saveUser(String user) async {
-    return setString(ShareKey.KEY_USER_INFO, user);
+  static Future<void> saveUser(UserInfoModel? model) async {
+    final jsonString = jsonEncode(model);
+    return setString(ShareKey.KEY_USER_INFO, jsonString);
   }
 
-  static Future<String> getUserInfo() async {
-    return getString(ShareKey.KEY_USER_INFO);
+  static Future<UserInfoModel?> getUser() async {
+    final jsonString = await getString(ShareKey.KEY_USER_INFO);
+    if (jsonString.isEmpty) return null;
+    final jsonMap = jsonDecode(jsonString);
+    final user = UserInfoModel.instance;
+    user.fromJson(jsonMap);
+    return user;
   }
 
   static Future saveToken(String token) async {

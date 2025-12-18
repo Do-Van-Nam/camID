@@ -80,16 +80,18 @@ class ApiUtil {
   Future<T> get<T>({
     required String url,
     Map<String, dynamic> params = const {},
+    Map<String, dynamic>? headers,
     String contentType = Headers.jsonContentType,
     required T Function(Map<String, dynamic>) fromJson,
   }) async {
     try {
-      var response = await dio!.get(
+      final response = await dio!.get(
         url,
         queryParameters: params,
         options: Options(
-          persistentConnection: false,
+          headers: headers,
           contentType: contentType,
+          persistentConnection: false,
         ),
         cancelToken: cancelToken,
       );
@@ -100,20 +102,21 @@ class ApiUtil {
     }
   }
 
-
   Future<T> post<T>({
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic> params = const {},
+    Map<String, dynamic>? headers,
     String contentType = Headers.jsonContentType,
     required T Function(Map<String, dynamic>) fromJson,
   }) async {
     try {
-      var response = await dio!.post(
+      final response = await dio!.post(
         url,
         queryParameters: params,
         data: body,
         options: Options(
+          headers: headers,
           responseType: ResponseType.json,
           contentType: contentType,
           persistentConnection: false,
@@ -126,7 +129,6 @@ class ApiUtil {
       throw Exception(error.toString());
     }
   }
-
 
   Future<BaseResponse> uploadFile({
     required String url,

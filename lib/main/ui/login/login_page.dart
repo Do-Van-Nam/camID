@@ -1,4 +1,5 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/data/model/sign_in_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/login/login_bloc.dart';
@@ -9,7 +10,6 @@ import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -114,22 +114,14 @@ class _LoginPageState extends State<LoginPage> {
                   SnackBar(content: Text(state.message)),
                 );
               }
-              if (state is GenerateOTPSuccess) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
+              if (state is GenerateOTPSuccess) {}
 
-              if (state is GenerateOTPFailure) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(content: Text(state.message)),
-                );
-              }
+              if (state is GenerateOTPFailure) {}
 
               if (state is SignInSuccess) {
-                UserInfoModel.instance.username = state.data.username;
-                LoadingWidget.hide();
-                context.go(PATH_HOME);
+                _onSaveToken(state.data);
+                // LoadingWidget.hide();
+                // context.go(PATH_HOME);
               }
 
               if (state is SignInFailure) {
@@ -138,6 +130,19 @@ class _LoginPageState extends State<LoginPage> {
                   SnackBar(content: Text(state.message)),
                 );
                 AppLogger().logError("Login123: ${state.message}");
+              }
+
+              if(state is GetUserInfoSuccess) {
+                LoadingWidget.hide();
+                _onSaveUserInfo(state.user);
+                context.go(PATH_HOME);
+              }
+
+              if(state is GetUserInfoFailure) {
+                LoadingWidget.hide();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
               }
             }
         ),
@@ -152,4 +157,28 @@ class _LoginPageState extends State<LoginPage> {
     context.go(PATH_HOME);
   }
 
+  Future<void> _onSaveToken(SignInModel model) async {
+    final loginBloc = context.read<LoginBloc>();
+
+    String token = "Bearer ${model.accessToken}";
+
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_PHONE_NUMBER,
+      phoneController.text,
+    );
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_ACCESS_TOKEN,
+      token,
+    );
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_REFRESH_TOKEN,
+      model.refreshToken,
+    );
+
+    loginBloc.add(GetUserInfoEvent(token));
+  }
+
+  Future<void> _onSaveUserInfo(UserInfoModel? model) async {
+    SharePreferenceUtil.saveUser(model);
+  }
 }

@@ -27,3 +27,9 @@ class SignInEvent extends LoginEvent {
   @override
   List<Object> get props => [phoneNumber, otp];
 }
+
+class GetUserInfoEvent extends LoginEvent {
+  final String token;
+
+  GetUserInfoEvent(this.token);
+}
