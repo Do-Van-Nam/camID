@@ -1,3 +1,5 @@
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
@@ -13,6 +15,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
+  @override
+  void initState() {
+    super.initState();
+    _loadUser();
+  }
+
+  Future<void> _loadUser() async {
+    final model = await SharePreferenceUtil.getUser();
+    AppLogger().logInfo("Home-123 $model");
+  }
+
+
   @override
   bool get wantKeepAlive => true;
 

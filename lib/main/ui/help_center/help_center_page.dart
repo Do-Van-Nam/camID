@@ -14,6 +14,9 @@ class HelpCenterPage extends StatefulWidget {
 
 class _HelpCenterPageState extends State<HelpCenterPage>
     with AutomaticKeepAliveClientMixin {
+
+  bool isLoading = true;
+
   @override
   bool get wantKeepAlive => true;
   @override
@@ -26,8 +29,11 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           Container(
             width: double.infinity,
             height: kToolbarHeight + MediaQuery.of(context).padding.top,
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).padding.top,
+            ),
             color: AppColors.colorMain,
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.centerLeft,
             child: IconButton(
               icon: const Icon(Icons.menu_sharp, color: Colors.white),
               onPressed: () {
