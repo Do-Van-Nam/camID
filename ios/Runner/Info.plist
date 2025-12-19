@@ -51,10 +51,20 @@
 		<false/>
 		<key>NSAppTransportSecurity</key>
 			<dict>
-			<key>NSAllowsArbitraryLoads</key>
-			<true/>
+				<key>NSAllowsArbitraryLoads</key>
+				<true/>
 			</dict>
-			<key>IOsAllowHTTP</key>
-			<true/>
+		<key>IOsAllowHTTP</key>
+		<true/>
+		<key>NSCameraUsageDescription</key>
+		<string>Ứng dụng cần camera để chụp ảnh CMND/CCCD</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Ứng dụng cần truy cập thư viện ảnh</string>
+		<key>NSMicrophoneUsageDescription</key>
+		<string>Ứng dụng cần micro để ghi âm</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>Ứng dụng cần Face ID</string>
+		<key>Privacy - Face ID Usage Description</key>
+		<string>Ứng dụng cần Face ID</string>
 	</dict>
 </plist>
