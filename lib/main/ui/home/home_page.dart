@@ -40,11 +40,22 @@ class _HomePageState extends State<HomePage>
           height: kToolbarHeight + MediaQuery.of(context).padding.top,
           color: AppColors.colorMain,
           alignment: Alignment.bottomLeft,
-          child: IconButton(
-            icon: const Icon(Icons.menu_sharp, color: Colors.white),
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.menu_sharp, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              ),
+              IconButton(
+                icon: const Icon(Icons.search, color: Colors.white),
+                onPressed: () {
+                  context.push(PATH_SEARCH);
+                },
+              ),
+            ],
           ),
         ),
       ],

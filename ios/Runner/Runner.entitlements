@@ -17,8 +17,6 @@
 		<string>applinks:linktest.camid.app</string>
 	</array>
 	<key>com.apple.security.application-groups</key>
-	<array>
-		<string>group.com.vtg.metfone.dev</string>
-	</array>
+	<array/>
 </dict>
 </plist>
