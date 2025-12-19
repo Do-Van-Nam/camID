@@ -35,100 +35,102 @@ class ApiUtil {
     }
   }
 
-  // Future<BaseResponse> get(
-  //     {required String url,
-  //       Map<String, dynamic> params = const {},
-  //       String contentType = Headers.jsonContentType,}) async {
-  //   try {
-  //     var response = await dio!
-  //         .get(url,
-  //         queryParameters: params,
-  //         options: Options(
-  //           persistentConnection: false,
-  //           contentType: contentType,
-  //         ),
-  //         cancelToken: cancelToken);
-  //     return getBaseResponse(response);
-  //   } catch (error) {
-  //     return BaseResponse.error(error.toString());
-  //   }
-  // }
-
-  // Future<BaseResponse> post({
-  //   required String url,
-  //   Map<String, dynamic>? body,
-  //   Map<String, dynamic> params = const {},
-  //   String contentType = Headers.jsonContentType,
-  // }) async {
-  //   try {
-  //     var response = await dio!
-  //         .post(url,
-  //         queryParameters: params,
-  //         data: body,
-  //         options: Options(
-  //           responseType: ResponseType.json,
-  //           contentType: contentType,
-  //           persistentConnection: false,
-  //         ),
-  //         cancelToken: cancelToken);
-  //     return getBaseResponse(response);
-  //   } catch (error) {
-  //     return BaseResponse.error(error.toString());
-  //   }
-  // }
-
-  Future<T> get<T>({
-    required String url,
-    Map<String, dynamic> params = const {},
-    Map<String, dynamic>? headers,
-    String contentType = Headers.jsonContentType,
-    required T Function(Map<String, dynamic>) fromJson,
-  }) async {
+  Future<BaseResponse> get(
+      {required String url,
+        Map<String, dynamic> params = const {},
+        Map<String, dynamic>? headers,
+        String contentType = Headers.jsonContentType,}) async {
     try {
-      final response = await dio!.get(
-        url,
-        queryParameters: params,
-        options: Options(
-          headers: headers,
-          contentType: contentType,
-          persistentConnection: false,
-        ),
-        cancelToken: cancelToken,
-      );
-
-      return fromJson(response.data);
+      var response = await dio!
+          .get(url,
+          queryParameters: params,
+          options: Options(
+            headers: headers,
+            persistentConnection: false,
+            contentType: contentType,
+          ),
+          cancelToken: cancelToken);
+      return getBaseResponse(response);
     } catch (error) {
-      throw Exception(error.toString());
+      return BaseResponse.error(error.toString());
     }
   }
 
-  Future<T> post<T>({
+  Future<BaseResponse> post({
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic> params = const {},
-    Map<String, dynamic>? headers,
     String contentType = Headers.jsonContentType,
-    required T Function(Map<String, dynamic>) fromJson,
   }) async {
     try {
-      final response = await dio!.post(
-        url,
-        queryParameters: params,
-        data: body,
-        options: Options(
-          headers: headers,
-          responseType: ResponseType.json,
-          contentType: contentType,
-          persistentConnection: false,
-        ),
-        cancelToken: cancelToken,
-      );
-
-      return fromJson(response.data);
+      var response = await dio!
+          .post(url,
+          queryParameters: params,
+          data: body,
+          options: Options(
+            responseType: ResponseType.json,
+            contentType: contentType,
+            persistentConnection: false,
+          ),
+          cancelToken: cancelToken);
+      return getBaseResponse(response);
     } catch (error) {
-      throw Exception(error.toString());
+      return BaseResponse.error(error.toString());
     }
   }
+
+  // Future<T> get<T>({
+  //   required String url,
+  //   Map<String, dynamic> params = const {},
+  //   Map<String, dynamic>? headers,
+  //   String contentType = Headers.jsonContentType,
+  //   required T Function(Map<String, dynamic>) fromJson,
+  // }) async {
+  //   try {
+  //     final response = await dio!.get(
+  //       url,
+  //       queryParameters: params,
+  //       options: Options(
+  //         headers: headers,
+  //         contentType: contentType,
+  //         persistentConnection: false,
+  //       ),
+  //       cancelToken: cancelToken,
+  //     );
+  //
+  //     return fromJson(response.data);
+  //   } catch (error) {
+  //     throw Exception(error.toString());
+  //   }
+  // }
+  //
+  // Future<T> post<T>({
+  //   required String url,
+  //   Map<String, dynamic>? body,
+  //   Map<String, dynamic> params = const {},
+  //   Map<String, dynamic>? headers,
+  //   String contentType = Headers.jsonContentType,
+  //   required T Function(Map<String, dynamic>) fromJson,
+  // }) async {
+  //   try {
+  //     final response = await dio!.post(
+  //       url,
+  //       queryParameters: params,
+  //       data: body,
+  //       options: Options(
+  //         headers: headers,
+  //         responseType: ResponseType.json,
+  //         contentType: contentType,
+  //         persistentConnection: false,
+  //       ),
+  //       cancelToken: cancelToken,
+  //     );
+  //
+  //     return fromJson(response.data);
+  //   } catch (error) {
+  //     throw Exception(error.toString());
+  //   }
+  // }
 
   Future<BaseResponse> uploadFile({
     required String url,
@@ -247,8 +249,8 @@ class ApiUtil {
   BaseResponse getBaseResponse(Response response) {
     return BaseResponse.success(
         data: response.data ?? "",
-        code: "${response.statusCode}",
-        message: response.statusMessage,
+        code: response.data['code'],
+        message: response.data['message'],
         status: response.data['status']);
   }
 }

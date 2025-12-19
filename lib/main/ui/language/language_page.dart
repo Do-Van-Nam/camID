@@ -1,6 +1,8 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/language/language_bloc.dart';
 import 'package:cam_id/main/ui/language/language_event.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,12 +15,22 @@ class LanguagePage extends StatefulWidget {
 }
 
 class _LanguagePageState extends State<LanguagePage> {
-  late String currentLang;
+  String currentLang = 'en';
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    currentLang = Localizations.localeOf(context).languageCode;
+  void initState() {
+    super.initState();
+    _loadLanguage();
+  }
+
+  Future<void> _loadLanguage() async {
+    final lang =
+    await SharePreferenceUtil.getString(ShareKey.KEY_CHANGE_LANGUAGE, defaultValue: 'vi');
+    if (!mounted) return;
+    AppLogger().logInfo("Language: $lang");
+    setState(() {
+      currentLang = lang;
+    });
   }
 
   void _changeLanguage(String langCode) {

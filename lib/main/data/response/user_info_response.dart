@@ -15,30 +15,32 @@ class UserInfoResponse extends BaseResponse{
   }) : super.success();
 
   factory UserInfoResponse.fromJson(Map<String, dynamic> json) {
-    if (json['user'] != null) {
-      UserInfoModel.instance.fromJson(json['user']);
-    }
-    List<ServiceModel>? services;
-    if (json['services'] != null) {
-      services = (json['services'] as List)
-          .map((e) {
-        final service = ServiceModel();
-        service.fromJson(e);
-        return service;
-      })
-          .toList();
-    }
-    ImageKycModel? imageKyc;
-    if (json['imageKyc'] != null) {
-      imageKyc = ImageKycModel();
-      imageKyc.fromJson(json['imageKyc']);
+    if (json['data'] != null && json['data']['user'] != null) {
+      UserInfoModel.instance.fromJson(json['data']['user']);
     }
 
-    return UserInfoResponse(
+    List<ServiceModel>? services;
+    if (json['data'] != null && json['data']['services'] != null) {
+      services = (json['data']['services'] as List)
+          .map((e) => ServiceModel.fromJson(e))
+          .toList();
+    }
+
+    ImageKycModel? imageKyc;
+    if (json['data'] != null && json['data']['imageKyc'] != null) {
+      imageKyc = ImageKycModel.fromJson(json['data']['imageKyc']);
+    }
+
+    UserInfoResponse response = UserInfoResponse(
       user: UserInfoModel.instance,
       services: services,
       imageKyc: imageKyc,
     );
+
+    response.code = json['code'];
+    response.message = json['message'];
+
+    return response;
   }
 
 }

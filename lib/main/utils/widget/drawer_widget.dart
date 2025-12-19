@@ -1,6 +1,7 @@
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -12,7 +13,7 @@ class AppDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final bool isLoggedIn =
         UserInfoModel.instance.username.isNotEmpty;
-
+    AppLogger().logInfo("Drawer: ${UserInfoModel.instance.username}");
     return Drawer(
       backgroundColor: Colors.white,
       shape: const RoundedRectangleBorder(
