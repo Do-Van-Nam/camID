@@ -6,7 +6,7 @@ import 'package:cam_id/main/ui/language/languge_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
-  LanguageBloc() : super(const LanguageState(Locale('en'))) {
+  LanguageBloc() : super(const LanguageState(Locale('en','US'))) {
     on<ChangeLanguageEvent>(_onChangeLanguage);
     on<LoadLanguageEvent>(_onLoadLanguage);
   }
@@ -15,7 +15,9 @@ class LanguageBloc extends Bloc<LanguageEvent, LanguageState> {
       ChangeLanguageEvent event,
       Emitter<LanguageState> emit,
       ) async {
-    await SharePreferenceUtil.saveLanguage(event.locale.languageCode);
+    await SharePreferenceUtil.saveLanguage(
+      event.locale.languageCode,
+    );
     emit(LanguageState(event.locale));
   }
 

@@ -1,7 +1,9 @@
 import 'dart:ui';
 
 import 'package:cam_id/app.dart';
+import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
@@ -22,6 +24,11 @@ void main() async {
   );
 
   WidgetsBinding.instance.addObserver(AppLifecycleHandler());
+  final user = await SharePreferenceUtil.getUser();
+  AppLogger().logInfo("Main user: ${UserInfoModel.instance.username}");
+  final languageCode = await SharePreferenceUtil.getLanguageCode();
+  await SharePreferenceUtil.saveLanguage(languageCode);
+
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
