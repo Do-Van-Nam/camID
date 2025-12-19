@@ -9,6 +9,9 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get app_name => 'CamID';
+
+  @override
   String get login => 'Login';
 
   @override
@@ -25,4 +28,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get metfone => 'Metfone';
+
+  @override
+  String get phone_number => 'Phone number';
+
+  @override
+  String get enter_your_otp => 'Enter your OTP';
+
+  @override
+  String get skip => 'Skip';
+
+  @override
+  String get setting => 'Setting';
+
+  @override
+  String get language => 'Language';
+
+  @override
+  String get title_drawer => 'Click here to log in';
+
+  @override
+  String get logout => 'Logout';
+
+  @override
+  String get vietnamese => 'Tiếng Việt';
+
+  @override
+  String get english => 'English';
+
+  @override
+  String get khmer => 'ខ្មែរ';
 }

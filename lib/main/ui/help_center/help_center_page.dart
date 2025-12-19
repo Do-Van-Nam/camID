@@ -1,13 +1,19 @@
+import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class HelpCenterPage extends StatefulWidget{
+import '../../../router.dart';
+
+class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
+
   @override
   State<HelpCenterPage> createState() => _HelpCenterPageState();
 }
 
-class _HelpCenterPageState extends State<HelpCenterPage> with AutomaticKeepAliveClientMixin{
+class _HelpCenterPageState extends State<HelpCenterPage>
+    with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
   @override
@@ -19,18 +25,21 @@ class _HelpCenterPageState extends State<HelpCenterPage> with AutomaticKeepAlive
         children: [
           Container(
             width: double.infinity,
-            height: 100,
+            height: kToolbarHeight + MediaQuery.of(context).padding.top,
             color: AppColors.colorMain,
             alignment: Alignment.bottomLeft,
-            padding: const EdgeInsets.all(16),
-            child: const Text(
-              "HelpCenter",
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
-              ),
+            child: IconButton(
+              icon: const Icon(Icons.menu_sharp, color: Colors.white),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
             ),
+          ),
+          IconButton(
+            icon: const Icon(Icons.help_center, color: Colors.black),
+            onPressed: () {
+              context.push(PATH_FEEDBACK);
+            },
           ),
         ],
       ),

@@ -1,13 +1,16 @@
+import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/entertainment/entertainment_page.dart';
 import 'package:cam_id/main/ui/help_center/help_center_page.dart';
 import 'package:cam_id/main/ui/home/home_page.dart';
 import 'package:cam_id/main/ui/loyalty/loyalty_page.dart';
 import 'package:cam_id/main/ui/metfone/metfone_page.dart';
+import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/custom_bottom_nav.dart';
-import 'package:cam_id/res/app_colors.dart';
-import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/main/utils/widget/drawer_widget.dart';
+import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -16,9 +19,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _currentIndex = 0; // Vị trí hiện tại của Bottom Navigation
+  int _currentIndex = 0;
   final PageController _pageController =
-  PageController(); // Điều khiển PageView
+  PageController();
 
   void _onItemTapped(int index) {
     setState(() {
@@ -26,7 +29,7 @@ class _MainPageState extends State<MainPage> {
       _pageController.animateToPage(
         index,
         duration: Duration(milliseconds: 300),
-        curve: Curves.bounceOut, // Hiệu ứng chuyển trang mượt mà
+        curve: Curves.bounceOut,
       );
     });
     _pageController.jumpToPage(index);
@@ -40,6 +43,7 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const AppDrawer(),
       body: PageView(
         controller: _pageController,
         physics: NeverScrollableScrollPhysics(),
@@ -54,11 +58,23 @@ class _MainPageState extends State<MainPage> {
 
       bottomNavigationBar: CustomBottomNav(
         currentIndex: _currentIndex,
-        onTabSelected: (index) {
+        onTabSelected: (index) async {
+          if (index == 2 && UserInfoModel.instance.username.isEmpty) {
+            _onLogin();
+            return;
+          }
+
           setState(() => _currentIndex = index);
-          _pageController.jumpToPage(index);
+          _onItemTapped(index);
         },
       ),
     );
+  }
+
+  Future<void> _onLogin() async {
+    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+    AppConfig.instance.isFirstOpenApp = false;
+    if (!mounted) return;
+    context.push(PATH_LOGIN);
   }
 }

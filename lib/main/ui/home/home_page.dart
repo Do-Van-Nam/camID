@@ -18,40 +18,33 @@ class _HomePageState extends State<HomePage>
 
   @override
   Widget build(BuildContext context) {
-    super.build(context); // cần khi dùng AutomaticKeepAliveClientMixin
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: AppColors.colorMain, // Màu thanh status bar
-        statusBarIconBrightness: Brightness.light, // icon trắng
-        statusBarBrightness: Brightness.dark, //// icon cho hợp màu nền
-      ),
-      child: Scaffold(
-        body: Column(
-          children: [
-            // Header màu vàng
-            Container(
-              width: double.infinity,
-              height: 100,
-              color: AppColors.colorMain,
-              alignment: Alignment.bottomLeft,
-              padding: const EdgeInsets.all(16),
-              child: GestureDetector(
-                onTap: () {
-                  context.push(PATH_LOGIN);
+    super.build(context);
+    return Column(
+      children: [
+        Container(
+          width: double.infinity,
+          height: kToolbarHeight + MediaQuery.of(context).padding.top,
+          color: AppColors.colorMain,
+          alignment: Alignment.bottomLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.menu_sharp, color: Colors.white),
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
                 },
-                child: const Text(
-                  "Home",
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
               ),
-            ),
-          ],
+              IconButton(
+                icon: const Icon(Icons.search, color: Colors.white),
+                onPressed: () {
+                  context.push(PATH_SEARCH);
+                },
+              ),
+            ],
+          ),
         ),
-      ),
+      ],
     );
   }
 }
