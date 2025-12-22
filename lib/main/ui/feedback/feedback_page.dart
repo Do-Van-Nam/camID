@@ -4,6 +4,10 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'feedback_bloc.dart';
 import 'feedback_event.dart';
 import 'feedback_state.dart';
+import 'dart:async';
+
+import 'package:flutter/services.dart';
+import 'package:myid_kyc_plugin/myid_kyc_plugin.dart';
 
 class FeedbackPage extends StatelessWidget {
   const FeedbackPage({super.key});
@@ -114,6 +118,21 @@ class FeedbackPage extends StatelessWidget {
                         style: TextStyle(fontSize: 18),
                       ),
                     ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () async {
+                      try {
+                        final result = await MyidKycPlugin.startKYC(
+                          licenseKey: 'YOUR_MYID_LICENSE_KEY',
+                          sessionId: 'session_id_from_server',
+                        );
+                        print('KYC Result: $result');
+                        // Xử lý kết quả (thành công/thất bại)
+                      } catch (e) {
+                        print('Error: $e');
+                      }
+                    },
+                    child: Text('Bắt đầu KYC'),
                   ),
                 ],
               ),
