@@ -201,6 +201,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'ខ្មែរ'**
   String get khmer;
+
+  /// No description provided for @telegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Telegram'**
+  String get telegram;
+
+  /// No description provided for @messenger.
+  ///
+  /// In en, this message translates to:
+  /// **'Messenger'**
+  String get messenger;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @enterSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter search...'**
+  String get enterSearch;
+
+  /// No description provided for @enter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter'**
+  String get enter;
+
+  /// No description provided for @notFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get notFound;
 }
 
 class _AppLocalizationsDelegate

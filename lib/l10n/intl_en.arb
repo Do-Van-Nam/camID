@@ -15,5 +15,11 @@
     "logout": "Logout",
     "vietnamese": "Tiếng Việt",
     "english": "English",
-    "khmer": "ខ្មែរ"
+    "khmer": "ខ្មែរ",
+    "telegram": "Telegram",
+    "messenger": "Messenger",
+    "search": "Search",
+    "enterSearch": "Enter search...",
+    "enter": "Enter",
+    "notFound": "Not found"
 }

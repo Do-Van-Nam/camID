@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../generated/app_localizations.dart';
 import 'search_bloc.dart';
 import 'search_event.dart';
 import 'search_state.dart';
@@ -12,16 +13,14 @@ class SearchPage extends StatelessWidget {
     return BlocProvider(
       create: (context) => SearchBloc(),
       child: Scaffold(
-        appBar: AppBar(
-          title: const Text('Tìm kiếm'),
-        ),
+        appBar: AppBar(title: Text(AppLocalizations.of(context)!.search)),
         body: Column(
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextField(
                 decoration: InputDecoration(
-                  hintText: 'Nhập từ khóa tìm kiếm...',
+                  hintText: AppLocalizations.of(context)!.enterSearch,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
@@ -36,14 +35,14 @@ class SearchPage extends StatelessWidget {
               child: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   if (state is SearchInitial || state is SearchEmpty) {
-                    return const Center(child: Text('Nhập từ khóa để tìm kiếm'));
+                    return Center(child: Text(AppLocalizations.of(context)!.enter));
                   }
                   if (state is SearchLoading) {
-                    return const Center(child: CircularProgressIndicator());
+                    return Center(child: CircularProgressIndicator());
                   }
                   if (state is SearchLoaded) {
                     if (state.filteredItems.isEmpty) {
-                      return const Center(child: Text('Không tìm thấy kết quả'));
+                      return Center(child: Text(AppLocalizations.of(context)!.enter));
                     }
                     return ListView.builder(
                       itemCount: state.filteredItems.length,
