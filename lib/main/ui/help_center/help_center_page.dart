@@ -4,6 +4,7 @@ import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
 
 // Hàm mở URL chung
