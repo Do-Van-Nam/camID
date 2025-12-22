@@ -3,6 +3,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import './entertainment_bloc.dart';
+import 'package:cam_id/generated/app_localizations.dart';
 
 class EntertainmentPage extends StatefulWidget {
   const EntertainmentPage({super.key});
@@ -15,7 +16,6 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     with AutomaticKeepAliveClientMixin {
   @override
   bool get wantKeepAlive => true;
-
 
   final List<String> bannerImages = [
     'https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_10_15_638329878567586819_banner-la-gi-0.jpg',
@@ -128,7 +128,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                       children: [
                         _buildServiceButton(
                           icon: Icons.tv,
-                          label: Applocalization.of(context)!.tv360,
+                          label: AppLocalizations.of(context)!.tv360,
                           color: Colors.redAccent,
                           onTap: () {
                             // TODO: Xử lý mở TV360

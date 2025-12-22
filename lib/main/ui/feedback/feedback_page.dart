@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:my_app/generated/l10n.dart';
+import 'package:cam_id/generated/app_localizations.dart';
 
 import 'feedback_bloc.dart';
 import 'feedback_event.dart';
@@ -18,18 +18,22 @@ class FeedbackPage extends StatelessWidget {
     return BlocProvider(
       create: (_) => FeedbackBloc(),
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.feedbackPageTitle)), // "Phản hồi & Đánh giá"
+        appBar: AppBar(
+          title: Text(l10n.feedbackPageTitle),
+        ), // "Phản hồi & Đánh giá"
         body: BlocConsumer<FeedbackBloc, FeedbackState>(
           listener: (context, state) {
             if (state.submitSuccess) {
               ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.feedbackThankYou)), // "Cảm ơn phản hồi của bạn!"
-              ),
+                SnackBar(
+                  content: Text(l10n.feedbackThankYou),
+                ), // "Cảm ơn phản hồi của bạn!"
+              );
             }
             if (state.errorMessage != null) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(state.errorMessage!)),
-              );
+              ScaffoldMessenger.of(
+                context,
+              ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
             }
           },
           builder: (context, state) {
@@ -51,7 +55,9 @@ class FeedbackPage extends StatelessWidget {
                       allowHalfRating: false,
                       itemCount: 5,
                       itemSize: 50,
-                      itemBuilder: (context, _) => const Icon(Icons.star, color: Colors.amber),
+                      itemBuilder:
+                          (context, _) =>
+                              const Icon(Icons.star, color: Colors.amber),
                       onRatingUpdate: (rating) {
                         context.read<FeedbackBloc>().add(RatingChanged(rating));
                       },
@@ -63,33 +69,46 @@ class FeedbackPage extends StatelessWidget {
                       labelText: l10n.feedbackTitleLabel, // "Tiêu đề phản hồi"
                       border: const OutlineInputBorder(),
                     ),
-                    onChanged: (value) => context.read<FeedbackBloc>().add(TitleChanged(value)),
+                    onChanged:
+                        (value) => context.read<FeedbackBloc>().add(
+                          TitleChanged(value),
+                        ),
                   ),
                   const SizedBox(height: 16),
                   TextField(
                     maxLines: 6,
                     decoration: InputDecoration(
-                      labelText: l10n.feedbackContentLabel, // "Nội dung chi tiết"
+                      labelText:
+                          l10n.feedbackContentLabel, // "Nội dung chi tiết"
                       border: const OutlineInputBorder(),
                     ),
-                    onChanged: (value) => context.read<FeedbackBloc>().add(ContentChanged(value)),
+                    onChanged:
+                        (value) => context.read<FeedbackBloc>().add(
+                          ContentChanged(value),
+                        ),
                   ),
                   const SizedBox(height: 32),
                   SizedBox(
                     width: double.infinity,
                     height: 50,
                     child: ElevatedButton(
-                      onPressed: state.isSubmitting
-                          ? null
-                          : () {
-                              context.read<FeedbackBloc>().add(SubmitFeedback());
-                            },
-                      child: state.isSubmitting
-                          ? const CircularProgressIndicator(color: Colors.white)
-                          : Text(
-                              l10n.feedbackSubmitButton, // "Gửi phản hồi"
-                              style: const TextStyle(fontSize: 18),
-                            ),
+                      onPressed:
+                          state.isSubmitting
+                              ? null
+                              : () {
+                                context.read<FeedbackBloc>().add(
+                                  SubmitFeedback(),
+                                );
+                              },
+                      child:
+                          state.isSubmitting
+                              ? const CircularProgressIndicator(
+                                color: Colors.white,
+                              )
+                              : Text(
+                                l10n.feedbackSubmitButton, // "Gửi phản hồi"
+                                style: const TextStyle(fontSize: 18),
+                              ),
                     ),
                   ),
                   const SizedBox(height: 16),

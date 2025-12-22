@@ -237,6 +237,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not found'**
   String get notFound;
+
+  /// No description provided for @tv360.
+  ///
+  /// In en, this message translates to:
+  /// **'Tv 360'**
+  String get tv360;
+
+  /// No description provided for @game.
+  ///
+  /// In en, this message translates to:
+  /// **'Game'**
+  String get game;
+
+  /// No description provided for @vasService.
+  ///
+  /// In en, this message translates to:
+  /// **'VAS Services'**
+  String get vasService;
+
+  /// No description provided for @feedbackPageTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback & Rating'**
+  String get feedbackPageTitle;
+
+  /// No description provided for @feedbackRatingQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'How many stars would you rate the app?'**
+  String get feedbackRatingQuestion;
+
+  /// No description provided for @feedbackTitleLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Title'**
+  String get feedbackTitleLabel;
+
+  /// No description provided for @feedbackContentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Detailed Feedback'**
+  String get feedbackContentLabel;
+
+  /// No description provided for @feedbackSubmitButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Submit Feedback'**
+  String get feedbackSubmitButton;
+
+  /// No description provided for @feedbackUpdateAppButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Update App'**
+  String get feedbackUpdateAppButton;
+
+  /// No description provided for @feedbackStartKycButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Start KYC'**
+  String get feedbackStartKycButton;
+
+  /// No description provided for @feedbackThankYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your feedback!'**
+  String get feedbackThankYou;
 }
 
 class _AppLocalizationsDelegate
