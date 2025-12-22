@@ -66,16 +66,34 @@ class AppLocalizationsVi extends AppLocalizations {
   String get messenger => 'Messenger';
 
   @override
-  String get search => 'Search';
+  String get search => 'Tìm kiếm';
 
   @override
-  String get enterSearch => 'Enter search...';
+  String get enterSearch => 'Nhập tìm kiếm...';
 
   @override
-  String get enter => 'Enter';
+  String get enter => 'Nhập';
 
   @override
-  String get notFound => 'Not found';
+  String get notFound => 'Không tìm thấy';
+
+  @override
+  String get voice_call => 'Gọi thoại';
+
+  @override
+  String get video_call => 'Gọi video';
+
+  @override
+  String get network_test => 'Network test';
+
+  @override
+  String get stores => 'Cửa hàng';
+
+  @override
+  String get find_stores => 'Tìm kiếm cửa hàng';
+
+  @override
+  String get title_search_find_stores => 'Tìm kiếm showroom mà bạn muốn!';
 
   @override
   String get tv360 => 'Tv 360';

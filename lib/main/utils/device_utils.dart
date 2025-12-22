@@ -96,4 +96,18 @@ class DeviceUtils {
     }
     return "";
   }
+
+  static String getDeviceId() {
+    if (deviceData.isEmpty) {
+      getDeviceInfo();
+    }
+
+    if (Platform.isAndroid) {
+      return deviceData["deviceId"]?.toString() ?? "";
+    } else if (Platform.isIOS) {
+      return deviceData["identifierForVendor"]?.toString() ?? "";
+    }
+    return "";
+  }
+
 }

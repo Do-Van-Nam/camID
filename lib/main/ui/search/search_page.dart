@@ -1,6 +1,6 @@
-import 'package:cam_id/generated/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../generated/app_localizations.dart';
 import 'search_bloc.dart';
 import 'search_event.dart';
 import 'search_state.dart';
@@ -35,18 +35,14 @@ class SearchPage extends StatelessWidget {
               child: BlocBuilder<SearchBloc, SearchState>(
                 builder: (context, state) {
                   if (state is SearchInitial || state is SearchEmpty) {
-                    return Center(
-                      child: Text(AppLocalizations.of(context)!.enter),
-                    );
+                    return Center(child: Text(AppLocalizations.of(context)!.enter));
                   }
                   if (state is SearchLoading) {
                     return Center(child: CircularProgressIndicator());
                   }
                   if (state is SearchLoaded) {
                     if (state.filteredItems.isEmpty) {
-                      return Center(
-                        child: Text(AppLocalizations.of(context)!.notFound),
-                      );
+                      return Center(child: Text(AppLocalizations.of(context)!.enter));
                     }
                     return ListView.builder(
                       itemCount: state.filteredItems.length,

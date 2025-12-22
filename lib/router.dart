@@ -1,4 +1,5 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
@@ -15,6 +16,7 @@ const String PATH_LANGUAGE = "/language";
 const String PATH_SEARCH = "/search";
 const String PATH_FEEDBACK = "/feedback";
 const String PATH_WEBVIEW = "/webview";
+const String PATH_FIND_STORES = "/find_stores";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_LOGIN,
@@ -32,6 +34,7 @@ final GoRouter router = GoRouter(
         return WebViewPage(initialUrl: url);
       },
     ),
+    GoRoute(path: PATH_FIND_STORES, builder: (context, state) => FindStoresPage()),
   ],
   redirect: (context, state) {
     final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;

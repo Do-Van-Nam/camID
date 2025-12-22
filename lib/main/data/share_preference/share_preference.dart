@@ -95,17 +95,18 @@ class SharePreferenceUtil {
   }
 
   static Future<void> saveUser(UserInfoModel? model) async {
-    final jsonString = jsonEncode(model);
-    return setString(ShareKey.KEY_USER_INFO, jsonString);
+    if (model == null) return;
+    final jsonString = jsonEncode(model.toJson());
+    await setString(ShareKey.KEY_USER_INFO, jsonString);
   }
 
   static Future<UserInfoModel?> getUser() async {
     final jsonString = await getString(ShareKey.KEY_USER_INFO);
     if (jsonString.isEmpty) return null;
-    final jsonMap = jsonDecode(jsonString);
-    final user = UserInfoModel.instance;
-    user.fromJson(jsonMap);
-    return user;
+
+    final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+    UserInfoModel.instance.fromJson(jsonMap);
+    return UserInfoModel.instance;
   }
 
   static Future saveToken(String token) async {

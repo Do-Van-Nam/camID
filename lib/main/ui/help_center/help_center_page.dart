@@ -1,10 +1,30 @@
+import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:cam_id/main/utils/utility_fuctions.dart';
+import 'package:ipcc_plugin/ipcc_plugin.dart';
+import 'package:speed_test_plugin/speed_test_plugin.dart';
+import 'package:url_launcher/url_launcher.dart';
+import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
+
+// Hàm mở URL chung
+Future<void> _launchApp(String url) async {
+  final Uri uri = Uri.parse(url);
+  if (!await launchUrl(
+    uri,
+    mode:
+        LaunchMode
+            .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
+  )) {
+    throw Exception('Không thể mở $url');
+  }
+}
 
 class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
@@ -15,8 +35,18 @@ class HelpCenterPage extends StatefulWidget {
 
 class _HelpCenterPageState extends State<HelpCenterPage>
     with AutomaticKeepAliveClientMixin {
+  bool isLoading = true;
+  String camid = "";
+
+  @override
+  void initState() {
+    super.initState();
+    _onInitIPCC();
+  }
+
   @override
   bool get wantKeepAlive => true;
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -27,8 +57,9 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           Container(
             width: double.infinity,
             height: kToolbarHeight + MediaQuery.of(context).padding.top,
+            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
             color: AppColors.colorMain,
-            alignment: Alignment.bottomLeft,
+            alignment: Alignment.centerLeft,
             child: IconButton(
               icon: const Icon(Icons.menu_sharp, color: Colors.white),
               onPressed: () {
@@ -45,7 +76,10 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           // Nút mở Telegram Bot
           ElevatedButton.icon(
             icon: Icon(Icons.telegram, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.telegram),
+            label: Text(
+              AppLocalizations.of(context)!.telegram,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
             onPressed: () => launchApp('https://t.me/MetfoneAdmin_bot'),
           ),
@@ -53,12 +87,68 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           SizedBox(height: 20),
           ElevatedButton.icon(
             icon: Icon(Icons.message, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.messenger),
+            label: Text(
+              AppLocalizations.of(context)!.messenger,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () => launchApp('https://m.me/210301035798660'),
+          ),
+          ElevatedButton.icon(
+            icon: Icon(Icons.call, color: Colors.white),
+            label: Text(
+              AppLocalizations.of(context)!.voice_call,
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            onPressed: () async {
+              _onShowCall();
+            },
+          ),
+          ElevatedButton.icon(
+            icon: Icon(Icons.store, color: Colors.white),
+            label: Text(
+              AppLocalizations.of(context)!.find_stores,
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            onPressed: () {
+              context.push(PATH_FIND_STORES);
+            },
+          ),
+          ElevatedButton.icon(
+            icon: Icon(Icons.network_check, color: Colors.white),
+            label: Text(
+              AppLocalizations.of(context)!.network_test,
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            onPressed: () async {
+              _onShowSpeedTest();
+            },
           ),
         ],
       ),
     );
+  }
+
+  Future<void> _onInitIPCC() async {
+    await IpccPlugin.initSdk();
+  }
+
+  Future<void> _onShowCall() async {
+    String userName = UserInfoModel.instance.username;
+    final camId = userName.isEmpty ? DeviceUtils.getDeviceId() : userName;
+    await IpccPlugin.showCall(camId);
+  }
+
+  Future<void> _onShowSpeedTest() async {
+    String phone = await SharePreferenceUtil.getString(
+      ShareKey.KEY_PHONE_NUMBER,
+    );
+    String deviceId = DeviceUtils.getDeviceId();
+    String userId = UserInfoModel.instance.userId.toString();
+    String language = await SharePreferenceUtil.getLanguageCode();
+    await SpeedTestPlugin.navigateSpeedTest(phone, deviceId, userId, language);
   }
 }

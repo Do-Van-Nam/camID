@@ -7,7 +7,7 @@ import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/logger.dart';
-import 'package:cam_id/main/utils/widget/loading_widget.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,125 +28,122 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => LoginBloc(),
-      child: Scaffold(
-        body: BlocConsumer<LoginBloc, LoginState>(
-          builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        const SizedBox(height: 40),
+      create: (_) => LoginBloc(),
+      child: Builder(builder: (context) {
+        final loginBloc = BlocProvider.of<LoginBloc>(context);
 
-                        TextField(
-                          controller: phoneController,
-                          keyboardType: TextInputType.phone,
-                          decoration: InputDecoration(
-                            labelText: AppLocalizations.of(
-                              context,
-                            )!.phone_number,
-                            border: const OutlineInputBorder(),
-                          ),
-                        ),
-
-                        if (showOtp) ...[
-                          const SizedBox(height: 16),
+        return Scaffold(
+          body: BlocConsumer<LoginBloc, LoginState>(
+            builder: (context, state) {
+              return Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 40),
                           TextField(
-                            controller: otpController,
-                            keyboardType: TextInputType.number,
+                            controller: phoneController,
+                            keyboardType: TextInputType.phone,
                             decoration: InputDecoration(
-                              labelText: AppLocalizations.of(
-                                context,
-                              )!.enter_your_otp,
+                              labelText: AppLocalizations.of(context)!.phone_number,
                               border: const OutlineInputBorder(),
                             ),
                           ),
+                          if (showOtp) ...[
+                            const SizedBox(height: 16),
+                            TextField(
+                              controller: otpController,
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                labelText: AppLocalizations.of(context)!.enter_your_otp,
+                                border: const OutlineInputBorder(),
+                              ),
+                            ),
+                          ],
+                          const SizedBox(height: 24),
+                          ElevatedButton(
+                            onPressed: () {
+                              if (!showOtp) {
+                                LoadingOverlayWidget.show(context);
+                                loginBloc.add(
+                                  SignUpEvent(phoneController.text, false, "123456"),
+                                );
+                              } else {
+                                LoadingOverlayWidget.show(context);
+                                loginBloc.add(
+                                  SignInEvent(phoneController.text, otpController.text),
+                                );
+                              }
+                            },
+                            child: Text(AppLocalizations.of(context)!.login),
+                          ),
                         ],
-
-                        const SizedBox(height: 24),
-
-                        ElevatedButton(
-                          onPressed: () {
-                            if (!showOtp) {
-                              LoadingWidget.show(context);
-                              context.read<LoginBloc>().add(SignUpEvent(phoneController.text, false, "123456"));
-                            } else {
-                              LoadingWidget.show(context);
-                              context.read<LoginBloc>().add(SignInEvent(
-                                phoneController.text,
-                                otpController.text,
-                              ));
-                            }
-                          },
-                          child: Text(AppLocalizations.of(context)!.login),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-
-                  SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: _onSkip,
-                      child: Text(AppLocalizations.of(context)!.skip),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: _onSkip,
+                        child: Text(AppLocalizations.of(context)!.skip),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            );
-          },
-            listener: (context, state) {
-              if(state is SignUpSuccess) {
-                context.read<LoginBloc>().add(GenerateOTPEvent(phoneController.text));
-                setState(() {
-                  showOtp = true;
-                });
-                LoadingWidget.hide();
+                  ],
+                ),
+              );
+            },
+            listener: (context, state) async {
+              final loginBloc = BlocProvider.of<LoginBloc>(context);
+
+              if (state is SignUpSuccess) {
+                setState(() => showOtp = true);
+                LoadingOverlayWidget.hide();
+
+                loginBloc.add(GenerateOTPEvent(phoneController.text));
               }
 
-              if(state is SignUpFailure) {
-                LoadingWidget.hide();
+              if (state is SignUpFailure) {
+                LoadingOverlayWidget.hide();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.message)),
                 );
               }
-              if (state is GenerateOTPSuccess) {}
 
-              if (state is GenerateOTPFailure) {}
+              if (state is GenerateOTPSuccess || state is GenerateOTPFailure) {
+                LoadingOverlayWidget.hide();
+              }
 
               if (state is SignInSuccess) {
-                _onSaveToken(state.data);
-                // LoadingWidget.hide();
-                // context.go(PATH_HOME);
+                LoadingOverlayWidget.hide();
+                await _onSaveToken(state.data, loginBloc);
               }
 
               if (state is SignInFailure) {
-                LoadingWidget.hide();
+                LoadingOverlayWidget.hide();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.message)),
                 );
                 AppLogger().logError("Login123: ${state.message}");
               }
 
-              if(state is GetUserInfoSuccess) {
-                LoadingWidget.hide();
-                _onSaveUserInfo(state.user);
+              if (state is GetUserInfoSuccess) {
+                LoadingOverlayWidget.hide();
+                await _onSaveUserInfo(state.user);
                 context.go(PATH_HOME);
               }
 
-              if(state is GetUserInfoFailure) {
-                LoadingWidget.hide();
+              if (state is GetUserInfoFailure) {
+                LoadingOverlayWidget.hide();
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(content: Text(state.message)),
                 );
               }
-            }
-        ),
-      ),
+            },
+          ),
+        );
+      }),
     );
   }
 
@@ -157,28 +154,22 @@ class _LoginPageState extends State<LoginPage> {
     context.go(PATH_HOME);
   }
 
-  Future<void> _onSaveToken(SignInModel model) async {
-    final loginBloc = context.read<LoginBloc>();
-
+  Future<void> _onSaveToken(SignInModel model, LoginBloc bloc) async {
     String token = "Bearer ${model.accessToken}";
 
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_PHONE_NUMBER,
-      phoneController.text,
-    );
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_ACCESS_TOKEN,
-      token,
-    );
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_REFRESH_TOKEN,
-      model.refreshToken,
-    );
+    await SharePreferenceUtil.setString(ShareKey.KEY_PHONE_NUMBER, phoneController.text);
+    await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
+    await SharePreferenceUtil.setString(ShareKey.KEY_REFRESH_TOKEN, model.refreshToken?? '');
 
-    loginBloc.add(GetUserInfoEvent(token));
+    bloc.add(GetUserInfoEvent(token));
   }
 
   Future<void> _onSaveUserInfo(UserInfoModel? model) async {
-    SharePreferenceUtil.saveUser(model);
+    if (model == null) return;
+
+    AppLogger().logInfo("Home-123 ${model.username}");
+    AppLogger().logInfo("Home-123 ${model.phoneNumber}");
+
+    await SharePreferenceUtil.saveUser(model);
   }
 }

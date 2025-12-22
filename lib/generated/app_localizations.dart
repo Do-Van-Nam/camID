@@ -238,6 +238,42 @@ abstract class AppLocalizations {
   /// **'Not found'**
   String get notFound;
 
+  /// No description provided for @voice_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice call'**
+  String get voice_call;
+
+  /// No description provided for @video_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Video call'**
+  String get video_call;
+
+  /// No description provided for @network_test.
+  ///
+  /// In en, this message translates to:
+  /// **'Network test'**
+  String get network_test;
+
+  /// No description provided for @stores.
+  ///
+  /// In en, this message translates to:
+  /// **'Stores'**
+  String get stores;
+
+  /// No description provided for @find_stores.
+  ///
+  /// In en, this message translates to:
+  /// **'Find stores'**
+  String get find_stores;
+
+  /// No description provided for @title_search_find_stores.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for the showroom you want!'**
+  String get title_search_find_stores;
+
   /// No description provided for @tv360.
   ///
   /// In en, this message translates to:
