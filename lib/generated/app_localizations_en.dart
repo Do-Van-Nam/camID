@@ -85,4 +85,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get network_test => 'Network test';
+
+  @override
+  String get stores => 'Stores';
+
+  @override
+  String get find_stores => 'Find stores';
+
+  @override
+  String get title_search_find_stores => 'Search for the showroom you want!';
 }

@@ -17,9 +17,8 @@ Future<void> _launchApp(String url) async {
   final Uri uri = Uri.parse(url);
   if (!await launchUrl(
     uri,
-    mode:
-        LaunchMode
-            .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
+    mode: LaunchMode
+        .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
   )) {
     throw Exception('Không thể mở $url');
   }
@@ -34,7 +33,6 @@ class HelpCenterPage extends StatefulWidget {
 
 class _HelpCenterPageState extends State<HelpCenterPage>
     with AutomaticKeepAliveClientMixin {
-
   bool isLoading = true;
   String camid = "";
 
@@ -76,7 +74,10 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           // Nút mở Telegram Bot
           ElevatedButton.icon(
             icon: Icon(Icons.telegram, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.telegram),
+            label: Text(
+              AppLocalizations.of(context)!.telegram,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
             onPressed: () => _launchApp('https://t.me/MetfoneAdmin_bot'),
           ),
@@ -84,21 +85,41 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           SizedBox(height: 20),
           ElevatedButton.icon(
             icon: Icon(Icons.message, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.messenger),
+            label: Text(
+              AppLocalizations.of(context)!.messenger,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () => _launchApp('https://m.me/210301035798660'),
           ),
           ElevatedButton.icon(
             icon: Icon(Icons.call, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.voice_call),
+            label: Text(
+              AppLocalizations.of(context)!.voice_call,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () async {
               _onShowCall();
             },
           ),
           ElevatedButton.icon(
+            icon: Icon(Icons.store, color: Colors.white),
+            label: Text(
+              AppLocalizations.of(context)!.find_stores,
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            onPressed: () {
+              context.push(PATH_FIND_STORES);
+            },
+          ),
+          ElevatedButton.icon(
             icon: Icon(Icons.network_check, color: Colors.white),
-            label: Text(AppLocalizations.of(context)!.network_test),
+            label: Text(
+              AppLocalizations.of(context)!.network_test,
+              style: TextStyle(color: Colors.white),
+            ),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () async {
               _onShowSpeedTest();
@@ -115,13 +136,14 @@ class _HelpCenterPageState extends State<HelpCenterPage>
 
   Future<void> _onShowCall() async {
     String userName = UserInfoModel.instance.username;
-    final camId =
-    userName.isEmpty ? DeviceUtils.getDeviceId() : userName;
+    final camId = userName.isEmpty ? DeviceUtils.getDeviceId() : userName;
     await IpccPlugin.showCall(camId);
   }
 
   Future<void> _onShowSpeedTest() async {
-    String phone = await SharePreferenceUtil.getString(ShareKey.KEY_PHONE_NUMBER);
+    String phone = await SharePreferenceUtil.getString(
+      ShareKey.KEY_PHONE_NUMBER,
+    );
     String deviceId = DeviceUtils.getDeviceId();
     String userId = UserInfoModel.instance.userId.toString();
     String language = await SharePreferenceUtil.getLanguageCode();

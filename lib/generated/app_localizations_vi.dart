@@ -85,4 +85,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get network_test => 'Network test';
+
+  @override
+  String get stores => 'Cửa hàng';
+
+  @override
+  String get find_stores => 'Tìm kiếm cửa hàng';
+
+  @override
+  String get title_search_find_stores => 'Tìm kiếm showroom mà bạn muốn!';
 }

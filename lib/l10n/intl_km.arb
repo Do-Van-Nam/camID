@@ -24,5 +24,8 @@
     "notFound": "Not found",
     "voice_call": "Voice call",
     "video_call": "Video call",
-    "network_test": "Network test"
+    "network_test": "Network test",
+    "stores": "Stores",
+    "find_stores": "Find stores",
+    "title_search_find_stores": "Search for the showroom you want!"
 }
