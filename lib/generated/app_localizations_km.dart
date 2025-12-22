@@ -76,4 +76,13 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get notFound => 'Not found';
+
+  @override
+  String get voice_call => 'Voice call';
+
+  @override
+  String get video_call => 'Video call';
+
+  @override
+  String get network_test => 'Network test';
 }

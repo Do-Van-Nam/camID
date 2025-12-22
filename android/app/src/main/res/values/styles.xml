@@ -15,4 +15,19 @@
     <style name="NormalTheme" parent="@android:style/Theme.Light.NoTitleBar">
         <item name="android:windowBackground">?android:colorBackground</item>
     </style>
+    <style name="Theme.OverlayToolBar.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowActionModeOverlay">true</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:datePickerDialogTheme">@style/RedDatePickerDialogTheme</item>
+    </style>
+    <style name="RedDatePickerDialogTheme" parent="ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="colorPrimary">@color/color_new_ui_primary</item>
+        <item name="colorAccent">@color/color_new_ui_primary</item>
+        <item name="android:colorAccent">@color/color_new_ui_primary</item>
+        <item name="buttonBarPositiveButtonStyle">@style/RedDialogButton</item>
+        <item name="buttonBarNegativeButtonStyle">@style/RedDialogButton</item>
+    </style>
+    <style name="RedDialogButton" parent="@style/Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/color_new_ui_primary</item>
+    </style>
 </resources>

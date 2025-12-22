@@ -16,10 +16,13 @@
     "vietnamese": "Tiếng Việt",
     "english": "English",
     "khmer": "ខ្មែរ",
-        "telegram": "Telegram",
+    "telegram": "Telegram",
     "messenger": "Messenger",
     "search": "Search",
     "enterSearch": "Enter search...",
     "enter": "Enter",
-    "notFound": "Not found"
+    "notFound": "Not found",
+    "voice_call": "Voice call",
+    "video_call": "Video call",
+    "network_test": "Network test"
 }

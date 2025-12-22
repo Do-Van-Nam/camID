@@ -21,5 +21,8 @@
     "search": "Search",
     "enterSearch": "Enter search...",
     "enter": "Enter",
-    "notFound": "Not found"
+    "notFound": "Not found",
+    "voice_call": "Voice call",
+    "video_call": "Video call",
+    "network_test": "Network test"
 }

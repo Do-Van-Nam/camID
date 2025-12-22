@@ -237,6 +237,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not found'**
   String get notFound;
+
+  /// No description provided for @voice_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice call'**
+  String get voice_call;
+
+  /// No description provided for @video_call.
+  ///
+  /// In en, this message translates to:
+  /// **'Video call'**
+  String get video_call;
+
+  /// No description provided for @network_test.
+  ///
+  /// In en, this message translates to:
+  /// **'Network test'**
+  String get network_test;
 }
 
 class _AppLocalizationsDelegate

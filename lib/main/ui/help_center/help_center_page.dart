@@ -1,4 +1,5 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
@@ -6,6 +7,7 @@ import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipcc_plugin/ipcc_plugin.dart';
+import 'package:speed_test_plugin/speed_test_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
@@ -88,10 +90,18 @@ class _HelpCenterPageState extends State<HelpCenterPage>
           ),
           ElevatedButton.icon(
             icon: Icon(Icons.call, color: Colors.white),
-            label: Text("Call"),
+            label: Text(AppLocalizations.of(context)!.voice_call),
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () async {
               _onShowCall();
+            },
+          ),
+          ElevatedButton.icon(
+            icon: Icon(Icons.network_check, color: Colors.white),
+            label: Text(AppLocalizations.of(context)!.network_test),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+            onPressed: () async {
+              _onShowSpeedTest();
             },
           ),
         ],
@@ -106,7 +116,15 @@ class _HelpCenterPageState extends State<HelpCenterPage>
   Future<void> _onShowCall() async {
     String userName = UserInfoModel.instance.username;
     final camId =
-    userName.isEmpty ? DeviceUtils.getDeviceName() : userName;
+    userName.isEmpty ? DeviceUtils.getDeviceId() : userName;
     await IpccPlugin.showCall(camId);
+  }
+
+  Future<void> _onShowSpeedTest() async {
+    String phone = await SharePreferenceUtil.getString(ShareKey.KEY_PHONE_NUMBER);
+    String deviceId = DeviceUtils.getDeviceId();
+    String userId = UserInfoModel.instance.userId.toString();
+    String language = await SharePreferenceUtil.getLanguageCode();
+    await SpeedTestPlugin.navigateSpeedTest(phone, deviceId, userId, language);
   }
 }

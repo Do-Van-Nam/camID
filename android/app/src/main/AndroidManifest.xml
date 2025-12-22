@@ -2,6 +2,7 @@
     <application
         android:label="CamID"
         android:name="${applicationName}"
+        android:theme="@style/Theme.OverlayToolBar.NoActionBar"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
