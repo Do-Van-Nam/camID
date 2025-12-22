@@ -58,4 +58,22 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get khmer => 'ខ្មែរ';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get messenger => 'Messenger';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get enterSearch => 'Enter search...';
+
+  @override
+  String get enter => 'Enter';
+
+  @override
+  String get notFound => 'Not found';
 }
