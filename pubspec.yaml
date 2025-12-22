@@ -57,8 +57,9 @@ dependencies:
   flutter_rating_bar: ^4.0.1
   url_launcher: ^6.3.0
   webview_flutter: ^4.13.0  
-  myid_kyc_plugin:
-    path: ./myid_kyc_plugin 
+  # myid_kyc_plugin:
+  #   path: ./myid_kyc_plugin 
+  carousel_slider: ^5.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

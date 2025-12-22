@@ -44,40 +44,42 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyDU-DWcIXnsX-td_yvcKGSah6nvIb7cLZM',
-    appId: '1:687680612219:web:f725ebc3273c4613ba7fde',
-    messagingSenderId: '687680612219',
-    projectId: 'bitel-ventas-9cd08',
-    authDomain: 'bitel-ventas-9cd08.firebaseapp.com',
-    storageBucket: 'bitel-ventas-9cd08.appspot.com',
-    measurementId: 'G-90804GDMHJ',
+    apiKey: '123AIzaSyDU-DWcIXnsX-td_yvcKGSah6nvIb7cLZM',
+    appId: '1231:687680612219:web:f725ebc3273c4613ba7fde',
+    messagingSenderId: '123687680612219',
+    projectId: '123bitel-ventas-9cd08',
+    authDomain: '123bitel-ventas-9cd08.firebaseapp.com',
+    storageBucket: '123bitel-ventas-9cd08.appspot.com',
+    measurementId: '123G-90804GDMHJ',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBkvGxvhfz26HyvM5YwkUyzpgZQwKkWOwQ',
-    appId: '1:687680612219:android:c6d52f5546a0dea0ba7fde',
-    messagingSenderId: '687680612219',
-    projectId: 'bitel-ventas-9cd08',
-    storageBucket: 'bitel-ventas-9cd08.appspot.com',
+    apiKey: '123AIzaSyBkvGxvhfz26HyvM5YwkUyzpgZQwKkWOwQ',
+    appId: '1231:687680612219:android:c6d52f5546a0dea0ba7fde',
+    messagingSenderId: '123687680612219',
+    projectId: '123bitel-ventas-9cd08',
+    storageBucket: '123bitel-ventas-9cd08.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDixC0kT-L1tRDDXYi_7P3HrIxTydXj_9w',
-    appId: '1:687680612219:ios:a4ec71c5cd69f716ba7fde',
-    messagingSenderId: '687680612219',
-    projectId: 'bitel-ventas-9cd08',
-    storageBucket: 'bitel-ventas-9cd08.appspot.com',
-    iosClientId: '687680612219-6kfbnjg7p9cq81d7frsl684e10topkpn.apps.googleusercontent.com',
-    iosBundleId: 'com.bitel.bss.viettelpos.v3.bitelVentas',
+    apiKey: '123AIzaSyDixC0kT-L1tRDDXYi_7P3HrIxTydXj_9w',
+    appId: '1231:687680612219:ios:a4ec71c5cd69f716ba7fde',
+    messagingSenderId: '123687680612219',
+    projectId: '123bitel-ventas-9cd08',
+    storageBucket: '123bitel-ventas-9cd08.appspot.com',
+    iosClientId:
+        '123687680612219-6kfbnjg7p9cq81d7frsl684e10topkpn.apps.googleusercontent.com',
+    iosBundleId: '123com.bitel.bss.viettelpos.v3.bitelVentas',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDixC0kT-L1tRDDXYi_7P3HrIxTydXj_9w',
-    appId: '1:687680612219:ios:a4ec71c5cd69f716ba7fde',
-    messagingSenderId: '687680612219',
-    projectId: 'bitel-ventas-9cd08',
-    storageBucket: 'bitel-ventas-9cd08.appspot.com',
-    iosClientId: '687680612219-6kfbnjg7p9cq81d7frsl684e10topkpn.apps.googleusercontent.com',
-    iosBundleId: 'com.bitel.bss.viettelpos.v3.bitelVentas',
+    apiKey: '123AIzaSyDixC0kT-L1tRDDXYi_7P3HrIxTydXj_9w',
+    appId: '1231:687680612219:ios:a4ec71c5cd69f716ba7fde',
+    messagingSenderId: '123687680612219',
+    projectId: '123bitel-ventas-9cd08',
+    storageBucket: '123bitel-ventas-9cd08.appspot.com',
+    iosClientId:
+        '123687680612219-6kfbnjg7p9cq81d7frsl684e10topkpn.apps.googleusercontent.com',
+    iosBundleId: '123com.bitel.bss.viettelpos.v3.bitelVentas',
   );
 }

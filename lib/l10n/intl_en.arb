@@ -21,5 +21,16 @@
     "search": "Search",
     "enterSearch": "Enter search...",
     "enter": "Enter",
-    "notFound": "Not found"
+    "notFound": "Not found",
+    "tv360":"Tv 360",
+    "game":"Game",
+    "vasService":"VAS Services",
+    "feedbackPageTitle": "Feedback & Rating",
+  "feedbackRatingQuestion": "How many stars would you rate the app?",
+  "feedbackTitleLabel": "Feedback Title",
+  "feedbackContentLabel": "Detailed Feedback",
+  "feedbackSubmitButton": "Submit Feedback",
+  "feedbackUpdateAppButton": "Update App",
+  "feedbackStartKycButton": "Start KYC",
+  "feedbackThankYou": "Thank you for your feedback!",
 }
