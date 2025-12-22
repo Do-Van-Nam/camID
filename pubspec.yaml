@@ -58,7 +58,9 @@ dependencies:
   url_launcher: ^6.3.0
   webview_flutter: ^4.13.0  
   myid_kyc_plugin:
-    path: ./myid_kyc_plugin 
+    path: ./myid_kyc_plugin
+  ipcc_plugin:
+    path: ./ipcc_plugin
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,11 +1,11 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
-import 'package:cam_id/main/utils/ipcc_channel/ipcc_channel.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:ipcc_plugin/ipcc_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
@@ -86,8 +86,10 @@ class _HelpCenterPageState extends State<HelpCenterPage>
             style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () => _launchApp('https://m.me/210301035798660'),
           ),
-          IconButton(
-            icon: const Icon(Icons.help_center, color: Colors.black),
+          ElevatedButton.icon(
+            icon: Icon(Icons.call, color: Colors.white),
+            label: Text("Call"),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
             onPressed: () async {
               _onShowCall();
             },
@@ -98,13 +100,13 @@ class _HelpCenterPageState extends State<HelpCenterPage>
   }
 
   Future<void> _onInitIPCC() async {
-    await IpccChannel.initSdk();
+    await IpccPlugin.initSdk();
   }
 
   Future<void> _onShowCall() async {
     String userName = UserInfoModel.instance.username;
     final camId =
     userName.isEmpty ? DeviceUtils.getDeviceName() : userName;
-    await IpccChannel.showCall(camId);
+    await IpccPlugin.showCall(camId);
   }
 }

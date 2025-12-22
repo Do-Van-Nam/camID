@@ -69,6 +69,11 @@ dependencies {
     kapt("com.google.dagger:dagger-compiler:2.51.1")
     implementation("com.google.dagger:dagger-android-support:2.51.1")
     implementation("com.google.mlkit:face-detection:16.1.7")
+    implementation ("com.squareup.okhttp3:okhttp:3.12.8")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.8.1")
+    implementation ("com.squareup.retrofit2:adapter-rxjava2:2.3.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.8.1")
+    implementation ("com.squareup.retrofit2:converter-gson:2.8.1")
 }
 
 flutter {
