@@ -57,11 +57,12 @@ class _LoginPageState extends State<LoginPage> {
                             TextField(
                               controller: otpController,
                               keyboardType: TextInputType.number,
+                              autofillHints: const [AutofillHints.oneTimeCode],
                               decoration: InputDecoration(
                                 labelText: AppLocalizations.of(context)!.enter_your_otp,
                                 border: const OutlineInputBorder(),
                               ),
-                            ),
+                            )
                           ],
                           const SizedBox(height: 24),
                           ElevatedButton(

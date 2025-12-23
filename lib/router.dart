@@ -5,6 +5,7 @@ import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
 import 'package:cam_id/main/ui/main_page.dart';
+import 'package:cam_id/main/ui/user_profile/user_profile_page.dart';
 import 'package:cam_id/main/ui/webview/webview_page.dart';
 import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/logger.dart';
@@ -23,6 +24,7 @@ const String PATH_SEARCH = "/search";
 const String PATH_FEEDBACK = "/feedback";
 const String PATH_WEBVIEW = "/webview";
 const String PATH_FIND_STORES = "/find_stores";
+const String PATH_USER_PROFILE = "/user_profile";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_LOGIN,
@@ -78,6 +80,8 @@ final GoRouter router = GoRouter(
         ),
       ],
     ),
+    GoRoute(path: PATH_FIND_STORES, builder: (context, state) => FindStoresPage()),
+    GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
   ],
   redirect: (context, state) {
     final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;

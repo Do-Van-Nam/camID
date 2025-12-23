@@ -53,7 +53,7 @@ class AppLifecycleHandler extends WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused ||
         state == AppLifecycleState.detached) {
-      SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
+      // SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
     }
   }
 }
