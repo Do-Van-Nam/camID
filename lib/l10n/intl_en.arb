@@ -27,5 +27,16 @@
     "network_test": "Network test",
     "stores": "Stores",
     "find_stores": "Find stores",
-    "title_search_find_stores": "Search for the showroom you want!"
+    "title_search_find_stores": "Search for the showroom you want!",
+    "tv360":"Tv 360",
+    "game":"Game",
+    "vasService":"VAS Services",
+    "feedbackPageTitle": "Feedback & Rating",
+  "feedbackRatingQuestion": "How many stars would you rate the app?",
+  "feedbackTitleLabel": "Feedback Title",
+  "feedbackContentLabel": "Detailed Feedback",
+  "feedbackSubmitButton": "Submit Feedback",
+  "feedbackUpdateAppButton": "Update App",
+  "feedbackStartKycButton": "Start KYC",
+  "feedbackThankYou": "Thank you for your feedback!"
 }

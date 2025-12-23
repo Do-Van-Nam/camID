@@ -94,4 +94,37 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get title_search_find_stores => 'Tìm kiếm showroom mà bạn muốn!';
+
+  @override
+  String get tv360 => 'Tv 360';
+
+  @override
+  String get game => 'Game';
+
+  @override
+  String get vasService => 'VAS Services';
+
+  @override
+  String get feedbackPageTitle => 'Feedback & Rating';
+
+  @override
+  String get feedbackRatingQuestion => 'How many stars would you rate the app?';
+
+  @override
+  String get feedbackTitleLabel => 'Feedback Title';
+
+  @override
+  String get feedbackContentLabel => 'Detailed Feedback';
+
+  @override
+  String get feedbackSubmitButton => 'Submit Feedback';
+
+  @override
+  String get feedbackUpdateAppButton => 'Update App';
+
+  @override
+  String get feedbackStartKycButton => 'Start KYC';
+
+  @override
+  String get feedbackThankYou => 'Thank you for your feedback!';
 }
