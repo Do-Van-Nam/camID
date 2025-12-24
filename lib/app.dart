@@ -10,14 +10,25 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'main/ui/splash/splash_bloc.dart';
+import 'main/ui/splash/splash_event.dart';
+
 class App extends StatelessWidget {
   const App({super.key});
 
   @override
   Widget build(BuildContext context) {
     DeviceUtils.getDeviceInfo();
-    return BlocProvider(
-      create: (_) => LanguageBloc()..add(LoadLanguageEvent()),
+
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => LanguageBloc()..add(LoadLanguageEvent()),
+        ),
+        BlocProvider(
+          create: (_) => SplashBloc()..add(SplashStarted()),
+        ),
+      ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, languageState) {
           return ScreenUtilInit(
@@ -29,17 +40,17 @@ class App extends StatelessWidget {
                 title: "CamID",
                 theme: themeData,
                 debugShowCheckedModeBanner: false,
-                localizationsDelegates: [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  AppLocalizations.delegate
-                ],
                 locale: languageState.locale,
                 supportedLocales: const [
                   Locale("en"),
                   Locale("vi"),
-                  Locale("km")
+                  Locale("km"),
+                ],
+                localizationsDelegates: const [
+                  GlobalMaterialLocalizations.delegate,
+                  GlobalWidgetsLocalizations.delegate,
+                  GlobalCupertinoLocalizations.delegate,
+                  AppLocalizations.delegate,
                 ],
                 routerConfig: router,
               );

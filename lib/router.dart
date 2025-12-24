@@ -16,7 +16,9 @@ import 'package:go_router/go_router.dart';
 import 'main/ui/miniapp/mini_app_bloc.dart';
 import 'main/ui/miniapp/mini_app_overlay.dart';
 import 'main/ui/miniapp/mini_app_state.dart';
+import 'main/ui/splash/splash_page.dart';
 
+const String PATH_SPLASH = "/";
 const String PATH_HOME = "/main";
 const String PATH_LOGIN = "/login";
 const String PATH_LANGUAGE = "/language";
@@ -27,7 +29,7 @@ const String PATH_FIND_STORES = "/find_stores";
 const String PATH_USER_PROFILE = "/user_profile";
 
 final GoRouter router = GoRouter(
-  initialLocation: PATH_LOGIN,
+  initialLocation: PATH_SPLASH,
   routes: [
     ShellRoute(
       builder: (context, state, child) {
@@ -55,6 +57,10 @@ final GoRouter router = GoRouter(
         );
       },
       routes: [
+        GoRoute(
+          path: PATH_SPLASH,
+          builder: (context, state) => const SplashPage(),
+        ),
         GoRoute(path: PATH_HOME, builder: (context, state) => MainPage()),
         GoRoute(path: PATH_LOGIN, builder: (context, state) => LoginPage()),
         GoRoute(
