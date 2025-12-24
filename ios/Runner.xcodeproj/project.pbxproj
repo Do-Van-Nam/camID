@@ -17,7 +17,6 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		CBCCFAFA7C1EDEA31A9C2B9E /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 96DB01C40C6EF80F39FD03A1 /* Pods_Runner.framework */; };
 		E537C2ED5311CDB8432C1F94 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CDEF39CCECBBEBBA84001E1F /* GoogleService-Info.plist */; };
-		EFB370CE2EF54A72002DD1C8 /* MyIDKYC.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EF44CEF22EF5384C0050C513 /* MyIDKYC.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +54,7 @@
 		E2A64430965D778C834C2A1D /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		EF44CEF22EF5384C0050C513 /* MyIDKYC.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MyIDKYC.framework; sourceTree = "<group>"; };
 		EF6057C02EF15C38004F3047 /* Runner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Runner.entitlements; sourceTree = "<group>"; };
+		EF95DEC22EFA96C700D3096B /* RunnerDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RunnerDebug.entitlements; sourceTree = "<group>"; };
 		F69EE09B3C4B5BDBBAAC0E7A /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		FD32E01A906A16DA92AE6675 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -65,7 +65,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBCCFAFA7C1EDEA31A9C2B9E /* Pods_Runner.framework in Frameworks */,
-				EFB370CE2EF54A72002DD1C8 /* MyIDKYC.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,6 +146,7 @@
 		97C146F01CF9000F007C117D /* Runner */ = {
 			isa = PBXGroup;
 			children = (
+				EF95DEC22EFA96C700D3096B /* RunnerDebug.entitlements */,
 				EF6057C02EF15C38004F3047 /* Runner.entitlements */,
 				97C146FA1CF9000F007C117D /* Main.storyboard */,
 				97C146FD1CF9000F007C117D /* Assets.xcassets */,
@@ -504,7 +504,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 759VP4USCW;
+				DEVELOPMENT_TEAM = 284QS8GKS9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -691,9 +691,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Runner/RunnerDebug.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 759VP4USCW;
+				DEVELOPMENT_TEAM = 284QS8GKS9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -722,7 +722,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Runner/Runner.entitlements;
 				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
-				DEVELOPMENT_TEAM = 759VP4USCW;
+				DEVELOPMENT_TEAM = 284QS8GKS9;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

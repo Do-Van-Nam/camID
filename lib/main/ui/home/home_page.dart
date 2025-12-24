@@ -1,3 +1,4 @@
+import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
@@ -58,6 +59,19 @@ class _HomePageState extends State<HomePage>
             ],
           ),
         ),
+        Column(
+          children: [
+            ElevatedButton.icon(
+              icon: Icon(Icons.account_box_outlined, color: Colors.white),
+              label: Text(
+                "User Profile",
+                style: TextStyle(color: Colors.white),
+              ),
+              style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
+              onPressed: () => context.push(PATH_USER_PROFILE),
+            ),
+          ],
+        )
       ],
     );
   }

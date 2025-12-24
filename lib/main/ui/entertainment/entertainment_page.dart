@@ -2,6 +2,8 @@ import 'package:cam_id/res/app_colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../miniapp/mini_app_bloc.dart';
+import '../miniapp/mini_app_event.dart';
 import './entertainment_bloc.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 
@@ -23,6 +25,14 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpTQZ2ymiyWERMbA6iLXtu-GdpqGqVpWKlLg&s',
     'https://www.shutterstock.com/image-vector/yellow-ribbons-set-isolated-white-260nw-2605249181.jpg',
   ];
+  void openMiniApp(
+      BuildContext context,
+      String url,
+      ) {
+    context.read<MiniAppBloc>().add(
+      MiniAppLoadUrl("$url?token=JWT"),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -132,8 +142,9 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                           color: Colors.redAccent,
                           onTap: () {
                             // TODO: Xử lý mở TV360
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Mở TV360')),
+                            openMiniApp(
+                              context,
+                              "https://www.24h.com.vn/",
                             );
                           },
                         ),
@@ -143,8 +154,9 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                           color: Colors.green,
                           onTap: () {
                             // TODO: Xử lý mở Game
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Mở Game Center')),
+                            openMiniApp(
+                              context,
+                              "https://www.24h.com.vn/",
                             );
                           },
                         ),
@@ -154,8 +166,9 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                           color: Colors.purple,
                           onTap: () {
                             // TODO: Xử lý mở VAS
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              const SnackBar(content: Text('Mở VAS Service')),
+                            openMiniApp(
+                              context,
+                              "https://www.24h.com.vn/",
                             );
                           },
                         ),
