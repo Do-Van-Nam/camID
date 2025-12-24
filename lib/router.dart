@@ -26,7 +26,6 @@ const String PATH_LOGIN = "/login";
 const String PATH_LANGUAGE = "/language";
 const String PATH_SEARCH = "/search";
 const String PATH_FEEDBACK = "/feedback";
-const String PATH_WEBVIEW = "/webview";
 const String PATH_FIND_STORES = "/find_stores";
 const String PATH_USER_PROFILE = "/user_profile";
 const String PATH_FORCE_UPDATE = "/force-update";
@@ -75,14 +74,6 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: PATH_FEEDBACK,
           builder: (context, state) => FeedbackPage(),
-        ),
-        GoRoute(
-          name: 'webview', // Đặt name để dễ gọi
-          path: PATH_WEBVIEW,
-          builder: (context, state) {
-            final String url = state.extra as String? ?? 'about:blank';
-            return WebViewPage(initialUrl: url);
-          },
         ),
         GoRoute(
           path: PATH_FIND_STORES,

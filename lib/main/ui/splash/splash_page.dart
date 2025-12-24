@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../utils/service/navigation_handler.dart';
 import 'splash_bloc.dart';
-import 'splash_event.dart';
 import 'splash_state.dart';
 
 class SplashPage extends StatelessWidget {
@@ -29,13 +29,12 @@ class SplashPage extends StatelessWidget {
               context.go(PATH_MAINTENANCE);
               break;
           }
+
+          // App is ready for queued navigation (deeplink/notification).
+          NavigationHandler.instance.markReady();
         }
       },
-      child: const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
+      child: const Scaffold(body: Center(child: CircularProgressIndicator())),
     );
   }
 }

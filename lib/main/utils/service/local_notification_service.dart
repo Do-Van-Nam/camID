@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
+import 'navigation_handler.dart';
 
 class LocalNotificationService {
   LocalNotificationService._();
@@ -24,7 +28,14 @@ class LocalNotificationService {
       onDidReceiveNotificationResponse: (response) {
         final payload = response.payload;
         if (payload != null) {
-          // PushRouter.handle(payload);
+          try {
+            final data = jsonDecode(payload);
+            if (data is Map<String, dynamic>) {
+              NavigationHandler.instance.handleFcmData(data);
+            }
+          } catch (_) {
+            // Ignore malformed payload
+          }
         }
       },
     );
@@ -51,7 +62,8 @@ class LocalNotificationService {
       data['title'],
       data['body'],
       details,
-      payload: data['type'], // 👈 route key
+      // store entire data payload so we can navigate when user taps
+      payload: jsonEncode(data),
     );
   }
 }
