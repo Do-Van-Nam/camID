@@ -27,5 +27,18 @@
     "network_test": "Network test",
     "stores": "Stores",
     "find_stores": "Find stores",
-    "title_search_find_stores": "Search for the showroom you want!"
+    "title_search_find_stores": "Search for the showroom you want!",
+    "no_data": "No data",
+    "error_occurred": "Error occurred, please try again later.",
+    "profile": "Profile",
+    "your_information": "Your Information",
+    "information": "ព័ត៌មាន",
+    "nationality": "សញ្ជាតិ",
+    "gender": "ភេទ",
+    "date_of_birth": "ថ្ងៃខែឆ្នាំកំណើត",
+    "address": "អាស័យដ្ឋាន",
+    "id_passport_no": "លេខអត្តសញ្ញាណប័ណ្ណឬលិខិតឆ្លងដែន",
+    "retry": "Retry",
+    "change": "Change",
+    "resend": "Resend"
 }

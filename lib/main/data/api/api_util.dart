@@ -83,59 +83,6 @@ class ApiUtil {
     }
   }
 
-  // Future<T> get<T>({
-  //   required String url,
-  //   Map<String, dynamic> params = const {},
-  //   Map<String, dynamic>? headers,
-  //   String contentType = Headers.jsonContentType,
-  //   required T Function(Map<String, dynamic>) fromJson,
-  // }) async {
-  //   try {
-  //     final response = await dio!.get(
-  //       url,
-  //       queryParameters: params,
-  //       options: Options(
-  //         headers: headers,
-  //         contentType: contentType,
-  //         persistentConnection: false,
-  //       ),
-  //       cancelToken: cancelToken,
-  //     );
-  //
-  //     return fromJson(response.data);
-  //   } catch (error) {
-  //     throw Exception(error.toString());
-  //   }
-  // }
-  //
-  // Future<T> post<T>({
-  //   required String url,
-  //   Map<String, dynamic>? body,
-  //   Map<String, dynamic> params = const {},
-  //   Map<String, dynamic>? headers,
-  //   String contentType = Headers.jsonContentType,
-  //   required T Function(Map<String, dynamic>) fromJson,
-  // }) async {
-  //   try {
-  //     final response = await dio!.post(
-  //       url,
-  //       queryParameters: params,
-  //       data: body,
-  //       options: Options(
-  //         headers: headers,
-  //         responseType: ResponseType.json,
-  //         contentType: contentType,
-  //         persistentConnection: false,
-  //       ),
-  //       cancelToken: cancelToken,
-  //     );
-  //
-  //     return fromJson(response.data);
-  //   } catch (error) {
-  //     throw Exception(error.toString());
-  //   }
-  // }
-
   Future<BaseResponse> uploadFile({
     required String url,
     required FormData data,

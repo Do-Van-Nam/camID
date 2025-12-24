@@ -127,4 +127,43 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get feedbackThankYou => 'Thank you for your feedback!';
+
+  @override
+  String get no_data => 'Không có dữ liệu';
+
+  @override
+  String get error_occurred => 'Đã xảy ra lỗi, vui lòng thử lại sau.';
+
+  @override
+  String get profile => 'Hồ sơ';
+
+  @override
+  String get your_information => 'Thông tin của bạn';
+
+  @override
+  String get information => 'Thông tin';
+
+  @override
+  String get nationality => 'Quốc tịch';
+
+  @override
+  String get gender => 'Giới tính';
+
+  @override
+  String get date_of_birth => 'Ngày sinh';
+
+  @override
+  String get address => 'Địa chỉ';
+
+  @override
+  String get id_passport_no => 'Số CMND/Hộ chiếu';
+
+  @override
+  String get retry => 'Thử lại';
+
+  @override
+  String get change => 'Thay đổi';
+
+  @override
+  String get resend => 'Gửi lại';
 }

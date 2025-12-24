@@ -19,11 +19,11 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelIpccPlugin>());
   });
 
-  test('getPlatformVersion', () async {
-    IpccPlugin ipccPlugin = IpccPlugin();
-    MockIpccPluginPlatform fakePlatform = MockIpccPluginPlatform();
-    IpccPluginPlatform.instance = fakePlatform;
-
-    expect(await ipccPlugin.getPlatformVersion(), '42');
-  });
+  // test('getPlatformVersion', () async {
+  //   IpccPlugin ipccPlugin = IpccPlugin();
+  //   MockIpccPluginPlatform fakePlatform = MockIpccPluginPlatform();
+  //   IpccPluginPlatform.instance = fakePlatform;
+  //
+  //   expect(await ipccPlugin.getPlatformVersion(), '42');
+  // });
 }

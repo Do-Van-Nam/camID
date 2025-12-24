@@ -28,3 +28,9 @@ class GenerateQRCodeFTTHCommissionEvent extends UserProfileEvent {
 class AbaCheckAbaCardEvent extends UserProfileEvent {
 
 }
+
+class GetUserInfoEvent extends UserProfileEvent {
+  final String token;
+
+  GetUserInfoEvent(this.token);
+}

@@ -127,4 +127,43 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get feedbackThankYou => 'Thank you for your feedback!';
+
+  @override
+  String get no_data => 'No data';
+
+  @override
+  String get error_occurred => 'Error occurred, please try again later.';
+
+  @override
+  String get profile => 'Profile';
+
+  @override
+  String get your_information => 'Your Information';
+
+  @override
+  String get information => 'ព័ត៌មាន';
+
+  @override
+  String get nationality => 'សញ្ជាតិ';
+
+  @override
+  String get gender => 'ភេទ';
+
+  @override
+  String get date_of_birth => 'ថ្ងៃខែឆ្នាំកំណើត';
+
+  @override
+  String get address => 'អាស័យដ្ឋាន';
+
+  @override
+  String get id_passport_no => 'លេខអត្តសញ្ញាណប័ណ្ណឬលិខិតឆ្លងដែន';
+
+  @override
+  String get retry => 'Retry';
+
+  @override
+  String get change => 'Change';
+
+  @override
+  String get resend => 'Resend';
 }

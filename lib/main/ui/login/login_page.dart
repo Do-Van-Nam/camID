@@ -41,238 +41,194 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (_) => LoginBloc(),
-      child: Builder(
-        builder: (context) {
-          final loginBloc = BlocProvider.of<LoginBloc>(context);
-
-          return Scaffold(
-            body: BlocConsumer<LoginBloc, LoginState>(
-              builder: (context, state) {
-                return Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Column(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            const SizedBox(height: 40),
-                            TextField(
-                              controller: phoneController,
-                              keyboardType: TextInputType.phone,
-                              decoration: InputDecoration(
-                                labelText: AppLocalizations.of(
-                                  context,
-                                )!.phone_number,
-                                border: const OutlineInputBorder(),
-                                suffixIcon: showOtp
-                                    ? TextButton(
-                                        onPressed: () {
-                                          setState(() {
-                                            showOtp = false;
-                                            otpController.clear();
-                                            resendTimer?.cancel();
-                                            resendSeconds = 60;
-                                          });
-                                        },
-                                        child: ElevatedButton(
-                                          onPressed: () =>
-                                              context.push(PATH_USER_PROFILE),
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor: Colors.blueAccent,
-                                            padding: const EdgeInsets.symmetric(
-                                              horizontal: 12,
-                                              vertical: 8,
-                                            ),
-                                            minimumSize: const Size(0, 20),
-                                            tapTargetSize: MaterialTapTargetSize
-                                                .shrinkWrap,
-                                          ),
-                                          child: const Text(
-                                            "Change",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 12,
-                                            ),
-                                          ),
-                                        ),
-                                        // : const Text('Change'),
-                                      )
-                                    : null,
-                              ),
-                            ),
-                            if (showOtp) ...[
-                              const SizedBox(height: 16),
-                              TextField(
-                                controller: otpController,
-                                keyboardType: TextInputType.number,
-                                autofillHints: const [
-                                  AutofillHints.oneTimeCode,
-                                ],
-                                decoration: InputDecoration(
-                                  labelText: AppLocalizations.of(
-                                    context,
-                                  )!.enter_your_otp,
-                                  border: const OutlineInputBorder(),
-                                  suffixIcon: resendSeconds > 0
-                                      ? Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: ElevatedButton(
-                                            onPressed: () => {},
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.blueAccent,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 8,
-                                                  ),
-                                              minimumSize: const Size(40, 20),
-                                              tapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
-                                            ),
-                                            child: Text(
-                                              "${resendSeconds < 10
-                                                  ? resendSeconds
-                                                  : resendSeconds.toString().padLeft(2, '0')}s"
-                                              ,
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                        )
-                                      : Padding(
-                                          padding: const EdgeInsets.all(12),
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              loginBloc.add(
-                                                GenerateOTPEvent(
-                                                  phoneController.text,
-                                                ),
-                                              );
-                                              startResendTimer();
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.blueAccent,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 8,
-                                                  ),
-                                              minimumSize: const Size(0, 20),
-                                              tapTargetSize:
-                                                  MaterialTapTargetSize
-                                                      .shrinkWrap,
-                                            ),
-                                            child: Text(
-                                              "Resend",
-                                              style: const TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                ),
-                              ),
-                            ],
-                            const SizedBox(height: 24),
-                            ElevatedButton(
-                              onPressed: () {
-                                if (!showOtp) {
-                                  LoadingOverlayWidget.show(context);
-                                  loginBloc.add(
-                                    SignUpEvent(
-                                      phoneController.text,
-                                      false,
-                                      "123456",
-                                    ),
-                                  );
-                                } else {
-                                  LoadingOverlayWidget.show(context);
-                                  loginBloc.add(
-                                    SignInEvent(
-                                      phoneController.text,
-                                      otpController.text,
-                                    ),
-                                  );
-                                }
-                              },
-                              child: Text(AppLocalizations.of(context)!.login),
-                            ),
-                          ],
-                        ),
-                      ),
-                      SizedBox(
-                        width: double.infinity,
-                        child: ElevatedButton(
-                          onPressed: _onSkip,
-                          child: Text(AppLocalizations.of(context)!.skip),
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              },
-              listener: (context, state) async {
-                final loginBloc = BlocProvider.of<LoginBloc>(context);
-
-                if (state is SignUpSuccess) {
-                  setState(() {
-                    showOtp = true;
-                  });
-                  startResendTimer();
-                  LoadingOverlayWidget.hide();
-                  loginBloc.add(GenerateOTPEvent(phoneController.text));
-                }
-
-                if (state is SignUpFailure) {
-                  LoadingOverlayWidget.hide();
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
-                }
-
-                if (state is GenerateOTPSuccess ||
-                    state is GenerateOTPFailure) {
-                  LoadingOverlayWidget.hide();
-                }
-
-                if (state is SignInSuccess) {
-                  LoadingOverlayWidget.hide();
-                  await _onSaveToken(state.data, loginBloc);
-                }
-
-                if (state is SignInFailure) {
-                  LoadingOverlayWidget.hide();
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
-                  AppLogger().logError("Login123: ${state.message}");
-                }
-
-                if (state is GetUserInfoSuccess) {
-                  LoadingOverlayWidget.hide();
-                  await _onSaveUserInfo(state.user);
-                  context.go(PATH_HOME);
-                }
-
-                if (state is GetUserInfoFailure) {
-                  LoadingOverlayWidget.hide();
-                  ScaffoldMessenger.of(
-                    context,
-                  ).showSnackBar(SnackBar(content: Text(state.message)));
-                }
-              },
-            ),
-          );
-        },
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+        body: BlocConsumer<LoginBloc, LoginState>(
+          listener: (context, state) => handleBlocListener(context, state),
+          builder: (context, state) {
+            return Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                children: [
+                  Expanded(child: buildMainContent(context)),
+                  buildSkipButton(context),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
+  }
+
+  Widget buildMainContent(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        const SizedBox(height: 40),
+        buildPhoneInput(context),
+        if (showOtp) ...[const SizedBox(height: 16), buildOtpInput(context)],
+        const SizedBox(height: 24),
+        buildLoginButton(context),
+      ],
+    );
+  }
+
+  Widget buildPhoneInput(BuildContext context) {
+    return TextField(
+      controller: phoneController,
+      keyboardType: TextInputType.phone,
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context)!.phone_number,
+        border: const OutlineInputBorder(),
+        suffixIcon: showOtp ? buildChangeButton(context) : null,
+      ),
+    );
+  }
+
+  Widget buildChangeButton(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8),
+      child: ElevatedButton(
+        onPressed: handleChangePhone,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent,
+          minimumSize: const Size(0, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        ),
+        child: Text(
+          AppLocalizations.of(context)!.change,
+          style: const TextStyle(fontSize: 12, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget buildOtpInput(BuildContext context) {
+    return TextField(
+      controller: otpController,
+      keyboardType: TextInputType.number,
+      autofillHints: const [AutofillHints.oneTimeCode],
+      decoration: InputDecoration(
+        labelText: AppLocalizations.of(context)!.enter_your_otp,
+        border: const OutlineInputBorder(),
+        suffixIcon: buildResendButton(context),
+      ),
+    );
+  }
+
+  Widget buildResendButton(BuildContext context) {
+    final bloc = context.read<LoginBloc>();
+
+    return Padding(
+      padding: const EdgeInsets.all(12),
+      child: ElevatedButton(
+        onPressed: () {
+          if (resendSeconds > 0) return;
+
+          bloc.add(GenerateOTPEvent(phoneController.text));
+          startResendTimer();
+        },
+
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.blueAccent,
+          minimumSize: const Size(40, 20),
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        ),
+        child: Text(
+          resendSeconds > 0
+              ? "${resendSeconds < 10 ? resendSeconds : resendSeconds.toString().padLeft(2, '0')}s"
+              : AppLocalizations.of(context)!.resend,
+          style: const TextStyle(fontSize: 12, color: Colors.white),
+        ),
+      ),
+    );
+  }
+
+  Widget buildLoginButton(BuildContext context) {
+    return ElevatedButton(
+      onPressed: () => handleLoginPressed(context),
+      child: Text(AppLocalizations.of(context)!.login),
+    );
+  }
+
+  Widget buildSkipButton(BuildContext context) {
+    return SizedBox(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: _onSkip,
+        child: Text(AppLocalizations.of(context)!.skip),
+      ),
+    );
+  }
+
+  void handleLoginPressed(BuildContext context) {
+    final bloc = context.read<LoginBloc>();
+    LoadingOverlayWidget.show(context);
+
+    if (!showOtp) {
+      bloc.add(SignUpEvent(phoneController.text, false, "123456"));
+    } else {
+      bloc.add(SignInEvent(phoneController.text, otpController.text));
+    }
+  }
+
+  void handleChangePhone() {
+    setState(() {
+      showOtp = false;
+      otpController.clear();
+      resendTimer?.cancel();
+      resendSeconds = 60;
+    });
+  }
+
+  Future<void> handleBlocListener(
+    BuildContext context,
+    LoginState state,
+  ) async {
+    final bloc = context.read<LoginBloc>();
+
+    if (state is SignUpSuccess) {
+      setState(() => showOtp = true);
+      startResendTimer();
+      LoadingOverlayWidget.hide();
+      bloc.add(GenerateOTPEvent(phoneController.text));
+    }
+    if (state is SignUpFailure) {
+      LoadingOverlayWidget.hide();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(state.message)));
+    }
+
+    if (state is SignInFailure) {
+      LoadingOverlayWidget.hide();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(state.message)));
+    }
+
+    if (state is GetUserInfoFailure) {
+      LoadingOverlayWidget.hide();
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(state.message)));
+    }
+
+    if (state is GenerateOTPSuccess || state is GenerateOTPFailure) {
+      LoadingOverlayWidget.hide();
+    }
+
+    if (state is SignInSuccess) {
+      LoadingOverlayWidget.hide();
+      await _onSaveToken(state.data, bloc);
+    }
+
+    if (state is GetUserInfoSuccess) {
+      LoadingOverlayWidget.hide();
+      await _onSaveUserInfo(state.user);
+      context.go(PATH_HOME);
+    }
   }
 
   Future<void> _onSkip() async {
@@ -308,7 +264,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void startResendTimer() {
-    resendSeconds = 10;
+    resendSeconds = 90;
     resendTimer?.cancel();
     resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       setState(() {

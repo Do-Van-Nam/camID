@@ -1,6 +1,7 @@
 import 'package:cam_id/main/base/base_response.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
+import 'package:cam_id/main/data/response/user_info_response.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_event.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_state.dart';
 import 'package:cam_id/main/utils/logger.dart';
@@ -14,6 +15,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     on<UpdateAvatarEvent>(_onUpdateAvatar);
     on<GenerateQRCodeFTTHCommissionEvent>(_onGenerateQRCodeFTTHCommission);
     on<AbaCheckAbaCardEvent>(_onAbaCheckAbaCard);
+    on<GetUserInfoEvent>(_onGetUserInfo);
   }
 
   Future<void> _onInitLinkedPayment(InitLinkedPaymentEvent event, Emitter<UserProfileState> emit) async {
@@ -79,6 +81,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     }
   }
   Future<void> _onGetListPaymentMethod(GetListPaymentMethodEvent event, Emitter<UserProfileState> emit) async {
+    emit(UserProfileLoading());
     Map<String, dynamic> body = {
       "apiKey": "",
       "sessionId": "",
@@ -195,6 +198,37 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     } catch (e) {
       emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
       AppLogger().logInfo("Network error: ${e.toString()}");
+    }
+  }
+  Future<void> _onGetUserInfo(GetUserInfoEvent event, Emitter<UserProfileState> emit) async {
+    emit(UserProfileLoading());
+    Map<String, dynamic> headers = {
+      "Authorization": event.token,
+    };
+
+    try {
+      BaseResponse result = await ApiUtil.getInstance()!.get(
+        url: ApiEndPoint.API_GET_USER_INFO,
+        headers: headers,
+      );
+
+      UserInfoResponse? userInfo;
+      if (result.isSuccess && result.data != null) {
+        userInfo = UserInfoResponse.fromJson(result.data);
+      }
+
+      if (result.isSuccess && userInfo != null) {
+        emit(GetUserInfoSuccess(
+          result.message ?? "",
+          userInfo.user,
+          userInfo.services,
+          userInfo.imageKyc,
+        ));
+      } else {
+        emit(GetUserInfoFailure(result.message ?? "Fail"));
+      }
+    } catch (e) {
+      emit(GetUserInfoFailure("Network error: ${e.toString()}"));
     }
   }
 

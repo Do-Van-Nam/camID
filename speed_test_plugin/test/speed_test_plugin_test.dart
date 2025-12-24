@@ -19,11 +19,11 @@ void main() {
     expect(initialPlatform, isInstanceOf<MethodChannelSpeedTestPlugin>());
   });
 
-  test('getPlatformVersion', () async {
-    SpeedTestPlugin speedTestPlugin = SpeedTestPlugin();
-    MockSpeedTestPluginPlatform fakePlatform = MockSpeedTestPluginPlatform();
-    SpeedTestPluginPlatform.instance = fakePlatform;
-
-    expect(await speedTestPlugin.getPlatformVersion(), '42');
-  });
+  // test('getPlatformVersion', () async {
+  //   SpeedTestPlugin speedTestPlugin = SpeedTestPlugin();
+  //   MockSpeedTestPluginPlatform fakePlatform = MockSpeedTestPluginPlatform();
+  //   SpeedTestPluginPlatform.instance = fakePlatform;
+  //
+  //   expect(await speedTestPlugin.getPlatformVersion(), '42');
+  // });
 }

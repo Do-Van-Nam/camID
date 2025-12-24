@@ -5,6 +5,7 @@ import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
 import 'package:cam_id/main/ui/main_page.dart';
+import 'package:cam_id/main/ui/user_information/user_information_page.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_page.dart';
 import 'package:cam_id/main/ui/webview/webview_page.dart';
 import 'package:cam_id/main/utils/app_config.dart';
@@ -27,6 +28,7 @@ const String PATH_FEEDBACK = "/feedback";
 const String PATH_WEBVIEW = "/webview";
 const String PATH_FIND_STORES = "/find_stores";
 const String PATH_USER_PROFILE = "/user_profile";
+const String PATH_USER_INFORMATION = "/user_information";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -85,6 +87,7 @@ final GoRouter router = GoRouter(
           builder: (context, state) => FindStoresPage(),
         ),
         GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
+        GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
       ],
     ),
 
@@ -97,9 +100,9 @@ final GoRouter router = GoRouter(
       "CheckApp: isLoggedIn=$isLoggedIn, isFirstOpenApp=$isFirstOpenApp",
     );
 
-    if (isLoggedIn && state.matchedLocation != PATH_HOME) {
-      return PATH_HOME;
-    }
+    // if (isLoggedIn && state.matchedLocation != PATH_HOME) {
+    //   return PATH_HOME;
+    // }
 
     if (!isLoggedIn && state.matchedLocation == PATH_LOGIN) {
       if (isFirstOpenApp) {
