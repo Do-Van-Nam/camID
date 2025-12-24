@@ -78,10 +78,10 @@ final GoRouter router = GoRouter(
           path: PATH_FIND_STORES,
           builder: (context, state) => FindStoresPage(),
         ),
+        GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
       ],
     ),
-    GoRoute(path: PATH_FIND_STORES, builder: (context, state) => FindStoresPage()),
-    GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
+
   ],
   redirect: (context, state) {
     final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
