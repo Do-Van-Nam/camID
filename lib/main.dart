@@ -6,6 +6,7 @@ import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,8 @@ import 'package:cam_id/main/utils/app_config.dart';
 import 'package:ipcc_plugin/ipcc_plugin.dart';
 
 import 'firebase_options.dart';
+import 'main/utils/service/fcm_service.dart';
+import 'main/utils/service/local_notification_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -44,8 +47,22 @@ void main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotificationService.instance.init();
+  FirebaseMessaging.onBackgroundMessage(
+    firebaseMessagingBackgroundHandler,
+  );
+
+  await FcmService().init();
   runApp(const AppInitializer());
+}
+
+@pragma('vm:entry-point')
+Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  print('🔕 Background message: ${message.toString()}');
+  LocalNotificationService.instance.showFromFCM(message);
 }
 
 class AppLifecycleHandler extends WidgetsBindingObserver {
