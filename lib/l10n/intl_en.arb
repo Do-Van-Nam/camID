@@ -38,5 +38,31 @@
   "feedbackSubmitButton": "Submit Feedback",
   "feedbackUpdateAppButton": "Update App",
   "feedbackStartKycButton": "Start KYC",
-  "feedbackThankYou": "Thank you for your feedback!"
+  "feedbackThankYou": "Thank you for your feedback!",
+  "loyaltyPhoneNumber": "031 3828606",
+  "loyaltyPoints": "{points} Points",
+  "loyaltyReward": "Reward",
+  "loyaltyTierBenefits": "Tier Benefits",
+  "loyaltyHistory": "History",
+  "loyaltyBannerText": "Accommodation & Hotels up to 30% off\nBest stays",
+  "loyaltyRewardCoupon": "Reward - Coupon",
+  "loyaltyVoucher": "Voucher",
+  "viewAll": "View all",
+  "loyaltyPlazaPremiumGroup": "Plaza Premium Group",
+  "loyaltyExchanged": "Exchanged: {exchanged}",
+  "loyaltyFree": "Free",
+  "loyaltyRedeem": "Redeem",
+
+  "@loyaltyPoints": {
+    "description": "Display accumulated points",
+    "placeholders": {
+      "points": {}
+    }
+  },
+  "@loyaltyExchanged": {
+    "description": "Number of exchanged coupons",
+    "placeholders": {
+      "exchanged": {}
+    }
+  }
 }
