@@ -1,12 +1,25 @@
+enum SplashNext {
+  home,
+  login,
+  forceUpdate,
+  maintenance,
+}
+
 abstract class SplashState {}
 
 class SplashInitial extends SplashState {}
 
 class SplashLoading extends SplashState {}
 
-class SplashAuthenticated extends SplashState {}
+class SplashResolved extends SplashState {
+  final SplashNext next;
+  final String? miniAppUrl;
 
-class SplashUnauthenticated extends SplashState {}
+  SplashResolved({
+    required this.next,
+    this.miniAppUrl,
+  });
+}
 
 class SplashError extends SplashState {
   final String message;

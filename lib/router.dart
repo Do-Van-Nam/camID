@@ -1,5 +1,6 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
+import 'package:cam_id/main/ui/force_update/force_update_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
@@ -13,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'main/ui/maintenance/maintenance_page.dart';
 import 'main/ui/miniapp/mini_app_bloc.dart';
 import 'main/ui/miniapp/mini_app_overlay.dart';
 import 'main/ui/miniapp/mini_app_state.dart';
@@ -27,6 +29,8 @@ const String PATH_FEEDBACK = "/feedback";
 const String PATH_WEBVIEW = "/webview";
 const String PATH_FIND_STORES = "/find_stores";
 const String PATH_USER_PROFILE = "/user_profile";
+const String PATH_FORCE_UPDATE = "/force-update";
+const String PATH_MAINTENANCE = "/maintenance";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -85,6 +89,8 @@ final GoRouter router = GoRouter(
           builder: (context, state) => FindStoresPage(),
         ),
         GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
+        GoRoute(path: PATH_FORCE_UPDATE, builder: (context, state) => ForceUpdatePage()),
+        GoRoute(path: PATH_MAINTENANCE, builder: (context, state) => MaintenancePage()),
       ],
     ),
 
