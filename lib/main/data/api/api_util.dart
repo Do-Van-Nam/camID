@@ -37,6 +37,7 @@ class ApiUtil {
 
   Future<BaseResponse> get(
       {required String url,
+        Map<String, dynamic>? body,
         Map<String, dynamic> params = const {},
         Map<String, dynamic>? headers,
         String contentType = Headers.jsonContentType,}) async {
@@ -44,6 +45,7 @@ class ApiUtil {
       var response = await dio!
           .get(url,
           queryParameters: params,
+          data: body,
           options: Options(
             headers: headers,
             persistentConnection: false,
@@ -60,6 +62,7 @@ class ApiUtil {
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic> params = const {},
+    Map<String, dynamic>? headers,
     String contentType = Headers.jsonContentType,
   }) async {
     try {
@@ -68,6 +71,7 @@ class ApiUtil {
           queryParameters: params,
           data: body,
           options: Options(
+            headers: headers,
             responseType: ResponseType.json,
             contentType: contentType,
             persistentConnection: false,
