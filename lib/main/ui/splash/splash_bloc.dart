@@ -1,3 +1,4 @@
+import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash_event.dart';
 import 'splash_state.dart';
