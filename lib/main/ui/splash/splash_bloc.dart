@@ -1,4 +1,3 @@
-import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'splash_event.dart';
 import 'splash_state.dart';
@@ -15,31 +14,37 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     try {
       emit(SplashLoading());
 
-      // 🔹 Giả lập load app
-      await Future.wait([
-        Future.delayed(const Duration(seconds: 1)),
-        _loadConfig(),
-        _checkLogin(),
-      ]);
+      /// 1️⃣ Load remote config
+      final config = await _loadRemoteConfig();
 
-      final isLogin = await _isLoggedIn();
-
-      if (isLogin) {
-        emit(SplashAuthenticated());
-      } else {
-        emit(SplashUnauthenticated());
+      if (config.forceUpdate) {
+        emit(SplashResolved(next: SplashNext.forceUpdate));
+        return;
       }
+
+      if (config.maintenance) {
+        emit(SplashResolved(next: SplashNext.maintenance));
+        return;
+      }
+
+      /// 3️⃣ Auth
+      final isLogin = await _isLoggedIn();
+      emit(
+        SplashResolved(
+          next: isLogin ? SplashNext.home : SplashNext.login,
+        ),
+      );
     } catch (e) {
       emit(SplashError(e.toString()));
     }
   }
 
-  Future<void> _loadConfig() async {
-    // gọi API config
-  }
-
-  Future<void> _checkLogin() async {
-    // đọc token, refresh token
+  Future<_RemoteConfig> _loadRemoteConfig() async {
+    await Future.delayed(const Duration(milliseconds: 300));
+    return _RemoteConfig(
+      forceUpdate: false,
+      maintenance: false,
+    );
   }
 
   Future<bool> _isLoggedIn() async {
@@ -47,4 +52,14 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
     return isLoggedIn; // demo
   }
+}
+
+class _RemoteConfig {
+  final bool forceUpdate;
+  final bool maintenance;
+
+  _RemoteConfig({
+    required this.forceUpdate,
+    required this.maintenance,
+  });
 }
