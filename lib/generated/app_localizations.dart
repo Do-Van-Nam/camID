@@ -495,6 +495,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Redeem'**
   String get loyaltyRedeem;
+
+  /// No description provided for @phone_number_is_not_valid.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number is not valid!'**
+  String get phone_number_is_not_valid;
+
+  /// No description provided for @link_bank_account.
+  ///
+  /// In en, this message translates to:
+  /// **'LINK BANK ACCOUNT'**
+  String get link_bank_account;
+
+  /// No description provided for @link_aba_account_credit_debit_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Link ABA account or Credit/Debit Card'**
+  String get link_aba_account_credit_debit_card;
+
+  /// No description provided for @add_another.
+  ///
+  /// In en, this message translates to:
+  /// **'+ add another'**
+  String get add_another;
+
+  /// No description provided for @choose_payment_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a payment method'**
+  String get choose_payment_method;
+
+  /// No description provided for @by_adding_.
+  ///
+  /// In en, this message translates to:
+  /// **'By adding account or card, I hereby acknowledge that I have read, understand and agree with '**
+  String get by_adding_;
+
+  /// No description provided for @terms_and_conditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions.'**
+  String get terms_and_conditions;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @otp_sent_to.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP has been sent to'**
+  String get otp_sent_to;
+
+  /// No description provided for @didn_t_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn’t receive a OTP?'**
+  String get didn_t_otp;
+
+  /// No description provided for @resend_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend OTP'**
+  String get resend_otp;
 }
 
 class _AppLocalizationsDelegate

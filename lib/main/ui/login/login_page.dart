@@ -8,7 +8,6 @@ import 'package:cam_id/main/ui/login/login_bloc.dart';
 import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:cam_id/main/utils/app_config.dart';
-import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
@@ -164,11 +163,17 @@ class _LoginPageState extends State<LoginPage> {
 
   void handleLoginPressed(BuildContext context) {
     final bloc = context.read<LoginBloc>();
-    LoadingOverlayWidget.show(context);
-
     if (!showOtp) {
-      bloc.add(SignUpEvent(phoneController.text, false, "123456"));
+      if(isValidCambodiaPhone(phoneController.text)){
+        LoadingOverlayWidget.show(context);
+        bloc.add(SignUpEvent(phoneController.text, false, "123456"));
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.phone_number_is_not_valid)));
+      }
     } else {
+      LoadingOverlayWidget.show(context);
       bloc.add(SignInEvent(phoneController.text, otpController.text));
     }
   }
@@ -178,7 +183,7 @@ class _LoginPageState extends State<LoginPage> {
       showOtp = false;
       otpController.clear();
       resendTimer?.cancel();
-      resendSeconds = 60;
+      resendSeconds = 90;
     });
   }
 
@@ -256,10 +261,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _onSaveUserInfo(UserInfoModel? model) async {
     if (model == null) return;
-
-    AppLogger().logInfo("Home-123 ${model.username}");
-    AppLogger().logInfo("Home-123 ${model.phoneNumber}");
-
     await SharePreferenceUtil.saveUser(model);
   }
 
@@ -275,5 +276,11 @@ class _LoginPageState extends State<LoginPage> {
         }
       });
     });
+  }
+
+  bool isValidCambodiaPhone(String phone) {
+    return (phone.startsWith('+855') || phone.startsWith('0'))
+        && phone.length >= 9
+        && phone.length <= 14;
   }
 }
