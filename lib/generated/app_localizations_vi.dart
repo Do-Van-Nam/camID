@@ -166,4 +166,48 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get resend => 'Gửi lại';
+
+  @override
+  String get loyaltyPhoneNumber => '031 3828606';
+
+  @override
+  String loyaltyPoints(Object points) {
+    return '$points Points';
+  }
+
+  @override
+  String get loyaltyReward => 'Reward';
+
+  @override
+  String get loyaltyTierBenefits => 'Tier Benefits';
+
+  @override
+  String get loyaltyHistory => 'History';
+
+  @override
+  String get loyaltyBannerText =>
+      'Accommodation & Hotels up to 30% off\nBest stays';
+
+  @override
+  String get loyaltyRewardCoupon => 'Reward - Coupon';
+
+  @override
+  String get loyaltyVoucher => 'Voucher';
+
+  @override
+  String get viewAll => 'View all';
+
+  @override
+  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
+
+  @override
+  String loyaltyExchanged(Object exchanged) {
+    return 'Exchanged: $exchanged';
+  }
+
+  @override
+  String get loyaltyFree => 'Free';
+
+  @override
+  String get loyaltyRedeem => 'Redeem';
 }
