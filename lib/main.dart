@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:cam_id/app.dart';
@@ -54,7 +55,7 @@ void main() async {
   );
   await RemoteConfigService().init();
 
-  await FcmService().init();
+  unawaited(FcmService().init());
   runApp(const AppInitializer());
 }
 
