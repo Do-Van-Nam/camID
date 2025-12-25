@@ -76,5 +76,12 @@
     "placeholders": {
       "exchanged": {}
     }
-  }
+  },
+  "notificationTitle": "Notifications",
+  "notificationTabNews": "News",
+  "notificationTabComplain": "Complaints",
+  "notificationEmptyNews": "No notifications",
+  "notificationEmptyComplain": "No complaints",
+  "notificationReadAll": "Mark all as read",
+  "notificationClearAll": "Clear all"
 }

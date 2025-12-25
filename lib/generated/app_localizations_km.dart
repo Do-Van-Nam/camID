@@ -210,4 +210,25 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get loyaltyRedeem => 'Redeem';
+
+  @override
+  String get notificationTitle => 'Thông báo';
+
+  @override
+  String get notificationTabNews => 'Tin tức';
+
+  @override
+  String get notificationTabComplain => 'Khiếu nại';
+
+  @override
+  String get notificationEmptyNews => 'Không có thông báo';
+
+  @override
+  String get notificationEmptyComplain => 'Không có khiếu nại';
+
+  @override
+  String get notificationReadAll => 'Đánh dấu tất cả đã đọc';
+
+  @override
+  String get notificationClearAll => 'Xóa tất cả';
 }

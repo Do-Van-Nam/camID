@@ -495,6 +495,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Redeem'**
   String get loyaltyRedeem;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Thông báo'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationTabNews.
+  ///
+  /// In en, this message translates to:
+  /// **'Tin tức'**
+  String get notificationTabNews;
+
+  /// No description provided for @notificationTabComplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Khiếu nại'**
+  String get notificationTabComplain;
+
+  /// No description provided for @notificationEmptyNews.
+  ///
+  /// In en, this message translates to:
+  /// **'Không có thông báo'**
+  String get notificationEmptyNews;
+
+  /// No description provided for @notificationEmptyComplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Không có khiếu nại'**
+  String get notificationEmptyComplain;
+
+  /// No description provided for @notificationReadAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Đánh dấu tất cả đã đọc'**
+  String get notificationReadAll;
+
+  /// No description provided for @notificationClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Xóa tất cả'**
+  String get notificationClearAll;
 }
 
 class _AppLocalizationsDelegate
