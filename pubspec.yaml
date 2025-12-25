@@ -79,8 +79,13 @@ dev_dependencies:
   # rules and activating additional ones.
   flutter_lints: ^5.0.0
 flutter_native_splash:
+  ios: true
+  android: true
+
   color: "#FFFFFF"
-  image: assets/app_icon.png
+
+  image_ios: assets/splash_icon.png
+  image_android: assets/app_icon.png
 
   android_12:
     image: assets/app_icon.png
@@ -89,12 +94,12 @@ flutter_native_splash:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-#flutter_icons:
-#  android: true
-#  ios: true
-#  image_path: "assets/icons/camid_logo.png"
-#  adaptive_icon_background: "#ffffff" # Chỉ dùng cho Android (tùy chọn)
-#  adaptive_icon_foreground: "assets/adaptive_icon.png" # Chỉ dùng cho Android (tùy chọn)
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/adaptive_icon.png"
+  adaptive_icon_background: "#ffffff" # Chỉ dùng cho Android (tùy chọn)
+  adaptive_icon_foreground: "assets/adaptive_icon.png" # Chỉ dùng cho Android (tùy chọn)
   #  update chay lenh: flutter pub run flutter_launcher_icons
 # The following section is specific to Flutter packages.
 flutter:
