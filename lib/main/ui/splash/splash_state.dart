@@ -13,11 +13,11 @@ class SplashLoading extends SplashState {}
 
 class SplashResolved extends SplashState {
   final SplashNext next;
-  final String? miniAppUrl;
+  final String content;
 
   SplashResolved({
     required this.next,
-    this.miniAppUrl,
+    this.content = "",
   });
 }
 

@@ -1,5 +1,9 @@
+import 'package:cam_id/main/data/model/remote_config_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../utils/service/remote_config_service.dart';
+import '../../utils/utility_fuctions.dart';
 import 'splash_event.dart';
 import 'splash_state.dart';
 
@@ -16,15 +20,22 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       emit(SplashLoading());
 
       /// 1️⃣ Load remote config
-      final config = await _loadRemoteConfig();
+      final config = RemoteConfigService().config;
 
-      if (config.forceUpdate) {
+      final currentVersion = await DeviceUtils.getVersionName();
+
+      if (compareVersion(currentVersion, config.minVersion) < 0) {
+        emit(SplashResolved(next: SplashNext.forceUpdate, content: "force"));
+        return;
+      }
+
+      if (compareVersion(currentVersion, config.latestVersion) < 0) {
         emit(SplashResolved(next: SplashNext.forceUpdate));
         return;
       }
 
-      if (config.maintenance) {
-        emit(SplashResolved(next: SplashNext.maintenance));
+      if (config.maintenanceMode) {
+        emit(SplashResolved(next: SplashNext.maintenance, content: config.maintenanceMessage));
         return;
       }
 
@@ -36,16 +47,14 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         ),
       );
     } catch (e) {
-      emit(SplashError(e.toString()));
+      /// 3️⃣ Auth
+      final isLogin = await _isLoggedIn();
+      emit(
+        SplashResolved(
+          next: isLogin ? SplashNext.home : SplashNext.login,
+        ),
+      );
     }
-  }
-
-  Future<_RemoteConfig> _loadRemoteConfig() async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    return _RemoteConfig(
-      forceUpdate: false,
-      maintenance: false,
-    );
   }
 
   Future<bool> _isLoggedIn() async {
@@ -55,12 +64,3 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
   }
 }
 
-class _RemoteConfig {
-  final bool forceUpdate;
-  final bool maintenance;
-
-  _RemoteConfig({
-    required this.forceUpdate,
-    required this.maintenance,
-  });
-}
