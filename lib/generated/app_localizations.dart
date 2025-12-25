@@ -339,6 +339,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Thank you for your feedback!'**
   String get feedbackThankYou;
+
+  /// No description provided for @loyaltyPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'031 3828606'**
+  String get loyaltyPhoneNumber;
+
+  /// Display accumulated points
+  ///
+  /// In en, this message translates to:
+  /// **'{points} Points'**
+  String loyaltyPoints(Object points);
+
+  /// No description provided for @loyaltyReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward'**
+  String get loyaltyReward;
+
+  /// No description provided for @loyaltyTierBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier Benefits'**
+  String get loyaltyTierBenefits;
+
+  /// No description provided for @loyaltyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get loyaltyHistory;
+
+  /// No description provided for @loyaltyBannerText.
+  ///
+  /// In en, this message translates to:
+  /// **'Accommodation & Hotels up to 30% off\nBest stays'**
+  String get loyaltyBannerText;
+
+  /// No description provided for @loyaltyRewardCoupon.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward - Coupon'**
+  String get loyaltyRewardCoupon;
+
+  /// No description provided for @loyaltyVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher'**
+  String get loyaltyVoucher;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View all'**
+  String get viewAll;
+
+  /// No description provided for @loyaltyPlazaPremiumGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Plaza Premium Group'**
+  String get loyaltyPlazaPremiumGroup;
+
+  /// Number of exchanged coupons
+  ///
+  /// In en, this message translates to:
+  /// **'Exchanged: {exchanged}'**
+  String loyaltyExchanged(Object exchanged);
+
+  /// No description provided for @loyaltyFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get loyaltyFree;
+
+  /// No description provided for @loyaltyRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem'**
+  String get loyaltyRedeem;
 }
 
 class _AppLocalizationsDelegate
