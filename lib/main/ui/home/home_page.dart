@@ -50,11 +50,20 @@ class _HomePageState extends State<HomePage>
                   Scaffold.of(context).openDrawer();
                 },
               ),
-              IconButton(
-                icon: const Icon(Icons.search, color: Colors.white),
-                onPressed: () {
-                  context.push(PATH_SEARCH);
-                },
+              Row(
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.search, color: Colors.white),
+                    onPressed: () {
+                      context.push(PATH_SEARCH);
+                    },
+                  ),IconButton(
+                    icon: const Icon(Icons.notification_add, color: Colors.white),
+                    onPressed: () {
+                      context.push(PATH_NOTIFICATION);
+                    },
+                  ),
+                ],
               ),
             ],
           ),

@@ -77,6 +77,13 @@
       "exchanged": {}
     }
   },
+  "notificationTitle": "Notifications",
+  "notificationTabNews": "News",
+  "notificationTabComplain": "Complaints",
+  "notificationEmptyNews": "No notifications",
+  "notificationEmptyComplain": "No complaints",
+  "notificationReadAll": "Mark all as read",
+  "notificationClearAll": "Clear all",
   "phone_number_is_not_valid": "Phone number is not valid!",
   "link_bank_account": "LINK BANK ACCOUNT",
   "link_aba_account_credit_debit_card": "Link ABA account or Credit/Debit Card",

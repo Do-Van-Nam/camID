@@ -3,6 +3,7 @@ import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
+import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
 import 'package:cam_id/main/ui/main_page.dart';
@@ -39,6 +40,9 @@ const String PATH_TERMS = "/terms";
 const String PATH_VERIFY = "/verify";
 const String PATH_ID_TYPE = "/id_type";
 const String PATH_IDENTITY_VERIFICATION = "/identity_verification";
+
+// notificaion
+const String PATH_NOTIFICATION = "/notificaion";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -79,11 +83,18 @@ final GoRouter router = GoRouter(
           path: PATH_LANGUAGE,
           builder: (context, state) => LanguagePage(),
         ),
+
+        // --- N 
         GoRoute(path: PATH_SEARCH, builder: (context, state) => SearchPage()),
         GoRoute(
           path: PATH_FEEDBACK,
           builder: (context, state) => FeedbackPage(),
         ),
+        // notificaion
+        GoRoute(path: PATH_NOTIFICATION, builder: (context, state) => NotificationPage()),
+
+        // ---
+
         GoRoute(
           path: PATH_FIND_STORES,
           builder: (context, state) => FindStoresPage(),
