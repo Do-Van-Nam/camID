@@ -48,31 +48,69 @@ class AppDrawer extends StatelessWidget {
                   children: [
                     if (isLoggedIn)
                       ListTile(
-                        leading: SvgPicture.asset("assets/icons/ic_qr_code.svg", width: 24,height: 24),
-                        title: Text(AppLocalizations.of(context)!.qr_code),
-                        onTap: () {
-
-                        },
+                        leading: SvgPicture.asset(
+                          "assets/icons/ic_qr_code.svg",
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.qr_code,
+                          style: AppTextFonts.poppinsRegular.copyWith(
+                            fontSize: 14,
+                            color: AppColors.color_1618,
+                          ),
+                        ),
+                        onTap: () {},
                       ),
                     ListTile(
-                      leading: SvgPicture.asset("assets/icons/ic_language.svg", width: 24,height: 24),
-                      title: Text(AppLocalizations.of(context)!.language),
+                      leading: SvgPicture.asset(
+                        "assets/icons/ic_language.svg",
+                        width: 24,
+                        height: 24,
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.language,
+                        style: AppTextFonts.poppinsRegular.copyWith(
+                          fontSize: 14,
+                          color: AppColors.color_1618,
+                        ),
+                      ),
                       onTap: () {
                         Navigator.of(context).pop();
                         context.push(PATH_LANGUAGE);
                       },
                     ),
                     ListTile(
-                      leading: SvgPicture.asset("assets/icons/ic_setting.svg", width: 24,height: 24),
-                      title: Text(AppLocalizations.of(context)!.setting),
+                      leading: SvgPicture.asset(
+                        "assets/icons/ic_setting.svg",
+                        width: 24,
+                        height: 24,
+                      ),
+                      title: Text(
+                        AppLocalizations.of(context)!.setting,
+                        style: AppTextFonts.poppinsRegular.copyWith(
+                          fontSize: 14,
+                          color: AppColors.color_1618,
+                        ),
+                      ),
                       onTap: () {
                         Navigator.of(context).pop();
                       },
                     ),
                     if (isLoggedIn)
                       ListTile(
-                        leading: SvgPicture.asset("assets/icons/ic_logout.svg", width: 24,height: 24),
-                        title: Text(AppLocalizations.of(context)!.logout),
+                        leading: SvgPicture.asset(
+                          "assets/icons/ic_logout.svg",
+                          width: 24,
+                          height: 24,
+                        ),
+                        title: Text(
+                          AppLocalizations.of(context)!.logout,
+                          style: AppTextFonts.poppinsRegular.copyWith(
+                            fontSize: 14,
+                            color: AppColors.color_1618,
+                          ),
+                        ),
                         onTap: () async {
                           Navigator.of(context).pop();
                           await SharePreferenceUtil.removeKey(
@@ -198,12 +236,11 @@ class AppDrawer extends StatelessWidget {
 
   Widget _buildGuestHeader(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(12,30,12,0),
+      padding: const EdgeInsets.fromLTRB(12, 30, 12, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/icons/bg_camid_logo.png',
-              width: 143, height: 36),
+          Image.asset('assets/icons/bg_camid_logo.png', width: 143, height: 36),
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
@@ -239,5 +276,4 @@ class AppDrawer extends StatelessWidget {
     await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
     context.push(PATH_LOGIN);
   }
-
 }
