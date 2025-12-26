@@ -40,5 +40,15 @@
     "id_passport_no": "លេខអត្តសញ្ញាណប័ណ្ណឬលិខិតឆ្លងដែន",
     "retry": "Retry",
     "change": "Change",
-    "resend": "Resend"
+    "resend": "Resend",
+    "phone_number_is_not_valid": "Phone number is not valid!",
+    "link_bank_account": "ភ្ជាប់គណនីធនាគារ",
+    "link_aba_account_credit_debit_card": "ភ្ជាប់់គណនី ABA ឬ កាត Credit/Debit",
+    "add_another": "+ បន្ថែមមួយផ្សេងទៀត",
+    "by_adding_": "By adding account or card, I hereby acknowledge that I have read, understand and agree with ",
+    "terms_and_conditions": "Terms and Conditions.",
+    "verify": "Verify",
+    "otp_sent_to": "OTP has been sent to",
+    "didn_t_otp": "Didn’t receive a OTP?",
+    "resend_otp": "Resend OTP"
 }

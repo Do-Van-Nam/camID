@@ -69,6 +69,7 @@ dependencies:
   flutter_local_notifications: ^17.2.3
   flutter_native_splash: ^2.4.7
   firebase_remote_config: ^4.4.7
+  flutter_html: ^3.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

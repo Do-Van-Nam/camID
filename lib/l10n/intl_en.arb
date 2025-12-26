@@ -76,5 +76,16 @@
     "placeholders": {
       "exchanged": {}
     }
-  }
+  },
+  "phone_number_is_not_valid": "Phone number is not valid!",
+  "link_bank_account": "LINK BANK ACCOUNT",
+  "link_aba_account_credit_debit_card": "Link ABA account or Credit/Debit Card",
+  "add_another": "+ add another",
+  "choose_payment_method": "Choose a payment method",
+  "by_adding_": "By adding account or card, I hereby acknowledge that I have read, understand and agree with ",
+  "terms_and_conditions": "Terms and Conditions.",
+  "verify": "Verify",
+  "otp_sent_to": "OTP has been sent to",
+  "didn_t_otp": "Didn’t receive a OTP?",
+  "resend_otp": "Resend OTP"
 }

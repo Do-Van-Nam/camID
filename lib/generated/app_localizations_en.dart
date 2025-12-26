@@ -210,4 +210,39 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loyaltyRedeem => 'Redeem';
+
+  @override
+  String get phone_number_is_not_valid => 'Phone number is not valid!';
+
+  @override
+  String get link_bank_account => 'LINK BANK ACCOUNT';
+
+  @override
+  String get link_aba_account_credit_debit_card =>
+      'Link ABA account or Credit/Debit Card';
+
+  @override
+  String get add_another => '+ add another';
+
+  @override
+  String get choose_payment_method => 'Choose a payment method';
+
+  @override
+  String get by_adding_ =>
+      'By adding account or card, I hereby acknowledge that I have read, understand and agree with ';
+
+  @override
+  String get terms_and_conditions => 'Terms and Conditions.';
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get otp_sent_to => 'OTP has been sent to';
+
+  @override
+  String get didn_t_otp => 'Didn’t receive a OTP?';
+
+  @override
+  String get resend_otp => 'Resend OTP';
 }

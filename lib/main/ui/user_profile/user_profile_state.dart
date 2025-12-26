@@ -1,6 +1,8 @@
 import 'package:cam_id/main/data/model/image_kyc_model.dart';
 import 'package:cam_id/main/data/model/sevice_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/response/linked_emoney_response.dart';
+import 'package:cam_id/main/data/response/list_payment_method_response.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserProfileState extends Equatable {
@@ -26,8 +28,8 @@ class InitLinkedPaymentFailure extends UserProfileState {
 
 class CheckLinkedPaymentEmoneySuccess extends UserProfileState {
   final String message;
-
-  CheckLinkedPaymentEmoneySuccess(this.message);
+  final CheckLinkResult? result;
+  CheckLinkedPaymentEmoneySuccess(this.message, this.result);
 }
 
 class CheckLinkedPaymentEmoneyFailure extends UserProfileState {
@@ -38,8 +40,9 @@ class CheckLinkedPaymentEmoneyFailure extends UserProfileState {
 
 class GetListPaymentMethodSuccess extends UserProfileState {
   final String message;
+  final PaymentMethodResponse? response;
 
-  GetListPaymentMethodSuccess(this.message);
+  GetListPaymentMethodSuccess(this.message, this.response);
 }
 
 class GetListPaymentMethodFailure extends UserProfileState {
