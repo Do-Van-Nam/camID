@@ -62,5 +62,8 @@
     "passport": "Hộ chiếu",
     "army_id": "Mã quân đội",
     "police_id": "ID cảnh sát",
-    "monk_id": "ID nhà sư"
+    "monk_id": "ID nhà sư",
+    "version": "Phiên bản",
+    "title_update_version": "Phiên bản mới nhất đã được cài đặt.",
+    "qr_code": "Mã QR"
 }

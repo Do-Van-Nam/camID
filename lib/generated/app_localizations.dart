@@ -499,43 +499,43 @@ abstract class AppLocalizations {
   /// No description provided for @notificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Thông báo'**
+  /// **'Notifications'**
   String get notificationTitle;
 
   /// No description provided for @notificationTabNews.
   ///
   /// In en, this message translates to:
-  /// **'Tin tức'**
+  /// **'News'**
   String get notificationTabNews;
 
   /// No description provided for @notificationTabComplain.
   ///
   /// In en, this message translates to:
-  /// **'Khiếu nại'**
+  /// **'Complaints'**
   String get notificationTabComplain;
 
   /// No description provided for @notificationEmptyNews.
   ///
   /// In en, this message translates to:
-  /// **'Không có thông báo'**
+  /// **'No notifications'**
   String get notificationEmptyNews;
 
   /// No description provided for @notificationEmptyComplain.
   ///
   /// In en, this message translates to:
-  /// **'Không có khiếu nại'**
+  /// **'No complaints'**
   String get notificationEmptyComplain;
 
   /// No description provided for @notificationReadAll.
   ///
   /// In en, this message translates to:
-  /// **'Đánh dấu tất cả đã đọc'**
+  /// **'Mark all as read'**
   String get notificationReadAll;
 
   /// No description provided for @notificationClearAll.
   ///
   /// In en, this message translates to:
-  /// **'Xóa tất cả'**
+  /// **'Clear all'**
   String get notificationClearAll;
 
   /// No description provided for @phone_number_is_not_valid.
@@ -693,6 +693,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Monk ID'**
   String get monk_id;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// No description provided for @title_update_version.
+  ///
+  /// In en, this message translates to:
+  /// **'The lastest version is already installed'**
+  String get title_update_version;
+
+  /// No description provided for @qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get qr_code;
 }
 
 class _AppLocalizationsDelegate

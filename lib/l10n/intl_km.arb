@@ -62,5 +62,8 @@
     "passport": "Passport",
     "army_id": "Army ID",
     "police_id": "Police ID",
-    "monk_id": "Monk ID"
+    "monk_id": "Monk ID",
+    "version": "Version",
+    "title_update_version": "The lastest version is already installed",
+    "qr_code": "QR Code"
 }

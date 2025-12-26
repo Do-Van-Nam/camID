@@ -219,37 +219,3 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
   }
 
 }
-
-// _buildIdItem(
-// context: context,
-// iconPath: "assets/icons/ic_cambodia_card.svg",
-// title: AppLocalizations.of(context)!.cambodia_id_card,
-// idType: IDType.cambodiaId,
-// ),
-//
-// _buildIdItem(
-// context: context,
-// iconPath: "assets/icons/ic_passport.svg",
-// title: AppLocalizations.of(context)!.passport,
-// idType: IDType.passport,
-// ),
-//
-// _buildIdItem(
-// context: context,
-// iconPath: "assets/icons/ic_army_id.svg",
-// title: AppLocalizations.of(context)!.army_id,
-// idType: IDType.armyId,
-// ),
-//
-// _buildIdItem(
-// context: context,
-// iconPath: "assets/icons/ic_cambodia_card.svg",
-// title: AppLocalizations.of(context)!.monk_id,
-// idType: IDType.monkId,
-// ),
-//
-// _buildIdItem(
-// context: context,
-// iconPath: "assets/icons/ic_police_id.svg",
-// title: AppLocalizations.of(context)!.police_id,
-// idType: IDType.policeId,

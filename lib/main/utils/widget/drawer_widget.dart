@@ -1,96 +1,243 @@
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/constant.dart';
+import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+
+import '../app_config.dart';
 
 class AppDrawer extends StatelessWidget {
   const AppDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final bool isLoggedIn =
-        UserInfoModel.instance.username.isNotEmpty;
+    final bool isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
     AppLogger().logInfo("Drawer: ${UserInfoModel.instance.username}");
+
     return Drawer(
       backgroundColor: Colors.white,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.zero,
-      ),
-      child: ListView(
-        padding: EdgeInsets.zero,
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.zero),
+      child: Stack(
         children: [
-          Container(
-            padding: const EdgeInsets.fromLTRB(16, 40, 16, 16),
-            color: Colors.white,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CircleAvatar(
-                  radius: 32,
-                  backgroundImage: AssetImage('assets/icons/ic_avatar_default.png'),
+          SizedBox(
+            width: double.infinity,
+            child: Image.asset('assets/icons/bg_drawer.png', fit: BoxFit.cover),
+          ),
+          Column(
+            children: [
+              SizedBox(
+                height: 200,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
+                  child: isLoggedIn
+                      ? _buildLoggedInHeader()
+                      : _buildGuestHeader(context),
                 ),
-                const SizedBox(height: 12),
-                Text(
-                  AppLocalizations.of(context)!.title_drawer,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.black,
-                  ),
-                ),
+              ),
 
-                if (isLoggedIn)
-                  Text(
-                    UserInfoModel.instance.username,
-                    style: const TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.black,
+              Expanded(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    if (isLoggedIn)
+                      ListTile(
+                        leading: SvgPicture.asset("assets/icons/ic_qr_code.svg", width: 24,height: 24),
+                        title: Text(AppLocalizations.of(context)!.qr_code),
+                        onTap: () {
+
+                        },
+                      ),
+                    ListTile(
+                      leading: SvgPicture.asset("assets/icons/ic_language.svg", width: 24,height: 24),
+                      title: Text(AppLocalizations.of(context)!.language),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        context.push(PATH_LANGUAGE);
+                      },
                     ),
-                  ),
-              ],
-            ),
-          ),
+                    ListTile(
+                      leading: SvgPicture.asset("assets/icons/ic_setting.svg", width: 24,height: 24),
+                      title: Text(AppLocalizations.of(context)!.setting),
+                      onTap: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    if (isLoggedIn)
+                      ListTile(
+                        leading: SvgPicture.asset("assets/icons/ic_logout.svg", width: 24,height: 24),
+                        title: Text(AppLocalizations.of(context)!.logout),
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          await SharePreferenceUtil.removeKey(
+                            ShareKey.KEY_USER_INFO,
+                          );
+                          await SharePreferenceUtil.removeKey(
+                            ShareKey.KEY_ACCESS_TOKEN,
+                          );
+                          await SharePreferenceUtil.removeKey(
+                            ShareKey.KEY_REFRESH_TOKEN,
+                          );
+                          UserInfoModel.instance.clear();
+                          if (!context.mounted) return;
+                          context.go(PATH_LOGIN);
+                        },
+                      ),
+                  ],
+                ),
+              ),
 
-          ListTile(
-            leading: const Icon(Icons.language),
-            title: Text(AppLocalizations.of(context)!.language),
-            onTap: () {
-              Navigator.of(context).pop();
-              context.push(PATH_LANGUAGE);
-            },
+              Padding(
+                padding: const EdgeInsets.fromLTRB(20, 0, 20, 24),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      "assets/icons/bg_logo_drawer.png",
+                      height: 115,
+                      width: 140,
+                    ),
+                    const SizedBox(height: 12),
+                    Text(
+                      "${AppLocalizations.of(context)!.version}: ${DeviceUtils.getVersion()}",
+                      style: AppTextFonts.poppinsMedium.copyWith(
+                        fontSize: 14,
+                        color: AppColors.color_1618,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      AppLocalizations.of(context)!.title_update_version,
+                      style: AppTextFonts.poppinsRegular.copyWith(
+                        fontSize: 12,
+                        color: AppColors.color_1618,
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    SizedBox(
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        onPressed: () {},
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.color_E11B,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                          elevation: 0,
+                        ),
+                        child: Text(
+                          AppLocalizations.of(context)!.update,
+                          style: AppTextFonts.poppinsSemiBold.copyWith(
+                            color: Colors.white,
+                            fontSize: 16,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
           ),
-
-          ListTile(
-            leading: const Icon(Icons.settings),
-            title: Text(AppLocalizations.of(context)!.setting),
-            onTap: () {
-              Navigator.of(context).pop();
-              // context.push(PATH_SETTING);
-            },
-          ),
-
-          if (isLoggedIn)
-            ListTile(
-              leading: const Icon(Icons.logout),
-              title: Text(AppLocalizations.of(context)!.logout),
-              onTap: () async {
-                Navigator.of(context).pop();
-                await SharePreferenceUtil.removeKey(ShareKey.KEY_USER_INFO);
-                await SharePreferenceUtil.removeKey(ShareKey.KEY_ACCESS_TOKEN);
-                await SharePreferenceUtil.removeKey(ShareKey.KEY_REFRESH_TOKEN);
-                UserInfoModel.instance.clear();
-                if (!context.mounted) return;
-                context.go(PATH_LOGIN);
-              },
-            ),
         ],
       ),
     );
   }
+
+  Widget _buildLoggedInHeader() {
+    return Row(
+      children: [
+        const CircleAvatar(
+          radius: 28,
+          backgroundImage: AssetImage('assets/icons/ic_avatar_default.png'),
+        ),
+        const SizedBox(width: 12),
+        Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                Constant.normalizePhoneV2(UserInfoModel.instance.fullName),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextFonts.poppinsRegular.copyWith(
+                  fontSize: 12,
+                  color: AppColors.color_1618,
+                ),
+              ),
+              const SizedBox(height: 4),
+              Text(
+                Constant.normalizePhoneV2(UserInfoModel.instance.phoneNumber),
+                style: AppTextFonts.poppinsSemiBold.copyWith(
+                  fontSize: 16,
+                  color: AppColors.color_1618,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SvgPicture.asset(
+          "assets/icons/ic_arrow_right.svg",
+          width: 20,
+          height: 20,
+          colorFilter: const ColorFilter.mode(
+            AppColors.color_1618,
+            BlendMode.srcIn,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildGuestHeader(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(12,30,12,0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Image.asset('assets/icons/bg_camid_logo.png',
+              width: 143, height: 36),
+          const SizedBox(height: 12),
+          SizedBox(
+            width: double.infinity,
+            child: ElevatedButton(
+              onPressed: () {
+                _onLogin(context);
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.color_E11B,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(100),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 14),
+                elevation: 0,
+              ),
+              child: Text(
+                AppLocalizations.of(context)!.login,
+                style: AppTextFonts.poppinsSemiBold.copyWith(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _onLogin(BuildContext context) async {
+    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+    AppConfig.instance.isFirstOpenApp = false;
+    await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
+    context.push(PATH_LOGIN);
+  }
+
 }
-
-

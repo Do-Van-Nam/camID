@@ -74,6 +74,7 @@ class _MainPageState extends State<MainPage> {
   Future<void> _onLogin() async {
     await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
     AppConfig.instance.isFirstOpenApp = false;
+    await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
     if (!mounted) return;
     context.push(PATH_LOGIN);
   }
