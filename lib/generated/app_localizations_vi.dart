@@ -231,4 +231,39 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get notificationClearAll => 'Xóa tất cả';
+
+  @override
+  String get phone_number_is_not_valid => 'Số điện thoại này không hợp lệ!';
+
+  @override
+  String get link_bank_account => 'Liên kết tài khoản ngân hàng';
+
+  @override
+  String get link_aba_account_credit_debit_card =>
+      'Liên kết tài khoản ABA hoặc thẻ tín dụng/thẻ ghi nợ';
+
+  @override
+  String get add_another => '+ thêm';
+
+  @override
+  String get choose_payment_method => 'Choose a payment method';
+
+  @override
+  String get by_adding_ =>
+      'Bằng cách thêm tài khoản hoặc thẻ, tôi xin xác nhận rằng tôi đã đọc, hiểu và đồng ý với ';
+
+  @override
+  String get terms_and_conditions => 'Điều khoản và Điều kiện.';
+
+  @override
+  String get verify => 'Xác minh';
+
+  @override
+  String get otp_sent_to => 'Mã OTP đã được gửi đến';
+
+  @override
+  String get didn_t_otp => 'Không nhận được mã OTP?';
+
+  @override
+  String get resend_otp => 'Gửi lại OTP';
 }

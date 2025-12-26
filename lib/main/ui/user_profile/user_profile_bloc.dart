@@ -1,9 +1,13 @@
 import 'package:cam_id/main/base/base_response.dart';
+import 'package:cam_id/main/base/base_response_v2.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
+import 'package:cam_id/main/data/response/linked_emoney_response.dart';
+import 'package:cam_id/main/data/response/list_payment_method_response.dart';
 import 'package:cam_id/main/data/response/user_info_response.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_event.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_state.dart';
+import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -18,21 +22,19 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     on<GetUserInfoEvent>(_onGetUserInfo);
   }
 
-  Future<void> _onInitLinkedPayment(InitLinkedPaymentEvent event, Emitter<UserProfileState> emit) async {
+  Future<void> _onInitLinkedPayment(
+    InitLinkedPaymentEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
     Map<String, dynamic> body = {
       "apiKey": "",
       "sessionId": "",
       "username": "",
-      "token":"",
-      "language":"",
-      "versionApp":"",
+      "token": "",
+      "language": "",
+      "versionApp": "",
       "wsCode": "wsInitLinkedPayment",
-      "wsRequest": {
-        "camId":"",
-        "isdn":"",
-        "partnerCode":"",
-        "language":""
-      }
+      "wsRequest": {"camId": "", "isdn": "", "partnerCode": "", "language": ""},
     };
 
     try {
@@ -51,78 +53,104 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }
-  Future<void> _onCheckLinkedPaymentEmoney(CheckLinkedPaymentEmoneyEvent event, Emitter<UserProfileState> emit) async {
-    Map<String, dynamic> body = {
-      "apiKey": "",
+
+  Future<void> _onCheckLinkedPaymentEmoney(
+    CheckLinkedPaymentEmoneyEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
+    final body = {
+      "apiKey": ApiEndPoint.API_KEY,
       "sessionId": "",
       "username": "",
+      "language": "",
+      "versionApp": DeviceUtils.getVersion(),
       "wsCode": "wsCheckLinkedPaymentEmoney",
       "wsRequest": {
-        "camId":"",
-        "isdn":"",
-        "language":""
-      }
+        "camId": event.camId,
+        "isdn": event.isdn,
+        "language": event.language,
+      },
     };
 
     try {
-      BaseResponse result = await ApiUtil.getInstance()!.post(
-        url: ApiEndPoint.API_USER_ROUTING,
-        body: body,
-      );
+      final result = await ApiUtil.getInstance()!
+          .postParsed<BaseResponseV2<CheckLinkResult>>(
+            url: ApiEndPoint.API_USER_ROUTING,
+            body: body,
+            fromJson: (json) => BaseResponseV2.fromJson(
+              json,
+              (data) => CheckLinkResult.fromJson(data),
+            ),
+          );
 
       if (result.isSuccess) {
-        emit(InitLinkedPaymentSuccess(result.message ?? ""));
+        emit(
+          CheckLinkedPaymentEmoneySuccess(
+            result.errorMessage ?? "",
+            result.result,
+          ),
+        );
       } else {
-        emit(InitLinkedPaymentFailure(result.message ?? "Fail"));
+        emit(CheckLinkedPaymentEmoneyFailure(result.errorMessage ?? "Fail"));
       }
     } catch (e) {
-      emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
-      AppLogger().logInfo("Network error: ${e.toString()}");
+      emit(CheckLinkedPaymentEmoneyFailure("Network error: ${e.toString()}"));
     }
   }
-  Future<void> _onGetListPaymentMethod(GetListPaymentMethodEvent event, Emitter<UserProfileState> emit) async {
+
+  Future<void> _onGetListPaymentMethod(
+    GetListPaymentMethodEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
     emit(UserProfileLoading());
     Map<String, dynamic> body = {
-      "apiKey": "",
+      "apiKey": ApiEndPoint.API_KEY,
       "sessionId": "",
       "username": "",
+      "versionApp": DeviceUtils.getVersion(),
+      "language": event.language,
       "wsCode": "wsGetListPaymentMethod",
       "wsRequest": {
-        "camId":"",
-        "service":"",
-        "language":""
-      }
+        "camId": event.camId,
+        "service": event.service,
+        "language": event.language,
+      },
     };
 
     try {
-      BaseResponse result = await ApiUtil.getInstance()!.post(
+      final result = await ApiUtil.getInstance()!
+          .postParsed<BaseResponseV2<PaymentMethodResult>>(
         url: ApiEndPoint.API_USER_ROUTING,
         body: body,
+        fromJson: (json) => BaseResponseV2.fromJson(
+          json,
+              (data) => PaymentMethodResult.fromJson(data),
+        ),
       );
 
       if (result.isSuccess) {
-        emit(InitLinkedPaymentSuccess(result.message ?? ""));
+        emit(GetListPaymentMethodSuccess(result.errorMessage ?? "", result.result?.wsResponse));
       } else {
-        emit(InitLinkedPaymentFailure(result.message ?? "Fail"));
+        emit(GetListPaymentMethodFailure(result.errorMessage ?? "Fail"));
       }
     } catch (e) {
-      emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
+      emit(GetListPaymentMethodFailure("Network error: ${e.toString()}"));
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }
-  Future<void> _onUpdateAvatar(UpdateAvatarEvent event, Emitter<UserProfileState> emit) async {
-    Map<String, dynamic> headers = {
-      "Authorization": "",
-    };
+
+  Future<void> _onUpdateAvatar(
+    UpdateAvatarEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
+    Map<String, dynamic> headers = {"Authorization": ""};
 
     Map<String, dynamic> body = {
       "apiKey": "",
       "sessionId": "",
       "username": "",
       "wsCode": "",
-      "wsRequest": {
-
-      }
+      "wsRequest": {},
     };
 
     try {
@@ -133,26 +161,26 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
 
       if (result.isSuccess) {
-        emit(InitLinkedPaymentSuccess(result.message ?? ""));
+        emit(UpdateAvatarSuccess(result.message ?? ""));
       } else {
-        emit(InitLinkedPaymentFailure(result.message ?? "Fail"));
+        emit(UpdateAvatarFailure(result.message ?? "Fail"));
       }
     } catch (e) {
-      emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
+      emit(UpdateAvatarFailure("Network error: ${e.toString()}"));
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }
-  Future<void> _onGenerateQRCodeFTTHCommission(GenerateQRCodeFTTHCommissionEvent event, Emitter<UserProfileState> emit) async {
+
+  Future<void> _onGenerateQRCodeFTTHCommission(
+    GenerateQRCodeFTTHCommissionEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
     Map<String, dynamic> body = {
       "apiKey": "6CB8FC45D491D87CECB53428D79423BD",
       "sessionId": "",
       "username": "",
       "wsCode": "wsGenerateQRCodeFTTHCommission",
-      "wsRequest": {
-        "camID":"",
-        "eventCode": "FTTH",
-        "phoneNumber":""
-      }
+      "wsRequest": {"camID": "", "eventCode": "FTTH", "phoneNumber": ""},
     };
 
     try {
@@ -162,26 +190,28 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
 
       if (result.isSuccess) {
-        emit(InitLinkedPaymentSuccess(result.message ?? ""));
+        emit(GenerateQRCodeFTTHCommissionSuccess(result.message ?? ""));
       } else {
-        emit(InitLinkedPaymentFailure(result.message ?? "Fail"));
+        emit(GenerateQRCodeFTTHCommissionFailure(result.message ?? "Fail"));
       }
     } catch (e) {
-      emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
+      emit(
+        GenerateQRCodeFTTHCommissionFailure("Network error: ${e.toString()}"),
+      );
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }
-  Future<void> _onAbaCheckAbaCard(AbaCheckAbaCardEvent event, Emitter<UserProfileState> emit) async {
+
+  Future<void> _onAbaCheckAbaCard(
+    AbaCheckAbaCardEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
     Map<String, dynamic> body = {
       "apiKey": "",
       "sessionId": "",
       "username": "",
       "wsCode": "wsAbaCheckAbaCard",
-      "wsRequest": {
-        "linkedPaymentId":"",
-        "camId":"",
-        "language":""
-      }
+      "wsRequest": {"linkedPaymentId": "", "camId": "", "language": ""},
     };
 
     try {
@@ -191,20 +221,22 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       );
 
       if (result.isSuccess) {
-        emit(InitLinkedPaymentSuccess(result.message ?? ""));
+        emit(AbaCheckAbaCardSuccess(result.message ?? ""));
       } else {
-        emit(InitLinkedPaymentFailure(result.message ?? "Fail"));
+        emit(AbaCheckAbaCardFailure(result.message ?? "Fail"));
       }
     } catch (e) {
-      emit(InitLinkedPaymentFailure("Network error: ${e.toString()}"));
+      emit(AbaCheckAbaCardFailure("Network error: ${e.toString()}"));
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }
-  Future<void> _onGetUserInfo(GetUserInfoEvent event, Emitter<UserProfileState> emit) async {
+
+  Future<void> _onGetUserInfo(
+    GetUserInfoEvent event,
+    Emitter<UserProfileState> emit,
+  ) async {
     emit(UserProfileLoading());
-    Map<String, dynamic> headers = {
-      "Authorization": event.token,
-    };
+    Map<String, dynamic> headers = {"Authorization": event.token};
 
     try {
       BaseResponse result = await ApiUtil.getInstance()!.get(
@@ -218,12 +250,14 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       }
 
       if (result.isSuccess && userInfo != null) {
-        emit(GetUserInfoSuccess(
-          result.message ?? "",
-          userInfo.user,
-          userInfo.services,
-          userInfo.imageKyc,
-        ));
+        emit(
+          GetUserInfoSuccess(
+            result.message ?? "",
+            userInfo.user,
+            userInfo.services,
+            userInfo.imageKyc,
+          ),
+        );
       } else {
         emit(GetUserInfoFailure(result.message ?? "Fail"));
       }
@@ -231,5 +265,4 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       emit(GetUserInfoFailure("Network error: ${e.toString()}"));
     }
   }
-
 }

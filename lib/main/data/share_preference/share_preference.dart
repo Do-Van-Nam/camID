@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../model/remote_config_model.dart';
+
 class ShareKey {
   static const String KEY_CHANGE_LANGUAGE = "KEY_CHANGE_LANGUAGE";
   static const String KEY_USER_INFO = "KEY_USER_INFO";
@@ -13,6 +15,7 @@ class ShareKey {
   static const String KEY_PHONE_NUMBER = "KEY_PHONE_NUMBER";
   static const String KEY_REFRESH_TOKEN = "KEY_REFRESH_TOKEN";
   static const String KEY_LOGIN_WITH_OTP = "KEY_LOGIN_WITH_OTP";
+  static const String KEY_REMOTE_CONFIG = "KEY_REMOTE_CONFIG";
 
 }
 
@@ -127,5 +130,17 @@ class SharePreferenceUtil {
 
   static Future<bool> removeKey(String key) async {
     return remove(key);
+  }
+
+  static Future<void> save(RemoteConfigModel model) async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.setString(ShareKey.KEY_REMOTE_CONFIG, jsonEncode(model.toJson()));
+  }
+
+  static Future<RemoteConfigModel?> load() async {
+    final pref = await SharedPreferences.getInstance();
+    final json = pref.getString(ShareKey.KEY_REMOTE_CONFIG);
+    if (json == null) return null;
+    return RemoteConfigModel.fromJsonCache(jsonDecode(json));
   }
 }
