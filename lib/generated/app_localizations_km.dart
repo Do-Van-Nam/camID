@@ -233,6 +233,41 @@ class AppLocalizationsKm extends AppLocalizations {
   String get notificationClearAll => 'Clear all';
 
   @override
+  String get phone_number_is_not_valid => 'Phone number is not valid!';
+
+  @override
+  String get link_bank_account => 'ភ្ជាប់គណនីធនាគារ';
+
+  @override
+  String get link_aba_account_credit_debit_card =>
+      'ភ្ជាប់់គណនី ABA ឬ កាត Credit/Debit';
+
+  @override
+  String get add_another => '+ បន្ថែមមួយផ្សេងទៀត';
+
+  @override
+  String get choose_payment_method => 'Choose a payment method';
+
+  @override
+  String get by_adding_ =>
+      'By adding account or card, I hereby acknowledge that I have read, understand and agree with ';
+
+  @override
+  String get terms_and_conditions => 'Terms and Conditions.';
+
+  @override
+  String get verify => 'Verify';
+
+  @override
+  String get otp_sent_to => 'OTP has been sent to';
+
+  @override
+  String get didn_t_otp => 'Didn’t receive a OTP?';
+
+  @override
+  String get resend_otp => 'Resend OTP';
+
+  @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override

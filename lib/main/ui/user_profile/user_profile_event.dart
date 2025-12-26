@@ -10,11 +10,19 @@ class InitLinkedPaymentEvent extends UserProfileEvent {
 }
 
 class CheckLinkedPaymentEmoneyEvent extends UserProfileEvent {
+  final String camId;
+  final String isdn;
+  final String language;
 
+  CheckLinkedPaymentEmoneyEvent(this.camId, this.isdn, this.language);
 }
 
 class GetListPaymentMethodEvent extends UserProfileEvent {
+  final String camId;
+  final String service;
+  final String language;
 
+  GetListPaymentMethodEvent(this.camId, this.service, this.language);
 }
 
 class UpdateAvatarEvent extends UserProfileEvent {

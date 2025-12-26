@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui';
 
 import 'package:cam_id/app.dart';
@@ -16,6 +17,7 @@ import 'package:ipcc_plugin/ipcc_plugin.dart';
 import 'firebase_options.dart';
 import 'main/utils/service/fcm_service.dart';
 import 'main/utils/service/local_notification_service.dart';
+import 'main/utils/service/remote_config_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -51,8 +53,9 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(
     firebaseMessagingBackgroundHandler,
   );
+  await RemoteConfigService().init();
 
-  await FcmService().init();
+  unawaited(FcmService().init());
   runApp(const AppInitializer());
 }
 

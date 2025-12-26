@@ -60,6 +60,13 @@ class DeviceUtils {
     }
     return deviceData["version"].toString().isEmpty ? "" : deviceData["version"];
   }
+
+  static Future<String> getVersionName() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    var versionName = packageInfo.version;
+    return versionName;
+  }
+
   static String getPackageName() {
     if(deviceData.isEmpty){
       getDeviceInfo();

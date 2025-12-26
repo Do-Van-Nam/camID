@@ -40,5 +40,15 @@
     "id_passport_no": "Số CMND/Hộ chiếu",
     "retry": "Thử lại",
     "change": "Thay đổi",
-    "resend": "Gửi lại"
+    "resend": "Gửi lại",
+    "phone_number_is_not_valid": "Số điện thoại này không hợp lệ!",
+    "link_bank_account": "Liên kết tài khoản ngân hàng",
+    "link_aba_account_credit_debit_card": "Liên kết tài khoản ABA hoặc thẻ tín dụng/thẻ ghi nợ",
+    "add_another": "+ thêm",
+    "by_adding_": "Bằng cách thêm tài khoản hoặc thẻ, tôi xin xác nhận rằng tôi đã đọc, hiểu và đồng ý với ",
+    "terms_and_conditions": "Điều khoản và Điều kiện.",
+    "verify": "Xác minh",
+    "otp_sent_to": "Mã OTP đã được gửi đến",
+    "didn_t_otp": "Không nhận được mã OTP?",
+    "resend_otp": "Gửi lại OTP"
 }

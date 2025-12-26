@@ -29,11 +29,10 @@ class _AppInitializerState extends State<AppInitializer> {
     }
   }
 
-  void _initDeeplinks() {
+  Future<void> _initDeeplinks() async {
     DeeplinkService().init(
       onDeepLink: (Uri uri) {
         AppLogger().logInfo("Deeplink received: $uri");
-
         try {
           // Delegate handling to central navigation handler (queues until ready)
           NavigationHandler.instance.handleDeepLink(uri);
