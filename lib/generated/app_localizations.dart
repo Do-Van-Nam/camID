@@ -499,44 +499,110 @@ abstract class AppLocalizations {
   /// No description provided for @notificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Thông báo'**
+  /// **'Notifications'**
   String get notificationTitle;
 
   /// No description provided for @notificationTabNews.
   ///
   /// In en, this message translates to:
-  /// **'Tin tức'**
+  /// **'News'**
   String get notificationTabNews;
 
   /// No description provided for @notificationTabComplain.
   ///
   /// In en, this message translates to:
-  /// **'Khiếu nại'**
+  /// **'Complaints'**
   String get notificationTabComplain;
 
   /// No description provided for @notificationEmptyNews.
   ///
   /// In en, this message translates to:
-  /// **'Không có thông báo'**
+  /// **'No notifications'**
   String get notificationEmptyNews;
 
   /// No description provided for @notificationEmptyComplain.
   ///
   /// In en, this message translates to:
-  /// **'Không có khiếu nại'**
+  /// **'No complaints'**
   String get notificationEmptyComplain;
 
   /// No description provided for @notificationReadAll.
   ///
   /// In en, this message translates to:
-  /// **'Đánh dấu tất cả đã đọc'**
+  /// **'Mark all as read'**
   String get notificationReadAll;
 
   /// No description provided for @notificationClearAll.
   ///
   /// In en, this message translates to:
-  /// **'Xóa tất cả'**
+  /// **'Clear all'**
   String get notificationClearAll;
+
+  /// No description provided for @chatbotTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'CamID ChatBot'**
+  String get chatbotTitle;
+
+  /// No description provided for @chatbotGreeting.
+  ///
+  /// In en, this message translates to:
+  /// **'How may I help you today!'**
+  String get chatbotGreeting;
+
+  /// No description provided for @chatbotDescription.
+  ///
+  /// In en, this message translates to:
+  /// **'This AI chatbot is for customer service, wishing to support customers in the best way!'**
+  String get chatbotDescription;
+
+  /// No description provided for @chatbotStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get chatbotStart;
+
+  /// No description provided for @chatbotContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get chatbotContinue;
+
+  /// No description provided for @online.
+  ///
+  /// In en, this message translates to:
+  /// **'online'**
+  String get online;
+
+  /// No description provided for @menu.
+  ///
+  /// In en, this message translates to:
+  /// **'Menu'**
+  String get menu;
+
+  /// No description provided for @mainMenu.
+  ///
+  /// In en, this message translates to:
+  /// **'Main menu'**
+  String get mainMenu;
+
+  /// No description provided for @changePhoneNumberLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Change phone number login'**
+  String get changePhoneNumberLogin;
+
+  /// No description provided for @newChat.
+  ///
+  /// In en, this message translates to:
+  /// **'New chat'**
+  String get newChat;
+
+  /// No description provided for @callTheStaffs.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the staffs'**
+  String get callTheStaffs;
 }
 
 class _AppLocalizationsDelegate

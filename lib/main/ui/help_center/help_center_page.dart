@@ -73,6 +73,17 @@ class _HelpCenterPageState extends State<HelpCenterPage>
               context.push(PATH_FEEDBACK);
             },
           ),
+          ElevatedButton.icon(
+            icon: Icon(Icons.chat, color: Colors.white),
+            label: Text(
+              AppLocalizations.of(context)!.chatbotTitle,
+              style: TextStyle(color: Colors.white),
+            ),
+            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+            onPressed: () {
+              context.push(PATH_CHATBOT_INTRO);
+            },
+          ),
           // Nút mở Telegram Bot
           ElevatedButton.icon(
             icon: Icon(Icons.telegram, color: Colors.white),

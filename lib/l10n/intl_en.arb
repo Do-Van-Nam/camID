@@ -83,5 +83,16 @@
   "notificationEmptyNews": "No notifications",
   "notificationEmptyComplain": "No complaints",
   "notificationReadAll": "Mark all as read",
-  "notificationClearAll": "Clear all"
+  "notificationClearAll": "Clear all",
+  "chatbotTitle": "CamID ChatBot",
+  "chatbotGreeting": "How may I help you today!",
+  "chatbotDescription": "This AI chatbot is for customer service, wishing to support customers in the best way!",
+  "chatbotStart": "Start",
+  "chatbotContinue": "Continue",
+  "online":"online",
+  "menu": "Menu",
+  "mainMenu": "Main menu",
+  "changePhoneNumberLogin": "Change phone number login",
+  "newChat": "New chat",
+  "callTheStaffs": "Call the staffs"
 }

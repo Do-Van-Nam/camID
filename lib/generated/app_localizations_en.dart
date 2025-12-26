@@ -212,23 +212,57 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loyaltyRedeem => 'Redeem';
 
   @override
-  String get notificationTitle => 'Thông báo';
+  String get notificationTitle => 'Notifications';
 
   @override
-  String get notificationTabNews => 'Tin tức';
+  String get notificationTabNews => 'News';
 
   @override
-  String get notificationTabComplain => 'Khiếu nại';
+  String get notificationTabComplain => 'Complaints';
 
   @override
-  String get notificationEmptyNews => 'Không có thông báo';
+  String get notificationEmptyNews => 'No notifications';
 
   @override
-  String get notificationEmptyComplain => 'Không có khiếu nại';
+  String get notificationEmptyComplain => 'No complaints';
 
   @override
-  String get notificationReadAll => 'Đánh dấu tất cả đã đọc';
+  String get notificationReadAll => 'Mark all as read';
 
   @override
-  String get notificationClearAll => 'Xóa tất cả';
+  String get notificationClearAll => 'Clear all';
+
+  @override
+  String get chatbotTitle => 'CamID ChatBot';
+
+  @override
+  String get chatbotGreeting => 'How may I help you today!';
+
+  @override
+  String get chatbotDescription =>
+      'This AI chatbot is for customer service, wishing to support customers in the best way!';
+
+  @override
+  String get chatbotStart => 'Start';
+
+  @override
+  String get chatbotContinue => 'Continue';
+
+  @override
+  String get online => 'online';
+
+  @override
+  String get menu => 'Menu';
+
+  @override
+  String get mainMenu => 'Main menu';
+
+  @override
+  String get changePhoneNumberLogin => 'Change phone number login';
+
+  @override
+  String get newChat => 'New chat';
+
+  @override
+  String get callTheStaffs => 'Call the staffs';
 }

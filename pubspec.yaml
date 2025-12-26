@@ -58,6 +58,7 @@ dependencies:
   url_launcher: ^6.3.0
   webview_flutter: ^4.13.0  
   carousel_slider: ^5.1.1
+  flutter_speed_dial: ^7.0.0
   # myid_kyc_plugin:
   #   path: ./myid_kyc_plugin
   ipcc_plugin:
@@ -112,6 +113,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/icons/
+    - assets/images/
     - assets/
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
