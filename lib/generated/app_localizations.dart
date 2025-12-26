@@ -561,6 +561,96 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resend OTP'**
   String get resend_otp;
+
+  /// No description provided for @incorrect_pin_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN code'**
+  String get incorrect_pin_otp;
+
+  /// No description provided for @identity_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verified'**
+  String get identity_verified;
+
+  /// No description provided for @identity_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verifying'**
+  String get identity_verifying;
+
+  /// No description provided for @identity_rejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Rejected'**
+  String get identity_rejected;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @select_id_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select ID type'**
+  String get select_id_type;
+
+  /// No description provided for @verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verification;
+
+  /// No description provided for @title_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start verifying your personal information'**
+  String get title_verifying;
+
+  /// No description provided for @cambodia_id_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Cambodia ID Card'**
+  String get cambodia_id_card;
+
+  /// No description provided for @passport.
+  ///
+  /// In en, this message translates to:
+  /// **'Passport'**
+  String get passport;
+
+  /// No description provided for @army_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Army ID'**
+  String get army_id;
+
+  /// No description provided for @police_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Police ID'**
+  String get police_id;
+
+  /// No description provided for @monk_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Monk ID'**
+  String get monk_id;
 }
 
 class _AppLocalizationsDelegate

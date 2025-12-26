@@ -30,7 +30,7 @@ class AppDrawer extends StatelessWidget {
               children: [
                 const CircleAvatar(
                   radius: 32,
-                  backgroundImage: AssetImage('assets/images/avatar.png'),
+                  backgroundImage: AssetImage('assets/icons/ic_avatar_default.png'),
                 ),
                 const SizedBox(height: 12),
                 Text(

@@ -87,5 +87,20 @@
   "verify": "Verify",
   "otp_sent_to": "OTP has been sent to",
   "didn_t_otp": "Didn’t receive a OTP?",
-  "resend_otp": "Resend OTP"
+  "resend_otp": "Resend OTP",
+  "incorrect_pin_otp": "Incorrect PIN code",
+  "identity_verified": "Identity Verified",
+  "identity_verifying": "Identity Verifying",
+  "identity_rejected": "Identity Rejected",
+  "male": "Male",
+  "female": "Female",
+  "update": "Update",
+  "select_id_type": "Select ID type",
+  "verification": "Verification",
+  "title_verifying": "Let’s start verifying your personal information",
+  "cambodia_id_card": "Cambodia ID Card",
+  "passport": "Passport",
+  "army_id": "Army ID",
+  "police_id": "Police ID",
+  "monk_id": "Monk ID"
 }
