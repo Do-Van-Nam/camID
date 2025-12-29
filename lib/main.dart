@@ -24,8 +24,12 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  if(await SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP) == true){
+    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
+  }
   bool isFirstOpenApp =
-      await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP) ?? false;
+  await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP);
   AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
 
   SystemChrome.setSystemUIOverlayStyle(

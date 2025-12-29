@@ -37,25 +37,25 @@ class CustomBottomNav extends StatelessWidget {
           ),
 
           Positioned(
-            top: -25,
-            left: MediaQuery.of(context).size.width / 2 - 25,
+            top: -54,
+            left: MediaQuery.of(context).size.width / 2 - 50,
             child: GestureDetector(
               onTap: () => onTabSelected(2),
-              child: Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.red,
-                  shape: BoxShape.circle,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 8,
-                      spreadRadius: 2,
-                      color: Colors.black26,
-                    )
-                  ],
-                ),
-                child: const Icon(Icons.wifi, color: Colors.white, size: 30),
+              child: SizedBox(
+                width: 100,
+                height: 100,
+                // decoration: BoxDecoration(
+                //   // color: Colors.red,
+                //   shape: BoxShape.circle,
+                //   boxShadow: [
+                //     BoxShadow(
+                //       blurRadius: 8,
+                //       spreadRadius: 2,
+                //       color: Colors.black26,
+                //     )
+                //   ],
+                // ),
+                child: Image.asset("assets/icons/ic_metfone.png"),
               ),
             ),
           ),

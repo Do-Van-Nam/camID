@@ -268,6 +268,61 @@ class AppLocalizationsVi extends AppLocalizations {
   String get resend_otp => 'Gửi lại OTP';
 
   @override
+  String get incorrect_pin_otp => 'Mã OTP không chính xác';
+
+  @override
+  String get identity_verified => 'Identity Verified';
+
+  @override
+  String get identity_verifying => 'Identity Verifying';
+
+  @override
+  String get identity_rejected => 'Identity Rejected';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get update => 'Cập nhật';
+
+  @override
+  String get select_id_type => 'Chọn loại giấy tờ tùy thân';
+
+  @override
+  String get verification => 'Xác minh';
+
+  @override
+  String get title_verifying =>
+      'Hãy bắt đầu xác minh thông tin cá nhân của bạn.';
+
+  @override
+  String get cambodia_id_card => 'CMND Campuchia';
+
+  @override
+  String get passport => 'Hộ chiếu';
+
+  @override
+  String get army_id => 'Mã quân đội';
+
+  @override
+  String get police_id => 'ID cảnh sát';
+
+  @override
+  String get monk_id => 'ID nhà sư';
+
+  @override
+  String get version => 'Phiên bản';
+
+  @override
+  String get title_update_version => 'Phiên bản mới nhất đã được cài đặt.';
+
+  @override
+  String get qr_code => 'Mã QR';
+
+  @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override

@@ -268,6 +268,61 @@ class AppLocalizationsKm extends AppLocalizations {
   String get resend_otp => 'Resend OTP';
 
   @override
+  String get incorrect_pin_otp => 'Incorrect PIN code';
+
+  @override
+  String get identity_verified => 'Identity Verified';
+
+  @override
+  String get identity_verifying => 'Identity Verifying';
+
+  @override
+  String get identity_rejected => 'Identity Rejected';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get select_id_type => 'Select ID type';
+
+  @override
+  String get verification => 'Verification';
+
+  @override
+  String get title_verifying =>
+      'Let’s start verifying your personal information';
+
+  @override
+  String get cambodia_id_card => 'Cambodia ID Card';
+
+  @override
+  String get passport => 'Passport';
+
+  @override
+  String get army_id => 'Army ID';
+
+  @override
+  String get police_id => 'Police ID';
+
+  @override
+  String get monk_id => 'Monk ID';
+
+  @override
+  String get version => 'Version';
+
+  @override
+  String get title_update_version => 'The lastest version is already installed';
+
+  @override
+  String get qr_code => 'QR Code';
+
+  @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override

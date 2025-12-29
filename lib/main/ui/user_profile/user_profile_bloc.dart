@@ -1,9 +1,10 @@
 import 'package:cam_id/main/base/base_response.dart';
 import 'package:cam_id/main/base/base_response_v2.dart';
+import 'package:cam_id/main/base/base_result.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
 import 'package:cam_id/main/data/response/linked_emoney_response.dart';
-import 'package:cam_id/main/data/response/list_payment_method_response.dart';
+import 'package:cam_id/main/data/response/payment_method_response.dart';
 import 'package:cam_id/main/data/response/user_info_response.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_event.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_state.dart';
@@ -73,7 +74,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     };
 
     try {
-      final result = await ApiUtil.getInstance()!
+      final baseResponse = await ApiUtil.getInstance()!
           .postParsed<BaseResponseV2<CheckLinkResult>>(
             url: ApiEndPoint.API_USER_ROUTING,
             body: body,
@@ -83,15 +84,15 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
             ),
           );
 
-      if (result.isSuccess) {
+      if (baseResponse.isSuccess) {
         emit(
           CheckLinkedPaymentEmoneySuccess(
-            result.errorMessage ?? "",
-            result.result,
+            baseResponse.errorMessage ?? "",
+            baseResponse.result,
           ),
         );
       } else {
-        emit(CheckLinkedPaymentEmoneyFailure(result.errorMessage ?? "Fail"));
+        emit(CheckLinkedPaymentEmoneyFailure(baseResponse.errorMessage ?? "Fail"));
       }
     } catch (e) {
       emit(CheckLinkedPaymentEmoneyFailure("Network error: ${e.toString()}"));
@@ -118,20 +119,23 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
     };
 
     try {
-      final result = await ApiUtil.getInstance()!
-          .postParsed<BaseResponseV2<PaymentMethodResult>>(
+      final baseResponse = await ApiUtil.getInstance()!
+          .postParsed<BaseResponseV2<BaseResult<PaymentMethodResponse>>>(
         url: ApiEndPoint.API_USER_ROUTING,
         body: body,
         fromJson: (json) => BaseResponseV2.fromJson(
           json,
-              (data) => PaymentMethodResult.fromJson(data),
+              (data) => BaseResult<PaymentMethodResponse>.fromJson(
+            data,
+                (ws) => PaymentMethodResponse.fromJson(ws),
+          ),
         ),
       );
 
-      if (result.isSuccess) {
-        emit(GetListPaymentMethodSuccess(result.errorMessage ?? "", result.result?.wsResponse));
+      if (baseResponse.isSuccess) {
+        emit(GetListPaymentMethodSuccess(baseResponse.errorMessage ?? "", baseResponse.result?.wsResponse));
       } else {
-        emit(GetListPaymentMethodFailure(result.errorMessage ?? "Fail"));
+        emit(GetListPaymentMethodFailure(baseResponse.errorMessage ?? "Fail"));
       }
     } catch (e) {
       emit(GetListPaymentMethodFailure("Network error: ${e.toString()}"));

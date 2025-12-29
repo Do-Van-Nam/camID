@@ -16,6 +16,7 @@ class ShareKey {
   static const String KEY_REFRESH_TOKEN = "KEY_REFRESH_TOKEN";
   static const String KEY_LOGIN_WITH_OTP = "KEY_LOGIN_WITH_OTP";
   static const String KEY_REMOTE_CONFIG = "KEY_REMOTE_CONFIG";
+  static const String KEY_CHANGE_OPEN_APP = "KEY_CHANGE_OPEN_APP";
 
 }
 
