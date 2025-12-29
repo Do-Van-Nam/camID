@@ -65,5 +65,7 @@
     "monk_id": "Monk ID",
     "version": "Version",
     "title_update_version": "The lastest version is already installed",
-    "qr_code": "QR Code"
+    "qr_code": "QR Code",
+    "login_des": "Welcome to the CamID, your digital passport.",
+    "enter_your_phone_number": "Enter your phone number"
 }

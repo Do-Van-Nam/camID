@@ -65,5 +65,7 @@
     "monk_id": "ID nhà sư",
     "version": "Phiên bản",
     "title_update_version": "Phiên bản mới nhất đã được cài đặt.",
-    "qr_code": "Mã QR"
+    "qr_code": "Mã QR",
+    "login_des": "Welcome to the CamID, your digital passport.",
+    "enter_your_phone_number": "Enter your phone number"
 }

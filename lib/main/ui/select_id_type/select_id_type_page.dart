@@ -6,6 +6,8 @@ import 'package:cam_id/main/ui/select_id_type/select_id_type_event.dart';
 import 'package:cam_id/main/ui/select_id_type/select_id_type_state.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -110,11 +112,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
               ),
               Text(
                 AppLocalizations.of(context)!.select_id_type,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.color_1618,
-                ),
+                style: AppStyles.headerBlack,
               ),
             ],
           ),
@@ -191,7 +189,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
                 ),
               ),
               SvgPicture.asset(
-                "assets/icons/ic_arrow_right.svg",
+                AppImages.icArrowRight,
                 width: 16,
                 height: 16,
               ),
@@ -204,17 +202,17 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
   String getIconByType(String type) {
     switch (type) {
       case 'ID':
-        return 'assets/icons/ic_cambodia_card.svg';
+        return AppImages.icCambodia;
       case 'PASSPORT':
-        return 'assets/icons/ic_passport.svg';
+        return AppImages.icPassport;
       case 'ARMY_ID':
-        return 'assets/icons/ic_army_id.svg';
+        return AppImages.icArmy;
       case 'MONK_ID':
-        return 'assets/icons/ic_cambodia_card.svg';
+        return AppImages.icCambodia;
       case 'POLICE_ID':
-        return 'assets/icons/ic_police_id.svg';
+        return AppImages.icPoliceID;
       default:
-        return 'assets/icons/ic_cambodia_card.svg';
+        return AppImages.icCambodia;
     }
   }
 

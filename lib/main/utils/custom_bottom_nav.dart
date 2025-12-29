@@ -1,4 +1,5 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
 
 class CustomBottomNav extends StatelessWidget {
@@ -18,44 +19,56 @@ class CustomBottomNav extends StatelessWidget {
       child: Stack(
         clipBehavior: Clip.none,
         children: [
-          Positioned.fill(
-            child: CustomPaint(
-              painter: BottomNavPainter(),
-            ),
-          ),
+          Positioned.fill(child: CustomPaint(painter: BottomNavPainter())),
 
           Positioned.fill(
             child: Row(
               children: [
-                Expanded(child: _buildNavItem(0, Icons.home, AppLocalizations.of(context)!.home)),
-                Expanded(child: _buildNavItem(1, Icons.card_giftcard, AppLocalizations.of(context)!.reward)),
+                Expanded(
+                  child: _buildNavItem(
+                    0,
+                    Icons.home,
+                    AppLocalizations.of(context)!.home,
+                  ),
+                ),
+                Expanded(
+                  child: _buildNavItem(
+                    1,
+                    Icons.card_giftcard,
+                    AppLocalizations.of(context)!.reward,
+                  ),
+                ),
                 Expanded(child: _buildCenterItem(context)),
-                Expanded(child: _buildNavItem(3, Icons.games, AppLocalizations.of(context)!.entertainment)),
-                Expanded(child: _buildNavItem(4, Icons.support_agent, AppLocalizations.of(context)!.help_center)),
+                Expanded(
+                  child: _buildNavItem(
+                    3,
+                    Icons.games,
+                    AppLocalizations.of(context)!.entertainment,
+                  ),
+                ),
+                Expanded(
+                  child: _buildNavItem(
+                    4,
+                    Icons.support_agent,
+                    AppLocalizations.of(context)!.help_center,
+                  ),
+                ),
               ],
             ),
           ),
 
           Positioned(
-            top: -54,
-            left: MediaQuery.of(context).size.width / 2 - 50,
+            top: -30,
+            left: MediaQuery.of(context).size.width / 2 - 40,
             child: GestureDetector(
               onTap: () => onTabSelected(2),
-              child: SizedBox(
-                width: 100,
-                height: 100,
-                // decoration: BoxDecoration(
-                //   // color: Colors.red,
-                //   shape: BoxShape.circle,
-                //   boxShadow: [
-                //     BoxShadow(
-                //       blurRadius: 8,
-                //       spreadRadius: 2,
-                //       color: Colors.black26,
-                //     )
-                //   ],
-                // ),
-                child: Image.asset("assets/icons/ic_metfone.png"),
+              child: CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.white, // màu viền
+                child: CircleAvatar(
+                  radius: 35,
+                  backgroundImage: AssetImage(AppImages.imgMetfoneV2),
+                ),
               ),
             ),
           ),
@@ -73,7 +86,7 @@ class CustomBottomNav extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(height: 26),
+            const SizedBox(height: 36),
             Text(
               AppLocalizations.of(context)!.metfone,
               style: TextStyle(
@@ -91,24 +104,32 @@ class CustomBottomNav extends StatelessWidget {
     final bool isSelected = index == currentIndex;
 
     return GestureDetector(
-      behavior: HitTestBehavior.translucent,
       onTap: () => onTabSelected(index),
-      child: SizedBox.expand(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(icon, color: isSelected ? Colors.red : Colors.grey),
-            const SizedBox(height: 2),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 11,
-                color: isSelected ? Colors.red : Colors.grey,
-              ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          // gạch đỏ trên
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 3,
+            width: isSelected ? 22 : 0,
+            margin: const EdgeInsets.only(bottom: 6),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(4),
             ),
-          ],
-        ),
+          ),
+
+          Icon(icon, color: isSelected ? Colors.red : Colors.grey),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              color: isSelected ? Colors.red : Colors.grey,
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -117,52 +138,48 @@ class CustomBottomNav extends StatelessWidget {
 class BottomNavPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    Paint paint = Paint()
+    final paint = Paint()
       ..color = Colors.white
       ..style = PaintingStyle.fill;
 
-    Path path = Path();
-    double width = size.width;
-    double dipHeight = 25;   // nông hơn (từ 20 → 12)
-    double leftDip = 0.34;   // mở rộng vết lõm
-    double rightDip = 0.70;  // mở rộng vết lõm
+    final width = size.width;
+    final height = size.height;
 
-    path.moveTo(0, 0);
-    path.lineTo(width * leftDip, 0);
+    const cornerRadius = 20.0;
 
-    // cong xuống (nông)
-    path.quadraticBezierTo(
-      width * 0.40,
-      0,
-      width * 0.45,
-      dipHeight,
-    );
+    const iconSize = 60.0;
+    const borderGap = 5.0;
+    final cutRadius = iconSize / 2 + borderGap;
 
-    // phần vòng cung lớn (rộng)
-    path.arcToPoint(
-      Offset(width * 0.55, dipHeight),
-      radius: const Radius.circular(30),  // rộng & bo mềm hơn
-      clockwise: false,
-    );
+    final centerX = width / 2;
 
-    // cong lên lại
-    path.quadraticBezierTo(
-      width * 0.60,
-      0,
-      width * rightDip,
-      0,
-    );
+    final path = Path();
 
-    path.lineTo(width, 0);
-    path.lineTo(width, size.height);
-    path.lineTo(0, size.height);
+    path.moveTo(cornerRadius, 0);
+    path.quadraticBezierTo(0, 0, 0, cornerRadius);
+    path.lineTo(0, height);
+    path.lineTo(width, height);
+    path.lineTo(width, cornerRadius);
+    path.quadraticBezierTo(width, 0, width - cornerRadius, 0);
+    path.lineTo(centerX + cutRadius, 0);
+
+    // path.arcTo(
+    //   Rect.fromCircle(
+    //     center: Offset(centerX, 0),
+    //     radius: cutRadius,
+    //   ),
+    //   0,
+    //   -3.141592653589793,
+    //   false,
+    // );
+
+    path.lineTo(cornerRadius, 0);
     path.close();
 
+    canvas.drawShadow(path, Colors.black26, 6, true);
     canvas.drawPath(path, paint);
   }
 
   @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => true;
+  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
 }
-
-

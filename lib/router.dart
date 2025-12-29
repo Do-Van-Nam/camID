@@ -5,6 +5,7 @@ import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
+import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
@@ -49,6 +50,7 @@ const String PATH_NOTIFICATION = "/notificaion";
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
+const String PATH_LOGIN_OTP = "/login_otp";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -114,7 +116,7 @@ final GoRouter router = GoRouter(
           builder: (context, state) => FindStoresPage(),
         ),
         GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
-        GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
+        // GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
         GoRoute(path: PATH_FORCE_UPDATE, builder: (context, state) => ForceUpdatePage()),
         GoRoute(path: PATH_MAINTENANCE, builder: (context, state) => MaintenancePage()),
         GoRoute(
@@ -149,6 +151,13 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: PATH_MAINTENANCE,
           builder: (context, state) => MaintenancePage(),
+        ),
+        GoRoute(
+          path: PATH_LOGIN_OTP,
+          builder: (context, state) {
+            final phone = state.extra as String;
+            return LoginOTPPage(phone: phone);
+          },
         ),
       ],
     ),

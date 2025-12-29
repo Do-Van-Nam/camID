@@ -2,6 +2,8 @@ import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -35,7 +37,7 @@ class _UserInformationPageState extends State<UserInformationPage> {
         SizedBox(
           width: double.infinity,
           child: Image.asset(
-            'assets/icons/bg_header_profile.png',
+            AppImages.imgHeaderProfile,
             fit: BoxFit.cover,
           ),
         ),
@@ -173,7 +175,7 @@ class _UserInformationPageState extends State<UserInformationPage> {
             ),
             child: CircleAvatar(
               radius: 40,
-              backgroundImage: AssetImage('assets/icons/camid_logo.png'),
+              backgroundImage: AssetImage(AppImages.imgCamIDLogo),
             ),
           ),
         ),
@@ -200,12 +202,7 @@ class _UserInformationPageState extends State<UserInformationPage> {
             ),
             Text(
               AppLocalizations.of(context)!.information,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 18,
-                fontWeight: FontWeight.w600,
-                decoration: TextDecoration.none,
-              ),
+              style: AppStyles.headerWhite,
             ),
           ],
         ),
@@ -223,23 +220,23 @@ class _UserInformationPageState extends State<UserInformationPage> {
         text = AppLocalizations.of(context)!.identity_verified;
         backgroundColor = AppColors.color_43B6_10;
         textColor = AppColors.color_43B6;
-        iconPath = 'assets/icons/ic_verified.svg';
+        iconPath = AppImages.icVerified;
         break;
       case Constant.PENDING:
         text = AppLocalizations.of(context)!.identity_verifying;
         backgroundColor = AppColors.color_FDB9_10;
         textColor = AppColors.color_FDB9;
-        iconPath = 'assets/icons/ic_verifying.svg';
+        iconPath = AppImages.icVerifying;
         break;
       case Constant.REJECT:
         text = AppLocalizations.of(context)!.identity_rejected;
         backgroundColor = AppColors.color_E11B_10;
         textColor = AppColors.color_E11B;
-        iconPath = 'assets/icons/ic_rejected.svg';
+        iconPath = AppImages.icRejected;
         break;
       default:
         text = '';
-        iconPath = 'assets/icons/ic_verified.svg';
+        iconPath = AppImages.icVerified;
     }
 
     return Container(

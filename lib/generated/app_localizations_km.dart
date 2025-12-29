@@ -355,4 +355,10 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get callTheStaffs => 'Call the staffs';
+
+  @override
+  String get login_des => 'Welcome to the CamID, your digital passport.';
+
+  @override
+  String get enter_your_phone_number => 'Enter your phone number';
 }
