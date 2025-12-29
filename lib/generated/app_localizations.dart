@@ -499,43 +499,43 @@ abstract class AppLocalizations {
   /// No description provided for @notificationTitle.
   ///
   /// In en, this message translates to:
-  /// **'Thông báo'**
+  /// **'Notifications'**
   String get notificationTitle;
 
   /// No description provided for @notificationTabNews.
   ///
   /// In en, this message translates to:
-  /// **'Tin tức'**
+  /// **'News'**
   String get notificationTabNews;
 
   /// No description provided for @notificationTabComplain.
   ///
   /// In en, this message translates to:
-  /// **'Khiếu nại'**
+  /// **'Complaints'**
   String get notificationTabComplain;
 
   /// No description provided for @notificationEmptyNews.
   ///
   /// In en, this message translates to:
-  /// **'Không có thông báo'**
+  /// **'No notifications'**
   String get notificationEmptyNews;
 
   /// No description provided for @notificationEmptyComplain.
   ///
   /// In en, this message translates to:
-  /// **'Không có khiếu nại'**
+  /// **'No complaints'**
   String get notificationEmptyComplain;
 
   /// No description provided for @notificationReadAll.
   ///
   /// In en, this message translates to:
-  /// **'Đánh dấu tất cả đã đọc'**
+  /// **'Mark all as read'**
   String get notificationReadAll;
 
   /// No description provided for @notificationClearAll.
   ///
   /// In en, this message translates to:
-  /// **'Xóa tất cả'**
+  /// **'Clear all'**
   String get notificationClearAll;
 
   /// No description provided for @phone_number_is_not_valid.
@@ -603,6 +603,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Resend OTP'**
   String get resend_otp;
+
+  /// No description provided for @incorrect_pin_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN code'**
+  String get incorrect_pin_otp;
+
+  /// No description provided for @identity_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verified'**
+  String get identity_verified;
+
+  /// No description provided for @identity_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verifying'**
+  String get identity_verifying;
+
+  /// No description provided for @identity_rejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Rejected'**
+  String get identity_rejected;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @select_id_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select ID type'**
+  String get select_id_type;
+
+  /// No description provided for @verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verification;
+
+  /// No description provided for @title_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start verifying your personal information'**
+  String get title_verifying;
+
+  /// No description provided for @cambodia_id_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Cambodia ID Card'**
+  String get cambodia_id_card;
+
+  /// No description provided for @passport.
+  ///
+  /// In en, this message translates to:
+  /// **'Passport'**
+  String get passport;
+
+  /// No description provided for @army_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Army ID'**
+  String get army_id;
+
+  /// No description provided for @police_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Police ID'**
+  String get police_id;
+
+  /// No description provided for @monk_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Monk ID'**
+  String get monk_id;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// No description provided for @title_update_version.
+  ///
+  /// In en, this message translates to:
+  /// **'The lastest version is already installed'**
+  String get title_update_version;
+
+  /// No description provided for @qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get qr_code;
 }
 
 class _AppLocalizationsDelegate

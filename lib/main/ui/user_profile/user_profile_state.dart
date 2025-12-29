@@ -2,7 +2,7 @@ import 'package:cam_id/main/data/model/image_kyc_model.dart';
 import 'package:cam_id/main/data/model/sevice_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/response/linked_emoney_response.dart';
-import 'package:cam_id/main/data/response/list_payment_method_response.dart';
+import 'package:cam_id/main/data/response/payment_method_response.dart';
 import 'package:equatable/equatable.dart';
 
 abstract class UserProfileState extends Equatable {

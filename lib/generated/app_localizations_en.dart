@@ -212,25 +212,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loyaltyRedeem => 'Redeem';
 
   @override
-  String get notificationTitle => 'Thông báo';
+  String get notificationTitle => 'Notifications';
 
   @override
-  String get notificationTabNews => 'Tin tức';
+  String get notificationTabNews => 'News';
 
   @override
-  String get notificationTabComplain => 'Khiếu nại';
+  String get notificationTabComplain => 'Complaints';
 
   @override
-  String get notificationEmptyNews => 'Không có thông báo';
+  String get notificationEmptyNews => 'No notifications';
 
   @override
-  String get notificationEmptyComplain => 'Không có khiếu nại';
+  String get notificationEmptyComplain => 'No complaints';
 
   @override
-  String get notificationReadAll => 'Đánh dấu tất cả đã đọc';
+  String get notificationReadAll => 'Mark all as read';
 
   @override
-  String get notificationClearAll => 'Xóa tất cả';
+  String get notificationClearAll => 'Clear all';
 
   @override
   String get phone_number_is_not_valid => 'Phone number is not valid!';
@@ -266,4 +266,59 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get resend_otp => 'Resend OTP';
+
+  @override
+  String get incorrect_pin_otp => 'Incorrect PIN code';
+
+  @override
+  String get identity_verified => 'Identity Verified';
+
+  @override
+  String get identity_verifying => 'Identity Verifying';
+
+  @override
+  String get identity_rejected => 'Identity Rejected';
+
+  @override
+  String get male => 'Male';
+
+  @override
+  String get female => 'Female';
+
+  @override
+  String get update => 'Update';
+
+  @override
+  String get select_id_type => 'Select ID type';
+
+  @override
+  String get verification => 'Verification';
+
+  @override
+  String get title_verifying =>
+      'Let’s start verifying your personal information';
+
+  @override
+  String get cambodia_id_card => 'Cambodia ID Card';
+
+  @override
+  String get passport => 'Passport';
+
+  @override
+  String get army_id => 'Army ID';
+
+  @override
+  String get police_id => 'Police ID';
+
+  @override
+  String get monk_id => 'Monk ID';
+
+  @override
+  String get version => 'Version';
+
+  @override
+  String get title_update_version => 'The lastest version is already installed';
+
+  @override
+  String get qr_code => 'QR Code';
 }

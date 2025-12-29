@@ -3,7 +3,7 @@ import 'package:cam_id/main/data/model/other_payment_method_model.dart';
 import 'package:cam_id/main/data/model/sevice_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/response/linked_emoney_response.dart';
-import 'package:cam_id/main/data/response/list_payment_method_response.dart';
+import 'package:cam_id/main/data/response/payment_method_response.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_bloc.dart';
 import 'package:cam_id/main/ui/user_profile/user_profile_event.dart';
