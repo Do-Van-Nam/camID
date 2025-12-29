@@ -32,13 +32,6 @@ void main() async {
   await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP);
   AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
 
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.dark,
-    ),
-  );
-
   WidgetsBinding.instance.addObserver(AppLifecycleHandler());
   final user = await SharePreferenceUtil.getUser();
   AppLogger().logInfo("Main user: ${UserInfoModel.instance.username}");
@@ -60,6 +53,13 @@ void main() async {
   await RemoteConfigService().init();
 
   unawaited(FcmService().init());
+  SystemChrome.setSystemUIOverlayStyle(
+    const SystemUiOverlayStyle(
+      statusBarColor: Colors.transparent, // hoặc màu tối
+      statusBarIconBrightness: Brightness.light, // Android: icon trắng
+      statusBarBrightness: Brightness.dark, // iOS: icon trắng
+    ),
+  );
   runApp(const AppInitializer());
 }
 
