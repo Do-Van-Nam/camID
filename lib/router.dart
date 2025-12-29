@@ -3,6 +3,7 @@ import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
+import 'package:cam_id/main/ui/identity_verification/identity_verification_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
@@ -128,13 +129,13 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(path: PATH_VERIFY, builder: (context, state) => VerifyPage()),
         GoRoute(path: PATH_ID_TYPE, builder: (context, state) => SelectIDTypePage()),
-        // GoRoute(
-        //   path: PATH_IDENTITY_VERIFICATION,
-        //   builder: (context, state) {
-        //     final idType = state.extra as IDType;
-        //     return VerifyIdPage(idType: idType);
-        //   },
-        // ),
+        GoRoute(
+          path: PATH_IDENTITY_VERIFICATION,
+          builder: (context, state) {
+            final idType = state.extra as String;
+            return IdentityVerificationPage(idType: idType);
+          },
+        ),
 
         GoRoute(
           path: PATH_USER_PROFILE,

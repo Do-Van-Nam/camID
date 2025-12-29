@@ -361,4 +361,7 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get enter_your_phone_number => 'Enter your phone number';
+
+  @override
+  String get identity_verification => 'Identity Verification';
 }

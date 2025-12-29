@@ -789,6 +789,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your phone number'**
   String get enter_your_phone_number;
+
+  /// No description provided for @identity_verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verification'**
+  String get identity_verification;
 }
 
 class _AppLocalizationsDelegate

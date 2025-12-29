@@ -8,6 +8,7 @@ import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
+import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -169,7 +170,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
         borderRadius: BorderRadius.circular(16),
         onTap: () {
           context.push(
-            '/verify-id',
+            PATH_IDENTITY_VERIFICATION,
             extra: paperType.type,
           );
         },

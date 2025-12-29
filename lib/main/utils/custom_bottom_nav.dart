@@ -1,6 +1,7 @@
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomBottomNav extends StatelessWidget {
   final int currentIndex;
@@ -27,14 +28,14 @@ class CustomBottomNav extends StatelessWidget {
                 Expanded(
                   child: _buildNavItem(
                     0,
-                    Icons.home,
+                    AppImages.icHome,
                     AppLocalizations.of(context)!.home,
                   ),
                 ),
                 Expanded(
                   child: _buildNavItem(
                     1,
-                    Icons.card_giftcard,
+                    AppImages.icLoyalty,
                     AppLocalizations.of(context)!.reward,
                   ),
                 ),
@@ -42,14 +43,14 @@ class CustomBottomNav extends StatelessWidget {
                 Expanded(
                   child: _buildNavItem(
                     3,
-                    Icons.games,
+                    AppImages.icEntertainment,
                     AppLocalizations.of(context)!.entertainment,
                   ),
                 ),
                 Expanded(
                   child: _buildNavItem(
                     4,
-                    Icons.support_agent,
+                    AppImages.icHelpCenter,
                     AppLocalizations.of(context)!.help_center,
                   ),
                 ),
@@ -100,36 +101,43 @@ class CustomBottomNav extends StatelessWidget {
     );
   }
 
-  Widget _buildNavItem(int index, IconData icon, String label) {
+  Widget _buildNavItem(int index, String icon, String label) {
     final bool isSelected = index == currentIndex;
 
-    return GestureDetector(
-      onTap: () => onTabSelected(index),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          // gạch đỏ trên
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            height: 3,
-            width: isSelected ? 22 : 0,
-            margin: const EdgeInsets.only(bottom: 6),
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.circular(4),
+    return Expanded( // mở rộng toàn bộ vùng
+      child: GestureDetector(
+        onTap: () => onTabSelected(index),
+        behavior: HitTestBehavior.opaque, // quan trọng: nhận cả vùng trống
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              height: 3,
+              width: isSelected ? 22 : 0,
+              margin: const EdgeInsets.only(bottom: 6),
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.circular(4),
+              ),
             ),
-          ),
-
-          Icon(icon, color: isSelected ? Colors.red : Colors.grey),
-          const SizedBox(height: 4),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 11,
-              color: isSelected ? Colors.red : Colors.grey,
+            SvgPicture.asset(
+              icon,
+              colorFilter: ColorFilter.mode(
+                isSelected ? Colors.red : Colors.grey,
+                BlendMode.srcIn,
+              ),
             ),
-          ),
-        ],
+            const SizedBox(height: 4),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 11,
+                color: isSelected ? Colors.red : Colors.grey,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
