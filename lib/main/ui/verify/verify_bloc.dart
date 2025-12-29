@@ -83,12 +83,12 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
       );
 
       if (result.isSuccess) {
-        emit(GetOTPByServiceSuccess(result.errorMessage ?? ""));
+        emit(ConfirmOTPSuccess(result.errorMessage ?? ""));
       } else {
-        emit(GetOTPByServiceFailure(result.errorMessage ?? "Fail"));
+        emit(ConfirmOTPFailure(result.errorMessage ?? "Fail"));
       }
     } catch (e) {
-      emit(GetOTPByServiceFailure("Network error: ${e.toString()}"));
+      emit(ConfirmOTPFailure("Network error: ${e.toString()}"));
       AppLogger().logInfo("Network error: ${e.toString()}");
     }
   }

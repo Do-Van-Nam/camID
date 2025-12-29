@@ -50,5 +50,20 @@
     "verify": "Xác minh",
     "otp_sent_to": "Mã OTP đã được gửi đến",
     "didn_t_otp": "Không nhận được mã OTP?",
-    "resend_otp": "Gửi lại OTP"
+    "resend_otp": "Gửi lại OTP",
+    "incorrect_pin_otp": "Mã OTP không chính xác",
+    "male": "Nam",
+    "female": "Nữ",
+    "update": "Cập nhật",
+    "select_id_type": "Chọn loại giấy tờ tùy thân",
+    "verification": "Xác minh",
+    "title_verifying": "Hãy bắt đầu xác minh thông tin cá nhân của bạn.",
+    "cambodia_id_card": "CMND Campuchia",
+    "passport": "Hộ chiếu",
+    "army_id": "Mã quân đội",
+    "police_id": "ID cảnh sát",
+    "monk_id": "ID nhà sư",
+    "version": "Phiên bản",
+    "title_update_version": "Phiên bản mới nhất đã được cài đặt.",
+    "qr_code": "Mã QR"
 }

@@ -111,7 +111,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get feedbackRatingQuestion => 'How many stars would you rate the app?';
 
   @override
-  String get feedbackTitleLabel => 'Feedback Title';
+  String get feedbackTitleLabel => 'Feedback';
 
   @override
   String get feedbackContentLabel => 'Detailed Feedback';
@@ -168,6 +168,96 @@ class AppLocalizationsVi extends AppLocalizations {
   String get resend => 'Gửi lại';
 
   @override
+  String get link_bank_account => 'Liên kết tài khoản ngân hàng';
+
+  @override
+  String get link_aba_account_credit_debit_card =>
+      'Liên kết tài khoản ABA hoặc thẻ tín dụng/thẻ ghi nợ';
+
+  @override
+  String get add_another => '+ thêm';
+
+  @override
+  String get choose_payment_method => 'Choose a payment method';
+
+  @override
+  String get by_adding_ =>
+      'Bằng cách thêm tài khoản hoặc thẻ, tôi xin xác nhận rằng tôi đã đọc, hiểu và đồng ý với ';
+
+  @override
+  String get terms_and_conditions => 'Điều khoản và Điều kiện.';
+
+  @override
+  String get verify => 'Xác minh';
+
+  @override
+  String get otp_sent_to => 'Mã OTP đã được gửi đến';
+
+  @override
+  String get didn_t_otp => 'Không nhận được mã OTP?';
+
+  @override
+  String get resend_otp => 'Gửi lại OTP';
+
+  @override
+  String get incorrect_pin_otp => 'Mã OTP không chính xác';
+
+  @override
+  String get identity_verified => 'Identity Verified';
+
+  @override
+  String get identity_verifying => 'Identity Verifying';
+
+  @override
+  String get identity_rejected => 'Identity Rejected';
+
+  @override
+  String get male => 'Nam';
+
+  @override
+  String get female => 'Nữ';
+
+  @override
+  String get update => 'Cập nhật';
+
+  @override
+  String get select_id_type => 'Chọn loại giấy tờ tùy thân';
+
+  @override
+  String get verification => 'Xác minh';
+
+  @override
+  String get title_verifying =>
+      'Hãy bắt đầu xác minh thông tin cá nhân của bạn.';
+
+  @override
+  String get cambodia_id_card => 'CMND Campuchia';
+
+  @override
+  String get passport => 'Hộ chiếu';
+
+  @override
+  String get army_id => 'Mã quân đội';
+
+  @override
+  String get police_id => 'ID cảnh sát';
+
+  @override
+  String get monk_id => 'ID nhà sư';
+
+  @override
+  String get version => 'Phiên bản';
+
+  @override
+  String get title_update_version => 'Phiên bản mới nhất đã được cài đặt.';
+
+  @override
+  String get qr_code => 'Mã QR';
+
+  @override
+  String get name => 'name';
+
+  @override
   String get loyaltyPhoneNumber => '031 3828606';
 
   @override
@@ -195,14 +285,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get loyaltyVoucher => 'Voucher';
 
   @override
-  String get viewAll => 'View all';
+  String get viewAll => 'View All';
 
   @override
   String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
 
   @override
-  String loyaltyExchanged(Object exchanged) {
-    return 'Exchanged: $exchanged';
+  String loyaltyExchanged(Object exchanged, Object total) {
+    return 'Exchanged $exchanged/$total';
   }
 
   @override
@@ -234,38 +324,6 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get phone_number_is_not_valid => 'Số điện thoại này không hợp lệ!';
-
-  @override
-  String get link_bank_account => 'Liên kết tài khoản ngân hàng';
-
-  @override
-  String get link_aba_account_credit_debit_card =>
-      'Liên kết tài khoản ABA hoặc thẻ tín dụng/thẻ ghi nợ';
-
-  @override
-  String get add_another => '+ thêm';
-
-  @override
-  String get choose_payment_method => 'Choose a payment method';
-
-  @override
-  String get by_adding_ =>
-      'Bằng cách thêm tài khoản hoặc thẻ, tôi xin xác nhận rằng tôi đã đọc, hiểu và đồng ý với ';
-
-  @override
-  String get terms_and_conditions => 'Điều khoản và Điều kiện.';
-
-  @override
-  String get verify => 'Xác minh';
-
-  @override
-  String get otp_sent_to => 'Mã OTP đã được gửi đến';
-
-  @override
-  String get didn_t_otp => 'Không nhận được mã OTP?';
-
-  @override
-  String get resend_otp => 'Gửi lại OTP';
 
   @override
   String get chatbotTitle => 'CamID ChatBot';
@@ -300,4 +358,36 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get callTheStaffs => 'Call the staffs';
+
+  @override
+  String get loyaltyCamID => 'CamID';
+
+  @override
+  String loyaltyNextTier(Object points) {
+    return '$points Points more to rank up Silver';
+  }
+
+  @override
+  String get loyaltyShopping => 'Shopping';
+
+  @override
+  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
+
+  @override
+  String get loyaltyHealthCare => 'Health Care';
+
+  @override
+  String get loyaltyTravel => 'Travel';
+
+  @override
+  String get loyaltyBannerPromotion => '1\$ = 2500\$';
+
+  @override
+  String get connectWithUs => 'Connect with us';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get clickHereToLogin => 'Click here to login';
 }

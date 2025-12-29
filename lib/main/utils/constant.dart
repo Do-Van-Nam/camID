@@ -18,8 +18,13 @@ class Constant {
   static const String WING = "Wing";
   static const String WECHAT = "WECHAT";
   static const String ALIPAY = "Alipay";
+
   static const String WS_CODE = "wsGetOtpForCamIdDetail";
 
+  static const String APPROVE = "APPROVED";
+  static const String INIT = "INIT";
+  static const String PENDING = "PENDING";
+  static const String REJECT = "REJECTED";
 
   static String normalizePhone(String phone) {
     String p = phone.trim();

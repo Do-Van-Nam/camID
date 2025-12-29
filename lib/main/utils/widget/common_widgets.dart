@@ -38,3 +38,29 @@ Widget commonButton({
     ),
   );
 }
+
+Widget viewAllHeader({required String title, required VoidCallback onViewAll}) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          title,
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        GestureDetector(
+          onTap: onViewAll,
+          child: const Text(
+            "View All",
+            style: TextStyle(
+              fontSize: 14,
+              color: Colors.red,
+              decoration: TextDecoration.none,
+            ),
+          ),
+        ),
+      ],
+    ),
+  );
+}

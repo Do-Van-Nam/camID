@@ -5,26 +5,16 @@ import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipcc_plugin/ipcc_plugin.dart';
 import 'package:speed_test_plugin/speed_test_plugin.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
-
-// Hàm mở URL chung
-Future<void> _launchApp(String url) async {
-  final Uri uri = Uri.parse(url);
-  if (!await launchUrl(
-    uri,
-    mode:
-        LaunchMode
-            .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
-  )) {
-    throw Exception('Không thể mở $url');
-  }
-}
 
 class HelpCenterPage extends StatefulWidget {
   const HelpCenterPage({super.key});
@@ -50,93 +40,261 @@ class _HelpCenterPageState extends State<HelpCenterPage>
   @override
   Widget build(BuildContext context) {
     super.build(context);
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Container(
-            width: double.infinity,
-            height: kToolbarHeight + MediaQuery.of(context).padding.top,
-            padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top),
-            color: AppColors.colorMain,
-            alignment: Alignment.centerLeft,
-            child: IconButton(
-              icon: const Icon(Icons.menu_sharp, color: Colors.white),
-              onPressed: () {
-                Scaffold.of(context).openDrawer();
-              },
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        flexibleSpace: Image.asset(
+          AppImages.chatbotBG,
+          fit: BoxFit.cover,
+          alignment: Alignment.topLeft,
+        ),
+        leading: GestureDetector(
+          onTap: () {
+            Scaffold.of(context).openDrawer();
+          },
+          child: Container(
+            margin: const EdgeInsets.only(left: 16),
+            width: 32,
+            height: 24,
+            decoration: BoxDecoration(
+              color: Colors.white.withAlpha(26),
+              borderRadius: BorderRadius.circular(12),
             ),
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SvgPicture.asset(AppImages.icDrawerMenu),
+            ),
+          ),
+        ),
+
+        title: Center(
+          child: Column(
+            children: [
+              SvgPicture.asset(AppImages.icCamIDLogo, width: 24, height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Click here to login",
+                    style: AppTextFonts.poppins12Regular.copyWith(
+                      color: Colors.white,
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    AppImages.icWhiteRightArrow,
+                    width: 24,
+                    height: 24,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset(AppImages.icSearch, width: 24, height: 24),
+            onPressed: () {
+              // Xử lý khi nhấn vào biểu tượng thông báo
+            },
           ),
           IconButton(
-            icon: const Icon(Icons.help_center, color: Colors.black),
+            icon: SvgPicture.asset(
+              AppImages.icNotification,
+              width: 24,
+              height: 24,
+            ),
             onPressed: () {
-              context.push(PATH_FEEDBACK);
+              // Xử lý khi nhấn vào biểu tượng thông báo
             },
           ),
-          ElevatedButton.icon(
-            icon: Icon(Icons.chat, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.chatbotTitle,
-              style: TextStyle(color: Colors.white),
+          SizedBox(width: 16),
+        ],
+      ),
+      body: Container(
+        width: double.infinity,
+        child: Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              right: 0,
+              child: Image.asset(AppImages.chatbotBG, fit: BoxFit.fitWidth),
             ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-            onPressed: () {
-              context.push(PATH_CHATBOT_INTRO);
-            },
-          ),
-          // Nút mở Telegram Bot
-          ElevatedButton.icon(
-            icon: Icon(Icons.telegram, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.telegram,
-              style: TextStyle(color: Colors.white),
+            Container(
+              width: double.infinity,
+              height: double.infinity,
+              margin: const EdgeInsets.only(top: 120),
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
+              ),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.vertical,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 12,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16, top: 16),
+                      child: Text(
+                        l10n.connectWithUs,
+                        style: AppTextFonts.poppins16SemiBold,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _supportIcon(
+                                AppImages.icVoiceCall,
+                                l10n.voice_call,
+                                () async {
+                                  _onShowCall();
+                                },
+                              ),
+                              _supportIcon(
+                                AppImages.icVideoCall,
+                                l10n.video_call,
+                                () {},
+                              ),
+                              _supportIcon(
+                                AppImages.icMessenger,
+                                l10n.messenger,
+                                () => launchApp('https://m.me/210301035798660'),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _supportIcon(
+                                AppImages.icTele,
+                                l10n.telegram,
+                                () =>
+                                    launchApp('https://t.me/MetfoneAdmin_bot'),
+                              ),
+                              _supportIcon(
+                                AppImages.icFeedBack,
+                                l10n.feedbackTitleLabel,
+                                () {
+                                  context.push(PATH_FEEDBACK);
+                                },
+                              ),
+                              _supportIcon(
+                                AppImages.icChatBotRed,
+                                l10n.chatbotTitle,
+                                () {
+                                  context.push(PATH_CHATBOT_INTRO);
+                                },
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Text(
+                        l10n.support,
+                        style: AppTextFonts.poppins16SemiBold,
+                      ),
+                    ),
+                    Container(
+                      margin: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(16),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.3),
+                            blurRadius: 10,
+                          ),
+                        ],
+                      ),
+                      child: Column(
+                        spacing: 16,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              _supportIcon(
+                                AppImages.icFindStore,
+                                l10n.find_stores,
+                                () {
+                                  context.push(PATH_FIND_STORES);
+                                },
+                              ),
+                              _supportIcon(
+                                AppImages.icWifi,
+                                l10n.network_test,
+                                () async {
+                                  _onShowSpeedTest();
+                                },
+                              ),
+                              SizedBox(width: 64),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blue),
-            onPressed: () => launchApp('https://t.me/MetfoneAdmin_bot'),
-          ),
+          ],
+        ),
+      ),
+    );
+  }
 
-          SizedBox(height: 20),
-          ElevatedButton.icon(
-            icon: Icon(Icons.message, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.messenger,
-              style: TextStyle(color: Colors.white),
+  Widget _supportIcon(String icon, String label, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.pink[50],
             ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-            onPressed: () => launchApp('https://m.me/210301035798660'),
+            child: SvgPicture.asset(icon, width: 24, height: 24),
           ),
-          ElevatedButton.icon(
-            icon: Icon(Icons.call, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.voice_call,
-              style: TextStyle(color: Colors.white),
+          const SizedBox(height: 8),
+          Container(
+            width: 90,
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: AppTextFonts.poppins12RegularCentered,
             ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-            onPressed: () async {
-              _onShowCall();
-            },
-          ),
-          ElevatedButton.icon(
-            icon: Icon(Icons.store, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.find_stores,
-              style: TextStyle(color: Colors.white),
-            ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-            onPressed: () {
-              context.push(PATH_FIND_STORES);
-            },
-          ),
-          ElevatedButton.icon(
-            icon: Icon(Icons.network_check, color: Colors.white),
-            label: Text(
-              AppLocalizations.of(context)!.network_test,
-              style: TextStyle(color: Colors.white),
-            ),
-            style: ElevatedButton.styleFrom(backgroundColor: Colors.blueAccent),
-            onPressed: () async {
-              _onShowSpeedTest();
-            },
           ),
         ],
       ),

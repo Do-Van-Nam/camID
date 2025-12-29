@@ -1,8 +1,6 @@
+// loyalty_event.dart
 part of 'loyalty_bloc.dart';
 
 abstract class LoyaltyEvent {}
 
-class ChangeCouponIndexEvent extends LoyaltyEvent {
-  final int index;
-  ChangeCouponIndexEvent(this.index);
-}
+class LoadLoyaltyData extends LoyaltyEvent {}

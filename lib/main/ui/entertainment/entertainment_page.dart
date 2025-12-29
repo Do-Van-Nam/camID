@@ -1,7 +1,10 @@
 import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import '../miniapp/mini_app_bloc.dart';
 import '../miniapp/mini_app_event.dart';
 import './entertainment_bloc.dart';
@@ -25,38 +28,66 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQpTQZ2ymiyWERMbA6iLXtu-GdpqGqVpWKlLg&s',
     'https://www.shutterstock.com/image-vector/yellow-ribbons-set-isolated-white-260nw-2605249181.jpg',
   ];
-  void openMiniApp(
-      BuildContext context,
-      String url,
-      ) {
-    context.read<MiniAppBloc>().add(
-      MiniAppLoadUrl("$url?token=JWT"),
-    );
+  void openMiniApp(BuildContext context, String url) {
+    context.read<MiniAppBloc>().add(MiniAppLoadUrl("$url?token=JWT"));
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context); // Giữ state khi chuyển tab
-
+    final l10n = AppLocalizations.of(context)!;
     return BlocProvider(
       create: (_) => EntertainmentBloc(),
       child: Scaffold(
-        body: Column(
-          children: [
-            // Header với nút menu
-            Container(
-              width: double.infinity,
-              height: kToolbarHeight + MediaQuery.of(context).padding.top,
-              color: AppColors.colorMain,
-              alignment: Alignment.bottomLeft,
-              child: IconButton(
-                icon: const Icon(Icons.menu_sharp, color: Colors.white),
-                onPressed: () {
-                  Scaffold.of(context).openDrawer();
-                },
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+
+          leading: GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 16),
+              width: 32,
+              height: 24,
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(26),
+                borderRadius: BorderRadius.circular(12),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(AppImages.icDrawerMenu),
               ),
             ),
+          ),
 
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset(
+                AppImages.icNotification,
+                width: 24,
+                height: 24,
+              ),
+              onPressed: () {
+                // Xử lý khi nhấn vào biểu tượng thông báo
+              },
+            ),
+            IconButton(
+              icon: SvgPicture.asset(AppImages.icSearch, width: 24, height: 24),
+              onPressed: () {
+                // Xử lý khi nhấn vào biểu tượng thông báo
+              },
+            ),
+
+            SizedBox(width: 16),
+          ],
+        ),
+
+        body: Column(
+          children: [
             // Banner carousel + indicator
             Expanded(
               child: Column(
@@ -77,26 +108,25 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                             );
                           },
                         ),
-                        items:
-                            bannerImages.map((url) {
-                              return Builder(
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: const EdgeInsets.symmetric(
-                                      horizontal: 5.0,
-                                    ),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(12),
-                                      image: DecorationImage(
-                                        image: NetworkImage(url),
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  );
-                                },
+                        items: bannerImages.map((url) {
+                          return Builder(
+                            builder: (BuildContext context) {
+                              return Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 5.0,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(12),
+                                  image: DecorationImage(
+                                    image: NetworkImage(url),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               );
-                            }).toList(),
+                            },
+                          );
+                        }).toList(),
                       );
                     },
                   ),
@@ -107,70 +137,66 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                     builder: (context, state) {
                       return Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children:
-                            bannerImages.asMap().entries.map((entry) {
-                              return Container(
-                                width: 10,
-                                height: 10,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color:
-                                      state.currentBannerIndex == entry.key
-                                          ? AppColors.colorMain
-                                          : Colors.grey,
-                                ),
-                              );
-                            }).toList(),
+                        children: bannerImages.asMap().entries.map((entry) {
+                          return Container(
+                            width: 10,
+                            height: 10,
+                            margin: const EdgeInsets.symmetric(horizontal: 4),
+                            decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: state.currentBannerIndex == entry.key
+                                  ? AppColors.colorMain
+                                  : Colors.grey,
+                            ),
+                          );
+                        }).toList(),
                       );
                     },
                   ),
 
                   const SizedBox(height: 32),
-
-                  // 3 nút dịch vụ
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  Container(
+                    margin: const EdgeInsets.all(16),
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(16),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          blurRadius: 10,
+                        ),
+                      ],
+                    ),
+                    child: Column(
+                      spacing: 16,
                       children: [
-                        _buildServiceButton(
-                          icon: Icons.tv,
-                          label: AppLocalizations.of(context)!.tv360,
-                          color: Colors.redAccent,
-                          onTap: () {
-                            // TODO: Xử lý mở TV360
-                            openMiniApp(
-                              context,
-                              "https://www.24h.com.vn/",
-                            );
-                          },
-                        ),
-                        _buildServiceButton(
-                          icon: Icons.sports_esports,
-                          label: 'Game',
-                          color: Colors.green,
-                          onTap: () {
-                            // TODO: Xử lý mở Game
-                            openMiniApp(
-                              context,
-                              "https://www.24h.com.vn/",
-                            );
-                          },
-                        ),
-                        _buildServiceButton(
-                          icon: Icons.extension,
-                          label: 'VAS Service',
-                          color: Colors.purple,
-                          onTap: () {
-                            // TODO: Xử lý mở VAS
-                            openMiniApp(
-                              context,
-                              "https://www.24h.com.vn/",
-                            );
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            _buildServiceButton(
+                              AppImages.icTV360,
+                              l10n.tv360,
+                              () {
+                                openMiniApp(context, "https://www.24h.com.vn/");
+                              },
+                            ),
+                            _buildServiceButton(
+                              AppImages.icVas,
+                              l10n.vasService,
+                              () async {
+                                openMiniApp(context, "https://www.24h.com.vn/");
+                              },
+                            ),
+                            _buildServiceButton(
+                              AppImages.icGame,
+                              l10n.game,
+                              () async {
+                                openMiniApp(context, "https://www.24h.com.vn/");
+                              },
+                            ),
+                          ],
                         ),
                       ],
                     ),
@@ -187,30 +213,28 @@ class _EntertainmentPageState extends State<EntertainmentPage>
   }
 
   // Widget nút dịch vụ
-  Widget _buildServiceButton({
-    required IconData icon,
-    required String label,
-    required Color color,
-    required VoidCallback onTap,
-  }) {
+  Widget _buildServiceButton(String icon, String label, VoidCallback onTap) {
     return GestureDetector(
       onTap: onTap,
       child: Column(
         children: [
           Container(
-            width: 80,
-            height: 80,
+            padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: color, width: 2),
+              borderRadius: BorderRadius.circular(12),
+              color: Colors.pink[50],
             ),
-            child: Icon(icon, size: 40, color: color),
+            child: SvgPicture.asset(icon, width: 24, height: 24),
           ),
           const SizedBox(height: 8),
-          Text(
-            label,
-            style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w600),
+          Container(
+            width: 90,
+            child: Text(
+              label,
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              style: AppTextFonts.poppins12RegularCentered,
+            ),
           ),
         ],
       ),

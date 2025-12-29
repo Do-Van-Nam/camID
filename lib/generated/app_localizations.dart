@@ -307,7 +307,7 @@ abstract class AppLocalizations {
   /// No description provided for @feedbackTitleLabel.
   ///
   /// In en, this message translates to:
-  /// **'Feedback Title'**
+  /// **'Feedback'**
   String get feedbackTitleLabel;
 
   /// No description provided for @feedbackContentLabel.
@@ -418,13 +418,187 @@ abstract class AppLocalizations {
   /// **'Resend'**
   String get resend;
 
+  /// No description provided for @link_bank_account.
+  ///
+  /// In en, this message translates to:
+  /// **'LINK BANK ACCOUNT'**
+  String get link_bank_account;
+
+  /// No description provided for @link_aba_account_credit_debit_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Link ABA account or Credit/Debit Card'**
+  String get link_aba_account_credit_debit_card;
+
+  /// No description provided for @add_another.
+  ///
+  /// In en, this message translates to:
+  /// **'+ add another'**
+  String get add_another;
+
+  /// No description provided for @choose_payment_method.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a payment method'**
+  String get choose_payment_method;
+
+  /// No description provided for @by_adding_.
+  ///
+  /// In en, this message translates to:
+  /// **'By adding account or card, I hereby acknowledge that I have read, understand and agree with '**
+  String get by_adding_;
+
+  /// No description provided for @terms_and_conditions.
+  ///
+  /// In en, this message translates to:
+  /// **'Terms and Conditions.'**
+  String get terms_and_conditions;
+
+  /// No description provided for @verify.
+  ///
+  /// In en, this message translates to:
+  /// **'Verify'**
+  String get verify;
+
+  /// No description provided for @otp_sent_to.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP has been sent to'**
+  String get otp_sent_to;
+
+  /// No description provided for @didn_t_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn’t receive a OTP?'**
+  String get didn_t_otp;
+
+  /// No description provided for @resend_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Resend OTP'**
+  String get resend_otp;
+
+  /// No description provided for @incorrect_pin_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Incorrect PIN code'**
+  String get incorrect_pin_otp;
+
+  /// No description provided for @identity_verified.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verified'**
+  String get identity_verified;
+
+  /// No description provided for @identity_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verifying'**
+  String get identity_verifying;
+
+  /// No description provided for @identity_rejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Rejected'**
+  String get identity_rejected;
+
+  /// No description provided for @male.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get male;
+
+  /// No description provided for @female.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get female;
+
+  /// No description provided for @update.
+  ///
+  /// In en, this message translates to:
+  /// **'Update'**
+  String get update;
+
+  /// No description provided for @select_id_type.
+  ///
+  /// In en, this message translates to:
+  /// **'Select ID type'**
+  String get select_id_type;
+
+  /// No description provided for @verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Verification'**
+  String get verification;
+
+  /// No description provided for @title_verifying.
+  ///
+  /// In en, this message translates to:
+  /// **'Let’s start verifying your personal information'**
+  String get title_verifying;
+
+  /// No description provided for @cambodia_id_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Cambodia ID Card'**
+  String get cambodia_id_card;
+
+  /// No description provided for @passport.
+  ///
+  /// In en, this message translates to:
+  /// **'Passport'**
+  String get passport;
+
+  /// No description provided for @army_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Army ID'**
+  String get army_id;
+
+  /// No description provided for @police_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Police ID'**
+  String get police_id;
+
+  /// No description provided for @monk_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Monk ID'**
+  String get monk_id;
+
+  /// No description provided for @version.
+  ///
+  /// In en, this message translates to:
+  /// **'Version'**
+  String get version;
+
+  /// No description provided for @title_update_version.
+  ///
+  /// In en, this message translates to:
+  /// **'The lastest version is already installed'**
+  String get title_update_version;
+
+  /// No description provided for @qr_code.
+  ///
+  /// In en, this message translates to:
+  /// **'QR Code'**
+  String get qr_code;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'name'**
+  String get name;
+
   /// No description provided for @loyaltyPhoneNumber.
   ///
   /// In en, this message translates to:
   /// **'031 3828606'**
   String get loyaltyPhoneNumber;
 
-  /// Display accumulated points
+  /// Current points
   ///
   /// In en, this message translates to:
   /// **'{points} Points'**
@@ -469,7 +643,7 @@ abstract class AppLocalizations {
   /// No description provided for @viewAll.
   ///
   /// In en, this message translates to:
-  /// **'View all'**
+  /// **'View All'**
   String get viewAll;
 
   /// No description provided for @loyaltyPlazaPremiumGroup.
@@ -481,8 +655,8 @@ abstract class AppLocalizations {
   /// Number of exchanged coupons
   ///
   /// In en, this message translates to:
-  /// **'Exchanged: {exchanged}'**
-  String loyaltyExchanged(Object exchanged);
+  /// **'Exchanged {exchanged}/{total}'**
+  String loyaltyExchanged(Object exchanged, Object total);
 
   /// No description provided for @loyaltyFree.
   ///
@@ -543,66 +717,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone number is not valid!'**
   String get phone_number_is_not_valid;
-
-  /// No description provided for @link_bank_account.
-  ///
-  /// In en, this message translates to:
-  /// **'LINK BANK ACCOUNT'**
-  String get link_bank_account;
-
-  /// No description provided for @link_aba_account_credit_debit_card.
-  ///
-  /// In en, this message translates to:
-  /// **'Link ABA account or Credit/Debit Card'**
-  String get link_aba_account_credit_debit_card;
-
-  /// No description provided for @add_another.
-  ///
-  /// In en, this message translates to:
-  /// **'+ add another'**
-  String get add_another;
-
-  /// No description provided for @choose_payment_method.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose a payment method'**
-  String get choose_payment_method;
-
-  /// No description provided for @by_adding_.
-  ///
-  /// In en, this message translates to:
-  /// **'By adding account or card, I hereby acknowledge that I have read, understand and agree with '**
-  String get by_adding_;
-
-  /// No description provided for @terms_and_conditions.
-  ///
-  /// In en, this message translates to:
-  /// **'Terms and Conditions.'**
-  String get terms_and_conditions;
-
-  /// No description provided for @verify.
-  ///
-  /// In en, this message translates to:
-  /// **'Verify'**
-  String get verify;
-
-  /// No description provided for @otp_sent_to.
-  ///
-  /// In en, this message translates to:
-  /// **'OTP has been sent to'**
-  String get otp_sent_to;
-
-  /// No description provided for @didn_t_otp.
-  ///
-  /// In en, this message translates to:
-  /// **'Didn’t receive a OTP?'**
-  String get didn_t_otp;
-
-  /// No description provided for @resend_otp.
-  ///
-  /// In en, this message translates to:
-  /// **'Resend OTP'**
-  String get resend_otp;
 
   /// No description provided for @chatbotTitle.
   ///
@@ -669,6 +783,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Call the staffs'**
   String get callTheStaffs;
+
+  /// No description provided for @loyaltyCamID.
+  ///
+  /// In en, this message translates to:
+  /// **'CamID'**
+  String get loyaltyCamID;
+
+  /// Points needed to next tier
+  ///
+  /// In en, this message translates to:
+  /// **'{points} Points more to rank up Silver'**
+  String loyaltyNextTier(Object points);
+
+  /// No description provided for @loyaltyShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get loyaltyShopping;
+
+  /// No description provided for @loyaltyRestaurantHotel.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant - Hotel'**
+  String get loyaltyRestaurantHotel;
+
+  /// No description provided for @loyaltyHealthCare.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Care'**
+  String get loyaltyHealthCare;
+
+  /// No description provided for @loyaltyTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get loyaltyTravel;
+
+  /// No description provided for @loyaltyBannerPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'1\$ = 2500\$'**
+  String get loyaltyBannerPromotion;
+
+  /// No description provided for @connectWithUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with us'**
+  String get connectWithUs;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
+  /// No description provided for @clickHereToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Click here to login'**
+  String get clickHereToLogin;
 }
 
 class _AppLocalizationsDelegate

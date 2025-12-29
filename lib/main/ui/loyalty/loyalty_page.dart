@@ -1,322 +1,683 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cam_id/app.dart';
 import 'package:cam_id/generated/app_localizations.dart';
-import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/main/data/model/reward_model.dart';
+import 'package:cam_id/main/utils/widget/common_widgets.dart';
+import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 import './loyalty_bloc.dart';
 
-class LoyaltyPage extends StatefulWidget {
+class LoyaltyPage extends StatelessWidget {
   const LoyaltyPage({super.key});
 
   @override
-  State<LoyaltyPage> createState() => _LoyaltyPageState();
-}
-
-class _LoyaltyPageState extends State<LoyaltyPage>
-    with AutomaticKeepAliveClientMixin {
-  @override
-  bool get wantKeepAlive => true;
-
-  final List<Map<String, dynamic>> coupons = [
-    {
-      'title': 'Plaza Premium Loung Normal',
-      'discount': '25%',
-      'points': 10,
-      'exchanged': '12/200',
-      'isFree': false,
-    },
-    {
-      'title': 'Plaza Premium Loung Diamond',
-      'discount': '40%',
-      'points': null,
-      'exchanged': '8/200',
-      'isFree': true,
-    },
-  ];
-
-  @override
   Widget build(BuildContext context) {
-    super.build(context);
     final l10n = AppLocalizations.of(context)!;
 
     return BlocProvider(
-      create: (_) => LoyaltyBloc(),
+      create: (_) => LoyaltyBloc()..add(LoadLoyaltyData()),
       child: Scaffold(
-        backgroundColor: Colors.grey[100],
-        body: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              padding: EdgeInsets.only(
-                top: MediaQuery.of(context).padding.top,
-                left: 16,
-                right: 16,
-                bottom: 16,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          flexibleSpace: Image.asset(
+            AppImages.chatbotBG,
+            fit: BoxFit.cover,
+            alignment: Alignment.topLeft,
+          ),
+          leading: GestureDetector(
+            onTap: () {
+              Scaffold.of(context).openDrawer();
+            },
+            child: Container(
+              margin: const EdgeInsets.only(left: 16),
+              width: 32,
+              height: 24,
+              decoration: BoxDecoration(
+                color: Colors.white.withAlpha(26),
+                borderRadius: BorderRadius.circular(12),
               ),
-              color: AppColors.colorMain,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SvgPicture.asset(AppImages.icDrawerMenu),
+              ),
+            ),
+          ),
+
+          title: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    icon: const Icon(Icons.menu_sharp, color: Colors.white),
-                    onPressed: () => Scaffold.of(context).openDrawer(),
-                  ),
-                  Text(
-                    l10n.loyaltyPhoneNumber,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  const Row(
-                    children: [
-                      Icon(Icons.card_giftcard, color: Colors.white),
-                      SizedBox(width: 16),
-                      Icon(Icons.history, color: Colors.white),
-                      SizedBox(width: 16),
-                      Icon(Icons.search, color: Colors.white),
-                    ],
+                  Text("ten nguoi dung", style: AppTextFonts.poppins12Regular),
+                  SvgPicture.asset(
+                    AppImages.icWhiteRightArrow,
+                    width: 24,
+                    height: 24,
                   ),
                 ],
               ),
+              Text(
+                "so dien thoai",
+                style: const TextStyle(
+                  color: Colors.grey,
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ],
+          ),
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset(AppImages.icSearch, width: 24, height: 24),
+              onPressed: () {
+                // Xử lý khi nhấn vào biểu tượng thông báo
+              },
             ),
+            IconButton(
+              icon: SvgPicture.asset(
+                AppImages.icChartSquare,
+                width: 24,
+                height: 24,
+              ),
+              onPressed: () {
+                // Xử lý khi nhấn vào biểu tượng thông báo
+              },
+            ),
+            SizedBox(width: 16),
+          ],
+        ),
+        backgroundColor: Colors.grey[100],
+        body: BlocBuilder<LoyaltyBloc, LoyaltyState>(
+          builder: (context, state) {
+            if (state.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
 
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    Stack(
-                      alignment: Alignment.center,
-                      children: [
-                        Container(height: 250, color: AppColors.colorMain),
-                        Column(
+            return Stack(
+              children: [
+                // Background chat
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(AppImages.chatbotBG, fit: BoxFit.fitWidth),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 160),
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(24),
+                      topRight: Radius.circular(24),
+                    ),
+                  ),
+                ),
+                SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      // Points card
+                      SizedBox(height: 120),
+                      Stack(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            height: 230,
+                            margin: const EdgeInsets.only(top: 40),
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(24),
+                                topRight: Radius.circular(24),
+                              ),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.all(16),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppImages.icCamIDLogo,
+                                      width: 32,
+                                      height: 32,
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.black,
+                                        padding: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                          vertical: 8,
+                                        ),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            24,
+                                          ),
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          SvgPicture.asset(
+                                            AppImages.icBronzeBadge,
+                                            width: 18,
+                                            height: 18,
+                                          ),
+                                          const SizedBox(width: 8),
+                                          const Text(
+                                            "bronze",
+                                            style: TextStyle(
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(width: 8),
+                                          SvgPicture.asset(
+                                            AppImages.icWhiteRightArrow,
+                                            width: 16,
+                                            height: 16,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 16),
+                                Container(
+                                  padding: const EdgeInsets.all(16),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(16),
+                                    gradient: const LinearGradient(
+                                      colors: [
+                                        Color(0xFFFEF4F6),
+                                        Color(0xFFFDE2E6),
+                                      ],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        l10n.loyaltyPoints(state.points),
+                                        style: const TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      Text(
+                                        l10n.loyaltyNextTier(
+                                          state.nextTierPoints,
+                                        ),
+                                      ),
+                                      LinearProgressIndicator(
+                                        value:
+                                            state.points /
+                                            (state.points +
+                                                state.nextTierPoints),
+                                        backgroundColor: Colors.grey[300],
+                                        valueColor:
+                                            const AlwaysStoppedAnimation(
+                                              Colors.red,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(height: 16),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceAround,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            AppImages.icCrown,
+                                            width: 20,
+                                            height: 20,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(l10n.loyaltyTierBenefits),
+                                        ],
+                                      ),
+                                      Container(
+                                        width: 1,
+                                        height: 24,
+                                        margin: const EdgeInsets.symmetric(
+                                          horizontal: 12,
+                                        ),
+                                        color: Colors.grey[400],
+                                      ),
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            AppImages.icHistory,
+                                            width: 20,
+                                            height: 20,
+                                          ),
+                                          SizedBox(width: 4),
+                                          Text(l10n.loyaltyHistory),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      Container(
+                        decoration: BoxDecoration(color: Colors.white),
+                        child: Column(
                           children: [
+                            const SizedBox(height: 20),
+
+                            // Reward title
+                            viewAllHeader(
+                              title: l10n.loyaltyReward,
+                              onViewAll: () {},
+                            ),
+
+                            const SizedBox(height: 10),
+
+                            // Category icons
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  // mainAxisAlignment:
+                                  //     MainAxisAlignment.spaceEvenly,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _categoryIcon(
+                                      AppImages.icShop,
+                                      l10n.loyaltyShopping,
+                                    ),
+                                    SizedBox(width: 16),
+                                    _categoryIcon(
+                                      AppImages.icFood,
+
+                                      l10n.loyaltyRestaurantHotel,
+                                    ),
+                                    SizedBox(width: 16),
+                                    _categoryIcon(
+                                      AppImages.icHeart,
+                                      l10n.loyaltyHealthCare,
+                                    ),
+                                    SizedBox(width: 16),
+                                    _categoryIcon(
+                                      AppImages.icAirplane,
+                                      l10n.loyaltyTravel,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            // Reward - Coupon
+                            viewAllHeader(
+                              title: l10n.loyaltyRewardCoupon,
+                              onViewAll: () {},
+                            ),
+
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Row(
+                                children: state.coupons
+                                    .map(
+                                      (coupon) => Container(
+                                        width: 260,
+                                        margin: const EdgeInsets.only(
+                                          right: 12,
+                                        ),
+                                        child: _buildCouponCard(coupon, l10n),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
+
+                            const SizedBox(height: 30),
+
+                            // Banner quảng cáo (text nếu cần dịch)
                             Container(
-                              width: 140,
-                              height: 140,
-                              decoration: const BoxDecoration(
-                                shape: BoxShape.circle,
-                                gradient: LinearGradient(
-                                  colors: [Colors.red, Colors.orange],
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
+                              margin: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              height: 120,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(16),
+                                image: const DecorationImage(
+                                  image: NetworkImage(
+                                    "https://via.placeholder.com/800x300?text=1\$+=+2500\$",
+                                  ),
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               child: Center(
                                 child: Text(
-                                  l10n.loyaltyPoints('0'),
+                                  l10n.loyaltyBannerPromotion, // Nếu muốn dịch banner text
                                   style: const TextStyle(
                                     color: Colors.white,
-                                    fontSize: 20,
+                                    fontSize: 24,
                                     fontWeight: FontWeight.bold,
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(height: 20),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                _buildTierItem(
-                                  Icons.card_giftcard,
-                                  l10n.loyaltyReward,
-                                ),
-                                _buildTierItem(
-                                  Icons.sim_card_download,
-                                  l10n.loyaltyTierBenefits,
-                                  isCenter: true,
-                                ),
-                                _buildTierItem(
-                                  Icons.history,
-                                  l10n.loyaltyHistory,
-                                ),
-                              ],
+
+                            const SizedBox(height: 30),
+
+                            // Voucher title
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                              ),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    l10n.loyaltyVoucher,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  Text(
+                                    l10n.viewAll,
+                                    style: const TextStyle(color: Colors.red),
+                                  ),
+                                ],
+                              ),
                             ),
+
+                            const SizedBox(height: 10),
+
+                            // Voucher grid
+                            SizedBox(
+                              height:
+                                  320, // Chiều cao cố định – điều chỉnh theo kích thước card của bạn
+                              child: GridView.builder(
+                                scrollDirection: Axis.horizontal, // Cuộn ngang
+                                physics:
+                                    const BouncingScrollPhysics(), // Cuộn mượt (iOS style) hoặc ClampingScrollPhysics()
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 16,
+                                ),
+                                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount:
+                                      2, // 2 hàng (vì cuộn ngang → crossAxis là chiều dọc)
+                                  childAspectRatio:
+                                      0.45, // Tỷ lệ width/height của mỗi card (tùy chỉnh cho đẹp)
+                                  crossAxisSpacing:
+                                      16, // Khoảng cách dọc giữa 2 voucher trong cùng cột
+                                  mainAxisSpacing:
+                                      16, // Khoảng cách ngang giữa các cột khi cuộn
+                                ),
+                                itemCount: state.coupons.length,
+                                itemBuilder: (context, index) {
+                                  return _buildVoucherCard(
+                                    state.coupons[index],
+                                    l10n,
+                                  );
+                                },
+                              ),
+                            ),
+
+                            const SizedBox(height: 50),
                           ],
                         ),
-                      ],
-                    ),
-
-                    const SizedBox(height: 20),
-
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 16),
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(16),
-                        color: Colors.red,
-                        image: const DecorationImage(
-                          image: NetworkImage(
-                            'https://via.placeholder.com/800x300?text=Khmer+Banner+Promotion',
-                          ),
-                          fit: BoxFit.cover,
-                        ),
                       ),
-                      child: Center(
-                        child: Text(
-                          l10n.loyaltyBannerText,
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            l10n.loyaltyRewardCoupon,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(l10n.viewAll),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    BlocBuilder<LoyaltyBloc, LoyaltyState>(
-                      builder: (context, state) {
-                        return CarouselSlider(
-                          options: CarouselOptions(
-                            height: 200,
-                            viewportFraction: 0.55,
-                            enlargeCenterPage: true,
-                            onPageChanged: (index, reason) {
-                              context.read<LoyaltyBloc>().add(
-                                ChangeCouponIndexEvent(index),
-                              );
-                            },
-                          ),
-                          items:
-                              coupons
-                                  .map(
-                                    (coupon) => _buildCouponCard(coupon, l10n),
-                                  )
-                                  .toList(),
-                        );
-                      },
-                    ),
-
-                    const SizedBox(height: 30),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            l10n.loyaltyVoucher,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () {},
-                            child: Text(l10n.viewAll),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    const SizedBox(height: 100),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ),
-          ],
+              ],
+            );
+          },
         ),
       ),
     );
   }
 
-  Widget _buildTierItem(IconData icon, String label, {bool isCenter = false}) {
+  Widget _categoryIcon(String icon, String label) {
     return Column(
       children: [
-        Icon(icon, color: Colors.white, size: 30),
+        CircleAvatar(
+          radius: 30,
+          backgroundColor: Colors.pink[50],
+          child: SvgPicture.asset(icon, width: 24, height: 24),
+        ),
         const SizedBox(height: 8),
-        Text(label, style: const TextStyle(color: Colors.white)),
+        Container(
+          width: 72,
+          child: Text(label, textAlign: TextAlign.center, maxLines: 2),
+        ),
       ],
     );
   }
 
-  Widget _buildCouponCard(Map<String, dynamic> coupon, AppLocalizations l10n) {
+  Widget _buildCouponCard(RewardCoupon coupon, AppLocalizations l10n) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      padding: const EdgeInsets.all(12),
+      width: 150,
+      margin: const EdgeInsets.all(8),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(16),
         boxShadow: [
-          BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 8),
+          BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10),
         ],
       ),
       child: Column(
         children: [
-          Text(
-            l10n.loyaltyPlazaPremiumGroup,
-            style: TextStyle(
-              color: Colors.orange[700],
-              fontWeight: FontWeight.bold,
+          ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(16)),
+            child: CachedNetworkImage(
+              imageUrl: coupon.imageUrl,
+              placeholder: (context, url) =>
+                  CircularProgressIndicator(), // Đang tải
+              errorWidget: (context, url, error) =>
+                  Icon(Icons.error, color: Colors.red), // Lỗi
+              fit: BoxFit.cover,
+              width: double.infinity,
+              height: 160,
             ),
           ),
-          const SizedBox(height: 8),
-          Container(
-            height: 60,
-            color: Colors.grey[300],
-            child: Center(child: Text(coupon['discount'] as String)),
-          ),
-          const SizedBox(height: 8),
-          Text(
-            coupon['title'] as String,
-            style: const TextStyle(fontWeight: FontWeight.bold),
-          ),
-          Text(l10n.loyaltyExchanged(coupon['exchanged'] as String)),
-          const SizedBox(height: 12),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              if (coupon['isFree'] == true)
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
                 Text(
-                  l10n.loyaltyFree,
-                  style: const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.bold,
-                  ),
-                )
-              else
+                  coupon.title,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 8),
                 Row(
                   children: [
-                    const Icon(Icons.star, color: Colors.orange, size: 20),
-                    Text(
-                      '${coupon['points']}',
-                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    SvgPicture.asset(AppImages.icCoin, width: 24, height: 24),
+                    Text("${coupon.points}"),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                Stack(
+                  children: [
+                    LinearProgressIndicator(
+                      minHeight: 18,
+                      borderRadius: BorderRadius.circular(16),
+                      value: coupon.exchanged / (coupon.total),
+                      backgroundColor: Colors.grey[300],
+                      valueColor: const AlwaysStoppedAnimation(Colors.red),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        spacing: 4,
+                        children: [
+                          SvgPicture.asset(
+                            AppImages.icLightning,
+                            width: 16,
+                            height: 16,
+                          ),
+                          Text(
+                            l10n.loyaltyExchanged(
+                              coupon.exchanged,
+                              coupon.total,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
-              ElevatedButton(
-                onPressed: () {},
-                style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
-                child: Text(
-                  l10n.loyaltyRedeem,
-                  style: const TextStyle(color: Colors.white),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Spacer(),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ), // Viền đen, độ dày 2
+                        foregroundColor:
+                            Colors.black, // Màu chữ + icon (quan trọng nhất!)
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            30,
+                          ), // Bo góc nếu muốn
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ), // Tùy chỉnh padding
+                      ),
+                      onPressed: () {},
+                      child: Text(l10n.loyaltyRedeem),
+                    ),
+                  ],
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildVoucherCard(RewardCoupon coupon, AppLocalizations l10n) {
+    return Container(
+      width: 350,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10),
+        ],
+      ),
+      child: Row(
+        children: [
+          ClipRRect(
+            borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(16),
+              bottomLeft: Radius.circular(16),
+            ),
+            child: CachedNetworkImage(
+              imageUrl: coupon.imageUrl,
+              placeholder: (context, url) =>
+                  CircularProgressIndicator(), // Đang tải
+              errorWidget: (context, url, error) =>
+                  Icon(Icons.error, color: Colors.red), // Lỗi
+              fit: BoxFit.cover,
+              width: 160,
+              height: 160,
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(coupon.title),
+                const SizedBox(height: 8),
+
+                Row(
+                  children: [
+                    SvgPicture.asset(AppImages.icCoin, width: 24, height: 24),
+                    Text("${coupon.points}"),
+                  ],
+                ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(),
+                    OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        side: const BorderSide(
+                          color: Colors.black,
+                          width: 2,
+                        ), // Viền đen, độ dày 2
+                        foregroundColor:
+                            Colors.black, // Màu chữ + icon (quan trọng nhất!)
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            30,
+                          ), // Bo góc nếu muốn
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 24,
+                          vertical: 12,
+                        ), // Tùy chỉnh padding
+                      ),
+                      onPressed: () {},
+                      child: Text(l10n.loyaltyRedeem),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ],
       ),

@@ -4,11 +4,15 @@ import 'package:cam_id/main/ui/verify/verify_bloc.dart';
 import 'package:cam_id/main/ui/verify/verify_event.dart';
 import 'package:cam_id/main/ui/verify/verify_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class VerifyPage extends StatefulWidget {
   const VerifyPage({super.key});
@@ -19,7 +23,9 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   late final VerifyBloc _bloc;
-  String phone = '';
+  String phone = "";
+  String language = "";
+  final bool isIncorrectOTP = false;
   final List<TextEditingController> _controllers = List.generate(
     6,
     (_) => TextEditingController(),
@@ -34,14 +40,15 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> _initData() async {
-    final language = await SharePreferenceUtil.getLanguageCode();
+    final languageCode = await SharePreferenceUtil.getLanguageCode();
     final phoneNumber = await SharePreferenceUtil.getString(
       ShareKey.KEY_PHONE_NUMBER,
     );
     setState(() {
-      phone = phoneNumber ?? '';
+      phone = phoneNumber;
+      language = languageCode;
     });
-    // _bloc.add(GetOTPByServiceEvent(phoneNumber, language, Constant.WS_CODE));
+    _bloc.add(GetOTPByServiceEvent(phone, language, Constant.WS_CODE));
   }
 
   @override
@@ -54,61 +61,6 @@ class _VerifyPageState extends State<VerifyPage> {
     }
     _bloc.close();
     super.dispose();
-  }
-
-  Widget _buildOtpBox(int index) {
-    return SizedBox(
-      height: 56,
-      child: KeyboardListener(
-        focusNode: FocusNode(),
-        onKeyEvent: (event) {
-          if (event is KeyDownEvent &&
-              event.logicalKey == LogicalKeyboardKey.backspace) {
-            if (_controllers[index].text.isEmpty && index > 0) {
-              _controllers[index - 1].clear();
-              _focusNodes[index - 1].requestFocus();
-            }
-          }
-        },
-        child: TextField(
-          controller: _controllers[index],
-          focusNode: _focusNodes[index],
-          keyboardType: TextInputType.number,
-          textAlign: TextAlign.center,
-          maxLength: 1,
-          cursorColor: AppColors.color_EF30,
-          inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-          decoration: InputDecoration(
-            counterText: '',
-            filled: true,
-            fillColor: Colors.white,
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: AppColors.color_1618,
-                width: 1,
-              ),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(8),
-              borderSide: const BorderSide(
-                color: AppColors.color_EF30,
-                width: 2,
-              ),
-            ),
-          ),
-          onChanged: (value) {
-            if (value.isNotEmpty) {
-              if (index < 5) {
-                _focusNodes[index + 1].requestFocus();
-              } else {
-                _focusNodes[index].unfocus();
-              }
-            }
-          },
-        ),
-      ),
-    );
   }
 
   @override
@@ -174,26 +126,80 @@ class _VerifyPageState extends State<VerifyPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(AppLocalizations.of(context)!.otp_sent_to),
+                          Text(
+                            AppLocalizations.of(context)!.otp_sent_to,
+                            style: AppTextFonts.poppinsRegular.copyWith(
+                              fontSize: 14,
+                            ),
+                          ),
                           const SizedBox(width: 6),
                           Text(
                             Constant.normalizePhoneV2(phone),
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                            style: AppTextFonts.poppinsSemiBold.copyWith(
+                              fontSize: 14,
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        children: List.generate(
-                          6,
-                              (index) => Expanded(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 6),
-                              child: _buildOtpBox(index),
-                            ),
+                      if (isIncorrectOTP) ...[
+                        const SizedBox(height: 16),
+                        Text(
+                          AppLocalizations.of(context)!.incorrect_pin_otp,
+                          style: AppTextFonts.poppinsRegular.copyWith(
+                            fontSize: 12,
+                            color: AppColors.color_EF30,
                           ),
                         ),
+                      ],
+                      const SizedBox(height: 16),
+                      PinCodeTextField(
+                        appContext: context,
+                        length: 6,
+                        keyboardType: TextInputType.number,
+                        animationType: AnimationType.none,
+                        autoFocus: true,
+                        textStyle: AppTextFonts.poppinsSemiBold.copyWith(
+                          fontSize: 24,
+                          color: AppColors.color_EF30
+                        ),
+                        cursorColor: AppColors.color_EF30,
+                        pinTheme: PinTheme(
+                          shape: PinCodeFieldShape.box,
+                          borderRadius: BorderRadius.circular(12),
+                          fieldHeight: 56,
+                          fieldWidth: 56,
+                          activeColor: AppColors.color_EF30,
+                          selectedColor: AppColors.color_EF30,
+                          inactiveColor: AppColors.color_1618,
+                        ),
+                        onCompleted: (value) {
+                          AppLogger().logInfo('OTP đầy đủ: $value');
+                          _bloc.add(ConfirmOTPEvent(phone, language, Constant.WS_CODE, value));
+                        },
+                        onChanged: (value) {
+                          debugPrint('OTP đang nhập: $value');
+                        },
+                      ),
+                      const SizedBox(height: 24),
+                      Row(
+                        children: [
+                          Text(
+                            AppLocalizations.of(context)!.didn_t_otp,
+                            style: AppTextFonts.poppinsRegular.copyWith(
+                              fontSize: 14
+                            ),
+                          ),
+                          Spacer(),
+                          Text(
+                            AppLocalizations.of(context)!.resend_otp,
+                            style: AppTextFonts.poppinsMedium.copyWith(
+                              fontSize: 14,
+                              decoration: TextDecoration.underline,
+                              color: AppColors.color_E11B,
+                              decorationColor: AppColors.color_E11B
+                            ),
+                          ),
+                        ],
                       )
                     ],
                   ),
@@ -202,15 +208,14 @@ class _VerifyPageState extends State<VerifyPage> {
             );
           },
           listener: (context, state) {
-            if(state is GetOTPByServiceSuccess){
-
-            } else if(state is GetOTPByServiceFailure){
+            if (state is GetOTPByServiceSuccess) {
+            } else if (state is GetOTPByServiceFailure) {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
-            } else if(state is ConfirmOTPSuccess){
-
-            } else if(state is ConfirmOTPFailure){
+            } else if (state is ConfirmOTPSuccess) {
+              context.push(PATH_USER_INFORMATION);
+            } else if (state is ConfirmOTPFailure) {
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
@@ -220,4 +225,6 @@ class _VerifyPageState extends State<VerifyPage> {
       ),
     );
   }
+
+
 }
