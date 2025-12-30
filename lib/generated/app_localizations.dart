@@ -843,6 +843,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Click here to login'**
   String get clickHereToLogin;
+
+  /// No description provided for @myGift.
+  ///
+  /// In en, this message translates to:
+  /// **'My Gift'**
+  String get myGift;
+
+  /// No description provided for @ranking.
+  ///
+  /// In en, this message translates to:
+  /// **'Ranking'**
+  String get ranking;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @trendingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending now'**
+  String get trendingNow;
+
+  /// No description provided for @specialGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Special Game'**
+  String get specialGame;
+
+  /// No description provided for @theUltimateRacer.
+  ///
+  /// In en, this message translates to:
+  /// **'The Ultimate Racer'**
+  String get theUltimateRacer;
+
+  /// No description provided for @playerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'player'**
+  String get playerCount;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
 }
 
 class _AppLocalizationsDelegate

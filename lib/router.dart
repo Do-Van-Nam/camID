@@ -1,6 +1,8 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
+import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
+import 'package:cam_id/main/ui/entertainment/ranking/ranking_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
@@ -49,6 +51,10 @@ const String PATH_NOTIFICATION = "/notificaion";
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
+//entertainment
+//game
+const String PATH_GAME = "/game";
+const String PATH_RANKING = "/ranking";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -90,7 +96,7 @@ final GoRouter router = GoRouter(
           builder: (context, state) => LanguagePage(),
         ),
 
-        // --- N
+        // --------------------------------------
         GoRoute(path: PATH_SEARCH, builder: (context, state) => SearchPage()),
         GoRoute(
           path: PATH_FEEDBACK,
@@ -107,16 +113,31 @@ final GoRouter router = GoRouter(
           builder: (context, state) => ChatbotIntroPage(),
         ),
         GoRoute(path: PATH_CHATBOT, builder: (context, state) => ChatBotPage()),
-
-        // ---
+        //entertainment
+        //game
+        GoRoute(path: PATH_GAME, builder: (context, state) => GamePage()),
+        GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
+        // ----------------------------------------------
         GoRoute(
           path: PATH_FIND_STORES,
           builder: (context, state) => FindStoresPage(),
         ),
-        GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
-        GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
-        GoRoute(path: PATH_FORCE_UPDATE, builder: (context, state) => ForceUpdatePage()),
-        GoRoute(path: PATH_MAINTENANCE, builder: (context, state) => MaintenancePage()),
+        GoRoute(
+          path: PATH_USER_PROFILE,
+          builder: (context, state) => UserProfilePage(),
+        ),
+        GoRoute(
+          path: PATH_USER_INFORMATION,
+          builder: (context, state) => UserInformationPage(),
+        ),
+        GoRoute(
+          path: PATH_FORCE_UPDATE,
+          builder: (context, state) => ForceUpdatePage(),
+        ),
+        GoRoute(
+          path: PATH_MAINTENANCE,
+          builder: (context, state) => MaintenancePage(),
+        ),
         GoRoute(
           path: PATH_TERMS,
           builder: (context, state) {
@@ -125,7 +146,11 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(path: PATH_VERIFY, builder: (context, state) => VerifyPage()),
-        GoRoute(path: PATH_ID_TYPE, builder: (context, state) => SelectIDTypePage()),
+        GoRoute(
+          path: PATH_ID_TYPE,
+          builder: (context, state) => SelectIDTypePage(),
+        ),
+
         // GoRoute(
         //   path: PATH_IDENTITY_VERIFICATION,
         //   builder: (context, state) {
@@ -133,10 +158,8 @@ final GoRouter router = GoRouter(
         //     return VerifyIdPage(idType: idType);
         //   },
         // ),
-
       ],
     ),
-
   ],
   redirect: (context, state) {
     final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;

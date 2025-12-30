@@ -3,8 +3,6 @@ import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
-import 'package:cam_id/main/utils/widget/loading_widget.dart';
-import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
@@ -12,8 +10,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ipcc_plugin/ipcc_plugin.dart';
 import 'package:speed_test_plugin/speed_test_plugin.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../../../generated/app_localizations.dart';
 import '../../../router.dart';
 
 class HelpCenterPage extends StatefulWidget {

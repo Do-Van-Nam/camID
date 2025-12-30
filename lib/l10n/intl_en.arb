@@ -161,6 +161,15 @@
   },
   "connectWithUs":"Connect with us",
   "support":"Support",
-  "clickHereToLogin":"Click here to login"
+  "clickHereToLogin":"Click here to login",
+  "myGift": "My Gift",
+  "ranking": "Ranking",
+  "category": "Category",
+  "trendingNow": "Trending now",
+  "specialGame": "Special Game",
+  "theUltimateRacer": "The Ultimate Racer",
+  "playerCount": "player",
+  "action": "Action"
+
 
 }

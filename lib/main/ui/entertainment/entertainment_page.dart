@@ -1,10 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import '../miniapp/mini_app_bloc.dart';
 import '../miniapp/mini_app_event.dart';
 import './entertainment_bloc.dart';
@@ -72,13 +76,13 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                 height: 24,
               ),
               onPressed: () {
-                // Xử lý khi nhấn vào biểu tượng thông báo
+                context.push(PATH_NOTIFICATION);
               },
             ),
             IconButton(
               icon: SvgPicture.asset(AppImages.icSearch, width: 24, height: 24),
               onPressed: () {
-                // Xử lý khi nhấn vào biểu tượng thông báo
+                context.push(PATH_SEARCH);
               },
             ),
 
@@ -86,21 +90,26 @@ class _EntertainmentPageState extends State<EntertainmentPage>
           ],
         ),
 
-        body: Column(
-          children: [
-            // Banner carousel + indicator
-            Expanded(
+        body: BlocBuilder<EntertainmentBloc, EntertainmentState>(
+          builder: (context, state) {
+            // if (state.isLoading) {
+            //   return const Center(child: CircularProgressIndicator());
+            // }
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.vertical,
               child: Column(
+                spacing: 16,
                 children: [
-                  // Carousel Slider
-                  BlocBuilder<EntertainmentBloc, EntertainmentState>(
-                    builder: (context, state) {
-                      return CarouselSlider(
+                  // Banner carousel + indicator
+                  Stack(
+                    children: [
+                      CarouselSlider(
                         options: CarouselOptions(
-                          height: 200,
+                          height: 250,
                           autoPlay: true,
                           autoPlayInterval: const Duration(seconds: 4),
-                          viewportFraction: 0.95,
+                          viewportFraction: 1.05,
                           enlargeCenterPage: true,
                           onPageChanged: (index, reason) {
                             context.read<EntertainmentBloc>().add(
@@ -117,7 +126,10 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                                   horizontal: 5.0,
                                 ),
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(12),
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(24),
+                                    bottomRight: Radius.circular(24),
+                                  ),
                                   image: DecorationImage(
                                     image: NetworkImage(url),
                                     fit: BoxFit.cover,
@@ -127,36 +139,133 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                             },
                           );
                         }).toList(),
-                      );
-                    },
-                  ),
-                  const SizedBox(height: 16),
+                      ),
 
-                  // Dấu chấm indicator
-                  BlocBuilder<EntertainmentBloc, EntertainmentState>(
-                    builder: (context, state) {
-                      return Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: bannerImages.asMap().entries.map((entry) {
-                          return Container(
-                            width: 10,
-                            height: 10,
-                            margin: const EdgeInsets.symmetric(horizontal: 4),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: state.currentBannerIndex == entry.key
-                                  ? AppColors.colorMain
-                                  : Colors.grey,
+                      // Dấu chấm indicator
+                      Column(
+                        children: [
+                          const SizedBox(height: 160),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: bannerImages.asMap().entries.map((entry) {
+                              return Container(
+                                width: state.currentBannerIndex == entry.key
+                                    ? 16
+                                    : 6,
+                                height: 6,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3),
+                                  color: state.currentBannerIndex == entry.key
+                                      ? Colors.white
+                                      : Colors.grey,
+                                ),
+                              );
+                            }).toList(),
+                          ),
+
+                          Container(
+                            margin: const EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 8,
                             ),
-                          );
-                        }).toList(),
-                      );
-                    },
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              spacing: 16,
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    _buildServiceButton(
+                                      AppImages.icTV360,
+                                      l10n.tv360,
+                                      () {
+                                        openMiniApp(
+                                          context,
+                                          "https://www.24h.com.vn/",
+                                        );
+                                      },
+                                    ),
+                                    _buildServiceButton(
+                                      AppImages.icVas,
+                                      l10n.vasService,
+                                      () async {
+                                        openMiniApp(
+                                          context,
+                                          "https://www.24h.com.vn/",
+                                        );
+                                      },
+                                    ),
+                                    _buildServiceButton(
+                                      AppImages.icGame,
+                                      l10n.game,
+                                      () {
+                                        context.push(PATH_GAME);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
                   ),
-
-                  const SizedBox(height: 32),
+                  viewAllHeader(title: l10n.tv360, onViewAll: () {}),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...bannerImages
+                            .map(
+                              (url) => Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: _buildTv360Item(url),
+                              ),
+                            )
+                            .toList(),
+                        const Padding(padding: EdgeInsets.only(right: 16.0)),
+                      ],
+                    ),
+                  ),
+                  viewAllHeader(title: l10n.game, onViewAll: () {}),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ...bannerImages
+                            .map(
+                              (url) => Padding(
+                                padding: const EdgeInsets.only(left: 16.0),
+                                child: _buildGameItem(url, url, () {}),
+                              ),
+                            )
+                            .toList(),
+                        const Padding(padding: EdgeInsets.only(right: 16.0)),
+                      ],
+                    ),
+                  ),
+                  viewAllHeader(title: l10n.vasService, onViewAll: () {}),
                   Container(
-                    margin: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
                       color: Colors.white,
@@ -175,38 +284,21 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildServiceButton(
-                              AppImages.icTV360,
-                              l10n.tv360,
-                              () {
-                                openMiniApp(context, "https://www.24h.com.vn/");
-                              },
-                            ),
-                            _buildServiceButton(
-                              AppImages.icVas,
-                              l10n.vasService,
-                              () async {
-                                openMiniApp(context, "https://www.24h.com.vn/");
-                              },
-                            ),
-                            _buildServiceButton(
-                              AppImages.icGame,
-                              l10n.game,
-                              () async {
-                                openMiniApp(context, "https://www.24h.com.vn/");
-                              },
-                            ),
+                            _buildTVasItem(bannerImages[0]),
+                            _buildTVasItem(bannerImages[0]),
+                            _buildTVasItem(bannerImages[0]),
+                            _buildTVasItem(bannerImages[0]),
                           ],
                         ),
                       ],
                     ),
                   ),
 
-                  const Spacer(),
+                  SizedBox(height: 24),
                 ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );
@@ -238,6 +330,229 @@ class _EntertainmentPageState extends State<EntertainmentPage>
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildTv360Item(String url) {
+    final title = Uri.tryParse(url)?.pathSegments.isNotEmpty == true
+        ? Uri.parse(url).pathSegments.last
+        : 'Phim';
+    return GestureDetector(
+      onTap: () {
+        // Xử lý khi nhấn vào item
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: CachedNetworkImage(
+                  imageUrl: url,
+                  width: 160,
+                  height: 200,
+                  fit: BoxFit.cover,
+                  placeholder: (context, url) => Container(
+                    width: 160,
+                    height: 100,
+                    color: Colors.grey[200],
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    width: 160,
+                    height: 100,
+                    color: Colors.grey,
+                    child: const Icon(
+                      Icons.broken_image,
+                      color: Colors.white70,
+                    ),
+                  ),
+                ),
+              ),
+
+              Positioned(
+                left: 8,
+                bottom: 8,
+                child: Container(
+                  constraints: const BoxConstraints(maxWidth: 140),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 8,
+                    vertical: 4,
+                  ),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.6),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Text(
+                    title,
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          SizedBox(
+            width: 160,
+            child: Text(
+              title,
+              textAlign: TextAlign.left,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextFonts.poppins12RegularCentered,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTVasItem(String url) {
+    final title = Uri.tryParse(url)?.pathSegments.isNotEmpty == true
+        ? Uri.parse(url).pathSegments.last
+        : 'Phim';
+    return GestureDetector(
+      onTap: () {
+        // Xử lý khi nhấn vào item
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(12),
+            child: CachedNetworkImage(
+              imageUrl: url,
+              width: 60,
+              height: 60,
+              fit: BoxFit.cover,
+              placeholder: (context, url) =>
+                  Container(width: 60, height: 60, color: Colors.grey[200]),
+              errorWidget: (context, url, error) => Container(
+                width: 60,
+                height: 60,
+                color: Colors.grey,
+                child: const Icon(Icons.broken_image, color: Colors.white70),
+              ),
+            ),
+          ),
+          SizedBox(
+            width: 80,
+            child: Text(
+              title,
+              textAlign: TextAlign.left,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: AppTextFonts.poppins12RegularCentered,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildGameItem(String url, String title, VoidCallback onTap) {
+    return Stack(
+      alignment: AlignmentGeometry.center,
+      children: [
+        Column(
+          children: [
+            SizedBox(height: 8),
+            Container(
+              width: 120,
+              height: 120,
+              padding: const EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                // Thay color bằng gradient
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    Color(0xFFFFF4F4), // #FFF4F4
+                    Color(0xFFFDEDEE), // #FDEDEE
+                  ],
+                ),
+
+                borderRadius: const BorderRadius.all(Radius.circular(16)),
+                border: Border.all(color: AppColors.color_F7A8AA, width: 1),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black12,
+                    blurRadius: 8,
+                    offset: Offset(0, 4),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        Column(
+          children: [
+            // Ảnh game (bo góc trên)
+            ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(16)),
+              child: CachedNetworkImage(
+                imageUrl: url,
+                width: 80,
+                height: 80,
+                fit: BoxFit.cover,
+                placeholder: (context, url) =>
+                    Container(width: 80, height: 80, color: Colors.grey[200]),
+                errorWidget: (context, url, error) => Container(
+                  width: 80,
+                  height: 80,
+                  color: Colors.grey,
+                  child: const Icon(Icons.broken_image, color: Colors.white70),
+                ),
+              ),
+            ),
+
+            // Phần dưới: tên + nút Play
+            SizedBox(
+              width: 100,
+              child: Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black87,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+
+            const SizedBox(height: 12),
+
+            // Nút Play đỏ
+            SizedBox(
+              width: 80,
+              height: 40,
+              child: ElevatedButton(
+                onPressed: onTap,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.red,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 2,
+                ),
+                child: const Text(
+                  'Play',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            SizedBox(height: 16),
+          ],
+        ),
+      ],
     );
   }
 }

@@ -77,5 +77,6 @@ class AppTextFonts {
     letterSpacing: 0.0,
   );
 
+  static const Alignment poppins12RegularAlignment = Alignment.center;
   static const TextAlign poppins12RegularTextAlign = TextAlign.center;
 }

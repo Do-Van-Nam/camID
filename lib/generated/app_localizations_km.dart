@@ -390,4 +390,28 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get clickHereToLogin => 'Click here to login';
+
+  @override
+  String get myGift => 'My Gift';
+
+  @override
+  String get ranking => 'Ranking';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get trendingNow => 'Trending now';
+
+  @override
+  String get specialGame => 'Special Game';
+
+  @override
+  String get theUltimateRacer => 'The Ultimate Racer';
+
+  @override
+  String get playerCount => 'player';
+
+  @override
+  String get action => 'Action';
 }
