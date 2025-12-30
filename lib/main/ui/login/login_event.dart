@@ -11,25 +11,3 @@ class SignUpEvent extends LoginEvent{
   final String otp;
   SignUpEvent(this.phoneNumber, this.confirmOtp, this.otp);
 }
-
-class GenerateOTPEvent extends LoginEvent {
-  final String phoneNumber;
-
-  GenerateOTPEvent(this.phoneNumber);
-}
-
-class SignInEvent extends LoginEvent {
-  final String phoneNumber;
-  final String otp;
-
-  SignInEvent(this.phoneNumber, this.otp);
-
-  @override
-  List<Object> get props => [phoneNumber, otp];
-}
-
-class GetUserInfoEvent extends LoginEvent {
-  final String token;
-
-  GetUserInfoEvent(this.token);
-}

@@ -36,7 +36,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_your_otp => 'Enter your OTP';
 
   @override
-  String get skip => 'Skip';
+  String get skip => 'Skip now';
 
   @override
   String get setting => 'Setting';
@@ -355,4 +355,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callTheStaffs => 'Call the staffs';
+
+  @override
+  String get login_des => 'Welcome to the CamID, your digital passport.';
+
+  @override
+  String get enter_your_phone_number => 'Enter your phone number';
+
+  @override
+  String get identity_verification => 'Identity Verification';
 }

@@ -9,9 +9,15 @@ import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
+import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class LoginPage extends StatefulWidget {
@@ -21,18 +27,11 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  bool showOtp = false;
-  int resendSeconds = 60;
-  Timer? resendTimer;
-
   final phoneController = TextEditingController();
-  final otpController = TextEditingController();
 
   @override
   void dispose() {
-    resendTimer?.cancel();
     phoneController.dispose();
-    otpController.dispose();
     super.dispose();
   }
 
@@ -45,12 +44,115 @@ class _LoginPageState extends State<LoginPage> {
         body: BlocConsumer<LoginBloc, LoginState>(
           listener: (context, state) => handleBlocListener(context, state),
           builder: (context, state) {
-            return Padding(
-              padding: const EdgeInsets.all(16),
-              child: Column(
+            return AnnotatedRegion<SystemUiOverlayStyle>(
+              value: SystemUiOverlayStyle.light,
+              child: Stack(
                 children: [
-                  Expanded(child: buildMainContent(context)),
-                  buildSkipButton(context),
+                  SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: Image.asset(AppImages.imgBgLogin, fit: BoxFit.cover),
+                  ),
+                  Positioned.fill(
+                    child: Container(
+                      margin: const EdgeInsets.fromLTRB(12, 110, 12, 12),
+                      child: Column(
+                        children: [
+                          Image.asset(AppImages.imgLogoLogin, width: 143),
+                          const SizedBox(height: 12),
+                          Text(
+                            AppLocalizations.of(context)!.login_des,
+                            style: AppTextFonts.poppinsMedium.copyWith(
+                              color: AppColors.color_FFFF,
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 34),
+
+                          Expanded(
+                            child: Container(
+                              padding: const EdgeInsets.all(24),
+                              decoration: BoxDecoration(
+                                color: AppColors.color_FFFF,
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    AppLocalizations.of(context)!.phone_number,
+                                    style: AppTextFonts.poppinsMedium.copyWith(
+                                      color: AppColors.color_8588,
+                                      fontSize: 14,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: AppColors.color_5F5F,
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                    ),
+                                    child: TextField(
+                                      controller: phoneController,
+                                      keyboardType: TextInputType.phone,
+                                      decoration: InputDecoration(
+                                        border: InputBorder.none,
+                                        hintText: AppLocalizations.of(
+                                          context,
+                                        )!.enter_your_phone_number,
+                                        hintStyle: AppTextFonts.poppinsMedium
+                                            .copyWith(
+                                              color: AppColors.color_8588,
+                                              fontSize: 14,
+                                            ),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 24),
+                                  SizedBox(
+                                    width: double.infinity,
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        handleLoginPressed(context);
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: AppColors.color_E11B,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            100,
+                                          ),
+                                        ),
+                                        padding: const EdgeInsets.symmetric(
+                                          vertical: 14,
+                                        ),
+                                        elevation: 0,
+                                      ),
+                                      child: Text(
+                                        AppLocalizations.of(context)!.login,
+                                        style: AppStyles.textButtonLight,
+                                      ),
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Center(
+                                    child: redLightButton(
+                                      title: AppLocalizations.of(context)!.skip,
+                                      onTap: () {
+                                        _onSkip();
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
                 ],
               ),
             );
@@ -60,179 +162,62 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget buildMainContent(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
-      children: [
-        const SizedBox(height: 40),
-        buildPhoneInput(context),
-        if (showOtp) ...[const SizedBox(height: 16), buildOtpInput(context)],
-        const SizedBox(height: 24),
-        buildLoginButton(context),
-      ],
-    );
-  }
-
-  Widget buildPhoneInput(BuildContext context) {
-    return TextField(
-      controller: phoneController,
-      keyboardType: TextInputType.phone,
-      decoration: InputDecoration(
-        labelText: AppLocalizations.of(context)!.phone_number,
-        border: const OutlineInputBorder(),
-        suffixIcon: showOtp ? buildChangeButton(context) : null,
-      ),
-    );
-  }
-
-  Widget buildChangeButton(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8),
-      child: ElevatedButton(
-        onPressed: handleChangePhone,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
-          minimumSize: const Size(0, 20),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+  Widget redLightButton({required VoidCallback onTap, required String title}) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(10, 6, 6, 6),
+        decoration: BoxDecoration(
+          color: AppColors.color_E11B_10,
+          borderRadius: BorderRadius.circular(100),
         ),
-        child: Text(
-          AppLocalizations.of(context)!.change,
-          style: const TextStyle(fontSize: 12, color: Colors.white),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              title,
+              style: AppTextFonts.poppinsRegular.copyWith(
+                color: AppColors.color_E11B,
+                fontSize: 14,
+              ),
+            ),
+            const SizedBox(width: 2),
+            SvgPicture.asset(AppImages.icArrowRightRed),
+          ],
         ),
-      ),
-    );
-  }
-
-  Widget buildOtpInput(BuildContext context) {
-    return TextField(
-      controller: otpController,
-      keyboardType: TextInputType.number,
-      autofillHints: const [AutofillHints.oneTimeCode],
-      decoration: InputDecoration(
-        labelText: AppLocalizations.of(context)!.enter_your_otp,
-        border: const OutlineInputBorder(),
-        suffixIcon: buildResendButton(context),
-      ),
-    );
-  }
-
-  Widget buildResendButton(BuildContext context) {
-    final bloc = context.read<LoginBloc>();
-
-    return Padding(
-      padding: const EdgeInsets.all(12),
-      child: ElevatedButton(
-        onPressed: () {
-          if (resendSeconds > 0) return;
-
-          bloc.add(GenerateOTPEvent(phoneController.text));
-          startResendTimer();
-        },
-
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.blueAccent,
-          minimumSize: const Size(40, 20),
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        ),
-        child: Text(
-          resendSeconds > 0
-              ? "${resendSeconds < 10 ? resendSeconds : resendSeconds.toString().padLeft(2, '0')}s"
-              : AppLocalizations.of(context)!.resend,
-          style: const TextStyle(fontSize: 12, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Widget buildLoginButton(BuildContext context) {
-    return ElevatedButton(
-      onPressed: () => handleLoginPressed(context),
-      child: Text(AppLocalizations.of(context)!.login),
-    );
-  }
-
-  Widget buildSkipButton(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: _onSkip,
-        child: Text(AppLocalizations.of(context)!.skip),
       ),
     );
   }
 
   void handleLoginPressed(BuildContext context) {
     final bloc = context.read<LoginBloc>();
-    if (!showOtp) {
-      if(isValidCambodiaPhone(phoneController.text)){
-        LoadingOverlayWidget.show(context);
-        bloc.add(SignUpEvent(phoneController.text, false, "123456"));
-      } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(AppLocalizations.of(context)!.phone_number_is_not_valid)));
-      }
-    } else {
+    if (isValidCambodiaPhone(phoneController.text)) {
       LoadingOverlayWidget.show(context);
-      bloc.add(SignInEvent(phoneController.text, otpController.text));
+      bloc.add(SignUpEvent(phoneController.text, false, "123456"));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(
+            AppLocalizations.of(context)!.phone_number_is_not_valid,
+          ),
+        ),
+      );
     }
-  }
-
-  void handleChangePhone() {
-    setState(() {
-      showOtp = false;
-      otpController.clear();
-      resendTimer?.cancel();
-      resendSeconds = 90;
-    });
   }
 
   Future<void> handleBlocListener(
     BuildContext context,
     LoginState state,
   ) async {
-    final bloc = context.read<LoginBloc>();
-
     if (state is SignUpSuccess) {
-      setState(() => showOtp = true);
-      startResendTimer();
       LoadingOverlayWidget.hide();
-      bloc.add(GenerateOTPEvent(phoneController.text));
+      context.push(PATH_LOGIN_OTP, extra: phoneController.text);
     }
     if (state is SignUpFailure) {
       LoadingOverlayWidget.hide();
       ScaffoldMessenger.of(
         context,
       ).showSnackBar(SnackBar(content: Text(state.message)));
-    }
-
-    if (state is SignInFailure) {
-      LoadingOverlayWidget.hide();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(state.message)));
-    }
-
-    if (state is GetUserInfoFailure) {
-      LoadingOverlayWidget.hide();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(state.message)));
-    }
-
-    if (state is GenerateOTPSuccess || state is GenerateOTPFailure) {
-      LoadingOverlayWidget.hide();
-    }
-
-    if (state is SignInSuccess) {
-      LoadingOverlayWidget.hide();
-      await _onSaveToken(state.data, bloc);
-    }
-
-    if (state is GetUserInfoSuccess) {
-      LoadingOverlayWidget.hide();
-      await _onSaveUserInfo(state.user);
-      context.go(PATH_HOME);
     }
   }
 
@@ -243,44 +228,9 @@ class _LoginPageState extends State<LoginPage> {
     context.go(PATH_HOME);
   }
 
-  Future<void> _onSaveToken(SignInModel model, LoginBloc bloc) async {
-    String token = "Bearer ${model.accessToken}";
-
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_PHONE_NUMBER,
-      phoneController.text,
-    );
-    await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
-    await SharePreferenceUtil.setString(
-      ShareKey.KEY_REFRESH_TOKEN,
-      model.refreshToken ?? '',
-    );
-
-    bloc.add(GetUserInfoEvent(token));
-  }
-
-  Future<void> _onSaveUserInfo(UserInfoModel? model) async {
-    if (model == null) return;
-    await SharePreferenceUtil.saveUser(model);
-  }
-
-  void startResendTimer() {
-    resendSeconds = 90;
-    resendTimer?.cancel();
-    resendTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      setState(() {
-        if (resendSeconds > 0) {
-          resendSeconds--;
-        } else {
-          timer.cancel();
-        }
-      });
-    });
-  }
-
   bool isValidCambodiaPhone(String phone) {
-    return (phone.startsWith('+855') || phone.startsWith('0'))
-        && phone.length >= 9
-        && phone.length <= 14;
+    return (phone.startsWith('+855') || phone.startsWith('0')) &&
+        phone.length >= 9 &&
+        phone.length <= 14;
   }
 }

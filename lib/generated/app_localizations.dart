@@ -157,7 +157,7 @@ abstract class AppLocalizations {
   /// No description provided for @skip.
   ///
   /// In en, this message translates to:
-  /// **'Skip'**
+  /// **'Skip now'**
   String get skip;
 
   /// No description provided for @setting.
@@ -777,6 +777,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Call the staffs'**
   String get callTheStaffs;
+
+  /// No description provided for @login_des.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to the CamID, your digital passport.'**
+  String get login_des;
+
+  /// No description provided for @enter_your_phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get enter_your_phone_number;
+
+  /// No description provided for @identity_verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verification'**
+  String get identity_verification;
 }
 
 class _AppLocalizationsDelegate

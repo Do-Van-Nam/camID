@@ -1,5 +1,8 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class LoadingWidget extends StatelessWidget {
   final LoadingWidgetState state;
@@ -28,42 +31,55 @@ class LoadingWidget extends StatelessWidget {
 
       case LoadingWidgetState.empty:
         return _StateContent(
-          icon: Icons.hourglass_empty,
+          icon: AppImages.icEmpty,
+          message: emptyMessage ?? AppLocalizations.of(context)!.no_data,
+        );
+      case LoadingWidgetState.emptyNotification:
+        return _StateContent(
+          icon: AppImages.icEmptyNotification,
+          message: emptyMessage ?? AppLocalizations.of(context)!.no_data,
+        );
+      case LoadingWidgetState.emptyShowroom:
+        return _StateContent(
+          icon: AppImages.icEmptyShowroom,
           message: emptyMessage ?? AppLocalizations.of(context)!.no_data,
         );
 
       case LoadingWidgetState.error:
         return _StateContent(
-          icon: Icons.error,
+          icon: AppImages.icError,
           message: errorMessage ?? AppLocalizations.of(context)!.error_occurred,
-          iconColor: Colors.red,
           onRetry: onRetry,
         );
     }
   }
 }
 
-enum LoadingWidgetState { loading, success, empty, error }
+enum LoadingWidgetState { loading, success, empty, emptyNotification, emptyShowroom, error }
 
 class _LoadingView extends StatelessWidget {
   const _LoadingView();
 
   @override
   Widget build(BuildContext context) {
-    return const Center(child: CircularProgressIndicator());
+    return const Center(
+      child: CircularProgressIndicator(
+        valueColor: AlwaysStoppedAnimation<Color>(
+          AppColors.color_E11B,
+        ),
+      ),
+    );
   }
 }
 
 class _StateContent extends StatelessWidget {
-  final IconData icon;
+  final String icon;
   final String message;
-  final Color iconColor;
   final VoidCallback? onRetry;
 
   const _StateContent({
     required this.icon,
     required this.message,
-    this.iconColor = Colors.grey,
     this.onRetry,
   });
 
@@ -75,17 +91,17 @@ class _StateContent extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, size: 64, color: iconColor),
+            SvgPicture.asset(icon),
             const SizedBox(height: 12),
             Text(
               message,
               textAlign: TextAlign.center,
               style: const TextStyle(fontSize: 16, color: Colors.grey),
             ),
-            if (onRetry != null) ...[
-              const SizedBox(height: 16),
-              ElevatedButton(onPressed: onRetry, child: Text(AppLocalizations.of(context)!.retry)),
-            ],
+            // if (onRetry != null) ...[
+            //   const SizedBox(height: 16),
+            //   ElevatedButton(onPressed: onRetry, child: Text(AppLocalizations.of(context)!.retry)),
+            // ],
           ],
         ),
       ),

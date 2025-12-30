@@ -12,6 +12,7 @@ import 'package:cam_id/main/utils/bottom_sheet/other_payment_bottom_sheet.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -81,6 +82,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
     return BlocProvider.value(
       value: _bloc,
       child: Scaffold(
+        backgroundColor: AppColors.color_F7F7,
         body: BlocConsumer<UserProfileBloc, UserProfileState>(
           listener: (context, state) {
             if (state is UserProfileLoading) {
@@ -95,7 +97,6 @@ class _UserProfilePageState extends State<UserProfilePage> {
 
               viewState = LoadingWidgetState.success;
             } else if (state is GetUserInfoFailure) {
-              viewState = LoadingWidgetState.success;
               viewState = LoadingWidgetState.error;
             } else if (state is CheckLinkedPaymentEmoneySuccess) {
               _onSuccessCheckPayment(state.result);
@@ -167,10 +168,10 @@ class _UserProfilePageState extends State<UserProfilePage> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-                      child: const CircleAvatar(
+                      child: CircleAvatar(
                         radius: 24,
                         backgroundImage: AssetImage(
-                          'assets/icons/camid_logo.png',
+                          AppImages.imgCamIDLogo,
                         ),
                       ),
                     ),
@@ -329,7 +330,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
                           ),
                           const SizedBox(height: 6),
                           Image.asset(
-                            'assets/icons/ic_list_payment_method_temp.png',
+                            AppImages.imgListPaymentMethodTemp,
                             width: 190,
                           ),
                         ],
@@ -387,7 +388,7 @@ class _UserProfilePageState extends State<UserProfilePage> {
               ),
               child: Row(
                 children: [
-                  Image.asset("assets/icons/ic_en.png", width: 28, height: 28),
+                  Image.asset(AppImages.imgMetfone, width: 28, height: 28),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(

@@ -2,6 +2,7 @@ import 'package:cam_id/app.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -29,7 +30,7 @@ class ChatbotIntroPage extends StatelessWidget {
           ),
           title: Text(
             l10n.chatbotTitle, // "CamID ChatBot"
-            style: const TextStyle(color: Colors.white),
+            style: AppStyles.headerWhite,
           ),
           centerTitle: true,
         ),

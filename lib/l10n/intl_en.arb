@@ -8,7 +8,7 @@
   "metfone": "Metfone",
   "phone_number": "Phone number",
   "enter_your_otp": "Enter your OTP",
-  "skip": "Skip",
+  "skip": "Skip now",
   "setting": "Setting",
   "language": "Language",
   "title_drawer": "Click here to log in",
@@ -123,5 +123,8 @@
   "mainMenu": "Main menu",
   "changePhoneNumberLogin": "Change phone number login",
   "newChat": "New chat",
-  "callTheStaffs": "Call the staffs"
+  "callTheStaffs": "Call the staffs",
+  "login_des": "Welcome to the CamID, your digital passport.",
+  "enter_your_phone_number": "Enter your phone number",
+  "identity_verification": "Identity Verification"
 }
