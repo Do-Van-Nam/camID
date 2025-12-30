@@ -184,14 +184,14 @@ class _VerifyPageState extends State<VerifyPage> {
                           autoFocus: true,
                           textStyle: AppTextFonts.poppinsSemiBold.copyWith(
                             fontSize: 24,
-                            color: AppColors.color_EF30,
+                            color: AppColors.color_1618,
                           ),
                           cursorColor: AppColors.color_EF30,
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(12),
-                            fieldHeight: 56,
-                            fieldWidth: 56,
+                            fieldHeight: 44,
+                            fieldWidth: 44,
                             borderWidth: 1.5,
                             activeBorderWidth: 1.5,
                             selectedBorderWidth: 1.5,

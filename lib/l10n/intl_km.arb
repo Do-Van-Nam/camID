@@ -68,5 +68,10 @@
     "qr_code": "QR Code",
     "login_des": "Welcome to the CamID, your digital passport.",
     "enter_your_phone_number": "Enter your phone number",
-    "identity_verification": "Identity Verification"
+    "identity_verification": "Identity Verification",
+    "take_a_photo": "Take a photo",
+    "front_side": "Front side",
+    "back_side":"Back side",
+    "visa": "Visa",
+    "portrait": "Portrait"
 }
