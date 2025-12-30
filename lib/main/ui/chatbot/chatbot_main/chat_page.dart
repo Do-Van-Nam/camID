@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
@@ -45,7 +46,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 ),
                 child: CircleAvatar(
                   backgroundColor: Colors.transparent,
-                  backgroundImage: AssetImage(AppImages.icChatBot5),
+                  backgroundImage: AssetImage(AppImages.imgChatBot5),
                 ),
               ),
               const SizedBox(width: 12),
@@ -55,7 +56,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 children: [
                   Text(
                     l10n.chatbotTitle,
-                    style: const TextStyle(color: Colors.white),
+                    style: AppStyles.headerWhite,
                   ),
                   const SizedBox(height: 4),
                   Row(

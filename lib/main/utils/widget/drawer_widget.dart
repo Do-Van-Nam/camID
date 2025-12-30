@@ -6,6 +6,7 @@ import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -28,7 +29,7 @@ class AppDrawer extends StatelessWidget {
         children: [
           SizedBox(
             width: double.infinity,
-            child: Image.asset('assets/icons/bg_drawer.png', fit: BoxFit.cover),
+            child: Image.asset(AppImages.imgDrawer, fit: BoxFit.cover),
           ),
           Column(
             children: [
@@ -37,7 +38,7 @@ class AppDrawer extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.fromLTRB(16, 48, 16, 16),
                   child: isLoggedIn
-                      ? _buildLoggedInHeader()
+                      ? _buildLoggedInHeader(context)
                       : _buildGuestHeader(context),
                 ),
               ),
@@ -49,7 +50,7 @@ class AppDrawer extends StatelessWidget {
                     if (isLoggedIn)
                       ListTile(
                         leading: SvgPicture.asset(
-                          "assets/icons/ic_qr_code.svg",
+                          AppImages.icQRCode,
                           width: 24,
                           height: 24,
                         ),
@@ -64,7 +65,7 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ListTile(
                       leading: SvgPicture.asset(
-                        "assets/icons/ic_language.svg",
+                        AppImages.icLanguage,
                         width: 24,
                         height: 24,
                       ),
@@ -82,7 +83,7 @@ class AppDrawer extends StatelessWidget {
                     ),
                     ListTile(
                       leading: SvgPicture.asset(
-                        "assets/icons/ic_setting.svg",
+                        AppImages.icSetting,
                         width: 24,
                         height: 24,
                       ),
@@ -100,7 +101,7 @@ class AppDrawer extends StatelessWidget {
                     if (isLoggedIn)
                       ListTile(
                         leading: SvgPicture.asset(
-                          "assets/icons/ic_logout.svg",
+                          AppImages.icLogout,
                           width: 24,
                           height: 24,
                         ),
@@ -136,7 +137,7 @@ class AppDrawer extends StatelessWidget {
                 child: Column(
                   children: [
                     Image.asset(
-                      "assets/icons/bg_logo_drawer.png",
+                      AppImages.imgLogoDrawer,
                       height: 115,
                       width: 140,
                     ),
@@ -188,41 +189,46 @@ class AppDrawer extends StatelessWidget {
     );
   }
 
-  Widget _buildLoggedInHeader() {
+  Widget _buildLoggedInHeader(BuildContext context) {
     return Row(
       children: [
-        const CircleAvatar(
+        CircleAvatar(
           radius: 28,
-          backgroundImage: AssetImage('assets/icons/ic_avatar_default.png'),
+          backgroundImage: AssetImage(AppImages.icAvatarDefault),
         ),
         const SizedBox(width: 12),
         Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                Constant.normalizePhoneV2(UserInfoModel.instance.fullName),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: AppTextFonts.poppinsRegular.copyWith(
-                  fontSize: 12,
-                  color: AppColors.color_1618,
+          child: GestureDetector(
+            onTap: () {
+              context.push(PATH_USER_PROFILE);
+            },
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  UserInfoModel.instance.fullName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: AppTextFonts.poppinsRegular.copyWith(
+                    fontSize: 12,
+                    color: AppColors.color_1618,
+                  ),
                 ),
-              ),
-              const SizedBox(height: 4),
-              Text(
-                Constant.normalizePhoneV2(UserInfoModel.instance.phoneNumber),
-                style: AppTextFonts.poppinsSemiBold.copyWith(
-                  fontSize: 16,
-                  color: AppColors.color_1618,
+                const SizedBox(height: 4),
+                Text(
+                  Constant.normalizePhoneV2(UserInfoModel.instance.phoneNumber),
+                  style: AppTextFonts.poppinsSemiBold.copyWith(
+                    fontSize: 16,
+                    color: AppColors.color_1618,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
         SvgPicture.asset(
-          "assets/icons/ic_arrow_right.svg",
+          AppImages.icArrowRight,
           width: 20,
           height: 20,
           colorFilter: const ColorFilter.mode(
@@ -240,7 +246,7 @@ class AppDrawer extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/icons/bg_camid_logo.png', width: 143, height: 36),
+          Image.asset(AppImages.imgBGCamIDLogo, width: 143, height: 36),
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,

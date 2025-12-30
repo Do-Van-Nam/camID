@@ -1,3 +1,4 @@
+import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class LoadingOverlayWidget {
@@ -10,7 +11,7 @@ class LoadingOverlayWidget {
       builder: (context) => Stack(
         children: [
           ModalBarrier(
-            color: Colors.black.withOpacity(0.5),
+            color: AppColors.color_E11B.withValues(alpha: 0.5),
             dismissible: false,
           ),
           const Center(

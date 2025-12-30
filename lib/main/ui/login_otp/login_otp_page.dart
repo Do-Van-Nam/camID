@@ -1,12 +1,15 @@
 import 'dart:async';
 
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/data/model/sign_in_model.dart';
+import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
-import 'package:cam_id/main/ui/verify/verify_bloc.dart';
-import 'package:cam_id/main/ui/verify/verify_event.dart';
-import 'package:cam_id/main/ui/verify/verify_state.dart';
+import 'package:cam_id/main/ui/login_otp/login_otp_bloc.dart';
+import 'package:cam_id/main/ui/login_otp/login_otp_event.dart';
+import 'package:cam_id/main/ui/login_otp/login_otp_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -17,17 +20,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
-class VerifyPage extends StatefulWidget {
-  const VerifyPage({super.key});
+class LoginOTPPage extends StatefulWidget {
+  final String phone;
+
+  const LoginOTPPage({super.key, required this.phone});
 
   @override
-  State<VerifyPage> createState() => _VerifyPageState();
+  State<LoginOTPPage> createState() => _LoginOTPPageState();
 }
 
-class _VerifyPageState extends State<VerifyPage> {
-  late final VerifyBloc _bloc;
+class _LoginOTPPageState extends State<LoginOTPPage> {
+  late final LoginOTPBloc _bloc;
   String phone = "";
-  String language = "";
   final bool isIncorrectOTP = false;
   final List<TextEditingController> _controllers = List.generate(
     6,
@@ -37,10 +41,12 @@ class _VerifyPageState extends State<VerifyPage> {
   Timer? _timer;
   int _secondsRemaining = 90;
   bool _canResend = false;
+
   @override
   void initState() {
     super.initState();
-    _bloc = VerifyBloc();
+    _bloc = LoginOTPBloc();
+    phone = widget.phone;
     _initData();
     _startCountdown();
   }
@@ -65,15 +71,7 @@ class _VerifyPageState extends State<VerifyPage> {
   }
 
   Future<void> _initData() async {
-    final languageCode = await SharePreferenceUtil.getLanguageCode();
-    final phoneNumber = await SharePreferenceUtil.getString(
-      ShareKey.KEY_PHONE_NUMBER,
-    );
-    setState(() {
-      phone = phoneNumber;
-      language = languageCode;
-    });
-    _bloc.add(GetOTPByServiceEvent(phone, language, Constant.WS_CODE));
+    _bloc.add(GenerateOTPEvent(phone));
   }
 
   @override
@@ -95,7 +93,7 @@ class _VerifyPageState extends State<VerifyPage> {
       value: _bloc,
       child: Scaffold(
         backgroundColor: AppColors.color_F7F7,
-        body: BlocConsumer<VerifyBloc, VerifyState>(
+        body: BlocConsumer<LoginOTPBloc, LoginOTPState>(
           builder: (context, state) {
             return AnnotatedRegion<SystemUiOverlayStyle>(
               value: SystemUiOverlayStyle.dark,
@@ -122,7 +120,7 @@ class _VerifyPageState extends State<VerifyPage> {
                               ),
                             ),
                             Text(
-                              AppLocalizations.of(context)!.verify,
+                              AppLocalizations.of(context)!.enter_your_otp,
                               style: AppStyles.headerBlack,
                             ),
                           ],
@@ -184,7 +182,7 @@ class _VerifyPageState extends State<VerifyPage> {
                           autoFocus: true,
                           textStyle: AppTextFonts.poppinsSemiBold.copyWith(
                             fontSize: 24,
-                            color: AppColors.color_EF30,
+                            color: AppColors.color_1618,
                           ),
                           cursorColor: AppColors.color_EF30,
                           pinTheme: PinTheme(
@@ -202,14 +200,7 @@ class _VerifyPageState extends State<VerifyPage> {
                           ),
                           onCompleted: (value) {
                             AppLogger().logInfo('OTP đầy đủ: $value');
-                            _bloc.add(
-                              ConfirmOTPEvent(
-                                phone,
-                                language,
-                                Constant.WS_CODE,
-                                value,
-                              ),
-                            );
+                            _bloc.add(SignInEvent(phone, value));
                           },
                           onChanged: (value) {
                             debugPrint('OTP đang nhập: $value');
@@ -228,13 +219,7 @@ class _VerifyPageState extends State<VerifyPage> {
                             GestureDetector(
                               onTap: _canResend
                                   ? () {
-                                      _bloc.add(
-                                        GetOTPByServiceEvent(
-                                          phone,
-                                          language,
-                                          Constant.WS_CODE,
-                                        ),
-                                      );
+                                      _bloc.add(GenerateOTPEvent(phone));
                                       _startCountdown();
                                     }
                                   : null,
@@ -262,17 +247,33 @@ class _VerifyPageState extends State<VerifyPage> {
             );
           },
           listener: (context, state) {
-            if (state is GetOTPByServiceSuccess) {
-            } else if (state is GetOTPByServiceFailure) {
+            if (state is SignInFailure) {
+              LoadingOverlayWidget.hide();
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
-            } else if (state is ConfirmOTPSuccess) {
-              context.push(PATH_USER_INFORMATION);
-            } else if (state is ConfirmOTPFailure) {
+            }
+
+            if (state is GetUserInfoFailure) {
+              LoadingOverlayWidget.hide();
               ScaffoldMessenger.of(
                 context,
               ).showSnackBar(SnackBar(content: Text(state.message)));
+            }
+
+            if (state is GenerateOTPSuccess || state is GenerateOTPFailure) {
+              LoadingOverlayWidget.hide();
+            }
+
+            if (state is SignInSuccess) {
+              LoadingOverlayWidget.hide();
+              _onSaveToken(state.data, _bloc);
+            }
+
+            if (state is GetUserInfoSuccess) {
+              LoadingOverlayWidget.hide();
+              _onSaveUserInfo(state.user);
+              context.go(PATH_HOME);
             }
           },
         ),
@@ -284,5 +285,23 @@ class _VerifyPageState extends State<VerifyPage> {
     final minutes = (_secondsRemaining ~/ 60).toString().padLeft(2, '0');
     final seconds = (_secondsRemaining % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  Future<void> _onSaveToken(SignInModel model, LoginOTPBloc bloc) async {
+    String token = "Bearer ${model.accessToken}";
+
+    await SharePreferenceUtil.setString(ShareKey.KEY_PHONE_NUMBER, phone);
+    await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_REFRESH_TOKEN,
+      model.refreshToken ?? '',
+    );
+
+    bloc.add(GetUserInfoEvent(token));
+  }
+
+  Future<void> _onSaveUserInfo(UserInfoModel? model) async {
+    if (model == null) return;
+    await SharePreferenceUtil.saveUser(model);
   }
 }

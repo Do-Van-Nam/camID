@@ -157,7 +157,7 @@ abstract class AppLocalizations {
   /// No description provided for @skip.
   ///
   /// In en, this message translates to:
-  /// **'Skip'**
+  /// **'Skip now'**
   String get skip;
 
   /// No description provided for @setting.
@@ -586,6 +586,7 @@ abstract class AppLocalizations {
   /// **'QR Code'**
   String get qr_code;
 
+<<<<<<< HEAD
   /// No description provided for @name.
   ///
   /// In en, this message translates to:
@@ -718,6 +719,8 @@ abstract class AppLocalizations {
   /// **'Phone number is not valid!'**
   String get phone_number_is_not_valid;
 
+=======
+>>>>>>> origin/main
   /// No description provided for @chatbotTitle.
   ///
   /// In en, this message translates to:
@@ -784,6 +787,7 @@ abstract class AppLocalizations {
   /// **'Call the staffs'**
   String get callTheStaffs;
 
+<<<<<<< HEAD
   /// No description provided for @loyaltyCamID.
   ///
   /// In en, this message translates to:
@@ -891,6 +895,25 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Action'**
   String get action;
+=======
+  /// No description provided for @login_des.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to the CamID, your digital passport.'**
+  String get login_des;
+
+  /// No description provided for @enter_your_phone_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get enter_your_phone_number;
+
+  /// No description provided for @identity_verification.
+  ///
+  /// In en, this message translates to:
+  /// **'Identity Verification'**
+  String get identity_verification;
+>>>>>>> origin/main
 }
 
 class _AppLocalizationsDelegate

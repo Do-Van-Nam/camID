@@ -2,6 +2,7 @@ import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/other_payment_method_model.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,7 @@ class OtherPaymentBottomSheet extends StatelessWidget {
               ),
               if (isCardPayment)
               Image.asset(
-                'assets/icons/ic_list_payment_method_temp.png',
+                AppImages.imgListPaymentMethodTemp,
                 width: 110,
               ),
 

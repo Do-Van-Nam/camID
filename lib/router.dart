@@ -5,8 +5,10 @@ import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
 import 'package:cam_id/main/ui/entertainment/ranking/ranking_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
+import 'package:cam_id/main/ui/identity_verification/identity_verification_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
+import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
@@ -51,6 +53,7 @@ const String PATH_NOTIFICATION = "/notificaion";
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
+const String PATH_LOGIN_OTP = "/login_otp";
 //entertainment
 //game
 const String PATH_GAME = "/game";
@@ -122,6 +125,27 @@ final GoRouter router = GoRouter(
           path: PATH_FIND_STORES,
           builder: (context, state) => FindStoresPage(),
         ),
+        GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
+        // GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
+        GoRoute(path: PATH_FORCE_UPDATE, builder: (context, state) => ForceUpdatePage()),
+        GoRoute(path: PATH_MAINTENANCE, builder: (context, state) => MaintenancePage()),
+        GoRoute(
+          path: PATH_TERMS,
+          builder: (context, state) {
+            final html = state.extra as String;
+            return TermsHtmlPage(html: html);
+          },
+        ),
+        GoRoute(path: PATH_VERIFY, builder: (context, state) => VerifyPage()),
+        GoRoute(path: PATH_ID_TYPE, builder: (context, state) => SelectIDTypePage()),
+        GoRoute(
+          path: PATH_IDENTITY_VERIFICATION,
+          builder: (context, state) {
+            final idType = state.extra as String;
+            return IdentityVerificationPage(idType: idType);
+          },
+        ),
+
         GoRoute(
           path: PATH_USER_PROFILE,
           builder: (context, state) => UserProfilePage(),
@@ -137,6 +161,13 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: PATH_MAINTENANCE,
           builder: (context, state) => MaintenancePage(),
+        ),
+        GoRoute(
+          path: PATH_LOGIN_OTP,
+          builder: (context, state) {
+            final phone = state.extra as String;
+            return LoginOTPPage(phone: phone);
+          },
         ),
         GoRoute(
           path: PATH_TERMS,

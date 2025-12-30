@@ -255,6 +255,7 @@ class AppLocalizationsKm extends AppLocalizations {
   String get qr_code => 'QR Code';
 
   @override
+<<<<<<< HEAD
   String get name => 'name';
 
   @override
@@ -326,6 +327,8 @@ class AppLocalizationsKm extends AppLocalizations {
   String get phone_number_is_not_valid => 'Phone number is not valid!';
 
   @override
+=======
+>>>>>>> origin/main
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
@@ -360,6 +363,7 @@ class AppLocalizationsKm extends AppLocalizations {
   String get callTheStaffs => 'Call the staffs';
 
   @override
+<<<<<<< HEAD
   String get loyaltyCamID => 'CamID';
 
   @override
@@ -414,4 +418,13 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get action => 'Action';
+=======
+  String get login_des => 'Welcome to the CamID, your digital passport.';
+
+  @override
+  String get enter_your_phone_number => 'Enter your phone number';
+
+  @override
+  String get identity_verification => 'Identity Verification';
+>>>>>>> origin/main
 }

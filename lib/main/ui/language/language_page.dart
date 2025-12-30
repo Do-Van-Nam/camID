@@ -4,8 +4,11 @@ import 'package:cam_id/main/ui/language/language_bloc.dart';
 import 'package:cam_id/main/ui/language/language_event.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 class LanguagePage extends StatefulWidget {
@@ -24,8 +27,10 @@ class _LanguagePageState extends State<LanguagePage> {
   }
 
   Future<void> _loadLanguage() async {
-    final lang =
-    await SharePreferenceUtil.getString(ShareKey.KEY_CHANGE_LANGUAGE, defaultValue: 'vi');
+    final lang = await SharePreferenceUtil.getString(
+      ShareKey.KEY_CHANGE_LANGUAGE,
+      defaultValue: 'vi',
+    );
     if (!mounted) return;
     AppLogger().logInfo("Language: $lang");
     setState(() {
@@ -44,11 +49,12 @@ class _LanguagePageState extends State<LanguagePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.color_F7F7,
       body: Column(
         children: [
           Container(
             width: double.infinity,
-            color: AppColors.colorMain,
+            color: AppColors.color_FFFF,
             child: SafeArea(
               bottom: false,
               child: SizedBox(
@@ -61,50 +67,52 @@ class _LanguagePageState extends State<LanguagePage> {
                       child: IconButton(
                         icon: const Icon(
                           Icons.arrow_back_ios_new,
-                          color: Colors.white,
+                          color: AppColors.color_1618,
                         ),
                         onPressed: () => context.pop(),
                       ),
                     ),
                     Text(
                       AppLocalizations.of(context)!.language,
-                      style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
+                      style: AppStyles.headerBlack,
                     ),
                   ],
                 ),
               ),
             ),
           ),
-          const SizedBox(height: 16),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                LanguageItemButton(
-                  title: AppLocalizations.of(context)!.english,
-                  assetFlag: 'assets/icons/ic_en.png',
-                  isSelected: currentLang == 'en',
-                  onTap: () => _changeLanguage('en'),
-                ),
-                const SizedBox(height: 12),
-                LanguageItemButton(
-                  title: AppLocalizations.of(context)!.vietnamese,
-                  assetFlag: 'assets/icons/ic_vn.png',
-                  isSelected: currentLang == 'vi',
-                  onTap: () => _changeLanguage('vi'),
-                ),
-                const SizedBox(height: 12),
-                LanguageItemButton(
-                  title: AppLocalizations.of(context)!.khmer,
-                  assetFlag: 'assets/icons/ic_km.png',
-                  isSelected: currentLang == 'km',
-                  onTap: () => _changeLanguage('km'),
-                ),
-              ],
+          Container(
+            margin: const EdgeInsets.all(16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(24),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Column(
+                children: [
+                  LanguageItemButton(
+                    title: AppLocalizations.of(context)!.english,
+                    assetFlag: AppImages.imgEn,
+                    isSelected: currentLang == 'en',
+                    onTap: () => _changeLanguage('en'),
+                  ),
+                  const SizedBox(height: 12),
+                  LanguageItemButton(
+                    title: AppLocalizations.of(context)!.vietnamese,
+                    assetFlag: AppImages.imgVn,
+                    isSelected: currentLang == 'vi',
+                    onTap: () => _changeLanguage('vi'),
+                  ),
+                  const SizedBox(height: 12),
+                  LanguageItemButton(
+                    title: AppLocalizations.of(context)!.khmer,
+                    assetFlag: AppImages.imgKm,
+                    isSelected: currentLang == 'km',
+                    onTap: () => _changeLanguage('km'),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -135,8 +143,13 @@ class LanguageItemButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
         decoration: BoxDecoration(
-          color: Colors.white,
-          border: Border.all(color: Colors.black, width: 1),
+          color: isSelected
+              ? Colors.red.withOpacity(0.1) // bg đỏ nhạt
+              : Colors.white,
+          border: Border.all(
+            color: isSelected ? Colors.red : Colors.white,
+            width: 1,
+          ),
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
@@ -153,7 +166,13 @@ class LanguageItemButton extends StatelessWidget {
                 ),
               ),
             ),
-            if (isSelected) Icon(Icons.check, color: Colors.green[800]),
+            SvgPicture.asset(
+              isSelected
+                  ? AppImages.icCheckSelected
+                  : AppImages.icCheckUnselected,
+              width: 20,
+              height: 20,
+            ),
           ],
         ),
       ),
