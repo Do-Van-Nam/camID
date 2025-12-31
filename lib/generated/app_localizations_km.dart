@@ -364,4 +364,43 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get identity_verification => 'Identity Verification';
+
+  @override
+  String get take_a_photo => 'Take a photo';
+
+  @override
+  String get front_side => 'Front side';
+
+  @override
+  String get back_side => 'Back side';
+
+  @override
+  String get visa => 'Visa';
+
+  @override
+  String get portrait => 'Portrait';
+
+  @override
+  String get text_continue => 'Continue';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get full_name => 'Full name';
+
+  @override
+  String get enter_your_full_name => 'Enter your full name';
+
+  @override
+  String get enter_your_id => 'Enter your ID';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get enter_your_full_address => 'Enter your full address';
 }
