@@ -28,79 +28,27 @@ void main() async {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-
-  // Setup system UI (non-blocking)
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
-    ),
-  );
-
   // Initialize Firebase (required before other Firebase services)
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // Setup background message handler (non-blocking registration)
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-
-  // Load cached RemoteConfig immediately (fast, no network)
-  final remoteConfigService = RemoteConfigService();
-  await remoteConfigService.loadCachedConfig();
-
   // Run independent operations in parallel
-  final results = await Future.wait([
-    // SharePreference reads can run in parallel
-    SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP).then((
-      changeOpen,
-    ) async {
-      if (changeOpen == true) {
-        await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
-      }
-      return changeOpen;
-    }),
-    SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP),
-    SharePreferenceUtil.getUser(),
-    SharePreferenceUtil.getLanguageCode(),
-    LocalNotificationService.instance.init(),
-  ]);
-
-  final isFirstOpenApp = results[1] as bool? ?? false;
-  AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
-
-  // User is loaded into UserInfoModel.instance by SharePreferenceUtil.getUser()
-  AppLogger().logInfo("Main user: ${UserInfoModel.instance.username}");
-
-  final languageCode = results[3] as String?;
-  if (languageCode != null) {
-    await SharePreferenceUtil.saveLanguage(languageCode);
-  }
-
-  WidgetsBinding.instance.addObserver(AppLifecycleHandler());
+  // await LocalNotificationService.instance.init();
 
   // Start app immediately - fetch RemoteConfig in background
   runApp(const App());
 
   // Fetch fresh RemoteConfig in background (non-blocking)
-  unawaited(remoteConfigService.init());
+  // unawaited(RemoteConfigService().init());
 
   // Initialize FCM in background (non-blocking)
-  unawaited(FcmService().init());
+  // unawaited(FcmService().init());
 }
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   print('🔕 Background message: ${message.toString()}');
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   LocalNotificationService.instance.showFromFCM(message);
-}
-
-class AppLifecycleHandler extends WidgetsBindingObserver {
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.paused ||
-        state == AppLifecycleState.detached) {
-      // SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
-    }
-  }
 }

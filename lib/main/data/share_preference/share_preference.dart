@@ -133,12 +133,12 @@ class SharePreferenceUtil {
     return remove(key);
   }
 
-  static Future<void> save(RemoteConfigModel model) async {
+  static Future<void> saveConfig(RemoteConfigModel model) async {
     final pref = await SharedPreferences.getInstance();
     await pref.setString(ShareKey.KEY_REMOTE_CONFIG, jsonEncode(model.toJson()));
   }
 
-  static Future<RemoteConfigModel?> load() async {
+  static Future<RemoteConfigModel?> loadConfig() async {
     final pref = await SharedPreferences.getInstance();
     final json = pref.getString(ShareKey.KEY_REMOTE_CONFIG);
     if (json == null) return null;

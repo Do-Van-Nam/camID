@@ -224,26 +224,26 @@ final GoRouter router = GoRouter(
       ],
     ),
   ],
-  redirect: (context, state) {
-    final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
-    final isFirstOpenApp = AppConfig.instance.isFirstOpenApp;
-
-    AppLogger().logError(
-      "CheckApp: isLoggedIn=$isLoggedIn, isFirstOpenApp=$isFirstOpenApp",
-    );
-
-    // if (isLoggedIn && state.matchedLocation != PATH_HOME) {
-    //   return PATH_HOME;
-    // }
-
-    if (!isLoggedIn && state.matchedLocation == PATH_LOGIN) {
-      if (isFirstOpenApp) {
-        return PATH_HOME;
-      } else {
-        return PATH_LOGIN;
-      }
-    }
-
-    return null;
-  },
+  // redirect: (context, state) {
+  //   final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
+  //   final isFirstOpenApp = AppConfig.instance.isFirstOpenApp;
+  //
+  //   AppLogger().logError(
+  //     "CheckApp: isLoggedIn=$isLoggedIn, isFirstOpenApp=$isFirstOpenApp",
+  //   );
+  //
+  //   // if (isLoggedIn && state.matchedLocation != PATH_HOME) {
+  //   //   return PATH_HOME;
+  //   // }
+  //
+  //   if (!isLoggedIn && state.matchedLocation == PATH_LOGIN) {
+  //     if (isFirstOpenApp) {
+  //       return PATH_HOME;
+  //     } else {
+  //       return PATH_LOGIN;
+  //     }
+  //   }
+  //
+  //   return null;
+  // },
 );

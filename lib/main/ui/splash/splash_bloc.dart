@@ -1,7 +1,12 @@
-import 'package:cam_id/main/data/model/remote_config_model.dart';
+import 'dart:async';
+
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
+import 'package:cam_id/main/utils/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../utils/service/fcm_service.dart';
+import '../../utils/service/local_notification_service.dart';
 import '../../utils/service/remote_config_service.dart';
 import '../../utils/utility_fuctions.dart';
 import 'splash_event.dart';
@@ -16,8 +21,19 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     try {
       emit(SplashLoading());
 
+      // KHÔNG await từng cái - chạy background để không block UI
+      unawaited(_initNotifications());
+      unawaited(_initFCM());
+
+      // Cho UI một frame để render mượt trước khi bắt đầu tác vụ nặng
+      await Future.delayed(const Duration(milliseconds: 16));
+
       /// 1️⃣ Load remote config
+      await RemoteConfigService().init();
       final config = RemoteConfigService().config;
+
+      // Cho UI một frame để render mượt
+      await Future.delayed(const Duration(milliseconds: 16));
 
       final currentVersion = await DeviceUtils.getVersionName();
 
@@ -41,19 +57,56 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
         return;
       }
 
+      // Cho UI một frame để render mượt
+      await Future.delayed(const Duration(milliseconds: 16));
+
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      emit(SplashResolved(next: isLogin ? SplashNext.home : SplashNext.login));
+      final isFirstOpenApp = await SharePreferenceUtil.getBool(
+        ShareKey.KEY_FIRST_OPEN_APP,
+      );
+      emit(
+        SplashResolved(
+          next: (isLogin || isFirstOpenApp)
+              ? SplashNext.home
+              : SplashNext.login,
+        ),
+      );
     } catch (e) {
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      emit(SplashResolved(next: isLogin ? SplashNext.home : SplashNext.login));
+      final isFirstOpenApp = await SharePreferenceUtil.getBool(
+        ShareKey.KEY_FIRST_OPEN_APP,
+      );
+      emit(
+        SplashResolved(
+          next: (isLogin || isFirstOpenApp)
+              ? SplashNext.home
+              : SplashNext.login,
+        ),
+      );
     }
   }
 
   Future<bool> _isLoggedIn() async {
+    await SharePreferenceUtil.getUser();
     final isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
-
     return isLoggedIn; // demo
+  }
+
+  Future<void> _initNotifications() async {
+    try {
+      await LocalNotificationService.instance.init();
+    } catch (e) {
+      AppLogger().logInfo('LocalNotification init error: $e');
+    }
+  }
+
+  Future<void> _initFCM() async {
+    try {
+      await FcmService().init();
+    } catch (e) {
+      AppLogger().logInfo('FCM init error: $e');
+    }
   }
 }
