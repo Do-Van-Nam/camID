@@ -462,4 +462,46 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enter_your_full_address => 'Enter your full address';
+
+  @override
+  String get ftth => 'FTTH';
+
+  @override
+  String get esim => 'Esim';
+
+  @override
+  String get my_services => 'My services';
+
+  @override
+  String get payment_history => 'Payment History';
+
+  @override
+  String get services_for_you => 'Services for you';
+
+  @override
+  String get my_usage => 'My Usage';
+
+  @override
+  String get register => 'Register';
+
+  @override
+  String get call => 'Call';
+
+  @override
+  String get sms => 'SMS';
+
+  @override
+  String get roaming => 'Roaming';
+
+  @override
+  String get top_up => 'Top Up';
+
+  @override
+  String get exchanged_damaged_card => 'Exchange damaged card';
+
+  @override
+  String get ftth_package => 'FTTH Package';
+
+  @override
+  String get mobile_package => 'Mobile Package';
 }

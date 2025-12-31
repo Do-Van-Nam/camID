@@ -224,5 +224,19 @@
   "enter_your_id": "Enter your ID",
   "select": "Select",
   "other": "Other",
-  "enter_your_full_address": "Enter your full address"
+  "enter_your_full_address": "Enter your full address",
+  "ftth": "FTTH",
+  "esim": "Esim",
+  "my_services": "My services",
+  "payment_history": "Payment History",
+  "services_for_you": "Services for you",
+  "my_usage": "My Usage",
+  "register": "Register",
+  "call": "Call",
+  "sms": "SMS",
+  "roaming": "Roaming",
+  "top_up": "Top Up",
+  "exchanged_damaged_card": "Exchange damaged card",
+  "ftth_package": "FTTH Package",
+  "mobile_package": "Mobile Package"
 }

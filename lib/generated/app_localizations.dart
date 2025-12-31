@@ -987,6 +987,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your full address'**
   String get enter_your_full_address;
+
+  /// No description provided for @ftth.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH'**
+  String get ftth;
+
+  /// No description provided for @esim.
+  ///
+  /// In en, this message translates to:
+  /// **'Esim'**
+  String get esim;
+
+  /// No description provided for @my_services.
+  ///
+  /// In en, this message translates to:
+  /// **'My services'**
+  String get my_services;
+
+  /// No description provided for @payment_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get payment_history;
+
+  /// No description provided for @services_for_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Services for you'**
+  String get services_for_you;
+
+  /// No description provided for @my_usage.
+  ///
+  /// In en, this message translates to:
+  /// **'My Usage'**
+  String get my_usage;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @call.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get call;
+
+  /// No description provided for @sms.
+  ///
+  /// In en, this message translates to:
+  /// **'SMS'**
+  String get sms;
+
+  /// No description provided for @roaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Roaming'**
+  String get roaming;
+
+  /// No description provided for @top_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up'**
+  String get top_up;
+
+  /// No description provided for @exchanged_damaged_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange damaged card'**
+  String get exchanged_damaged_card;
+
+  /// No description provided for @ftth_package.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH Package'**
+  String get ftth_package;
+
+  /// No description provided for @mobile_package.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Package'**
+  String get mobile_package;
 }
 
 class _AppLocalizationsDelegate
