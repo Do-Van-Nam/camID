@@ -66,7 +66,12 @@
     "version": "Phiên bản",
     "title_update_version": "Phiên bản mới nhất đã được cài đặt.",
     "qr_code": "Mã QR",
-    "login_des": "Welcome to the CamID, your digital passport.",
-    "enter_your_phone_number": "Enter your phone number",
-    "identity_verification": "Identity Verification"
+    "login_des": "Chào mừng bạn đến với CamID, hộ chiếu kỹ thuật số của bạn.",
+    "enter_your_phone_number": "Nhập số điện thoại của bạn",
+    "identity_verification": "Xác minh danh tính",
+    "take_a_photo": "Chụp ảnh",
+    "front_side": "Mặt trước",
+    "back_side":"Mặt sau",
+    "visa": "Visa",
+    "portrait": "Chân dung"
 }

@@ -255,80 +255,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get qr_code => 'Mã QR';
 
   @override
-<<<<<<< HEAD
-  String get name => 'name';
-
-  @override
-  String get loyaltyPhoneNumber => '031 3828606';
-
-  @override
-  String loyaltyPoints(Object points) {
-    return '$points Points';
-  }
-
-  @override
-  String get loyaltyReward => 'Reward';
-
-  @override
-  String get loyaltyTierBenefits => 'Tier Benefits';
-
-  @override
-  String get loyaltyHistory => 'History';
-
-  @override
-  String get loyaltyBannerText =>
-      'Accommodation & Hotels up to 30% off\nBest stays';
-
-  @override
-  String get loyaltyRewardCoupon => 'Reward - Coupon';
-
-  @override
-  String get loyaltyVoucher => 'Voucher';
-
-  @override
-  String get viewAll => 'View All';
-
-  @override
-  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
-
-  @override
-  String loyaltyExchanged(Object exchanged, Object total) {
-    return 'Exchanged $exchanged/$total';
-  }
-
-  @override
-  String get loyaltyFree => 'Free';
-
-  @override
-  String get loyaltyRedeem => 'Redeem';
-
-  @override
-  String get notificationTitle => 'Notifications';
-
-  @override
-  String get notificationTabNews => 'News';
-
-  @override
-  String get notificationTabComplain => 'Complaints';
-
-  @override
-  String get notificationEmptyNews => 'No notifications';
-
-  @override
-  String get notificationEmptyComplain => 'No complaints';
-
-  @override
-  String get notificationReadAll => 'Mark all as read';
-
-  @override
-  String get notificationClearAll => 'Clear all';
-
-  @override
-  String get phone_number_is_not_valid => 'Số điện thoại này không hợp lệ!';
-
-  @override
-=======
->>>>>>> origin/main
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
@@ -363,68 +289,51 @@ class AppLocalizationsVi extends AppLocalizations {
   String get callTheStaffs => 'Call the staffs';
 
   @override
-<<<<<<< HEAD
-  String get loyaltyCamID => 'CamID';
+  String get login_des =>
+      'Chào mừng bạn đến với CamID, hộ chiếu kỹ thuật số của bạn.';
 
   @override
-  String loyaltyNextTier(Object points) {
-    return '$points Points more to rank up Silver';
-  }
+  String get enter_your_phone_number => 'Nhập số điện thoại của bạn';
 
   @override
-  String get loyaltyShopping => 'Shopping';
+  String get identity_verification => 'Xác minh danh tính';
 
   @override
-  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
+  String get take_a_photo => 'Chụp ảnh';
 
   @override
-  String get loyaltyHealthCare => 'Health Care';
+  String get front_side => 'Mặt trước';
 
   @override
-  String get loyaltyTravel => 'Travel';
+  String get back_side => 'Mặt sau';
 
   @override
-  String get loyaltyBannerPromotion => '1\$ = 2500\$';
+  String get visa => 'Visa';
 
   @override
-  String get connectWithUs => 'Connect with us';
+  String get portrait => 'Chân dung';
 
   @override
-  String get support => 'Support';
+  String get text_continue => 'Continue';
 
   @override
-  String get clickHereToLogin => 'Click here to login';
+  String get save => 'Save';
 
   @override
-  String get myGift => 'My Gift';
+  String get full_name => 'Full name';
 
   @override
-  String get ranking => 'Ranking';
+  String get enter_your_full_name => 'Enter your full name';
 
   @override
-  String get category => 'Category';
+  String get enter_your_id => 'Enter your ID';
 
   @override
-  String get trendingNow => 'Trending now';
+  String get select => 'Select';
 
   @override
-  String get specialGame => 'Special Game';
+  String get other => 'Other';
 
   @override
-  String get theUltimateRacer => 'The Ultimate Racer';
-
-  @override
-  String get playerCount => 'player';
-
-  @override
-  String get action => 'Action';
-=======
-  String get login_des => 'Welcome to the CamID, your digital passport.';
-
-  @override
-  String get enter_your_phone_number => 'Enter your phone number';
-
-  @override
-  String get identity_verification => 'Identity Verification';
->>>>>>> origin/main
+  String get enter_your_full_address => 'Enter your full address';
 }

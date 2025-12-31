@@ -255,80 +255,6 @@ class AppLocalizationsKm extends AppLocalizations {
   String get qr_code => 'QR Code';
 
   @override
-<<<<<<< HEAD
-  String get name => 'name';
-
-  @override
-  String get loyaltyPhoneNumber => '031 3828606';
-
-  @override
-  String loyaltyPoints(Object points) {
-    return '$points Points';
-  }
-
-  @override
-  String get loyaltyReward => 'Reward';
-
-  @override
-  String get loyaltyTierBenefits => 'Tier Benefits';
-
-  @override
-  String get loyaltyHistory => 'History';
-
-  @override
-  String get loyaltyBannerText =>
-      'Accommodation & Hotels up to 30% off\nBest stays';
-
-  @override
-  String get loyaltyRewardCoupon => 'Reward - Coupon';
-
-  @override
-  String get loyaltyVoucher => 'Voucher';
-
-  @override
-  String get viewAll => 'View All';
-
-  @override
-  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
-
-  @override
-  String loyaltyExchanged(Object exchanged, Object total) {
-    return 'Exchanged $exchanged/$total';
-  }
-
-  @override
-  String get loyaltyFree => 'Free';
-
-  @override
-  String get loyaltyRedeem => 'Redeem';
-
-  @override
-  String get notificationTitle => 'Notifications';
-
-  @override
-  String get notificationTabNews => 'News';
-
-  @override
-  String get notificationTabComplain => 'Complaints';
-
-  @override
-  String get notificationEmptyNews => 'No notifications';
-
-  @override
-  String get notificationEmptyComplain => 'No complaints';
-
-  @override
-  String get notificationReadAll => 'Mark all as read';
-
-  @override
-  String get notificationClearAll => 'Clear all';
-
-  @override
-  String get phone_number_is_not_valid => 'Phone number is not valid!';
-
-  @override
-=======
->>>>>>> origin/main
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
@@ -363,62 +289,6 @@ class AppLocalizationsKm extends AppLocalizations {
   String get callTheStaffs => 'Call the staffs';
 
   @override
-<<<<<<< HEAD
-  String get loyaltyCamID => 'CamID';
-
-  @override
-  String loyaltyNextTier(Object points) {
-    return '$points Points more to rank up Silver';
-  }
-
-  @override
-  String get loyaltyShopping => 'Shopping';
-
-  @override
-  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
-
-  @override
-  String get loyaltyHealthCare => 'Health Care';
-
-  @override
-  String get loyaltyTravel => 'Travel';
-
-  @override
-  String get loyaltyBannerPromotion => '1\$ = 2500\$';
-
-  @override
-  String get connectWithUs => 'Connect with us';
-
-  @override
-  String get support => 'Support';
-
-  @override
-  String get clickHereToLogin => 'Click here to login';
-
-  @override
-  String get myGift => 'My Gift';
-
-  @override
-  String get ranking => 'Ranking';
-
-  @override
-  String get category => 'Category';
-
-  @override
-  String get trendingNow => 'Trending now';
-
-  @override
-  String get specialGame => 'Special Game';
-
-  @override
-  String get theUltimateRacer => 'The Ultimate Racer';
-
-  @override
-  String get playerCount => 'player';
-
-  @override
-  String get action => 'Action';
-=======
   String get login_des => 'Welcome to the CamID, your digital passport.';
 
   @override
@@ -426,5 +296,43 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get identity_verification => 'Identity Verification';
->>>>>>> origin/main
+
+  @override
+  String get take_a_photo => 'Take a photo';
+
+  @override
+  String get front_side => 'Front side';
+
+  @override
+  String get back_side => 'Back side';
+
+  @override
+  String get visa => 'Visa';
+
+  @override
+  String get portrait => 'Portrait';
+
+  @override
+  String get text_continue => 'Continue';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get full_name => 'Full name';
+
+  @override
+  String get enter_your_full_name => 'Enter your full name';
+
+  @override
+  String get enter_your_id => 'Enter your ID';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get enter_your_full_address => 'Enter your full address';
 }

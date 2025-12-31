@@ -132,7 +132,7 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                       child: Text(
                                         AppLocalizations.of(context)!.login,
-                                        style: AppStyles.textButtonLight,
+                                        style: AppStyles.textButtonWhite,
                                       ),
                                     ),
                                   ),

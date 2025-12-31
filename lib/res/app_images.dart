@@ -24,7 +24,7 @@ class AppImages {
   static final String icArmy = 'assets/icons/ic_army.svg';
   static final String icArrowRight = 'assets/icons/ic_arrow_right.svg';
   static final String icAvatarDefault = 'assets/icons/ic_avatar_default.svg';
-  static final String icCambodia = 'assets/icons/ic_cambodia.svg';
+  static final String icCambodia = 'assets/icons/ic_cambodia_card.svg';
   static final String icLanguage = 'assets/icons/ic_language.svg';
   static final String icLogout = 'assets/icons/ic_logout.svg';
   static final String icPassport = 'assets/icons/ic_passport.svg';
@@ -43,6 +43,14 @@ class AppImages {
       'assets/icons/ic_empty_notification.svg';
   static final String icEmptyShowroom = 'assets/icons/ic_empty_showroom.svg';
   static final String icError = 'assets/icons/ic_error.svg';
+  static final String icBgImage = 'assets/icons/ic_bg_image.svg';
+  static final String icCamera = 'assets/icons/ic_camera.svg';
+  static final String icMonkID = 'assets/icons/ic_monk.svg';
+  static final String icCalendar = 'assets/icons/ic_calendar.svg';
+  static final String icRadioSelected = 'assets/icons/ic_radio_selected.svg';
+  static final String icRadioUnselected = 'assets/icons/ic_radio_unselected.svg';
+  static final String icArrowDown = 'assets/icons/ic_arrow_down.svg';
+
 
   //-------------------------------IMAGES-------------------------------------//
   static final String imgBGCamIDLogo = 'assets/images/bg_camid_logo.png';

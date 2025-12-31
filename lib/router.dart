@@ -3,6 +3,7 @@ import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
 import 'package:cam_id/main/ui/entertainment/ranking/ranking_page.dart';
+import 'package:cam_id/main/ui/edit_information/edit_information_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
 import 'package:cam_id/main/ui/identity_verification/identity_verification_page.dart';
@@ -54,6 +55,7 @@ const String PATH_NOTIFICATION = "/notificaion";
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
 const String PATH_LOGIN_OTP = "/login_otp";
+const String PATH_EDIT_INFORMATION = "/edit_information";
 //entertainment
 //game
 const String PATH_GAME = "/game";
@@ -125,10 +127,19 @@ final GoRouter router = GoRouter(
           path: PATH_FIND_STORES,
           builder: (context, state) => FindStoresPage(),
         ),
-        GoRoute(path: PATH_USER_PROFILE, builder: (context, state) => UserProfilePage()),
+        GoRoute(
+          path: PATH_USER_PROFILE,
+          builder: (context, state) => UserProfilePage(),
+        ),
         // GoRoute(path: PATH_USER_INFORMATION, builder: (context, state) => UserInformationPage()),
-        GoRoute(path: PATH_FORCE_UPDATE, builder: (context, state) => ForceUpdatePage()),
-        GoRoute(path: PATH_MAINTENANCE, builder: (context, state) => MaintenancePage()),
+        GoRoute(
+          path: PATH_FORCE_UPDATE,
+          builder: (context, state) => ForceUpdatePage(),
+        ),
+        GoRoute(
+          path: PATH_MAINTENANCE,
+          builder: (context, state) => MaintenancePage(),
+        ),
         GoRoute(
           path: PATH_TERMS,
           builder: (context, state) {
@@ -137,7 +148,10 @@ final GoRouter router = GoRouter(
           },
         ),
         GoRoute(path: PATH_VERIFY, builder: (context, state) => VerifyPage()),
-        GoRoute(path: PATH_ID_TYPE, builder: (context, state) => SelectIDTypePage()),
+        GoRoute(
+          path: PATH_ID_TYPE,
+          builder: (context, state) => SelectIDTypePage(),
+        ),
         GoRoute(
           path: PATH_IDENTITY_VERIFICATION,
           builder: (context, state) {
@@ -189,6 +203,18 @@ final GoRouter router = GoRouter(
         //     return VerifyIdPage(idType: idType);
         //   },
         // ),
+
+        GoRoute(
+          path: PATH_EDIT_INFORMATION,
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>?;
+
+            final idType = extra?['idType'];
+            final detectInfo = extra?['detectInfo'];
+
+            return EditInformationPage(idType: idType, detectInfo: detectInfo);
+          },
+        ),
       ],
     ),
   ],

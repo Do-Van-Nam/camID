@@ -63,12 +63,36 @@ class CustomBottomNav extends StatelessWidget {
             left: MediaQuery.of(context).size.width / 2 - 40,
             child: GestureDetector(
               onTap: () => onTabSelected(2),
-              child: CircleAvatar(
-                radius: 40,
-                backgroundColor: Colors.white, // màu viền
-                child: CircleAvatar(
-                  radius: 35,
-                  backgroundImage: AssetImage(AppImages.imgMetfoneV2),
+              child: Container(
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: RadialGradient(
+                    center: Alignment.center,
+                    radius: 1.0,
+                    colors: [
+                      Colors.red.shade700,           // đỏ sát icon
+                      Colors.red.withOpacity(0.35),  // đỏ mờ
+                      Colors.transparent,
+                    ],
+                    stops: const [
+                      0.55,  // giữ đỏ sát
+                      0.75,  // lan ~2px
+                      1.0,
+                    ],
+                  ),
+                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(
+                      color: Colors.white,
+                      width: 5,
+                    ),
+                  ),
+                  child: CircleAvatar(
+                    radius: 35,
+                    backgroundImage: AssetImage(AppImages.imgMetfoneV2),
+                  ),
                 ),
               ),
             ),
@@ -104,7 +128,8 @@ class CustomBottomNav extends StatelessWidget {
   Widget _buildNavItem(int index, String icon, String label) {
     final bool isSelected = index == currentIndex;
 
-    return Expanded( // mở rộng toàn bộ vùng
+    return Expanded(
+      // mở rộng toàn bộ vùng
       child: GestureDetector(
         onTap: () => onTabSelected(index),
         behavior: HitTestBehavior.opaque, // quan trọng: nhận cả vùng trống

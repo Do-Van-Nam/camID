@@ -188,8 +188,8 @@ class _LoginOTPPageState extends State<LoginOTPPage> {
                           pinTheme: PinTheme(
                             shape: PinCodeFieldShape.box,
                             borderRadius: BorderRadius.circular(12),
-                            fieldHeight: 56,
-                            fieldWidth: 56,
+                            fieldHeight: 44,
+                            fieldWidth: 44,
                             borderWidth: 1.5,
                             activeBorderWidth: 1.5,
                             selectedBorderWidth: 1.5,
