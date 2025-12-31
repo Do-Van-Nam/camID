@@ -107,9 +107,9 @@ class AppImages {
 
   // ranking
   static final String icRedStar = 'assets/icons/ic_red_star.svg';
-  static final String icBadge1 = 'assets/icons/ic_badge1.svg';
-  static final String icBadge2 = 'assets/icons/ic_badge2.svg';
-  static final String icBadge3 = 'assets/icons/ic_badge3.svg';
+  static final String icBadge1 = 'assets/images/badge1.png';
+  static final String icBadge2 = 'assets/images/badge2.png';
+  static final String icBadge3 = 'assets/images/badge3.png';
 
   // ------------------------ N ------------------------
 }

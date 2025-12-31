@@ -6,20 +6,18 @@ import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../../data/model/remote_config_model.dart';
 
-class RemoteConfigKey{
+class RemoteConfigKey {
   static const String REMOTE_CONFIG_APP = "REMOTE_CONFIG_APP";
 }
 
 class RemoteConfigService {
-  static final RemoteConfigService _instance =
-  RemoteConfigService._internal();
+  static final RemoteConfigService _instance = RemoteConfigService._internal();
 
   factory RemoteConfigService() => _instance;
 
   RemoteConfigService._internal();
 
-  final FirebaseRemoteConfig _remoteConfig =
-      FirebaseRemoteConfig.instance;
+  final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
   late RemoteConfigModel config;
 
   Future<void> init() async {
@@ -34,7 +32,9 @@ class RemoteConfigService {
 
       await _remoteConfig.fetchAndActivate();
 
-      final jsonString = _remoteConfig.getString(RemoteConfigKey.REMOTE_CONFIG_APP);
+      final jsonString = _remoteConfig.getString(
+        RemoteConfigKey.REMOTE_CONFIG_APP,
+      );
 
       if (jsonString.isEmpty) {
         config = RemoteConfigModel.defaultValue();

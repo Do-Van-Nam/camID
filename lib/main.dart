@@ -21,15 +21,14 @@ import 'main/utils/service/remote_config_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  if(await SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP) == true){
+  if (await SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP) == true) {
     await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
   }
-  bool isFirstOpenApp =
-  await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP);
+  bool isFirstOpenApp = await SharePreferenceUtil.getBool(
+    ShareKey.KEY_FIRST_OPEN_APP,
+  );
   AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
 
   WidgetsBinding.instance.addObserver(AppLifecycleHandler());
@@ -47,9 +46,7 @@ void main() async {
     return true;
   };
   await LocalNotificationService.instance.init();
-  FirebaseMessaging.onBackgroundMessage(
-    firebaseMessagingBackgroundHandler,
-  );
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
   await RemoteConfigService().init();
 
   unawaited(FcmService().init());
@@ -65,9 +62,7 @@ void main() async {
 
 @pragma('vm:entry-point')
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   print('🔕 Background message: ${message.toString()}');
   LocalNotificationService.instance.showFromFCM(message);
 }

@@ -3,6 +3,7 @@ import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
@@ -325,7 +326,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
               label,
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: AppTextFonts.poppins12RegularCentered,
+              style: AppStyles.poppins12Regular.copyWith(fontSize: 16),
             ),
           ),
         ],
@@ -401,7 +402,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
               textAlign: TextAlign.left,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextFonts.poppins12RegularCentered,
+              style: AppStyles.poppins12RegularCentered,
             ),
           ),
         ],
@@ -444,7 +445,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
               textAlign: TextAlign.left,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextFonts.poppins12RegularCentered,
+              style: AppStyles.poppins12RegularCentered,
             ),
           ),
         ],

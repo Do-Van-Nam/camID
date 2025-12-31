@@ -5,22 +5,19 @@ Future<void> launchApp(String url) async {
   final Uri uri = Uri.parse(url);
   if (!await launchUrl(
     uri,
-    mode:
-        LaunchMode
-            .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
+    mode: LaunchMode
+        .externalApplication, // Mở app ngoài (Telegram/Messenger) nếu có
   )) {
     throw Exception('Không thể mở $url');
   }
 }
+
 int compareVersion(String v1, String v2) {
   List<int> parse(String v) {
     // Bỏ suffix như -beta, +build
     v = v.split(RegExp(r'[-+]')).first;
 
-    return v
-        .split('.')
-        .map((e) => int.tryParse(e) ?? 0)
-        .toList();
+    return v.split('.').map((e) => int.tryParse(e) ?? 0).toList();
   }
 
   final a = parse(v1);
@@ -37,4 +34,16 @@ int compareVersion(String v1, String v2) {
   }
 
   return 0;
+}
+
+String formatWithDots(num value) {
+  final isNegative = value < 0;
+  final parts = value.abs().toString().split('.');
+  final integerPart = parts[0];
+  final formattedInt = integerPart.replaceAllMapped(
+    RegExp(r'\B(?=(\d{3})+(?!\d))'),
+    (_) => '.',
+  );
+  final result = parts.length > 1 ? '$formattedInt,${parts[1]}' : formattedInt;
+  return isNegative ? '-$result' : result;
 }

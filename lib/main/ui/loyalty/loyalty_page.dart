@@ -5,6 +5,7 @@ import 'package:cam_id/main/data/model/reward_model.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -55,7 +56,7 @@ class LoyaltyPage extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text("ten nguoi dung", style: AppTextFonts.poppins12Regular),
+                  Text("ten nguoi dung", style: AppStyles.poppins12Regular),
                   SvgPicture.asset(
                     AppImages.icWhiteRightArrow,
                     width: 24,

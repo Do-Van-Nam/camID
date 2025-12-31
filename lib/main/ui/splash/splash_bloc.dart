@@ -12,10 +12,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     on<SplashStarted>(_onStart);
   }
 
-  Future<void> _onStart(
-      SplashStarted event,
-      Emitter<SplashState> emit,
-      ) async {
+  Future<void> _onStart(SplashStarted event, Emitter<SplashState> emit) async {
     try {
       emit(SplashLoading());
 
@@ -35,25 +32,22 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       }
 
       if (config.maintenanceMode) {
-        emit(SplashResolved(next: SplashNext.maintenance, content: config.maintenanceMessage));
+        emit(
+          SplashResolved(
+            next: SplashNext.maintenance,
+            content: config.maintenanceMessage,
+          ),
+        );
         return;
       }
 
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      emit(
-        SplashResolved(
-          next: isLogin ? SplashNext.home : SplashNext.login,
-        ),
-      );
+      emit(SplashResolved(next: isLogin ? SplashNext.home : SplashNext.login));
     } catch (e) {
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      emit(
-        SplashResolved(
-          next: isLogin ? SplashNext.home : SplashNext.login,
-        ),
-      );
+      emit(SplashResolved(next: isLogin ? SplashNext.home : SplashNext.login));
     }
   }
 
@@ -63,4 +57,3 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
     return isLoggedIn; // demo
   }
 }
-
