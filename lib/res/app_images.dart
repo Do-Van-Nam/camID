@@ -51,7 +51,6 @@ class AppImages {
   static final String icRadioUnselected = 'assets/icons/ic_radio_unselected.svg';
   static final String icArrowDown = 'assets/icons/ic_arrow_down.svg';
 
-
   //-------------------------------IMAGES-------------------------------------//
   static final String imgBGCamIDLogo = 'assets/images/bg_camid_logo.png';
   static final String imgDrawer = 'assets/images/bg_drawer.png';
