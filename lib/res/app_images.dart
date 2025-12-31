@@ -62,7 +62,6 @@ class AppImages {
   static final String icSpeedNetwork = 'assets/icons/ic_speed_network.svg';
   static final String icDollar = 'assets/icons/ic_dollar.svg';
 
-
   //-------------------------------IMAGES-------------------------------------//
   static final String imgBGCamIDLogo = 'assets/images/bg_camid_logo.png';
   static final String imgDrawer = 'assets/images/bg_drawer.png';

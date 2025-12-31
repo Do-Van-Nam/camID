@@ -128,41 +128,38 @@ class CustomBottomNav extends StatelessWidget {
   Widget _buildNavItem(int index, String icon, String label) {
     final bool isSelected = index == currentIndex;
 
-    return Expanded(
-      // mở rộng toàn bộ vùng
-      child: GestureDetector(
-        onTap: () => onTabSelected(index),
-        behavior: HitTestBehavior.opaque, // quan trọng: nhận cả vùng trống
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            AnimatedContainer(
-              duration: const Duration(milliseconds: 200),
-              height: 3,
-              width: isSelected ? 22 : 0,
-              margin: const EdgeInsets.only(bottom: 6),
-              decoration: BoxDecoration(
-                color: Colors.red,
-                borderRadius: BorderRadius.circular(4),
-              ),
+    return GestureDetector(
+      onTap: () => onTabSelected(index),
+      behavior: HitTestBehavior.opaque,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            height: 3,
+            width: isSelected ? 22 : 0,
+            margin: const EdgeInsets.only(bottom: 6),
+            decoration: BoxDecoration(
+              color: Colors.red,
+              borderRadius: BorderRadius.circular(4),
             ),
-            SvgPicture.asset(
-              icon,
-              colorFilter: ColorFilter.mode(
-                isSelected ? Colors.red : Colors.grey,
-                BlendMode.srcIn,
-              ),
+          ),
+          SvgPicture.asset(
+            icon,
+            colorFilter: ColorFilter.mode(
+              isSelected ? Colors.red : Colors.grey,
+              BlendMode.srcIn,
             ),
-            const SizedBox(height: 4),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 11,
-                color: isSelected ? Colors.red : Colors.grey,
-              ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            label,
+            style: TextStyle(
+              fontSize: 11,
+              color: isSelected ? Colors.red : Colors.grey,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
