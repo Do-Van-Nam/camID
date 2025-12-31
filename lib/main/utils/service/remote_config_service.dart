@@ -19,24 +19,13 @@ class RemoteConfigService {
   final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
   late RemoteConfigModel config;
 
-  /// Load cached config immediately (fast, no network)
-  Future<void> loadCachedConfig() async {
-    try {
-      final cached = await SharePreferenceUtil.load();
-      config = cached ?? RemoteConfigModel.defaultValue();
-    } catch (e) {
-      config = RemoteConfigModel.defaultValue();
-    }
-  }
-
-  /// Fetch fresh config from server (slow, network call)
   Future<void> init() async {
     try {
       await _remoteConfig.setConfigSettings(
         RemoteConfigSettings(
           fetchTimeout: const Duration(seconds: 5),
-          minimumFetchInterval: Duration.zero, //test dev
-          // minimumFetchInterval: const Duration(minutes: 5), //prod
+          // minimumFetchInterval: Duration.zero, //test dev
+          minimumFetchInterval: const Duration(minutes: 5), //prod
         ),
       );
 
@@ -54,10 +43,10 @@ class RemoteConfigService {
       final Map<String, dynamic> json = jsonDecode(jsonString);
 
       config = RemoteConfigModel.fromJsonRemote(json);
-      await SharePreferenceUtil.save(config);
+      await SharePreferenceUtil.saveConfig(config);
     } catch (e) {
-      // Keep existing cached config if fetch fails (already loaded in loadCachedConfig)
-      // No need to reload, config is already set
+      final cached = await SharePreferenceUtil.loadConfig();
+      config = cached ?? RemoteConfigModel.defaultValue();
     }
   }
 }

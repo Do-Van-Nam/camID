@@ -11,6 +11,7 @@ import 'package:cam_id/main/utils/service/navigation_handler.dart';
 import 'package:cam_id/res/app_theme.dart';
 import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -79,23 +80,26 @@ class _AppState extends State<App> {
             minTextAdapt: true,
             splitScreenMode: true,
             builder: (_, child) {
-              return MaterialApp.router(
-                title: "CamID",
-                theme: themeData,
-                debugShowCheckedModeBanner: false,
-                locale: languageState.locale,
-                supportedLocales: const [
-                  Locale("en"),
-                  Locale("vi"),
-                  Locale("km"),
-                ],
-                localizationsDelegates: const [
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                  AppLocalizations.delegate,
-                ],
-                routerConfig: router,
+              return AnnotatedRegion<SystemUiOverlayStyle>(
+                value: appSystemUiOverlayStyle,
+                child: MaterialApp.router(
+                  title: "CamID",
+                  theme: themeData,
+                  debugShowCheckedModeBanner: false,
+                  locale: languageState.locale,
+                  supportedLocales: const [
+                    Locale("en"),
+                    Locale("vi"),
+                    Locale("km"),
+                  ],
+                  localizationsDelegates: const [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                    AppLocalizations.delegate,
+                  ],
+                  routerConfig: router,
+                ),
               );
             },
           );

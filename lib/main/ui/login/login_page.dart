@@ -223,7 +223,6 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<void> _onSkip() async {
     await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
-    AppConfig.instance.isFirstOpenApp = true;
     if (!mounted) return;
     context.go(PATH_HOME);
   }
