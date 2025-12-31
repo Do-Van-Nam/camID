@@ -59,7 +59,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
                   _buildInfoBox(context),
                   Expanded(
                     child: ListView.builder(
-                      padding: const EdgeInsets.all(16),
+                      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
                       itemCount: listPager.length,
                       itemBuilder: (_, index) {
                         return _buildIdItem(
@@ -125,7 +125,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
   Widget _buildInfoBox(BuildContext context) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.all(16),
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 8),
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -161,7 +161,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
   }) {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      margin: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
@@ -209,7 +209,7 @@ class _SelectIDTypeState extends State<SelectIDTypePage> {
       case 'ARMY_ID':
         return AppImages.icArmy;
       case 'MONK_ID':
-        return AppImages.icCambodia;
+        return AppImages.icMonkID;
       case 'POLICE_ID':
         return AppImages.icPoliceID;
       default:
