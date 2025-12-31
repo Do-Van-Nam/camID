@@ -1,27 +1,35 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 
 import '../../data/model/remote_config_model.dart';
 
-class RemoteConfigKey{
+class RemoteConfigKey {
   static const String REMOTE_CONFIG_APP = "REMOTE_CONFIG_APP";
 }
 
 class RemoteConfigService {
-  static final RemoteConfigService _instance =
-  RemoteConfigService._internal();
+  static final RemoteConfigService _instance = RemoteConfigService._internal();
 
   factory RemoteConfigService() => _instance;
 
   RemoteConfigService._internal();
 
-  final FirebaseRemoteConfig _remoteConfig =
-      FirebaseRemoteConfig.instance;
+  final FirebaseRemoteConfig _remoteConfig = FirebaseRemoteConfig.instance;
   late RemoteConfigModel config;
 
+  /// Load cached config immediately (fast, no network)
+  Future<void> loadCachedConfig() async {
+    try {
+      final cached = await SharePreferenceUtil.load();
+      config = cached ?? RemoteConfigModel.defaultValue();
+    } catch (e) {
+      config = RemoteConfigModel.defaultValue();
+    }
+  }
+
+  /// Fetch fresh config from server (slow, network call)
   Future<void> init() async {
     try {
       await _remoteConfig.setConfigSettings(
@@ -34,7 +42,9 @@ class RemoteConfigService {
 
       await _remoteConfig.fetchAndActivate();
 
-      final jsonString = _remoteConfig.getString(RemoteConfigKey.REMOTE_CONFIG_APP);
+      final jsonString = _remoteConfig.getString(
+        RemoteConfigKey.REMOTE_CONFIG_APP,
+      );
 
       if (jsonString.isEmpty) {
         config = RemoteConfigModel.defaultValue();
@@ -46,8 +56,8 @@ class RemoteConfigService {
       config = RemoteConfigModel.fromJsonRemote(json);
       await SharePreferenceUtil.save(config);
     } catch (e) {
-      final cached = await SharePreferenceUtil.load();
-      config = cached ?? RemoteConfigModel.defaultValue();
+      // Keep existing cached config if fetch fails (already loaded in loadCachedConfig)
+      // No need to reload, config is already set
     }
   }
 }
