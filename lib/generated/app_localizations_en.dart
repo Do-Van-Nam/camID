@@ -360,6 +360,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get callTheStaffs => 'Call the staffs';
 
   @override
+  String get login_des => 'Welcome to the CamID, your digital passport.';
+
+  @override
+  String get enter_your_phone_number => 'Enter your phone number';
+
+  @override
+  String get identity_verification => 'Identity Verification';
+
+  @override
   String get loyaltyCamID => 'CamID';
 
   @override
@@ -414,49 +423,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get action => 'Action';
-
-  @override
-  String get chatbotTitle => 'CamID ChatBot';
-
-  @override
-  String get chatbotGreeting => 'How may I help you today!';
-
-  @override
-  String get chatbotDescription =>
-      'This AI chatbot is for customer service, wishing to support customers in the best way!';
-
-  @override
-  String get chatbotStart => 'Start';
-
-  @override
-  String get chatbotContinue => 'Continue';
-
-  @override
-  String get online => 'online';
-
-  @override
-  String get menu => 'Menu';
-
-  @override
-  String get mainMenu => 'Main menu';
-
-  @override
-  String get changePhoneNumberLogin => 'Change phone number login';
-
-  @override
-  String get newChat => 'New chat';
-
-  @override
-  String get callTheStaffs => 'Call the staffs';
-
-  @override
-  String get login_des => 'Welcome to the CamID, your digital passport.';
-
-  @override
-  String get enter_your_phone_number => 'Enter your phone number';
-
-  @override
-  String get identity_verification => 'Identity Verification';
 
   @override
   String get take_a_photo => 'Take a photo';

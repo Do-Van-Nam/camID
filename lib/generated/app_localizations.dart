@@ -718,8 +718,6 @@ abstract class AppLocalizations {
   /// **'Phone number is not valid!'**
   String get phone_number_is_not_valid;
 
-=======
->>>>>>> origin/main
   /// No description provided for @chatbotTitle.
   ///
   /// In en, this message translates to:
@@ -803,6 +801,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Identity Verification'**
   String get identity_verification;
+
+  /// No description provided for @loyaltyCamID.
+  ///
+  /// In en, this message translates to:
+  /// **'CamID'**
+  String get loyaltyCamID;
+
+  /// Points needed to next tier
+  ///
+  /// In en, this message translates to:
+  /// **'{points} Points more to rank up Silver'**
+  String loyaltyNextTier(Object points);
+
+  /// No description provided for @loyaltyShopping.
+  ///
+  /// In en, this message translates to:
+  /// **'Shopping'**
+  String get loyaltyShopping;
+
+  /// No description provided for @loyaltyRestaurantHotel.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant - Hotel'**
+  String get loyaltyRestaurantHotel;
+
+  /// No description provided for @loyaltyHealthCare.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Care'**
+  String get loyaltyHealthCare;
+
+  /// No description provided for @loyaltyTravel.
+  ///
+  /// In en, this message translates to:
+  /// **'Travel'**
+  String get loyaltyTravel;
+
+  /// No description provided for @loyaltyBannerPromotion.
+  ///
+  /// In en, this message translates to:
+  /// **'1\$ = 2500\$'**
+  String get loyaltyBannerPromotion;
+
+  /// No description provided for @connectWithUs.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect with us'**
+  String get connectWithUs;
+
+  /// No description provided for @support.
+  ///
+  /// In en, this message translates to:
+  /// **'Support'**
+  String get support;
+
+  /// No description provided for @clickHereToLogin.
+  ///
+  /// In en, this message translates to:
+  /// **'Click here to login'**
+  String get clickHereToLogin;
+
+  /// No description provided for @myGift.
+  ///
+  /// In en, this message translates to:
+  /// **'My Gift'**
+  String get myGift;
+
+  /// No description provided for @ranking.
+  ///
+  /// In en, this message translates to:
+  /// **'Ranking'**
+  String get ranking;
+
+  /// No description provided for @category.
+  ///
+  /// In en, this message translates to:
+  /// **'Category'**
+  String get category;
+
+  /// No description provided for @trendingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Trending now'**
+  String get trendingNow;
+
+  /// No description provided for @specialGame.
+  ///
+  /// In en, this message translates to:
+  /// **'Special Game'**
+  String get specialGame;
+
+  /// No description provided for @theUltimateRacer.
+  ///
+  /// In en, this message translates to:
+  /// **'The Ultimate Racer'**
+  String get theUltimateRacer;
+
+  /// No description provided for @playerCount.
+  ///
+  /// In en, this message translates to:
+  /// **'player'**
+  String get playerCount;
+
+  /// No description provided for @action.
+  ///
+  /// In en, this message translates to:
+  /// **'Action'**
+  String get action;
 
   /// No description provided for @take_a_photo.
   ///

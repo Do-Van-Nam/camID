@@ -255,6 +255,77 @@ class AppLocalizationsKm extends AppLocalizations {
   String get qr_code => 'QR Code';
 
   @override
+  String get name => 'name';
+
+  @override
+  String get loyaltyPhoneNumber => '031 3828606';
+
+  @override
+  String loyaltyPoints(Object points) {
+    return '$points Points';
+  }
+
+  @override
+  String get loyaltyReward => 'Reward';
+
+  @override
+  String get loyaltyTierBenefits => 'Tier Benefits';
+
+  @override
+  String get loyaltyHistory => 'History';
+
+  @override
+  String get loyaltyBannerText =>
+      'Accommodation & Hotels up to 30% off\nBest stays';
+
+  @override
+  String get loyaltyRewardCoupon => 'Reward - Coupon';
+
+  @override
+  String get loyaltyVoucher => 'Voucher';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
+
+  @override
+  String loyaltyExchanged(Object exchanged, Object total) {
+    return 'Exchanged $exchanged/$total';
+  }
+
+  @override
+  String get loyaltyFree => 'Free';
+
+  @override
+  String get loyaltyRedeem => 'Redeem';
+
+  @override
+  String get notificationTitle => 'Notifications';
+
+  @override
+  String get notificationTabNews => 'News';
+
+  @override
+  String get notificationTabComplain => 'Complaints';
+
+  @override
+  String get notificationEmptyNews => 'No notifications';
+
+  @override
+  String get notificationEmptyComplain => 'No complaints';
+
+  @override
+  String get notificationReadAll => 'Mark all as read';
+
+  @override
+  String get notificationClearAll => 'Clear all';
+
+  @override
+  String get phone_number_is_not_valid => 'Phone number is not valid!';
+
+  @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
@@ -296,6 +367,62 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get identity_verification => 'Identity Verification';
+
+  @override
+  String get loyaltyCamID => 'CamID';
+
+  @override
+  String loyaltyNextTier(Object points) {
+    return '$points Points more to rank up Silver';
+  }
+
+  @override
+  String get loyaltyShopping => 'Shopping';
+
+  @override
+  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
+
+  @override
+  String get loyaltyHealthCare => 'Health Care';
+
+  @override
+  String get loyaltyTravel => 'Travel';
+
+  @override
+  String get loyaltyBannerPromotion => '1\$ = 2500\$';
+
+  @override
+  String get connectWithUs => 'Connect with us';
+
+  @override
+  String get support => 'Support';
+
+  @override
+  String get clickHereToLogin => 'Click here to login';
+
+  @override
+  String get myGift => 'My Gift';
+
+  @override
+  String get ranking => 'Ranking';
+
+  @override
+  String get category => 'Category';
+
+  @override
+  String get trendingNow => 'Trending now';
+
+  @override
+  String get specialGame => 'Special Game';
+
+  @override
+  String get theUltimateRacer => 'The Ultimate Racer';
+
+  @override
+  String get playerCount => 'player';
+
+  @override
+  String get action => 'Action';
 
   @override
   String get take_a_photo => 'Take a photo';
