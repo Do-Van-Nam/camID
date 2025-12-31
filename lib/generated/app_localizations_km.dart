@@ -423,4 +423,71 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get action => 'Action';
+
+  @override
+  String get take_a_photo => 'Take a photo';
+
+  @override
+  String get front_side => 'Front side';
+
+  @override
+  String get back_side => 'Back side';
+
+  @override
+  String get visa => 'Visa';
+
+  @override
+  String get portrait => 'Portrait';
+
+  @override
+  String get text_continue => 'Continue';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get full_name => 'Full name';
+
+  @override
+  String get enter_your_full_name => 'Enter your full name';
+
+  @override
+  String get enter_your_id => 'Enter your ID';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get enter_your_full_address => 'Enter your full address';
+
+  @override
+  String get wifiFeedbackTitle =>
+      'Help us improve CamID\'s WiFi service. Your experience matters to us!';
+
+  @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String get satisfactionLevel => 'Satisfaction level';
+
+  @override
+  String get satisfied => 'Satisfied';
+
+  @override
+  String get speedOfInternet => 'Speed of internet';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get customerService => 'Customer service';
+
+  @override
+  String get technicalSupport => 'Technical support';
+
+  @override
+  String get enterYourExperience => 'Enter your experience...';
 }

@@ -16,4 +16,5 @@ class ApiEndPoint {
   static String API_USER_ROUTING = "$DOMAIN_API_GATEWAY/UserRouting";
   static String API_UPDATE_AVATAR =
       "$DOMAIN/camid-auth/api/v1/user/update-avatar";
+  static String API_UPDATE_USER = "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
 }

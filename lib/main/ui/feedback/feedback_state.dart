@@ -2,6 +2,11 @@ import 'package:equatable/equatable.dart';
 
 class FeedbackState extends Equatable {
   final double rating;
+  final double satisLv;
+  final double speedRate;
+  final double priceRate;
+  final double customerServiceRate;
+  final double technicalRate;
   final String title;
   final String content;
   final bool isSubmitting;
@@ -10,6 +15,11 @@ class FeedbackState extends Equatable {
 
   const FeedbackState({
     this.rating = 0,
+    this.satisLv = 0,
+    this.speedRate = 0,
+    this.priceRate = 0,
+    this.customerServiceRate = 0,
+    this.technicalRate = 0,
     this.title = '',
     this.content = '',
     this.isSubmitting = false,
@@ -19,6 +29,11 @@ class FeedbackState extends Equatable {
 
   FeedbackState copyWith({
     double? rating,
+    double? satisLv,
+    double? speedRate,
+    double? priceRate,
+    double? customerServiceRate,
+    double? technicalRate,
     String? title,
     String? content,
     bool? isSubmitting,
@@ -27,6 +42,11 @@ class FeedbackState extends Equatable {
   }) {
     return FeedbackState(
       rating: rating ?? this.rating,
+      satisLv: satisLv ?? this.satisLv,
+      speedRate: speedRate ?? this.speedRate,
+      priceRate: priceRate ?? this.priceRate,
+      customerServiceRate: customerServiceRate ?? this.customerServiceRate,
+      technicalRate: technicalRate ?? this.technicalRate,
       title: title ?? this.title,
       content: content ?? this.content,
       isSubmitting: isSubmitting ?? this.isSubmitting,
@@ -36,5 +56,17 @@ class FeedbackState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [rating, title, content, isSubmitting, submitSuccess, errorMessage];
+  List<Object?> get props => [
+    rating,
+    satisLv,
+    speedRate,
+    priceRate,
+    customerServiceRate,
+    technicalRate,
+    title,
+    content,
+    isSubmitting,
+    submitSuccess,
+    errorMessage,
+  ];
 }

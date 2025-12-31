@@ -81,11 +81,8 @@
   "title_update_version": "The lastest version is already installed",
   "qr_code": "QR Code",
   "resend_otp": "Resend OTP",
-
-
-
   "name":"name",
-    "loyaltyPhoneNumber": "031 3828606",
+  "loyaltyPhoneNumber": "031 3828606",
   "loyaltyPoints": "{points} Points",
   "loyaltyReward": "Reward",
   "loyaltyTierBenefits": "Tier Benefits",
@@ -211,7 +208,30 @@
   "specialGame": "Special Game",
   "theUltimateRacer": "The Ultimate Racer",
   "playerCount": "player",
-  "action": "Action"
+  "action": "Action",
 
 
+  "identity_verification": "Identity Verification",
+  "take_a_photo": "Take a photo",
+  "front_side": "Front side",
+  "back_side":"Back side",
+  "visa": "Visa",
+  "portrait": "Portrait",
+  "text_continue": "Continue",
+  "save": "Save",
+  "full_name": "Full name",
+  "enter_your_full_name": "Enter your full name",
+  "enter_your_id": "Enter your ID",
+  "select": "Select",
+  "other": "Other",
+  "enter_your_full_address": "Enter your full address",
+  "wifiFeedbackTitle": "Help us improve CamID's WiFi service. Your experience matters to us!",
+  "rateYourExperience": "Rate your experience",
+  "satisfactionLevel": "Satisfaction level",
+  "satisfied": "Satisfied",
+  "speedOfInternet": "Speed of internet",
+  "price": "Price",
+  "customerService": "Customer service",
+  "technicalSupport": "Technical support",
+  "enterYourExperience": "Enter your experience..."
 }

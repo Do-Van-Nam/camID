@@ -360,13 +360,14 @@ class AppLocalizationsVi extends AppLocalizations {
   String get callTheStaffs => 'Call the staffs';
 
   @override
-  String get login_des => 'Welcome to the CamID, your digital passport.';
+  String get login_des =>
+      'Chào mừng bạn đến với CamID, hộ chiếu kỹ thuật số của bạn.';
 
   @override
-  String get enter_your_phone_number => 'Enter your phone number';
+  String get enter_your_phone_number => 'Nhập số điện thoại của bạn';
 
   @override
-  String get identity_verification => 'Identity Verification';
+  String get identity_verification => 'Xác minh danh tính';
 
   @override
   String get loyaltyCamID => 'CamID';
@@ -423,4 +424,71 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get action => 'Action';
+
+  @override
+  String get take_a_photo => 'Chụp ảnh';
+
+  @override
+  String get front_side => 'Mặt trước';
+
+  @override
+  String get back_side => 'Mặt sau';
+
+  @override
+  String get visa => 'Visa';
+
+  @override
+  String get portrait => 'Chân dung';
+
+  @override
+  String get text_continue => 'Continue';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get full_name => 'Full name';
+
+  @override
+  String get enter_your_full_name => 'Enter your full name';
+
+  @override
+  String get enter_your_id => 'Enter your ID';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get other => 'Other';
+
+  @override
+  String get enter_your_full_address => 'Enter your full address';
+
+  @override
+  String get wifiFeedbackTitle =>
+      'Help us improve CamID\'s WiFi service. Your experience matters to us!';
+
+  @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String get satisfactionLevel => 'Satisfaction level';
+
+  @override
+  String get satisfied => 'Satisfied';
+
+  @override
+  String get speedOfInternet => 'Speed of internet';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get customerService => 'Customer service';
+
+  @override
+  String get technicalSupport => 'Technical support';
+
+  @override
+  String get enterYourExperience => 'Enter your experience...';
 }

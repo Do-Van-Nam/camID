@@ -909,6 +909,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Action'**
   String get action;
+
+  /// No description provided for @take_a_photo.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo'**
+  String get take_a_photo;
+
+  /// No description provided for @front_side.
+  ///
+  /// In en, this message translates to:
+  /// **'Front side'**
+  String get front_side;
+
+  /// No description provided for @back_side.
+  ///
+  /// In en, this message translates to:
+  /// **'Back side'**
+  String get back_side;
+
+  /// No description provided for @visa.
+  ///
+  /// In en, this message translates to:
+  /// **'Visa'**
+  String get visa;
+
+  /// No description provided for @portrait.
+  ///
+  /// In en, this message translates to:
+  /// **'Portrait'**
+  String get portrait;
+
+  /// No description provided for @text_continue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get text_continue;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @full_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Full name'**
+  String get full_name;
+
+  /// No description provided for @enter_your_full_name.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full name'**
+  String get enter_your_full_name;
+
+  /// No description provided for @enter_your_id.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your ID'**
+  String get enter_your_id;
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
+  /// No description provided for @other.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get other;
+
+  /// No description provided for @enter_your_full_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your full address'**
+  String get enter_your_full_address;
+
+  /// No description provided for @wifiFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us improve CamID\'s WiFi service. Your experience matters to us!'**
+  String get wifiFeedbackTitle;
+
+  /// No description provided for @rateYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
+
+  /// No description provided for @satisfactionLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction level'**
+  String get satisfactionLevel;
+
+  /// No description provided for @satisfied.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfied'**
+  String get satisfied;
+
+  /// No description provided for @speedOfInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed of internet'**
+  String get speedOfInternet;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @customerService.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer service'**
+  String get customerService;
+
+  /// No description provided for @technicalSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical support'**
+  String get technicalSupport;
+
+  /// No description provided for @enterYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your experience...'**
+  String get enterYourExperience;
 }
 
 class _AppLocalizationsDelegate

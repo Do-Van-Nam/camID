@@ -11,11 +11,13 @@ class LoadingOverlayWidget {
       builder: (context) => Stack(
         children: [
           ModalBarrier(
-            color: AppColors.color_E11B.withValues(alpha: 0.5),
+            color: AppColors.color_1618.withValues(alpha: 0.5),
             dismissible: false,
           ),
           const Center(
-            child: CircularProgressIndicator(),
+            child: CircularProgressIndicator(
+              color: AppColors.color_E11B,
+            ),
           ),
         ],
       ),

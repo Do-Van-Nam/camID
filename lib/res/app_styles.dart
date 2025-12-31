@@ -23,7 +23,7 @@ class AppStyles {
     fontSize: 14,
   );
 
-  static TextStyle textButtonLight = AppTextFonts.poppinsSemiBold.copyWith(
+  static TextStyle textButtonWhite = AppTextFonts.poppinsSemiBold.copyWith(
     color: AppColors.color_FFFF,
     fontSize: 16,
   );

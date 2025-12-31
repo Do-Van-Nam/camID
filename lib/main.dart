@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:cam_id/app.dart';
-import 'package:cam_id/appInitializer.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/logger.dart';
@@ -12,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/services.dart';
 import 'package:cam_id/main/utils/app_config.dart';
-import 'package:ipcc_plugin/ipcc_plugin.dart';
 
 import 'firebase_options.dart';
 import 'main/utils/service/fcm_service.dart';
@@ -21,43 +19,73 @@ import 'main/utils/service/remote_config_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  if (await SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP) == true) {
-    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
-  }
-  bool isFirstOpenApp = await SharePreferenceUtil.getBool(
-    ShareKey.KEY_FIRST_OPEN_APP,
-  );
-  AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
-
-  WidgetsBinding.instance.addObserver(AppLifecycleHandler());
-  final user = await SharePreferenceUtil.getUser();
-  AppLogger().logInfo("Main user: ${UserInfoModel.instance.username}");
-  final languageCode = await SharePreferenceUtil.getLanguageCode();
-  await SharePreferenceUtil.saveLanguage(languageCode);
-
+  // Setup error handlers first (non-blocking)
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
-  await LocalNotificationService.instance.init();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  await RemoteConfigService().init();
 
-  unawaited(FcmService().init());
+  // Setup system UI (non-blocking)
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent, // hoặc màu tối
-      statusBarIconBrightness: Brightness.light, // Android: icon trắng
-      statusBarBrightness: Brightness.dark, // iOS: icon trắng
+      statusBarColor: Colors.transparent,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.dark,
     ),
   );
-  runApp(const AppInitializer());
+
+  // Initialize Firebase (required before other Firebase services)
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
+  // Setup background message handler (non-blocking registration)
+  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+
+  // Load cached RemoteConfig immediately (fast, no network)
+  final remoteConfigService = RemoteConfigService();
+  await remoteConfigService.loadCachedConfig();
+
+  // Run independent operations in parallel
+  final results = await Future.wait([
+    // SharePreference reads can run in parallel
+    SharePreferenceUtil.getBool(ShareKey.KEY_CHANGE_OPEN_APP).then((
+      changeOpen,
+    ) async {
+      if (changeOpen == true) {
+        await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, true);
+      }
+      return changeOpen;
+    }),
+    SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP),
+    SharePreferenceUtil.getUser(),
+    SharePreferenceUtil.getLanguageCode(),
+    LocalNotificationService.instance.init(),
+  ]);
+
+  final isFirstOpenApp = results[1] as bool? ?? false;
+  AppConfig.instance.isFirstOpenApp = isFirstOpenApp;
+
+  // User is loaded into UserInfoModel.instance by SharePreferenceUtil.getUser()
+  AppLogger().logInfo("Main user: ${UserInfoModel.instance.username}");
+
+  final languageCode = results[3] as String?;
+  if (languageCode != null) {
+    await SharePreferenceUtil.saveLanguage(languageCode);
+  }
+
+  WidgetsBinding.instance.addObserver(AppLifecycleHandler());
+
+  // Start app immediately - fetch RemoteConfig in background
+  runApp(const App());
+
+  // Fetch fresh RemoteConfig in background (non-blocking)
+  unawaited(remoteConfigService.init());
+
+  // Initialize FCM in background (non-blocking)
+  unawaited(FcmService().init());
 }
 
 @pragma('vm:entry-point')
