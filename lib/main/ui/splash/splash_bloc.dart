@@ -62,13 +62,29 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
 
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      final isFirstOpenApp = await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP);
-      emit(SplashResolved(next: (isLogin || isFirstOpenApp) ? SplashNext.home : SplashNext.login));
+      final isFirstOpenApp = await SharePreferenceUtil.getBool(
+        ShareKey.KEY_FIRST_OPEN_APP,
+      );
+      emit(
+        SplashResolved(
+          next: (isLogin || isFirstOpenApp)
+              ? SplashNext.home
+              : SplashNext.login,
+        ),
+      );
     } catch (e) {
       /// 3️⃣ Auth
       final isLogin = await _isLoggedIn();
-      final isFirstOpenApp = await SharePreferenceUtil.getBool(ShareKey.KEY_FIRST_OPEN_APP);
-      emit(SplashResolved(next: (isLogin || isFirstOpenApp) ? SplashNext.home : SplashNext.login));
+      final isFirstOpenApp = await SharePreferenceUtil.getBool(
+        ShareKey.KEY_FIRST_OPEN_APP,
+      );
+      emit(
+        SplashResolved(
+          next: (isLogin || isFirstOpenApp)
+              ? SplashNext.home
+              : SplashNext.login,
+        ),
+      );
     }
   }
 

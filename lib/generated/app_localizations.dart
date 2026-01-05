@@ -1071,6 +1071,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile Package'**
   String get mobile_package;
+
+  /// No description provided for @wifiFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us improve CamID\'s WiFi service. Your experience matters to us!'**
+  String get wifiFeedbackTitle;
+
+  /// No description provided for @rateYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
+
+  /// No description provided for @satisfactionLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction level'**
+  String get satisfactionLevel;
+
+  /// No description provided for @satisfied.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfied'**
+  String get satisfied;
+
+  /// No description provided for @speedOfInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed of internet'**
+  String get speedOfInternet;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @customerService.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer service'**
+  String get customerService;
+
+  /// No description provided for @technicalSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical support'**
+  String get technicalSupport;
+
+  /// No description provided for @enterYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your experience...'**
+  String get enterYourExperience;
 }
 
 class _AppLocalizationsDelegate

@@ -464,6 +464,34 @@ class AppLocalizationsKm extends AppLocalizations {
   String get enter_your_full_address => 'Enter your full address';
 
   @override
+  String get wifiFeedbackTitle =>
+      'Help us improve CamID\'s WiFi service. Your experience matters to us!';
+
+  @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String get satisfactionLevel => 'Satisfaction level';
+
+  @override
+  String get satisfied => 'Satisfied';
+
+  @override
+  String get speedOfInternet => 'Speed of internet';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get customerService => 'Customer service';
+
+  @override
+  String get technicalSupport => 'Technical support';
+
+  @override
+  String get enterYourExperience => 'Enter your experience...';
+
+  @override
   String get ftth => 'FTTH';
 
   @override

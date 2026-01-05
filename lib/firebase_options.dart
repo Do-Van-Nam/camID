@@ -65,9 +65,10 @@ class DefaultFirebaseOptions {
     projectId: 'mmetfone-13ab5',
     databaseURL: 'https://mmetfone-13ab5.firebaseio.com',
     storageBucket: 'mmetfone-13ab5.firebasestorage.app',
-    androidClientId: '56621047578-0icinf88ge9s3jn7sos5ul57u9p7sghb.apps.googleusercontent.com',
-    iosClientId: '56621047578-tok5p995ijmn3nd9acelud8lrbipu5o9.apps.googleusercontent.com',
+    androidClientId:
+        '56621047578-0icinf88ge9s3jn7sos5ul57u9p7sghb.apps.googleusercontent.com',
+    iosClientId:
+        '56621047578-tok5p995ijmn3nd9acelud8lrbipu5o9.apps.googleusercontent.com',
     iosBundleId: 'com.vtg.app.mymetfone.dev',
   );
-
 }

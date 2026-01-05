@@ -5,6 +5,7 @@ import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
@@ -76,7 +77,7 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                 children: [
                   Text(
                     "Click here to login",
-                    style: AppTextFonts.poppins12Regular.copyWith(
+                    style: AppStyles.poppins12Regular.copyWith(
                       color: Colors.white,
                     ),
                   ),
@@ -139,10 +140,7 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                   children: [
                     Padding(
                       padding: const EdgeInsets.only(left: 16, top: 16),
-                      child: Text(
-                        l10n.connectWithUs,
-                        style: AppTextFonts.poppins16SemiBold,
-                      ),
+                      child: Text(l10n.connectWithUs, style: AppStyles.header),
                     ),
                     Container(
                       margin: const EdgeInsets.all(16),
@@ -214,10 +212,7 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                     ),
                     Padding(
                       padding: const EdgeInsets.only(left: 16),
-                      child: Text(
-                        l10n.support,
-                        style: AppTextFonts.poppins16SemiBold,
-                      ),
+                      child: Text(l10n.support, style: AppStyles.header),
                     ),
                     Container(
                       margin: const EdgeInsets.all(16),
@@ -289,7 +284,7 @@ class _HelpCenterPageState extends State<HelpCenterPage>
               label,
               textAlign: TextAlign.center,
               maxLines: 2,
-              style: AppTextFonts.poppins12RegularCentered,
+              style: AppStyles.poppins12Regular.copyWith(fontSize: 16),
             ),
           ),
         ],
