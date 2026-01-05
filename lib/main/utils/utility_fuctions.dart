@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Hàm mở URL chung
@@ -46,4 +47,29 @@ String formatWithDots(num value) {
   );
   final result = parts.length > 1 ? '$formattedInt,${parts[1]}' : formattedInt;
   return isNegative ? '-$result' : result;
+}
+
+void doShowDialog(BuildContext context, Widget child) {
+  showDialog(
+    context: context,
+    barrierDismissible: true, // Cho phép chạm ra ngoài để đóng popup
+    builder: (BuildContext context) {
+      return Dialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20), // Bo góc popup
+        ),
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        child: child,
+      );
+    },
+  );
+}
+void doShowBottomSheet(BuildContext context,Widget child) {
+  showModalBottomSheet(
+    context: context,
+    isScrollControlled: true, // Cho phép popup cao hơn nếu nội dung dài
+    backgroundColor: Colors.transparent, // Để lộ bo góc của Container bên dưới
+    builder: (context) => child,
+  );
 }

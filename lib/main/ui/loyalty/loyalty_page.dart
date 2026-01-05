@@ -307,6 +307,7 @@ class LoyaltyPage extends StatelessWidget {
                             viewAllHeader(
                               title: l10n.loyaltyReward,
                               onViewAll: () {},
+                              context: context,
                             ),
 
                             const SizedBox(height: 10),
@@ -356,6 +357,7 @@ class LoyaltyPage extends StatelessWidget {
                             viewAllHeader(
                               title: l10n.loyaltyRewardCoupon,
                               onViewAll: () {},
+                              context: context,
                             ),
 
                             SingleChildScrollView(
@@ -388,8 +390,8 @@ class LoyaltyPage extends StatelessWidget {
                               height: 120,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(16),
-                                image: const DecorationImage(
-                                  image: NetworkImage(
+                                image: DecorationImage(
+                                  image: CachedNetworkImageProvider(
                                     "https://via.placeholder.com/800x300?text=1\$+=+2500\$",
                                   ),
                                   fit: BoxFit.cover,

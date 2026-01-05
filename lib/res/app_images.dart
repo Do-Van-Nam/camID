@@ -158,6 +158,21 @@ class AppImages {
       'assets/images/ic_satification4_active.png';
   static final String icSatification5Active =
       'assets/images/ic_satification5_active.png';
+  static final String icGreenTick = 'assets/icons/ic_green_tick.svg';
+  static final String icMore = 'assets/icons/ic_more.svg';
+  static final String icCamIdLogo = 'assets/icons/ic_camid_logo.svg';
+  static final String icTrash = 'assets/icons/ic_trash.svg';
+  static final String icCalendarCircle = 'assets/icons/ic_calendar_circle.svg';
+  static final String icTask = 'assets/icons/ic_task.svg';
+  static final String icTrashBlack = 'assets/icons/ic_trash_black.svg';
+  static final String icClose = 'assets/icons/ic_close.svg';
+  static final String imgEmptyNoti = 'assets/images/empty_noti.png';
+  static final String icExchangeCard = 'assets/icons/ic_exchange_card.svg';
+  static final String icTopUp = 'assets/icons/ic_top_up.svg';
+  static final String icDatabase = 'assets/icons/ic_database.svg';
+  static final String icSimcard = 'assets/icons/ic_simcard.svg';
+  static final String icTimer = 'assets/icons/ic_timer.svg';
+  static final String icClock = 'assets/icons/ic_clock.svg';
 
   // ------------------------ N ------------------------
 }

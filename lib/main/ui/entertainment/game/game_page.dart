@@ -92,7 +92,7 @@ class GamePage extends StatelessWidget {
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
                                   image: DecorationImage(
-                                    image: NetworkImage(url),
+                                    image: CachedNetworkImageProvider(url),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -146,7 +146,11 @@ class GamePage extends StatelessWidget {
 
                     const SizedBox(height: 30),
 
-                    viewAllHeader(title: l10n.category, onViewAll: () {}),
+                    viewAllHeader(
+                      title: l10n.category,
+                      onViewAll: () {},
+                      context: context,
+                    ),
 
                     const SizedBox(height: 12),
 
@@ -172,7 +176,11 @@ class GamePage extends StatelessWidget {
                     const SizedBox(height: 20),
 
                     // Trending now
-                    viewAllHeader(title: l10n.trendingNow, onViewAll: () {}),
+                    viewAllHeader(
+                      title: l10n.trendingNow,
+                      onViewAll: () {},
+                      context: context,
+                    ),
                     SizedBox(
                       height: 200,
                       child: ListView.builder(
@@ -187,7 +195,9 @@ class GamePage extends StatelessWidget {
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(16),
                               image: DecorationImage(
-                                image: NetworkImage(game.imageUrl),
+                                image: CachedNetworkImageProvider(
+                                  game.imageUrl,
+                                ),
                                 fit: BoxFit.cover,
                               ),
                             ),
@@ -272,6 +282,7 @@ class GamePage extends StatelessWidget {
                       onViewAll: () {
                         context.push(PATH_GAME_LIST);
                       },
+                      context: context,
                     ),
                     SizedBox(
                       height: 180,
@@ -289,7 +300,11 @@ class GamePage extends StatelessWidget {
                       ),
                     ),
 
-                    viewAllHeader(title: l10n.action, onViewAll: () {}),
+                    viewAllHeader(
+                      title: l10n.action,
+                      onViewAll: () {},
+                      context: context,
+                    ),
                     SizedBox(
                       height: 180,
                       child: ListView.builder(

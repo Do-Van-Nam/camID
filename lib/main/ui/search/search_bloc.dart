@@ -4,9 +4,21 @@ import 'search_state.dart';
 
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   final List<String> allItems = [
-    'Apple', 'Banana', 'Cherry', 'Date', 'Elderberry',
-    'Fig', 'Grape', 'Honeydew', 'Kiwi', 'Lemon',
-    'Mango', 'Orange', 'Papaya', 'Quince', 'Raspberry'
+    'Apple',
+    'Banana',
+    'Cherry',
+    'Date',
+    'Elderberry',
+    'Fig',
+    'Grape',
+    'Honeydew',
+    'Kiwi',
+    'Lemon',
+    'Mango',
+    'Orange',
+    'Papaya',
+    'Quince',
+    'Raspberry',
   ];
 
   SearchBloc() : super(SearchInitial()) {
@@ -14,7 +26,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final query = event.query.toLowerCase().trim();
 
       if (query.isEmpty) {
-        emit(SearchEmpty());
+        emit(SearchInitial());
         return;
       }
 

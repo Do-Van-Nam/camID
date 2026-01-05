@@ -132,7 +132,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                                     bottomRight: Radius.circular(24),
                                   ),
                                   image: DecorationImage(
-                                    image: NetworkImage(url),
+                                    image: CachedNetworkImageProvider(url),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -228,7 +228,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                       ),
                     ],
                   ),
-                  viewAllHeader(title: l10n.tv360, onViewAll: () {}),
+                  viewAllHeader(
+                    title: l10n.tv360,
+                    onViewAll: () {},
+                    context: context,
+                  ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -246,7 +250,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                       ],
                     ),
                   ),
-                  viewAllHeader(title: l10n.game, onViewAll: () {}),
+                  viewAllHeader(
+                    title: l10n.game,
+                    onViewAll: () {},
+                    context: context,
+                  ),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -264,7 +272,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                       ],
                     ),
                   ),
-                  viewAllHeader(title: l10n.vasService, onViewAll: () {}),
+                  viewAllHeader(
+                    title: l10n.vasService,
+                    onViewAll: () {},
+                    context: context,
+                  ),
                   Container(
                     margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
                     padding: const EdgeInsets.all(16),
@@ -476,7 +488,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                 ),
 
                 borderRadius: const BorderRadius.all(Radius.circular(16)),
-                border: Border.all(color: AppColors.color_F7A8AA, width: 1),
+                border: Border.all(color: AppColors.color_F7A8, width: 1),
                 boxShadow: const [
                   BoxShadow(
                     color: Colors.black12,

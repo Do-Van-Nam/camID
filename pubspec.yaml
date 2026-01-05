@@ -60,6 +60,7 @@ dependencies:
   carousel_slider: ^5.1.1
   flutter_speed_dial: ^7.0.0
   cached_network_image: ^3.4.1
+  flutter_slidable: ^4.0.3
   # myid_kyc_plugin:
   #   path: ./myid_kyc_plugin
   ipcc_plugin:

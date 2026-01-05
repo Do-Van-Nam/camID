@@ -3,6 +3,7 @@ import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
+import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -162,19 +163,19 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icVoiceCall,
                                 l10n.voice_call,
                                 () async {
                                   _onShowCall();
                                 },
                               ),
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icVideoCall,
                                 l10n.video_call,
                                 () {},
                               ),
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icMessenger,
                                 l10n.messenger,
                                 () => launchApp('https://m.me/210301035798660'),
@@ -185,20 +186,20 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icTele,
                                 l10n.telegram,
                                 () =>
                                     launchApp('https://t.me/MetfoneAdmin_bot'),
                               ),
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icFeedBack,
                                 l10n.feedbackTitleLabel,
                                 () {
                                   context.push(PATH_FEEDBACK);
                                 },
                               ),
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icChatBotRed,
                                 l10n.chatbotTitle,
                                 () {
@@ -234,14 +235,14 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icFindStore,
                                 l10n.find_stores,
                                 () {
                                   context.push(PATH_FIND_STORES);
                                 },
                               ),
-                              _supportIcon(
+                              supportIcon(
                                 AppImages.icWifi,
                                 l10n.network_test,
                                 () async {
@@ -260,34 +261,6 @@ class _HelpCenterPageState extends State<HelpCenterPage>
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _supportIcon(String icon, String label, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              color: Colors.pink[50],
-            ),
-            child: SvgPicture.asset(icon, width: 24, height: 24),
-          ),
-          const SizedBox(height: 8),
-          Container(
-            width: 90,
-            child: Text(
-              label,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              style: AppStyles.poppins12Regular.copyWith(fontSize: 16),
-            ),
-          ),
-        ],
       ),
     );
   }

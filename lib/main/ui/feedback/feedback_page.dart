@@ -1,3 +1,4 @@
+import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -136,6 +137,166 @@ class FeedbackPage extends StatelessWidget {
                             ),
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              spacing: 16,
+                              children: [
+                                Text(
+                                  l10n.nameLabel,
+                                  style: AppStyles.poppins12Regular.copyWith(
+                                    fontSize: 16,
+                                    color: AppColors.color_8588,
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                  ),
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: AppColors.color_F7F7,
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                  child: TextField(
+                                    maxLines: 1,
+                                    decoration: InputDecoration(
+                                      hintText: l10n
+                                          .enterYourExperience, // "Nội dung chi tiết"
+                                      hintStyle: AppStyles.poppins12Regular
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color: AppColors.color_8588,
+                                          ),
+                                      border: InputBorder.none,
+                                      enabledBorder: InputBorder.none,
+                                      focusedBorder: InputBorder.none,
+                                    ),
+                                    onChanged: (value) => context
+                                        .read<FeedbackBloc>()
+                                        .add(ContentChanged(value)),
+                                  ),
+                                ),
+                                Row(
+                                  spacing: 16,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Expanded(
+                                      child: Column(
+                                        spacing: 16,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            l10n.phoneNumberLabel,
+                                            style: AppStyles.poppins12Regular
+                                                .copyWith(
+                                                  fontSize: 16,
+                                                  color: AppColors.color_8588,
+                                                ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 16,
+                                            ),
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.color_F7F7,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            child: TextField(
+                                              maxLines: 1,
+                                              decoration: InputDecoration(
+                                                hintText: l10n
+                                                    .phoneNumberHint, // "Nội dung chi tiết"
+                                                hintStyle: AppStyles
+                                                    .poppins12Regular
+                                                    .copyWith(
+                                                      fontSize: 16,
+                                                      color:
+                                                          AppColors.color_8588,
+                                                    ),
+                                                border: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                              ),
+                                              onChanged: (value) => context
+                                                  .read<FeedbackBloc>()
+                                                  .add(ContentChanged(value)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        spacing: 16,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            l10n.accountFtthLabel,
+                                            style: AppStyles.poppins12Regular
+                                                .copyWith(
+                                                  fontSize: 16,
+                                                  color: AppColors.color_8588,
+                                                ),
+                                          ),
+                                          Container(
+                                            padding: const EdgeInsets.symmetric(
+                                              horizontal: 16,
+                                            ),
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              color: AppColors.color_F7F7,
+                                              borderRadius:
+                                                  BorderRadius.circular(16),
+                                            ),
+                                            child: TextField(
+                                              maxLines: 1,
+                                              decoration: InputDecoration(
+                                                hintText: l10n
+                                                    .accountFtthHint, // "Nội dung chi tiết"
+                                                hintStyle: AppStyles
+                                                    .poppins12Regular
+                                                    .copyWith(
+                                                      fontSize: 16,
+                                                      color:
+                                                          AppColors.color_8588,
+                                                    ),
+                                                border: InputBorder.none,
+                                                enabledBorder: InputBorder.none,
+                                                focusedBorder: InputBorder.none,
+                                              ),
+                                              onChanged: (value) => context
+                                                  .read<FeedbackBloc>()
+                                                  .add(ContentChanged(value)),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          ),
+
+                          Container(
+                            width: double.infinity,
+
+                            margin: const EdgeInsets.only(top: 8),
+                            padding: const EdgeInsets.all(16),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(16),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  blurRadius: 10,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               spacing: 8,
                               children: [
                                 Text(
@@ -147,7 +308,7 @@ class FeedbackPage extends StatelessWidget {
                                   width: double.infinity,
                                   height: 140,
                                   decoration: BoxDecoration(
-                                    color: AppColors.color_F7F7F7,
+                                    color: AppColors.color_F7F7,
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: Column(
@@ -253,7 +414,7 @@ class FeedbackPage extends StatelessWidget {
                                   padding: const EdgeInsets.all(16),
                                   width: double.infinity,
                                   decoration: BoxDecoration(
-                                    color: AppColors.color_F7F7F7,
+                                    color: AppColors.color_F7F7,
                                     borderRadius: BorderRadius.circular(16),
                                   ),
                                   child: TextField(
@@ -281,7 +442,9 @@ class FeedbackPage extends StatelessWidget {
                     padding: const EdgeInsets.all(16),
                     child: commonButton(
                       text: l10n.feedbackSubmitButton,
-                      onPressed: () {},
+                      onPressed: () {
+                        doShowDialog(context, _buildSuccessDialog(context));
+                      },
                     ),
                   ),
                 ],
@@ -310,7 +473,7 @@ class FeedbackPage extends StatelessWidget {
             height: 48,
             child: CircleAvatar(
               backgroundColor: id == satisLv
-                  ? AppColors.color_F7A8AA
+                  ? AppColors.color_F7A8
                   : Colors.transparent,
               child: Image.asset(
                 id == satisLv ? imageActive : imagePath,
@@ -404,6 +567,59 @@ class FeedbackPage extends StatelessWidget {
           },
         ),
       ],
+    );
+  }
+
+  Widget _buildSuccessDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 10.0),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize
+            .min, // Quan trọng: Để popup không chiếm hết chiều cao màn hình
+        children: [
+          // 1. Icon hoặc Hình ảnh phía trên
+          SvgPicture.asset(AppImages.icGreenTick, width: 64, height: 64),
+          const SizedBox(height: 16),
+
+          // 2. Tiêu đề
+          Text(
+            l10n.feedbackSuccessTitle, // Có thể dùng l10n.informationTitle
+            style: AppTextFonts.poppinsSemiBold.copyWith(
+              color: Colors.black,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // 3. Nội dung mô tả
+          Text(
+            l10n.feedbackSuccessMessage,
+            style: AppTextFonts.poppinsRegular.copyWith(
+              color: AppColors.color_8588,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+            //     style: AppTextFonts.poppins12Regular,
+          ),
+          const SizedBox(height: 24),
+
+          // 4. Các nút bấm hành động
+          commonButton(text: l10n.close, onPressed: () => context.pop()),
+        ],
+      ),
     );
   }
 }
