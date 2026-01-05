@@ -923,7 +923,7 @@ class _HomePageState extends State<HomePage>
               textAlign: TextAlign.center,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: AppTextFonts.poppins12Regular,
+              // style: AppTextFonts.poppins12Regular,
             ),
           ),
         ],
