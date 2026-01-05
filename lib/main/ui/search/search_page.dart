@@ -165,7 +165,7 @@ class SearchPage extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     supportIcon(
-                                      AppImages.icTopUp,
+                                      AppImages.icTopUp2,
                                       l10n.topUp,
                                       () {},
                                     ),

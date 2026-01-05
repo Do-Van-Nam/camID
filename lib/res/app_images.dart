@@ -186,7 +186,7 @@ class AppImages {
   static final String icClose = 'assets/icons/ic_close.svg';
   static final String imgEmptyNoti = 'assets/images/empty_noti.png';
   static final String icExchangeCard = 'assets/icons/ic_exchange_card.svg';
-  static final String icTopUp2 = 'assets/icons/ic_top_up.svg';
+  static final String icTopUp2 = 'assets/icons/ic_top_up2.svg';
   static final String icDatabase = 'assets/icons/ic_database.svg';
   static final String icSimcard = 'assets/icons/ic_simcard.svg';
   static final String icTimer = 'assets/icons/ic_timer.svg';
