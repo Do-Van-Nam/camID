@@ -59,10 +59,10 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CustomBottomNav(
         currentIndex: _currentIndex,
         onTabSelected: (index) async {
-          if (index == 2 && UserInfoModel.instance.username.isEmpty) {
-            _onLogin();
-            return;
-          }
+          // if (index == 2 && UserInfoModel.instance.username.isEmpty) {
+          //   _onLogin();
+          //   return;
+          // }
 
           setState(() => _currentIndex = index);
           _onItemTapped(index);

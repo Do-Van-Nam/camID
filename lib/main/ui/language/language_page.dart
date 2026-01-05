@@ -7,6 +7,7 @@ import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -48,74 +49,80 @@ class _LanguagePageState extends State<LanguagePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: AppColors.color_F7F7,
-      body: Column(
-        children: [
-          Container(
-            width: double.infinity,
-            color: AppColors.color_FFFF,
-            child: SafeArea(
-              bottom: false,
-              child: SizedBox(
-                height: kToolbarHeight,
-                child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Align(
-                      alignment: Alignment.centerLeft,
-                      child: IconButton(
-                        icon: const Icon(
-                          Icons.arrow_back_ios_new,
-                          color: AppColors.color_1618,
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: SystemUiOverlayStyle.dark,
+      child: Scaffold(
+        backgroundColor: AppColors.color_F7F7,
+        body: Column(
+          children: [
+            Container(
+              width: double.infinity,
+              color: AppColors.color_FFFF,
+              child: SafeArea(
+                bottom: false,
+                child: SizedBox(
+                  height: kToolbarHeight,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.arrow_back_ios_new,
+                            color: AppColors.color_1618,
+                          ),
+                          onPressed: () => context.pop(),
                         ),
-                        onPressed: () => context.pop(),
                       ),
+                      Text(
+                        AppLocalizations.of(context)!.language,
+                        style: AppStyles.headerBlack,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 24,
+                ),
+                child: Column(
+                  children: [
+                    LanguageItemButton(
+                      title: AppLocalizations.of(context)!.english,
+                      assetFlag: AppImages.imgEn,
+                      isSelected: currentLang == 'en',
+                      onTap: () => _changeLanguage('en'),
                     ),
-                    Text(
-                      AppLocalizations.of(context)!.language,
-                      style: AppStyles.headerBlack,
+                    const SizedBox(height: 12),
+                    LanguageItemButton(
+                      title: AppLocalizations.of(context)!.vietnamese,
+                      assetFlag: AppImages.imgVn,
+                      isSelected: currentLang == 'vi',
+                      onTap: () => _changeLanguage('vi'),
+                    ),
+                    const SizedBox(height: 12),
+                    LanguageItemButton(
+                      title: AppLocalizations.of(context)!.khmer,
+                      assetFlag: AppImages.imgKm,
+                      isSelected: currentLang == 'km',
+                      onTap: () => _changeLanguage('km'),
                     ),
                   ],
                 ),
               ),
             ),
-          ),
-          Container(
-            margin: const EdgeInsets.all(16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(24),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Column(
-                children: [
-                  LanguageItemButton(
-                    title: AppLocalizations.of(context)!.english,
-                    assetFlag: AppImages.imgEn,
-                    isSelected: currentLang == 'en',
-                    onTap: () => _changeLanguage('en'),
-                  ),
-                  const SizedBox(height: 12),
-                  LanguageItemButton(
-                    title: AppLocalizations.of(context)!.vietnamese,
-                    assetFlag: AppImages.imgVn,
-                    isSelected: currentLang == 'vi',
-                    onTap: () => _changeLanguage('vi'),
-                  ),
-                  const SizedBox(height: 12),
-                  LanguageItemButton(
-                    title: AppLocalizations.of(context)!.khmer,
-                    assetFlag: AppImages.imgKm,
-                    isSelected: currentLang == 'km',
-                    onTap: () => _changeLanguage('km'),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

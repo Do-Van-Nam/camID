@@ -51,6 +51,17 @@ class AppImages {
   static final String icRadioUnselected =
       'assets/icons/ic_radio_unselected.svg';
   static final String icArrowDown = 'assets/icons/ic_arrow_down.svg';
+  static final String icDrawerMenuV2 = 'assets/icons/ic_drawer_menu_v2.svg';
+  static final String icFTTH = 'assets/icons/ic_ftth.svg';
+  static final String icEsim = 'assets/icons/ic_esim.svg';
+  static final String icMyService = 'assets/icons/ic_my_service.svg';
+  static final String icPaymentHistory = 'assets/icons/ic_payment_history.svg';
+  static final String icCheck = 'assets/icons/ic_check.svg';
+  static final String icTopUp = 'assets/icons/ic_top_up.svg';
+  static final String icTV360V2 = 'assets/icons/ic_tv_360.svg';
+  static final String icExchanged = 'assets/icons/ic_exchanged.svg';
+  static final String icSpeedNetwork = 'assets/icons/ic_speed_network.svg';
+  static final String icDollar = 'assets/icons/ic_dollar.svg';
 
   //-------------------------------IMAGES-------------------------------------//
   static final String imgBGCamIDLogo = 'assets/images/bg_camid_logo.png';
@@ -69,6 +80,13 @@ class AppImages {
   static final String imgChatBot5 = 'assets/images/chatbot_ic2.png';
   static final String imgBgLogin = 'assets/images/img_bg_login.png';
   static final String imgLogoLogin = 'assets/images/img_logo_login.png';
+  static final String imgBanner1 = 'assets/images/img_banner_1.png';
+  static final String imgBanner2 = 'assets/images/img_banner_2.png';
+  static final String imgBanner3 = 'assets/images/img_banner_3.png';
+  static final String imgBanner4 = 'assets/images/img_banner_4.png';
+  static final String imgBanner5 = 'assets/images/img_banner_5.png';
+  static final String imgBanner6 = 'assets/images/img_banner_6.png';
+  static final String imgVasTest = 'assets/images/img_vas_test.png';
 
   // loyalty
   static final String icAirplane = 'assets/icons/ic_airplane.svg';
@@ -168,7 +186,7 @@ class AppImages {
   static final String icClose = 'assets/icons/ic_close.svg';
   static final String imgEmptyNoti = 'assets/images/empty_noti.png';
   static final String icExchangeCard = 'assets/icons/ic_exchange_card.svg';
-  static final String icTopUp = 'assets/icons/ic_top_up.svg';
+  static final String icTopUp2 = 'assets/icons/ic_top_up.svg';
   static final String icDatabase = 'assets/icons/ic_database.svg';
   static final String icSimcard = 'assets/icons/ic_simcard.svg';
   static final String icTimer = 'assets/icons/ic_timer.svg';

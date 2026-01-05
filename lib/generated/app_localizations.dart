@@ -1209,6 +1209,147 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your full address'**
   String get enter_your_full_address;
+<<<<<<< HEAD
+=======
+
+  /// No description provided for @wifiFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us improve CamID\'s WiFi service. Your experience matters to us!'**
+  String get wifiFeedbackTitle;
+
+  /// No description provided for @rateYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
+
+  /// No description provided for @satisfactionLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction level'**
+  String get satisfactionLevel;
+
+  /// No description provided for @satisfied.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfied'**
+  String get satisfied;
+
+  /// No description provided for @speedOfInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed of internet'**
+  String get speedOfInternet;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @customerService.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer service'**
+  String get customerService;
+
+  /// No description provided for @technicalSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical support'**
+  String get technicalSupport;
+
+  /// No description provided for @enterYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your experience...'**
+  String get enterYourExperience;
+
+  /// No description provided for @ftth.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH'**
+  String get ftth;
+
+  /// No description provided for @esim.
+  ///
+  /// In en, this message translates to:
+  /// **'Esim'**
+  String get esim;
+
+  /// No description provided for @my_services.
+  ///
+  /// In en, this message translates to:
+  /// **'My services'**
+  String get my_services;
+
+  /// No description provided for @payment_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get payment_history;
+
+  /// No description provided for @services_for_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Services for you'**
+  String get services_for_you;
+
+  /// No description provided for @my_usage.
+  ///
+  /// In en, this message translates to:
+  /// **'My Usage'**
+  String get my_usage;
+
+  /// No description provided for @register.
+  ///
+  /// In en, this message translates to:
+  /// **'Register'**
+  String get register;
+
+  /// No description provided for @call.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get call;
+
+  /// No description provided for @sms.
+  ///
+  /// In en, this message translates to:
+  /// **'SMS'**
+  String get sms;
+
+  /// No description provided for @roaming.
+  ///
+  /// In en, this message translates to:
+  /// **'Roaming'**
+  String get roaming;
+
+  /// No description provided for @top_up.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up'**
+  String get top_up;
+
+  /// No description provided for @exchanged_damaged_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange damaged card'**
+  String get exchanged_damaged_card;
+
+  /// No description provided for @ftth_package.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH Package'**
+  String get ftth_package;
+
+  /// No description provided for @mobile_package.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile Package'**
+  String get mobile_package;
+>>>>>>> origin/main
 }
 
 class _AppLocalizationsDelegate
