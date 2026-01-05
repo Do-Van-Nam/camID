@@ -12,6 +12,22 @@ class RatingChanged extends FeedbackEvent {
   List<Object?> get props => [rating];
 }
 
+class RateChanged extends FeedbackEvent {
+  final double rating;
+  final String type;
+
+  RateChanged(this.rating, this.type);
+  @override
+  List<Object?> get props => [rating, type];
+}
+
+class SatisficationLevelChanged extends FeedbackEvent {
+  final double satisLv;
+  SatisficationLevelChanged(this.satisLv);
+  @override
+  List<Object?> get props => [satisLv];
+}
+
 class TitleChanged extends FeedbackEvent {
   final String title;
   TitleChanged(this.title);

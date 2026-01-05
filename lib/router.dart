@@ -2,6 +2,7 @@ import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
+import 'package:cam_id/main/ui/entertainment/game_list/game_list_page.dart';
 import 'package:cam_id/main/ui/entertainment/ranking/ranking_page.dart';
 import 'package:cam_id/main/ui/edit_information/edit_information_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
@@ -59,6 +60,7 @@ const String PATH_EDIT_INFORMATION = "/edit_information";
 //entertainment
 //game
 const String PATH_GAME = "/game";
+const String PATH_GAME_LIST = "/game_list";
 const String PATH_RANKING = "/ranking";
 
 final GoRouter router = GoRouter(
@@ -121,6 +123,10 @@ final GoRouter router = GoRouter(
         //entertainment
         //game
         GoRoute(path: PATH_GAME, builder: (context, state) => GamePage()),
+        GoRoute(
+          path: PATH_GAME_LIST,
+          builder: (context, state) => GameListPage(),
+        ),
         GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
         // ----------------------------------------------
         GoRoute(

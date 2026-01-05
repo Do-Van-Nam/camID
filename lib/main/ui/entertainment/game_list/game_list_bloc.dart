@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'ranking_event.dart';
-part 'ranking_state.dart';
+part 'game_list_event.dart';
+part 'game_list_state.dart';
 
 class GameItem {
   final String imageUrl;
@@ -11,8 +11,8 @@ class GameItem {
   GameItem({required this.imageUrl, required this.title, this.players = ''});
 }
 
-class GameBloc extends Bloc<GameEvent, GameState> {
-  GameBloc() : super(GameState.initial()) {
+class GameListBloc extends Bloc<GameListEvent, GameListState> {
+  GameListBloc() : super(GameListState.initial()) {
     on<LoadBannersEvent>((event, emit) async {
       emit(state.copyWith(isLoadingBanners: true));
       await Future.delayed(const Duration(seconds: 1));
@@ -42,7 +42,7 @@ class GameBloc extends Bloc<GameEvent, GameState> {
       emit(state.copyWith(isLoadingSpecial: true));
       await Future.delayed(const Duration(seconds: 1));
       final games = List.generate(
-        6,
+        7,
         (i) => GameItem(
           imageUrl:
               'https://cdn2.fptshop.com.vn/unsafe/1920x0/filters:format(webp):quality(75)/2023_10_15_638329878567586819_banner-la-gi-0.jpg',

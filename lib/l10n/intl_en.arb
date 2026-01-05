@@ -224,5 +224,14 @@
   "enter_your_id": "Enter your ID",
   "select": "Select",
   "other": "Other",
-  "enter_your_full_address": "Enter your full address"
+  "enter_your_full_address": "Enter your full address",
+  "wifiFeedbackTitle": "Help us improve CamID's WiFi service. Your experience matters to us!",
+  "rateYourExperience": "Rate your experience",
+  "satisfactionLevel": "Satisfaction level",
+  "satisfied": "Satisfied",
+  "speedOfInternet": "Speed of internet",
+  "price": "Price",
+  "customerService": "Customer service",
+  "technicalSupport": "Technical support",
+  "enterYourExperience": "Enter your experience..."
 }

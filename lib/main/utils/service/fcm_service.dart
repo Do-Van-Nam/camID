@@ -20,8 +20,7 @@ class FcmService {
 
   /// Xin quyền notification
   Future<void> _requestPermission() async {
-    NotificationSettings settings =
-    await _messaging.requestPermission(
+    NotificationSettings settings = await _messaging.requestPermission(
       alert: true,
       badge: true,
       sound: true,
@@ -62,7 +61,9 @@ class FcmService {
   Future<void> _checkInitialMessage() async {
     final initialMessage = await _messaging.getInitialMessage();
     if (initialMessage != null) {
-      print('🚀 Launched from terminated by notification: ${initialMessage.data}');
+      print(
+        '🚀 Launched from terminated by notification: ${initialMessage.data}',
+      );
       NavigationHandler.instance.handleFcmData(initialMessage.data);
     }
   }

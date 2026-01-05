@@ -48,7 +48,8 @@ class AppImages {
   static final String icMonkID = 'assets/icons/ic_monk.svg';
   static final String icCalendar = 'assets/icons/ic_calendar.svg';
   static final String icRadioSelected = 'assets/icons/ic_radio_selected.svg';
-  static final String icRadioUnselected = 'assets/icons/ic_radio_unselected.svg';
+  static final String icRadioUnselected =
+      'assets/icons/ic_radio_unselected.svg';
   static final String icArrowDown = 'assets/icons/ic_arrow_down.svg';
 
   //-------------------------------IMAGES-------------------------------------//
@@ -114,9 +115,49 @@ class AppImages {
 
   // ranking
   static final String icRedStar = 'assets/icons/ic_red_star.svg';
-  static final String icBadge1 = 'assets/icons/ic_badge1.svg';
-  static final String icBadge2 = 'assets/icons/ic_badge2.svg';
-  static final String icBadge3 = 'assets/icons/ic_badge3.svg';
+  static final String icBadge1 = 'assets/images/badge1.png';
+  static final String icBadge2 = 'assets/images/badge2.png';
+  static final String icBadge3 = 'assets/images/badge3.png';
+
+  //feedback
+
+  static final String icStar = 'assets/icons/ic_star.svg';
+  static final String icStarRateEmpty = 'assets/icons/ic_star_rate_empty.svg';
+  static final String icStarRateFill = 'assets/icons/ic_star_rate_fill.svg';
+  static final String icRedLabel = 'assets/icons/ic_red_label.svg';
+
+  // static final String icSatification1 = 'assets/icons/ic_satification1.svg';
+  // static final String icSatification2 = 'assets/icons/ic_satification2.svg';
+  // static final String icSatification3 = 'assets/icons/ic_satification3.svg';
+  // static final String icSatification4 = 'assets/icons/ic_satification4.svg';
+  // static final String icSatification5 = 'assets/icons/ic_satification5.svg';
+
+  // static final String icSatification1Active =
+  //     'assets/icons/ic_satification1_active.svg';
+  // static final String icSatification2Active =
+  //     'assets/icons/ic_satification2_active.svg';
+  // static final String icSatification3Active =
+  //     'assets/icons/ic_satification3_active.svg';
+  // static final String icSatification4Active =
+  //     'assets/icons/ic_satification4_active.svg';
+  // static final String icSatification5Active =
+  //     'assets/icons/ic_satification5_active.svg';
+  static final String icSatification1 = 'assets/images/ic_satification1.png';
+  static final String icSatification2 = 'assets/images/ic_satification2.png';
+  static final String icSatification3 = 'assets/images/ic_satification3.png';
+  static final String icSatification4 = 'assets/images/ic_satification4.png';
+  static final String icSatification5 = 'assets/images/ic_satification5.png';
+
+  static final String icSatification1Active =
+      'assets/images/ic_satification1_active.png';
+  static final String icSatification2Active =
+      'assets/images/ic_satification2_active.png';
+  static final String icSatification3Active =
+      'assets/images/ic_satification3_active.png';
+  static final String icSatification4Active =
+      'assets/images/ic_satification4_active.png';
+  static final String icSatification5Active =
+      'assets/images/ic_satification5_active.png';
 
   // ------------------------ N ------------------------
 }
