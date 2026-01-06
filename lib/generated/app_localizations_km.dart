@@ -477,9 +477,6 @@ class AppLocalizationsKm extends AppLocalizations {
   String get accountFtthHint => 'បញ្ចូលគណនី FTTH របស់អ្នក';
 
   @override
-  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
-
-  @override
   String get feedbackSuccessTitle => 'Successfully sent feedback';
 
   @override
@@ -511,7 +508,7 @@ class AppLocalizationsKm extends AppLocalizations {
   String get ftth => 'FTTH';
 
   @override
-  String get esim => 'eSIM';
+  String get esim => 'Esim';
 
   @override
   String get myServices => 'My services';
@@ -536,6 +533,175 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get recentSearches => 'Recent Searches';
+
+  @override
+  String get detail => 'Detail';
+
+  @override
+  String get voice => 'Voice';
+
+  @override
+  String get sms => 'SMS';
+
+  @override
+  String get data => 'Data';
+
+  @override
+  String get getNow => 'Get Now';
+
+  @override
+  String get prizeList => 'Prize List';
+
+  @override
+  String get myPrize => 'My Prize';
+
+  @override
+  String get history => 'History';
+
+  @override
+  String get prize => 'Prize';
+
+  @override
+  String get feedback => 'Feedback';
+
+  @override
+  String get mobileVasEmoney => 'Mobile/VAS/e-Money';
+
+  @override
+  String get ftthTv360 => 'FTTH/TV360';
+
+  @override
+  String get enterAccountToVerify => 'Please enter Account number to verify';
+
+  @override
+  String get enterAccountNumber => 'Enter account number';
+
+  @override
+  String get confirm => 'Confirm';
+
+  @override
+  String get otpSentTo => 'OTP has been sent to';
+
+  @override
+  String get didNotReceiveOtp => 'Didn\'t receive a OTP?';
+
+  @override
+  String get requestProcessed => 'Request in processed';
+
+  @override
+  String noHistoryFound(Object name, Object service) {
+    return 'Hello $name, there is no historical information reflecting your experience with the $service service.';
+  }
+
+  @override
+  String get changeAccount => 'Change Account';
+
+  @override
+  String get addFeedback => 'Add Feedback';
+
+  @override
+  String get selectType => 'Select type';
+
+  @override
+  String get select => 'Select';
+
+  @override
+  String get customerName => 'Customer name';
+
+  @override
+  String get accountNumber => 'Account number';
+
+  @override
+  String get phoneNumber => 'Phone number';
+
+  @override
+  String get error => 'Error';
+
+  @override
+  String get complaintType => 'Complaint type';
+
+  @override
+  String get enterFeedbackHint => 'Enter your feedback here';
+
+  @override
+  String get uploadPhoto => 'Upload photo';
+
+  @override
+  String get sendFeedback => 'Send feedback';
+
+  @override
+  String get successfully => 'Successfully';
+
+  @override
+  String get feedbackSuccessMsg =>
+      'We will review it within 2 days then let you know by notification. Please login to your Camid account to get notification about your feedback';
+
+  @override
+  String get statusReceived => 'Received';
+
+  @override
+  String get statusProcessing => 'Processing';
+
+  @override
+  String get statusClosed => 'Closed';
+
+  @override
+  String get selectDateRange => 'Select Date Range';
+
+  @override
+  String get from => 'From';
+
+  @override
+  String get to => 'To';
+
+  @override
+  String get serviceType => 'Service type';
+
+  @override
+  String get cancel => 'Cancel';
+
+  @override
+  String get confirmChangeAccount =>
+      'Are you sure want to change account feedback services?';
+
+  @override
+  String get no => 'No';
+
+  @override
+  String get yes => 'Yes';
+
+  @override
+  String get feedbackDetail => 'Feedback Detail';
+
+  @override
+  String get receiveDate => 'Receive date';
+
+  @override
+  String get expectedDeadline => 'Expected deadline';
+
+  @override
+  String get evaluateQuality => 'Evaluate quality of feedback';
+
+  @override
+  String get satisfy => 'Satisfy';
+
+  @override
+  String get notSatisfy => 'Not satisfy';
+
+  @override
+  String get time => 'Time';
+
+  @override
+  String get status => 'Status';
+
+  @override
+  String get received => 'Received';
+
+  @override
+  String get processing => 'Processing';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
 
   @override
   String get take_a_photo => 'Take a photo';
@@ -568,49 +734,10 @@ class AppLocalizationsKm extends AppLocalizations {
   String get enter_your_id => 'Enter your ID';
 
   @override
-  String get select => 'Select';
-
-  @override
   String get other => 'Other';
 
   @override
   String get enter_your_full_address => 'Enter your full address';
-<<<<<<< HEAD
-=======
-
-  @override
-  String get wifiFeedbackTitle =>
-      'Help us improve CamID\'s WiFi service. Your experience matters to us!';
-
-  @override
-  String get rateYourExperience => 'Rate your experience';
-
-  @override
-  String get satisfactionLevel => 'Satisfaction level';
-
-  @override
-  String get satisfied => 'Satisfied';
-
-  @override
-  String get speedOfInternet => 'Speed of internet';
-
-  @override
-  String get price => 'Price';
-
-  @override
-  String get customerService => 'Customer service';
-
-  @override
-  String get technicalSupport => 'Technical support';
-
-  @override
-  String get enterYourExperience => 'Enter your experience...';
-
-  @override
-  String get ftth => 'FTTH';
-
-  @override
-  String get esim => 'Esim';
 
   @override
   String get my_services => 'My services';
@@ -631,9 +758,6 @@ class AppLocalizationsKm extends AppLocalizations {
   String get call => 'Call';
 
   @override
-  String get sms => 'SMS';
-
-  @override
   String get roaming => 'Roaming';
 
   @override
@@ -647,5 +771,4 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get mobile_package => 'Mobile Package';
->>>>>>> origin/main
 }
