@@ -1,4 +1,7 @@
+import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 Widget commonButton({
   required String text,
@@ -39,7 +42,12 @@ Widget commonButton({
   );
 }
 
-Widget viewAllHeader({required String title, required VoidCallback onViewAll}) {
+Widget viewAllHeader({
+  required String title,
+  required VoidCallback onViewAll,
+  required BuildContext context,
+  String? textAll,
+}) {
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
     child: Row(
@@ -51,13 +59,41 @@ Widget viewAllHeader({required String title, required VoidCallback onViewAll}) {
         ),
         GestureDetector(
           onTap: onViewAll,
-          child: const Text(
-            "View All",
+          child: Text(
+            textAll ?? AppLocalizations.of(context)!.viewAll,
             style: TextStyle(
               fontSize: 14,
               color: Colors.red,
               decoration: TextDecoration.none,
             ),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+Widget supportIcon(String icon, String label, VoidCallback onTap) {
+  return GestureDetector(
+    onTap: onTap,
+    child: Column(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            color: Colors.pink[50],
+          ),
+          child: SvgPicture.asset(icon, width: 24, height: 24),
+        ),
+        const SizedBox(height: 8),
+        Container(
+          width: 90,
+          child: Text(
+            label,
+            textAlign: TextAlign.center,
+            maxLines: 2,
+            style: AppStyles.poppins12Regular.copyWith(fontSize: 16),
           ),
         ),
       ],

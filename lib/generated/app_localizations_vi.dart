@@ -60,24 +60,6 @@ class AppLocalizationsVi extends AppLocalizations {
   String get khmer => 'ខ្មែរ';
 
   @override
-  String get telegram => 'Telegram';
-
-  @override
-  String get messenger => 'Messenger';
-
-  @override
-  String get search => 'Tìm kiếm';
-
-  @override
-  String get enterSearch => 'Nhập tìm kiếm...';
-
-  @override
-  String get enter => 'Nhập';
-
-  @override
-  String get notFound => 'Không tìm thấy';
-
-  @override
   String get voice_call => 'Gọi thoại';
 
   @override
@@ -255,113 +237,65 @@ class AppLocalizationsVi extends AppLocalizations {
   String get qr_code => 'Mã QR';
 
   @override
-  String get name => 'name';
-
-  @override
-  String get loyaltyPhoneNumber => '031 3828606';
-
-  @override
-  String loyaltyPoints(Object points) {
-    return '$points Points';
-  }
-
-  @override
-  String get loyaltyReward => 'Reward';
-
-  @override
-  String get loyaltyTierBenefits => 'Tier Benefits';
-
-  @override
-  String get loyaltyHistory => 'History';
-
-  @override
-  String get loyaltyBannerText =>
-      'Accommodation & Hotels up to 30% off\nBest stays';
-
-  @override
-  String get loyaltyRewardCoupon => 'Reward - Coupon';
-
-  @override
-  String get loyaltyVoucher => 'Voucher';
-
-  @override
-  String get viewAll => 'View All';
-
-  @override
-  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
-
-  @override
-  String loyaltyExchanged(Object exchanged, Object total) {
-    return 'Exchanged $exchanged/$total';
-  }
-
-  @override
-  String get loyaltyFree => 'Free';
-
-  @override
-  String get loyaltyRedeem => 'Redeem';
-
-  @override
-  String get notificationTitle => 'Notifications';
-
-  @override
-  String get notificationTabNews => 'News';
-
-  @override
-  String get notificationTabComplain => 'Complaints';
-
-  @override
-  String get notificationEmptyNews => 'No notifications';
-
-  @override
-  String get notificationEmptyComplain => 'No complaints';
-
-  @override
-  String get notificationReadAll => 'Mark all as read';
-
-  @override
-  String get notificationClearAll => 'Clear all';
-
-  @override
   String get phone_number_is_not_valid => 'Số điện thoại này không hợp lệ!';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get messenger => 'Messenger';
+
+  @override
+  String get search => 'Tìm kiếm';
+
+  @override
+  String get enterSearch => 'Nhập nội dung tìm kiếm...';
+
+  @override
+  String get enter => 'Nhập';
+
+  @override
+  String get notFound => 'Không tìm thấy';
 
   @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
-  String get chatbotGreeting => 'How may I help you today!';
+  String get chatbotGreeting => 'Tôi có thể giúp gì cho bạn hôm nay!';
 
   @override
   String get chatbotDescription =>
-      'This AI chatbot is for customer service, wishing to support customers in the best way!';
+      'Chatbot AI này hỗ trợ chăm sóc khách hàng, mong muốn hỗ trợ khách hàng một cách tốt nhất!';
 
   @override
-  String get chatbotStart => 'Start';
+  String get chatbotStart => 'Bắt đầu';
 
   @override
-  String get chatbotContinue => 'Continue';
+  String get chatbotContinue => 'Tiếp tục';
 
   @override
-  String get online => 'online';
+  String get online => 'Trực tuyến';
 
   @override
-  String get menu => 'Menu';
+  String get menu => 'Danh mục';
 
   @override
-  String get mainMenu => 'Main menu';
+  String get mainMenu => 'Menu chính';
 
   @override
-  String get changePhoneNumberLogin => 'Change phone number login';
+  String get changePhoneNumberLogin => 'Đổi số điện thoại đăng nhập';
 
   @override
-  String get newChat => 'New chat';
+  String get newChat => 'Chat mới';
 
   @override
-  String get callTheStaffs => 'Call the staffs';
+  String get callTheStaffs => 'Gọi cho nhân viên';
 
   @override
-  String get login_des =>
-      'Chào mừng bạn đến với CamID, hộ chiếu kỹ thuật số của bạn.';
+  String get login_des => 'Chào mừng bạn đến với CamID, hộ chiếu số của bạn.';
 
   @override
   String get enter_your_phone_number => 'Nhập số điện thoại của bạn';
@@ -370,60 +304,238 @@ class AppLocalizationsVi extends AppLocalizations {
   String get identity_verification => 'Xác minh danh tính';
 
   @override
+  String get notificationClearAll => 'Xóa tất cả';
+
+  @override
   String get loyaltyCamID => 'CamID';
 
   @override
-  String loyaltyNextTier(Object points) {
-    return '$points Points more to rank up Silver';
+  String loyaltyPoints(Object points) {
+    return '$points Điểm';
   }
 
   @override
-  String get loyaltyShopping => 'Shopping';
+  String loyaltyNextTier(Object points) {
+    return 'Cần thêm $points điểm để lên hạng Bạc';
+  }
 
   @override
-  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
+  String get loyaltyTierBenefits => 'Đặc quyền hạng thẻ';
 
   @override
-  String get loyaltyHealthCare => 'Health Care';
+  String get loyaltyHistory => 'Lịch sử';
 
   @override
-  String get loyaltyTravel => 'Travel';
+  String get loyaltyReward => 'Phần thưởng';
+
+  @override
+  String get loyaltyShopping => 'Mua sắm';
+
+  @override
+  String get loyaltyRestaurantHotel => 'Nhà hàng - Khách sạn';
+
+  @override
+  String get loyaltyHealthCare => 'Chăm sóc sức khỏe';
+
+  @override
+  String get loyaltyTravel => 'Du lịch';
+
+  @override
+  String get loyaltyRewardCoupon => 'Thưởng - Ưu đãi';
+
+  @override
+  String get loyaltyVoucher => 'Voucher';
+
+  @override
+  String get viewAll => 'Xem tất cả';
+
+  @override
+  String loyaltyExchanged(Object exchanged, Object total) {
+    return 'Đã đổi $exchanged/$total';
+  }
+
+  @override
+  String get loyaltyRedeem => 'Đổi điểm';
 
   @override
   String get loyaltyBannerPromotion => '1\$ = 2500\$';
 
   @override
-  String get connectWithUs => 'Connect with us';
+  String get connectWithUs => 'Kết nối với chúng tôi';
 
   @override
-  String get support => 'Support';
+  String get support => 'Hỗ trợ';
 
   @override
-  String get clickHereToLogin => 'Click here to login';
+  String get clickHereToLogin => 'Bấm vào đây để đăng nhập';
 
   @override
-  String get myGift => 'My Gift';
+  String get myGift => 'Quà của tôi';
 
   @override
-  String get ranking => 'Ranking';
+  String get ranking => 'Bảng xếp hạng';
 
   @override
-  String get category => 'Category';
+  String get category => 'Danh mục';
 
   @override
-  String get trendingNow => 'Trending now';
+  String get trendingNow => 'Xu hướng hiện nay';
 
   @override
-  String get specialGame => 'Special Game';
+  String get specialGame => 'Trò chơi đặc biệt';
 
   @override
   String get theUltimateRacer => 'The Ultimate Racer';
 
   @override
-  String get playerCount => 'player';
+  String get playerCount => 'người chơi';
 
   @override
-  String get action => 'Action';
+  String get action => 'Hành động';
+
+  @override
+  String get wifiFeedbackTitle =>
+      'Hãy giúp chúng tôi cải thiện dịch vụ WiFi của CamID. Trải nghiệm của bạn rất quan trọng với chúng tôi!';
+
+  @override
+  String get rateYourExperience => 'Đánh giá trải nghiệm của bạn';
+
+  @override
+  String get satisfactionLevel => 'Mức độ hài lòng';
+
+  @override
+  String get satisfied => 'Hài lòng';
+
+  @override
+  String get speedOfInternet => 'Tốc độ internet';
+
+  @override
+  String get price => 'Giá cước';
+
+  @override
+  String get customerService => 'Dịch vụ khách hàng';
+
+  @override
+  String get technicalSupport => 'Hỗ trợ kỹ thuật';
+
+  @override
+  String get enterYourExperience => 'Nhập trải nghiệm của bạn...';
+
+  @override
+  String get name => 'Tên';
+
+  @override
+  String get loyaltyPhoneNumber => '031 3828606';
+
+  @override
+  String get loyaltyBannerText =>
+      'Chỗ ở & Khách sạn giảm giá đến 30%\nKỳ nghỉ tốt nhất';
+
+  @override
+  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
+
+  @override
+  String get loyaltyFree => 'Miễn phí';
+
+  @override
+  String get notificationTitle => 'Thông báo';
+
+  @override
+  String get notificationTabNews => 'Tin tức';
+
+  @override
+  String get notificationTabComplain => 'Khiếu nại';
+
+  @override
+  String get notificationEmptyNews => 'Không có thông báo';
+
+  @override
+  String get notificationEmptyComplain => 'Không có khiếu nại';
+
+  @override
+  String get notificationReadAll => 'Đánh dấu đã đọc tất cả';
+
+  @override
+  String get informationTitle => 'Thông tin';
+
+  @override
+  String get nameLabel => 'Họ và tên';
+
+  @override
+  String get nameHint => 'Nhập tên của bạn';
+
+  @override
+  String get phoneNumberLabel => 'Số điện thoại';
+
+  @override
+  String get accountFtthLabel => 'Tài khoản FTTH';
+
+  @override
+  String get phoneNumberHint => 'Nhập số điện thoại của bạn';
+
+  @override
+  String get accountFtthHint => 'Nhập số tài khoản FTTH của bạn';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get feedbackSuccessTitle => 'Successfully sent feedback';
+
+  @override
+  String get feedbackSuccessMessage =>
+      'Thank you for your feedback, we have noted your feedback.';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get readAll => 'Read all';
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get noNotiTitle => 'No announcements yet';
+
+  @override
+  String get suggestionsForYou => 'Suggestions for you';
+
+  @override
+  String get ftth => 'FTTH';
+
+  @override
+  String get esim => 'eSIM';
+
+  @override
+  String get myServices => 'My services';
+
+  @override
+  String get paymentHistory => 'Payment History';
+
+  @override
+  String get topUp => 'Top Up';
+
+  @override
+  String get exchangeDamagedCard => 'Exchange damaged card';
+
+  @override
+  String get chatbot => 'Chatbot';
+
+  @override
+  String get networkTest => 'Network test';
+
+  @override
+  String get mostSearched => 'Most searched';
+
+  @override
+  String get recentSearches => 'Recent Searches';
 
   @override
   String get take_a_photo => 'Chụp ảnh';
@@ -463,6 +575,8 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get enter_your_full_address => 'Enter your full address';
+<<<<<<< HEAD
+=======
 
   @override
   String get wifiFeedbackTitle =>
@@ -533,4 +647,5 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get mobile_package => 'Mobile Package';
+>>>>>>> origin/main
 }

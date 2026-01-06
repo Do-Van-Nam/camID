@@ -60,24 +60,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get khmer => 'ខ្មែរ';
 
   @override
-  String get telegram => 'Telegram';
-
-  @override
-  String get messenger => 'Messenger';
-
-  @override
-  String get search => 'Search';
-
-  @override
-  String get enterSearch => 'Enter search...';
-
-  @override
-  String get enter => 'Enter';
-
-  @override
-  String get notFound => 'Not found';
-
-  @override
   String get voice_call => 'Voice call';
 
   @override
@@ -255,75 +237,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get qr_code => 'QR Code';
 
   @override
-  String get name => 'name';
-
-  @override
-  String get loyaltyPhoneNumber => '031 3828606';
-
-  @override
-  String loyaltyPoints(Object points) {
-    return '$points Points';
-  }
-
-  @override
-  String get loyaltyReward => 'Reward';
-
-  @override
-  String get loyaltyTierBenefits => 'Tier Benefits';
-
-  @override
-  String get loyaltyHistory => 'History';
-
-  @override
-  String get loyaltyBannerText =>
-      'Accommodation & Hotels up to 30% off\nBest stays';
-
-  @override
-  String get loyaltyRewardCoupon => 'Reward - Coupon';
-
-  @override
-  String get loyaltyVoucher => 'Voucher';
-
-  @override
-  String get viewAll => 'View All';
-
-  @override
-  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
-
-  @override
-  String loyaltyExchanged(Object exchanged, Object total) {
-    return 'Exchanged $exchanged/$total';
-  }
-
-  @override
-  String get loyaltyFree => 'Free';
-
-  @override
-  String get loyaltyRedeem => 'Redeem';
-
-  @override
-  String get notificationTitle => 'Notifications';
-
-  @override
-  String get notificationTabNews => 'News';
-
-  @override
-  String get notificationTabComplain => 'Complaints';
-
-  @override
-  String get notificationEmptyNews => 'No notifications';
-
-  @override
-  String get notificationEmptyComplain => 'No complaints';
-
-  @override
-  String get notificationReadAll => 'Mark all as read';
-
-  @override
-  String get notificationClearAll => 'Clear all';
-
-  @override
   String get phone_number_is_not_valid => 'Phone number is not valid!';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get messenger => 'Messenger';
+
+  @override
+  String get search => 'Search';
+
+  @override
+  String get enterSearch => 'Enter search...';
+
+  @override
+  String get enter => 'Enter';
+
+  @override
+  String get notFound => 'Not found';
 
   @override
   String get chatbotTitle => 'CamID ChatBot';
@@ -369,12 +304,29 @@ class AppLocalizationsEn extends AppLocalizations {
   String get identity_verification => 'Identity Verification';
 
   @override
+  String get notificationClearAll => 'Clear all';
+
+  @override
   String get loyaltyCamID => 'CamID';
+
+  @override
+  String loyaltyPoints(Object points) {
+    return '$points Points';
+  }
 
   @override
   String loyaltyNextTier(Object points) {
     return '$points Points more to rank up Silver';
   }
+
+  @override
+  String get loyaltyTierBenefits => 'Tier Benefits';
+
+  @override
+  String get loyaltyHistory => 'History';
+
+  @override
+  String get loyaltyReward => 'Reward';
 
   @override
   String get loyaltyShopping => 'Shopping';
@@ -387,6 +339,23 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get loyaltyTravel => 'Travel';
+
+  @override
+  String get loyaltyRewardCoupon => 'Reward - Coupon';
+
+  @override
+  String get loyaltyVoucher => 'Voucher';
+
+  @override
+  String get viewAll => 'View All';
+
+  @override
+  String loyaltyExchanged(Object exchanged, Object total) {
+    return 'Exchanged: $exchanged';
+  }
+
+  @override
+  String get loyaltyRedeem => 'Redeem';
 
   @override
   String get loyaltyBannerPromotion => '1\$ = 2500\$';
@@ -423,6 +392,150 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get action => 'Action';
+
+  @override
+  String get wifiFeedbackTitle =>
+      'Help us improve CamID\'s WiFi service. Your experience matters to us!';
+
+  @override
+  String get rateYourExperience => 'Rate your experience';
+
+  @override
+  String get satisfactionLevel => 'Satisfaction level';
+
+  @override
+  String get satisfied => 'Satisfied';
+
+  @override
+  String get speedOfInternet => 'Speed of internet';
+
+  @override
+  String get price => 'Price';
+
+  @override
+  String get customerService => 'Customer service';
+
+  @override
+  String get technicalSupport => 'Technical support';
+
+  @override
+  String get enterYourExperience => 'Enter your experience...';
+
+  @override
+  String get name => 'name';
+
+  @override
+  String get loyaltyPhoneNumber => '031 3828606';
+
+  @override
+  String get loyaltyBannerText =>
+      'Accommodation & Hotels up to 30% off\nBest stays';
+
+  @override
+  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
+
+  @override
+  String get loyaltyFree => 'Free';
+
+  @override
+  String get notificationTitle => 'Notifications';
+
+  @override
+  String get notificationTabNews => 'News';
+
+  @override
+  String get notificationTabComplain => 'Complaints';
+
+  @override
+  String get notificationEmptyNews => 'No notifications';
+
+  @override
+  String get notificationEmptyComplain => 'No complaints';
+
+  @override
+  String get notificationReadAll => 'Mark all as read';
+
+  @override
+  String get informationTitle => 'Information';
+
+  @override
+  String get nameLabel => 'Name';
+
+  @override
+  String get nameHint => 'Enter your name';
+
+  @override
+  String get phoneNumberLabel => 'Phone number';
+
+  @override
+  String get accountFtthLabel => 'Account FTTH';
+
+  @override
+  String get phoneNumberHint => 'Enter your phone number';
+
+  @override
+  String get accountFtthHint => 'Enter your account FTTH';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get feedbackSuccessTitle => 'Successfully sent feedback';
+
+  @override
+  String get feedbackSuccessMessage =>
+      'Thank you for your feedback, we have noted your feedback.';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get readAll => 'Read all';
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get noNotiTitle => 'No announcements yet';
+
+  @override
+  String get suggestionsForYou => 'Suggestions for you';
+
+  @override
+  String get ftth => 'FTTH';
+
+  @override
+  String get esim => 'eSIM';
+
+  @override
+  String get myServices => 'My services';
+
+  @override
+  String get paymentHistory => 'Payment History';
+
+  @override
+  String get topUp => 'Top Up';
+
+  @override
+  String get exchangeDamagedCard => 'Exchange damaged card';
+
+  @override
+  String get chatbot => 'Chatbot';
+
+  @override
+  String get networkTest => 'Network test';
+
+  @override
+  String get mostSearched => 'Most searched';
+
+  @override
+  String get recentSearches => 'Recent Searches';
 
   @override
   String get take_a_photo => 'Take a photo';
@@ -462,6 +575,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get enter_your_full_address => 'Enter your full address';
+<<<<<<< HEAD
+=======
 
   @override
   String get wifiFeedbackTitle =>
@@ -532,4 +647,5 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mobile_package => 'Mobile Package';
+>>>>>>> origin/main
 }

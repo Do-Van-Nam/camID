@@ -202,42 +202,6 @@ abstract class AppLocalizations {
   /// **'ខ្មែរ'**
   String get khmer;
 
-  /// No description provided for @telegram.
-  ///
-  /// In en, this message translates to:
-  /// **'Telegram'**
-  String get telegram;
-
-  /// No description provided for @messenger.
-  ///
-  /// In en, this message translates to:
-  /// **'Messenger'**
-  String get messenger;
-
-  /// No description provided for @search.
-  ///
-  /// In en, this message translates to:
-  /// **'Search'**
-  String get search;
-
-  /// No description provided for @enterSearch.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter search...'**
-  String get enterSearch;
-
-  /// No description provided for @enter.
-  ///
-  /// In en, this message translates to:
-  /// **'Enter'**
-  String get enter;
-
-  /// No description provided for @notFound.
-  ///
-  /// In en, this message translates to:
-  /// **'Not found'**
-  String get notFound;
-
   /// No description provided for @voice_call.
   ///
   /// In en, this message translates to:
@@ -586,137 +550,53 @@ abstract class AppLocalizations {
   /// **'QR Code'**
   String get qr_code;
 
-  /// No description provided for @name.
-  ///
-  /// In en, this message translates to:
-  /// **'name'**
-  String get name;
-
-  /// No description provided for @loyaltyPhoneNumber.
-  ///
-  /// In en, this message translates to:
-  /// **'031 3828606'**
-  String get loyaltyPhoneNumber;
-
-  /// Current points
-  ///
-  /// In en, this message translates to:
-  /// **'{points} Points'**
-  String loyaltyPoints(Object points);
-
-  /// No description provided for @loyaltyReward.
-  ///
-  /// In en, this message translates to:
-  /// **'Reward'**
-  String get loyaltyReward;
-
-  /// No description provided for @loyaltyTierBenefits.
-  ///
-  /// In en, this message translates to:
-  /// **'Tier Benefits'**
-  String get loyaltyTierBenefits;
-
-  /// No description provided for @loyaltyHistory.
-  ///
-  /// In en, this message translates to:
-  /// **'History'**
-  String get loyaltyHistory;
-
-  /// No description provided for @loyaltyBannerText.
-  ///
-  /// In en, this message translates to:
-  /// **'Accommodation & Hotels up to 30% off\nBest stays'**
-  String get loyaltyBannerText;
-
-  /// No description provided for @loyaltyRewardCoupon.
-  ///
-  /// In en, this message translates to:
-  /// **'Reward - Coupon'**
-  String get loyaltyRewardCoupon;
-
-  /// No description provided for @loyaltyVoucher.
-  ///
-  /// In en, this message translates to:
-  /// **'Voucher'**
-  String get loyaltyVoucher;
-
-  /// No description provided for @viewAll.
-  ///
-  /// In en, this message translates to:
-  /// **'View All'**
-  String get viewAll;
-
-  /// No description provided for @loyaltyPlazaPremiumGroup.
-  ///
-  /// In en, this message translates to:
-  /// **'Plaza Premium Group'**
-  String get loyaltyPlazaPremiumGroup;
-
-  /// Number of exchanged coupons
-  ///
-  /// In en, this message translates to:
-  /// **'Exchanged {exchanged}/{total}'**
-  String loyaltyExchanged(Object exchanged, Object total);
-
-  /// No description provided for @loyaltyFree.
-  ///
-  /// In en, this message translates to:
-  /// **'Free'**
-  String get loyaltyFree;
-
-  /// No description provided for @loyaltyRedeem.
-  ///
-  /// In en, this message translates to:
-  /// **'Redeem'**
-  String get loyaltyRedeem;
-
-  /// No description provided for @notificationTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Notifications'**
-  String get notificationTitle;
-
-  /// No description provided for @notificationTabNews.
-  ///
-  /// In en, this message translates to:
-  /// **'News'**
-  String get notificationTabNews;
-
-  /// No description provided for @notificationTabComplain.
-  ///
-  /// In en, this message translates to:
-  /// **'Complaints'**
-  String get notificationTabComplain;
-
-  /// No description provided for @notificationEmptyNews.
-  ///
-  /// In en, this message translates to:
-  /// **'No notifications'**
-  String get notificationEmptyNews;
-
-  /// No description provided for @notificationEmptyComplain.
-  ///
-  /// In en, this message translates to:
-  /// **'No complaints'**
-  String get notificationEmptyComplain;
-
-  /// No description provided for @notificationReadAll.
-  ///
-  /// In en, this message translates to:
-  /// **'Mark all as read'**
-  String get notificationReadAll;
-
-  /// No description provided for @notificationClearAll.
-  ///
-  /// In en, this message translates to:
-  /// **'Clear all'**
-  String get notificationClearAll;
-
   /// No description provided for @phone_number_is_not_valid.
   ///
   /// In en, this message translates to:
   /// **'Phone number is not valid!'**
   String get phone_number_is_not_valid;
+
+  /// No description provided for @aaaaaaaaaaaaaaaaaaaaaaaaaaa.
+  ///
+  /// In en, this message translates to:
+  /// **'aaaaaaaaaaaaaaaaaaaaaaaaaaa'**
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaa;
+
+  /// No description provided for @telegram.
+  ///
+  /// In en, this message translates to:
+  /// **'Telegram'**
+  String get telegram;
+
+  /// No description provided for @messenger.
+  ///
+  /// In en, this message translates to:
+  /// **'Messenger'**
+  String get messenger;
+
+  /// No description provided for @search.
+  ///
+  /// In en, this message translates to:
+  /// **'Search'**
+  String get search;
+
+  /// No description provided for @enterSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter search...'**
+  String get enterSearch;
+
+  /// No description provided for @enter.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter'**
+  String get enter;
+
+  /// No description provided for @notFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Not found'**
+  String get notFound;
 
   /// No description provided for @chatbotTitle.
   ///
@@ -802,17 +682,47 @@ abstract class AppLocalizations {
   /// **'Identity Verification'**
   String get identity_verification;
 
+  /// No description provided for @notificationClearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get notificationClearAll;
+
   /// No description provided for @loyaltyCamID.
   ///
   /// In en, this message translates to:
   /// **'CamID'**
   String get loyaltyCamID;
 
+  /// Display accumulated points
+  ///
+  /// In en, this message translates to:
+  /// **'{points} Points'**
+  String loyaltyPoints(Object points);
+
   /// Points needed to next tier
   ///
   /// In en, this message translates to:
   /// **'{points} Points more to rank up Silver'**
   String loyaltyNextTier(Object points);
+
+  /// No description provided for @loyaltyTierBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier Benefits'**
+  String get loyaltyTierBenefits;
+
+  /// No description provided for @loyaltyHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get loyaltyHistory;
+
+  /// No description provided for @loyaltyReward.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward'**
+  String get loyaltyReward;
 
   /// No description provided for @loyaltyShopping.
   ///
@@ -837,6 +747,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Travel'**
   String get loyaltyTravel;
+
+  /// No description provided for @loyaltyRewardCoupon.
+  ///
+  /// In en, this message translates to:
+  /// **'Reward - Coupon'**
+  String get loyaltyRewardCoupon;
+
+  /// No description provided for @loyaltyVoucher.
+  ///
+  /// In en, this message translates to:
+  /// **'Voucher'**
+  String get loyaltyVoucher;
+
+  /// No description provided for @viewAll.
+  ///
+  /// In en, this message translates to:
+  /// **'View All'**
+  String get viewAll;
+
+  /// Number of exchanged coupons
+  ///
+  /// In en, this message translates to:
+  /// **'Exchanged: {exchanged}'**
+  String loyaltyExchanged(Object exchanged, Object total);
+
+  /// No description provided for @loyaltyRedeem.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem'**
+  String get loyaltyRedeem;
 
   /// No description provided for @loyaltyBannerPromotion.
   ///
@@ -909,6 +849,288 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Action'**
   String get action;
+
+  /// No description provided for @wifiFeedbackTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Help us improve CamID\'s WiFi service. Your experience matters to us!'**
+  String get wifiFeedbackTitle;
+
+  /// No description provided for @rateYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Rate your experience'**
+  String get rateYourExperience;
+
+  /// No description provided for @satisfactionLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfaction level'**
+  String get satisfactionLevel;
+
+  /// No description provided for @satisfied.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfied'**
+  String get satisfied;
+
+  /// No description provided for @speedOfInternet.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed of internet'**
+  String get speedOfInternet;
+
+  /// No description provided for @price.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get price;
+
+  /// No description provided for @customerService.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer service'**
+  String get customerService;
+
+  /// No description provided for @technicalSupport.
+  ///
+  /// In en, this message translates to:
+  /// **'Technical support'**
+  String get technicalSupport;
+
+  /// No description provided for @enterYourExperience.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your experience...'**
+  String get enterYourExperience;
+
+  /// No description provided for @name.
+  ///
+  /// In en, this message translates to:
+  /// **'name'**
+  String get name;
+
+  /// No description provided for @loyaltyPhoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'031 3828606'**
+  String get loyaltyPhoneNumber;
+
+  /// No description provided for @loyaltyBannerText.
+  ///
+  /// In en, this message translates to:
+  /// **'Accommodation & Hotels up to 30% off\nBest stays'**
+  String get loyaltyBannerText;
+
+  /// No description provided for @loyaltyPlazaPremiumGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Plaza Premium Group'**
+  String get loyaltyPlazaPremiumGroup;
+
+  /// No description provided for @loyaltyFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get loyaltyFree;
+
+  /// No description provided for @notificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get notificationTitle;
+
+  /// No description provided for @notificationTabNews.
+  ///
+  /// In en, this message translates to:
+  /// **'News'**
+  String get notificationTabNews;
+
+  /// No description provided for @notificationTabComplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Complaints'**
+  String get notificationTabComplain;
+
+  /// No description provided for @notificationEmptyNews.
+  ///
+  /// In en, this message translates to:
+  /// **'No notifications'**
+  String get notificationEmptyNews;
+
+  /// No description provided for @notificationEmptyComplain.
+  ///
+  /// In en, this message translates to:
+  /// **'No complaints'**
+  String get notificationEmptyComplain;
+
+  /// No description provided for @notificationReadAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark all as read'**
+  String get notificationReadAll;
+
+  /// No description provided for @informationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Information'**
+  String get informationTitle;
+
+  /// No description provided for @nameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get nameLabel;
+
+  /// No description provided for @nameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your name'**
+  String get nameHint;
+
+  /// No description provided for @phoneNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneNumberLabel;
+
+  /// No description provided for @accountFtthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Account FTTH'**
+  String get accountFtthLabel;
+
+  /// No description provided for @phoneNumberHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your phone number'**
+  String get phoneNumberHint;
+
+  /// No description provided for @accountFtthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your account FTTH'**
+  String get accountFtthHint;
+
+  /// No description provided for @aaaaaaaaaaaaaaaaaaaaaaaaaaaa.
+  ///
+  /// In en, this message translates to:
+  /// **'aaaaaaaaaaaaaaaaaaaaaaaaaaa'**
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+
+  /// No description provided for @feedbackSuccessTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully sent feedback'**
+  String get feedbackSuccessTitle;
+
+  /// No description provided for @feedbackSuccessMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Thank you for your feedback, we have noted your feedback.'**
+  String get feedbackSuccessMessage;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @delete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get delete;
+
+  /// No description provided for @more.
+  ///
+  /// In en, this message translates to:
+  /// **'More'**
+  String get more;
+
+  /// No description provided for @readAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Read all'**
+  String get readAll;
+
+  /// No description provided for @clearAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear all'**
+  String get clearAll;
+
+  /// No description provided for @noNotiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No announcements yet'**
+  String get noNotiTitle;
+
+  /// No description provided for @suggestionsForYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggestions for you'**
+  String get suggestionsForYou;
+
+  /// No description provided for @ftth.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH'**
+  String get ftth;
+
+  /// No description provided for @esim.
+  ///
+  /// In en, this message translates to:
+  /// **'eSIM'**
+  String get esim;
+
+  /// No description provided for @myServices.
+  ///
+  /// In en, this message translates to:
+  /// **'My services'**
+  String get myServices;
+
+  /// No description provided for @paymentHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment History'**
+  String get paymentHistory;
+
+  /// No description provided for @topUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Top Up'**
+  String get topUp;
+
+  /// No description provided for @exchangeDamagedCard.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange damaged card'**
+  String get exchangeDamagedCard;
+
+  /// No description provided for @chatbot.
+  ///
+  /// In en, this message translates to:
+  /// **'Chatbot'**
+  String get chatbot;
+
+  /// No description provided for @networkTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Network test'**
+  String get networkTest;
+
+  /// No description provided for @mostSearched.
+  ///
+  /// In en, this message translates to:
+  /// **'Most searched'**
+  String get mostSearched;
+
+  /// No description provided for @recentSearches.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent Searches'**
+  String get recentSearches;
 
   /// No description provided for @take_a_photo.
   ///
@@ -987,6 +1209,8 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter your full address'**
   String get enter_your_full_address;
+<<<<<<< HEAD
+=======
 
   /// No description provided for @wifiFeedbackTitle.
   ///
@@ -1125,6 +1349,7 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile Package'**
   String get mobile_package;
+>>>>>>> origin/main
 }
 
 class _AppLocalizationsDelegate

@@ -60,24 +60,6 @@ class AppLocalizationsKm extends AppLocalizations {
   String get khmer => 'ខ្មែរ';
 
   @override
-  String get telegram => 'Telegram';
-
-  @override
-  String get messenger => 'Messenger';
-
-  @override
-  String get search => 'Search';
-
-  @override
-  String get enterSearch => 'Enter search...';
-
-  @override
-  String get enter => 'Enter';
-
-  @override
-  String get notFound => 'Not found';
-
-  @override
   String get voice_call => 'Voice call';
 
   @override
@@ -255,174 +237,305 @@ class AppLocalizationsKm extends AppLocalizations {
   String get qr_code => 'QR Code';
 
   @override
-  String get name => 'name';
-
-  @override
-  String get loyaltyPhoneNumber => '031 3828606';
-
-  @override
-  String loyaltyPoints(Object points) {
-    return '$points Points';
-  }
-
-  @override
-  String get loyaltyReward => 'Reward';
-
-  @override
-  String get loyaltyTierBenefits => 'Tier Benefits';
-
-  @override
-  String get loyaltyHistory => 'History';
-
-  @override
-  String get loyaltyBannerText =>
-      'Accommodation & Hotels up to 30% off\nBest stays';
-
-  @override
-  String get loyaltyRewardCoupon => 'Reward - Coupon';
-
-  @override
-  String get loyaltyVoucher => 'Voucher';
-
-  @override
-  String get viewAll => 'View All';
-
-  @override
-  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
-
-  @override
-  String loyaltyExchanged(Object exchanged, Object total) {
-    return 'Exchanged $exchanged/$total';
-  }
-
-  @override
-  String get loyaltyFree => 'Free';
-
-  @override
-  String get loyaltyRedeem => 'Redeem';
-
-  @override
-  String get notificationTitle => 'Notifications';
-
-  @override
-  String get notificationTabNews => 'News';
-
-  @override
-  String get notificationTabComplain => 'Complaints';
-
-  @override
-  String get notificationEmptyNews => 'No notifications';
-
-  @override
-  String get notificationEmptyComplain => 'No complaints';
-
-  @override
-  String get notificationReadAll => 'Mark all as read';
-
-  @override
-  String get notificationClearAll => 'Clear all';
-
-  @override
   String get phone_number_is_not_valid => 'Phone number is not valid!';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get telegram => 'Telegram';
+
+  @override
+  String get messenger => 'Messenger';
+
+  @override
+  String get search => 'ស្វែងរក';
+
+  @override
+  String get enterSearch => 'បញ្ចូលពាក្យស្វែងរក...';
+
+  @override
+  String get enter => 'បញ្ចូល';
+
+  @override
+  String get notFound => 'រកមិនឃើញ';
 
   @override
   String get chatbotTitle => 'CamID ChatBot';
 
   @override
-  String get chatbotGreeting => 'How may I help you today!';
+  String get chatbotGreeting => 'តើខ្ញុំអាចជួយអ្វីអ្នកបានខ្លះនៅថ្ងៃនេះ!';
 
   @override
   String get chatbotDescription =>
-      'This AI chatbot is for customer service, wishing to support customers in the best way!';
+      'AI chatbot នេះគឺសម្រាប់សេវាកម្មអតិថិជន ដើម្បីគាំទ្រអតិថិជនតាមមធ្យោបាយដ៏ល្អបំផុត!';
 
   @override
-  String get chatbotStart => 'Start';
+  String get chatbotStart => 'ចាប់ផ្តើម';
 
   @override
-  String get chatbotContinue => 'Continue';
+  String get chatbotContinue => 'បន្ត';
 
   @override
-  String get online => 'online';
+  String get online => 'អនឡាញ';
 
   @override
-  String get menu => 'Menu';
+  String get menu => 'ម៉ឺនុយ';
 
   @override
-  String get mainMenu => 'Main menu';
+  String get mainMenu => 'ម៉ឺនុយមេ';
 
   @override
-  String get changePhoneNumberLogin => 'Change phone number login';
+  String get changePhoneNumberLogin => 'ផ្លាស់ប្តូរលេខទូរស័ព្ទចូល';
 
   @override
-  String get newChat => 'New chat';
+  String get newChat => 'ការជជែកថ្មី';
 
   @override
-  String get callTheStaffs => 'Call the staffs';
+  String get callTheStaffs => 'ហៅទៅកាន់បុគ្គលិក';
 
   @override
-  String get login_des => 'Welcome to the CamID, your digital passport.';
+  String get login_des => 'សូមស្វាគមន៍មកកាន់ CamID លិខិតឆ្លងដែនឌីជីថលរបស់អ្នក។';
 
   @override
-  String get enter_your_phone_number => 'Enter your phone number';
+  String get enter_your_phone_number => 'បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក';
 
   @override
-  String get identity_verification => 'Identity Verification';
+  String get identity_verification => 'ការផ្ទៀងផ្ទាត់អត្តសញ្ញាណ';
+
+  @override
+  String get notificationClearAll => 'សម្អាតទាំងអស់';
 
   @override
   String get loyaltyCamID => 'CamID';
 
   @override
-  String loyaltyNextTier(Object points) {
-    return '$points Points more to rank up Silver';
+  String loyaltyPoints(Object points) {
+    return '$points ពិន្ទុ';
   }
 
   @override
-  String get loyaltyShopping => 'Shopping';
+  String loyaltyNextTier(Object points) {
+    return 'ត្រូវការ $points ពិន្ទុទៀតដើម្បីឡើងចំណាត់ថ្នាក់ Silver';
+  }
 
   @override
-  String get loyaltyRestaurantHotel => 'Restaurant - Hotel';
+  String get loyaltyTierBenefits => 'អត្ថប្រយោជន៍កម្រិតសមាជិក';
 
   @override
-  String get loyaltyHealthCare => 'Health Care';
+  String get loyaltyHistory => 'ប្រវត្តិ';
 
   @override
-  String get loyaltyTravel => 'Travel';
+  String get loyaltyReward => 'រង្វាន់';
+
+  @override
+  String get loyaltyShopping => 'ការទិញទំនិញ';
+
+  @override
+  String get loyaltyRestaurantHotel => 'ភោជនីយដ្ឋាន - សណ្ឋាគារ';
+
+  @override
+  String get loyaltyHealthCare => 'ថែទាំសុខភាព';
+
+  @override
+  String get loyaltyTravel => 'ការធ្វើដំណើរ';
+
+  @override
+  String get loyaltyRewardCoupon => 'រង្វាន់ - គូប៉ុង';
+
+  @override
+  String get loyaltyVoucher => 'វ៉ូឆ័រ';
+
+  @override
+  String get viewAll => 'មើលទាំងអស់';
+
+  @override
+  String loyaltyExchanged(Object exchanged, Object total) {
+    return 'បានប្តូរ $exchanged/$total';
+  }
+
+  @override
+  String get loyaltyRedeem => 'ប្តូរយក';
 
   @override
   String get loyaltyBannerPromotion => '1\$ = 2500\$';
 
   @override
-  String get connectWithUs => 'Connect with us';
+  String get connectWithUs => 'ភ្ជាប់ជាមួយយើង';
 
   @override
-  String get support => 'Support';
+  String get support => 'ជំនួយ';
 
   @override
-  String get clickHereToLogin => 'Click here to login';
+  String get clickHereToLogin => 'ចុចទីនេះដើម្បីចូល';
 
   @override
-  String get myGift => 'My Gift';
+  String get myGift => 'កាដូរបស់ខ្ញុំ';
 
   @override
-  String get ranking => 'Ranking';
+  String get ranking => 'ចំណាត់ថ្នាក់';
 
   @override
-  String get category => 'Category';
+  String get category => 'ប្រភេទ';
 
   @override
-  String get trendingNow => 'Trending now';
+  String get trendingNow => 'ពេញនិយមឥឡូវនេះ';
 
   @override
-  String get specialGame => 'Special Game';
+  String get specialGame => 'ហ្គេមពិសេស';
 
   @override
   String get theUltimateRacer => 'The Ultimate Racer';
 
   @override
-  String get playerCount => 'player';
+  String get playerCount => 'អ្នកលេង';
 
   @override
-  String get action => 'Action';
+  String get action => 'សកម្មភាព';
+
+  @override
+  String get wifiFeedbackTitle =>
+      'សូមជួយយើងកែលម្អសេវាកម្ម WiFi របស់ CamID ។ បទពិសោធន៍របស់អ្នកមានសារៈសំខាន់សម្រាប់យើង!';
+
+  @override
+  String get rateYourExperience => 'វាយតម្លៃបទពិសោធន៍របស់អ្នក';
+
+  @override
+  String get satisfactionLevel => 'កម្រិតនៃការពេញចិត្ត';
+
+  @override
+  String get satisfied => 'ពេញចិត្ត';
+
+  @override
+  String get speedOfInternet => 'ល្បឿនអ៊ីនធឺណិត';
+
+  @override
+  String get price => 'តម្លៃ';
+
+  @override
+  String get customerService => 'សេវាអតិថិជន';
+
+  @override
+  String get technicalSupport => 'ជំនួយបច្ចេកទេស';
+
+  @override
+  String get enterYourExperience => 'បញ្ចូលបទពិសោធន៍របស់អ្នក...';
+
+  @override
+  String get name => 'ឈ្មោះ';
+
+  @override
+  String get loyaltyPhoneNumber => '031 3828606';
+
+  @override
+  String get loyaltyBannerText =>
+      'ការស្នាក់នៅ និងសណ្ឋាគារបញ្ចុះតម្លៃរហូតដល់ 30%\nការស្នាក់នៅដ៏ល្អបំផុត';
+
+  @override
+  String get loyaltyPlazaPremiumGroup => 'Plaza Premium Group';
+
+  @override
+  String get loyaltyFree => 'ឥតគិតថ្លៃ';
+
+  @override
+  String get notificationTitle => 'ការជូនដំណឹង';
+
+  @override
+  String get notificationTabNews => 'ព័ត៌មាន';
+
+  @override
+  String get notificationTabComplain => 'ការតវ៉ា';
+
+  @override
+  String get notificationEmptyNews => 'មិនមានការជូនដំណឹងទេ';
+
+  @override
+  String get notificationEmptyComplain => 'មិនមានការតវ៉ាទេ';
+
+  @override
+  String get notificationReadAll => 'កត់សម្គាល់ថាអានទាំងអស់';
+
+  @override
+  String get informationTitle => 'ព័ត៌មាន';
+
+  @override
+  String get nameLabel => 'ឈ្មោះ';
+
+  @override
+  String get nameHint => 'បញ្ចូលឈ្មោះរបស់អ្នក';
+
+  @override
+  String get phoneNumberLabel => 'លេខទូរស័ព្ទ';
+
+  @override
+  String get accountFtthLabel => 'គណនី FTTH';
+
+  @override
+  String get phoneNumberHint => 'បញ្ចូលលេខទូរស័ព្ទរបស់អ្នក';
+
+  @override
+  String get accountFtthHint => 'បញ្ចូលគណនី FTTH របស់អ្នក';
+
+  @override
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';
+
+  @override
+  String get feedbackSuccessTitle => 'Successfully sent feedback';
+
+  @override
+  String get feedbackSuccessMessage =>
+      'Thank you for your feedback, we have noted your feedback.';
+
+  @override
+  String get close => 'Close';
+
+  @override
+  String get delete => 'Delete';
+
+  @override
+  String get more => 'More';
+
+  @override
+  String get readAll => 'Read all';
+
+  @override
+  String get clearAll => 'Clear all';
+
+  @override
+  String get noNotiTitle => 'No announcements yet';
+
+  @override
+  String get suggestionsForYou => 'Suggestions for you';
+
+  @override
+  String get ftth => 'FTTH';
+
+  @override
+  String get esim => 'eSIM';
+
+  @override
+  String get myServices => 'My services';
+
+  @override
+  String get paymentHistory => 'Payment History';
+
+  @override
+  String get topUp => 'Top Up';
+
+  @override
+  String get exchangeDamagedCard => 'Exchange damaged card';
+
+  @override
+  String get chatbot => 'Chatbot';
+
+  @override
+  String get networkTest => 'Network test';
+
+  @override
+  String get mostSearched => 'Most searched';
+
+  @override
+  String get recentSearches => 'Recent Searches';
 
   @override
   String get take_a_photo => 'Take a photo';
@@ -462,6 +575,8 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get enter_your_full_address => 'Enter your full address';
+<<<<<<< HEAD
+=======
 
   @override
   String get wifiFeedbackTitle =>
@@ -532,4 +647,5 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get mobile_package => 'Mobile Package';
+>>>>>>> origin/main
 }
