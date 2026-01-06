@@ -25,6 +25,15 @@ class Constant {
   static const String INIT = "INIT";
   static const String PENDING = "PENDING";
   static const String REJECT = "REJECTED";
+  static const int SLIDER_HOME_TAB_MOBILE = 96;
+  static const int SLIDER_HOME_TAB_INTERNET = 97;
+  static const int SLIDER_METFONE_HEADER = 100;
+  static const int SLIDER_METFONE_FOOTER = 101;
+  static const int SLIDER_ENTERTAINMENT_HEADER = 98;
+  static const int SLIDER_ENTERTAINMENT_FOOTER = 103;
+  static const int TV360_TYPE = 360;
+  static const int TAB_GAME_MF = 99;
+  static const int VAS_SERVICE = 292;
 
   static String normalizePhone(String phone) {
     String p = phone.trim();
@@ -55,4 +64,12 @@ class Constant {
 
     return result;
   }
+
+  static String formatNumber(double value) {
+    if (value % 1 == 0) {
+      return value.toInt().toString();
+    }
+    return value.toString();
+  }
+
 }

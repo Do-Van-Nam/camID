@@ -43,7 +43,19 @@
     "enter_your_id",
     "select",
     "other",
-    "enter_your_full_address"
+    "enter_your_full_address",
+    "my_services",
+    "payment_history",
+    "services_for_you",
+    "my_usage",
+    "register",
+    "call",
+    "sms",
+    "roaming",
+    "top_up",
+    "exchanged_damaged_card",
+    "ftth_package",
+    "mobile_package"
   ],
 
   "vi": [
@@ -90,6 +102,18 @@
     "enter_your_id",
     "select",
     "other",
-    "enter_your_full_address"
+    "enter_your_full_address",
+    "my_services",
+    "payment_history",
+    "services_for_you",
+    "my_usage",
+    "register",
+    "call",
+    "sms",
+    "roaming",
+    "top_up",
+    "exchanged_damaged_card",
+    "ftth_package",
+    "mobile_package"
   ]
 }

@@ -273,7 +273,6 @@
   "customerService": "Customer service",
   "technicalSupport": "Technical support",
   "enterYourExperience": "Enter your experience...",
-  "enter_your_full_address": "Enter your full address",
   "ftth": "FTTH",
   "esim": "Esim",
   "my_services": "My services",
@@ -288,6 +287,4 @@
   "exchanged_damaged_card": "Exchange damaged card",
   "ftth_package": "FTTH Package",
   "mobile_package": "Mobile Package"
-  "enter_your_full_address": "Enter your full address"
-
 }

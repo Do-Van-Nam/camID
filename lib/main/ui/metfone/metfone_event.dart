@@ -22,3 +22,13 @@ class BannerFooterChanged extends MetfoneEvent {
   @override
   List<Object?> get props => [index];
 }
+
+class GetAllAppsEvent extends MetfoneEvent {}
+
+class GetServiceByGroupAppsEvent extends MetfoneEvent {
+  final String type;
+
+  GetServiceByGroupAppsEvent(this.type);
+}
+
+class GetFTTHPackageAppsEvent extends MetfoneEvent {}
