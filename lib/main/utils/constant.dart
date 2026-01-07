@@ -34,6 +34,11 @@ class Constant {
   static const int TV360_TYPE = 360;
   static const int TAB_GAME_MF = 99;
   static const int VAS_SERVICE = 292;
+  static const String MB = "MB";
+  static const String GB = "GB";
+  static const String MINS = "MINS";
+  static const String SMS = "SMS";
+
 
   static String normalizePhone(String phone) {
     String p = phone.trim();

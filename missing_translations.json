@@ -110,7 +110,12 @@
     "mobile_package",
     "charge_history",
     "scan_card",
-    "account_detail"
+    "account_detail",
+    "used",
+    "remaining",
+    "due_date",
+    "account_balance",
+    "expired"
   ],
 
   "vi": [
@@ -224,6 +229,11 @@
     "mobile_package",
     "charge_history",
     "scan_card",
-    "account_detail"
+    "account_detail",
+    "used",
+    "remaining",
+    "due_date",
+    "account_balance",
+    "expired"
   ]
 }

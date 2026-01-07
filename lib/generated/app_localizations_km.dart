@@ -780,4 +780,19 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get account_detail => 'Account detail';
+
+  @override
+  String get used => 'used';
+
+  @override
+  String get remaining => 'remaining';
+
+  @override
+  String get due_date => 'Due Date';
+
+  @override
+  String get account_balance => 'Account Balance';
+
+  @override
+  String get expired => 'Expired';
 }

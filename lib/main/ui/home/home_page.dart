@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:cam_id/generated/app_localizations.dart';
-import 'package:cam_id/main/data/model/test_package_model.dart';
-import 'package:cam_id/main/data/model/test_vas_model.dart';
+import 'package:cam_id/main/data/model/accounts_ocs_detail_model.dart';
+import 'package:cam_id/main/data/model/banner_model.dart';
+import 'package:cam_id/main/data/model/mobile_package_model.dart';
+import 'package:cam_id/main/data/model/sign_in_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/repository/all_app_repository.dart';
 import 'package:cam_id/main/data/repository/service_by_group_repository.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/home/home_bloc.dart';
 import 'package:cam_id/main/ui/home/home_event.dart';
 import 'package:cam_id/main/ui/home/home_state.dart';
@@ -11,6 +16,7 @@ import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/package_short_des.dart';
 import 'package:cam_id/main/utils/widget/circular_progress_widget.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -21,6 +27,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -37,8 +44,21 @@ class _HomePageState extends State<HomePage>
   LoadingWidgetState viewState = LoadingWidgetState.success;
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
+  Timer? _timer;
+  int _secondsRemaining = 90;
+  bool _canResend = false;
   static const int _itemsPerPage = 4;
+  bool _isEnteringOTP = false;
+  bool isLoggedIn = false;
+  int bannerIndex = 0;
+  List<AdsModel>? listBannerFooter = [];
+  List<AdsModel>? listVasService = [];
+  List<PackageModel>? listPackageMobile= [];
+  AccountsOcsDetailModel? ocsBasic;
+  AccountsOcsDetailModel? ocsData;
+  AccountsOcsDetailModel? ocsCall;
+  AccountsOcsDetailModel? ocsSms;
+  AccountsOcsDetailModel? ocsRoaming;
 
   int _getPageCount(List items) {
     return (items.length / _itemsPerPage).ceil();
@@ -63,6 +83,8 @@ class _HomePageState extends State<HomePage>
     _bloc = HomeBloc(AppRepository(), ServiceRepository())..add(HomeStarted());
     _bloc.add(GetAllAppsEvent());
     _bloc.add(GetServiceByGroupAppsEvent("Recommend"));
+    _bloc.add(GetAccountsOcsDetailEvent());
+    _startCountdown();
   }
 
   @override
@@ -83,8 +105,59 @@ class _HomePageState extends State<HomePage>
       value: _bloc,
       child: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
-          if (state.navigateToLogin) {
+          if(state is HomeLoading){
+            LoadingOverlayWidget.show(context);
+          }
+          if (state is OnTapLogin) {
             context.push(PATH_LOGIN);
+          }
+          if (state is OnStarted) {
+            setState(() {
+              isLoggedIn = state.isLoggedIn;
+            });
+          }
+          if(state is GetAllAppSuccess){
+            setState(() {
+              listBannerFooter = state.listBanner;
+              listVasService = state.listVas;
+            });
+          }
+          if(state is GetServiceByGroupSuccess) {
+            setState(() {
+              listPackageMobile = state.listPackage;
+            });
+          }
+          if (state is SignUpSuccess) {
+            LoadingOverlayWidget.hide();
+            setState(() {
+              _isEnteringOTP = true;
+            });
+            _bloc.add(GenerateOTPEvent(phoneNumberController.text));
+          }
+          if (state is SignUpFailure) {
+            LoadingOverlayWidget.hide();
+            ScaffoldMessenger.of(
+              context,
+            ).showSnackBar(SnackBar(content: Text(state.message)));
+          }
+          if(state is GetAccountsOcsDetailSuccess){
+            setState(() {
+              ocsBasic = state.ocsBasic;
+              ocsData = state.ocsData;
+              ocsCall = state.ocsCall;
+              ocsSms = state.ocsSms;
+              ocsRoaming = state.ocsRoaming;
+            });
+          }
+          if (state is SignInSuccess) {
+            LoadingOverlayWidget.hide();
+            _onSaveToken(state.data, _bloc);
+          }
+          if (state is GetUserInfoSuccess) {
+            LoadingOverlayWidget.hide();
+            _onSaveUserInfo(state.user);
+            _bloc.add(HomeStarted());
+
           }
         },
         child: Scaffold(
@@ -97,6 +170,7 @@ class _HomePageState extends State<HomePage>
               _bloc.add(
                 GetServiceByGroupAppsEvent("Recommend", isCallAPI: true),
               );
+              _bloc.add(GetAccountsOcsDetailEvent());
             },
             child: BlocBuilder<HomeBloc, HomeState>(
               builder: (context, state) {
@@ -104,7 +178,7 @@ class _HomePageState extends State<HomePage>
                   slivers: [
                     SliverToBoxAdapter(
                       child: Column(
-                        children: [_buildBannerSection(context, state, l10n)],
+                        children: [_buildBannerSection(context, l10n)],
                       ),
                     ),
 
@@ -121,7 +195,7 @@ class _HomePageState extends State<HomePage>
                         ),
                         child: LoadingWidget(
                           state: viewState,
-                          child: _buildBody(context, state, l10n),
+                          child: _buildBody(context, l10n),
                         ),
                       ),
                     ),
@@ -135,6 +209,23 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  Future<void> _onSaveUserInfo(UserInfoModel? model) async {
+    if (model == null) return;
+    await SharePreferenceUtil.saveUser(model);
+  }
+
+  Future<void> _onSaveToken(SignInModel model, HomeBloc bloc) async {
+    String token = "Bearer ${model.accessToken}";
+
+    await SharePreferenceUtil.setString(ShareKey.KEY_PHONE_NUMBER, phoneNumberController.text);
+    await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_REFRESH_TOKEN,
+      model.refreshToken ?? '',
+    );
+
+    bloc.add(GetUserInfoEvent(token));
+  }
   PreferredSizeWidget _buildAppBar(
     BuildContext context,
     AppLocalizations l10n,
@@ -153,7 +244,7 @@ class _HomePageState extends State<HomePage>
         builder: (context, state) {
           return InkWell(
             onTap: () {
-              if (state.isLoggedIn) {
+              if (isLoggedIn) {
                 context.push(PATH_USER_PROFILE);
               } else {
                 _bloc.add(LoginTapped());
@@ -161,7 +252,7 @@ class _HomePageState extends State<HomePage>
             },
             child: Column(
               children: [
-                if (state.isLoggedIn) ...[
+                if (isLoggedIn) ...[
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -250,10 +341,8 @@ class _HomePageState extends State<HomePage>
 
   Widget _buildBannerSection(
     BuildContext context,
-    HomeState state,
     AppLocalizations l10n,
   ) {
-    final banners = state.listBannerFooter ?? [];
     return Stack(
       children: [
         CarouselSlider(
@@ -263,10 +352,12 @@ class _HomePageState extends State<HomePage>
             viewportFraction: 1.05,
             enlargeCenterPage: true,
             onPageChanged: (index, reason) {
-              context.read<HomeBloc>().add(BannerChanged(index));
+              setState(() {
+                bannerIndex = index;
+              });
             },
           ),
-          items: banners.map((banner) {
+          items: listBannerFooter?.map((banner) {
             return ClipRRect(
               // borderRadius: const BorderRadius.only(
               //   bottomLeft: Radius.circular(24),
@@ -287,15 +378,17 @@ class _HomePageState extends State<HomePage>
             const SizedBox(height: 212),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: banners.asMap().entries.map((entry) {
-                final isActive = state.bannerIndex == entry.key;
+              children: listBannerFooter!.asMap().entries.map((entry) {
+                final isActive = bannerIndex == entry.key;
                 return Container(
                   width: isActive ? 30 : 6,
                   height: 6,
                   margin: const EdgeInsets.symmetric(horizontal: 4),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(3),
-                    color: isActive ? Colors.white : Colors.grey,
+                    color: isActive
+                        ? AppColors.color_FFFF
+                        : AppColors.color_FFFF_70,
                   ),
                 );
               }).toList(),
@@ -312,63 +405,177 @@ class _HomePageState extends State<HomePage>
                   width: 1,
                 ),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    l10n.phone_number,
-                    style: AppTextFonts.poppinsRegular.copyWith(
-                      fontSize: 14,
-                      color: AppColors.color_AEAE,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Container(
-                    decoration: BoxDecoration(
-                      color: AppColors.color_FFFF_10,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: TextField(
-                      controller: phoneNumberController,
-                      keyboardType: TextInputType.phone,
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        color: AppColors.color_FFFF,
-                        fontSize: 14,
-                      ),
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        hintText: l10n.enter_your_phone_number,
-                        hintStyle: AppTextFonts.poppinsRegular.copyWith(
-                          color: AppColors.color_8588,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.color_E11B,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100),
-                        ),
-                        padding: const EdgeInsets.symmetric(vertical: 14),
-                        elevation: 0,
-                      ),
-                      child: Text(
-                        l10n.login,
-                        style: AppTextFonts.poppinsSemiBold.copyWith(
-                          color: Colors.white,
-                          fontSize: 16,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
+              child: _buildLoginSection(),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildNoLogin() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          l10n.phone_number,
+          style: AppTextFonts.poppinsRegular.copyWith(
+            fontSize: 14,
+            color: AppColors.color_AEAE,
+          ),
+        ),
+        SizedBox(height: 4),
+        Container(
+          decoration: BoxDecoration(
+            color: AppColors.color_FFFF_10,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: TextField(
+            controller: phoneNumberController,
+            keyboardType: TextInputType.phone,
+            style: AppTextFonts.poppinsRegular.copyWith(
+              color: AppColors.color_FFFF,
+              fontSize: 14,
+            ),
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              hintText: l10n.enter_your_phone_number,
+              hintStyle: AppTextFonts.poppinsRegular.copyWith(
+                color: AppColors.color_8588,
+                fontSize: 14,
+              ),
+            ),
+          ),
+        ),
+        Container(
+          margin: EdgeInsets.fromLTRB(0, 16, 0, 0),
+          width: double.infinity,
+          child: ElevatedButton(
+            onPressed: () {
+              _bloc.add(SignUpEvent(phoneNumberController.text, false, "123456"));
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.color_E11B,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+              padding: const EdgeInsets.symmetric(vertical: 14),
+              elevation: 0,
+            ),
+            child: Text(
+              l10n.login,
+              style: AppTextFonts.poppinsSemiBold.copyWith(
+                color: Colors.white,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildOTP() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        RichText(
+          text: TextSpan(
+            children: [
+              TextSpan(
+                text: l10n.otp_sent_to,
+                style: AppTextFonts.poppinsRegular.copyWith(
+                  fontSize: 14,
+                  color: AppColors.color_BCC0,
+                ),
+              ),
+              TextSpan(
+                text: " 0313828606",
+                style: AppTextFonts.poppinsSemiBold.copyWith(
+                  fontSize: 14,
+                  color: AppColors.color_FFFF,
+                ),
+              ),
+            ],
+          ),
+        ),
+        SizedBox(height: 4),
+        Text(
+          l10n.changeAccount,
+          style: AppTextFonts.poppinsRegular.copyWith(
+            fontSize: 14,
+            color: AppColors.color_FFFF,
+            decoration: TextDecoration.underline,
+            decorationColor: AppColors.color_FFFF,
+          ),
+        ),
+        SizedBox(height: 12),
+        PinCodeTextField(
+          appContext: context,
+          length: 6,
+          keyboardType: TextInputType.number,
+          animationType: AnimationType.none,
+          autoFocus: true,
+          textStyle: AppTextFonts.poppinsSemiBold.copyWith(
+            fontSize: 24,
+            color: AppColors.color_FFFF,
+          ),
+          enableActiveFill: true,
+          cursorColor: AppColors.color_E11B,
+          pinTheme: PinTheme(
+            shape: PinCodeFieldShape.box,
+            borderRadius: BorderRadius.circular(12),
+            fieldHeight: 44,
+            fieldWidth: 44,
+            borderWidth: 1,
+            activeBorderWidth: 1,
+            selectedBorderWidth: 1,
+            inactiveBorderWidth: 1,
+            activeColor: AppColors.color_EF30,
+            selectedColor: AppColors.color_E11B,
+            inactiveColor: AppColors.color_FFFF_8,
+            inactiveFillColor: AppColors.color_FFFF_8.withOpacity(0.12),
+            activeFillColor: AppColors.color_FFFF_8.withOpacity(0.12),
+            selectedFillColor: AppColors.color_FFFF_8.withOpacity(0.12),
+          ),
+          onCompleted: (value) {
+            _bloc.add(SignInEvent(phoneNumberController.text, value));
+          },
+          onChanged: (value) {
+            debugPrint('OTP đang nhập: $value');
+          },
+        ),
+        // const SizedBox(height: 12),
+        Row(
+          children: [
+            Text(
+              AppLocalizations.of(context)!.didn_t_otp,
+              style: AppTextFonts.poppinsRegular.copyWith(
+                fontSize: 14,
+                color: AppColors.color_BCC0,
+              ),
+            ),
+            Spacer(),
+            GestureDetector(
+              onTap: _canResend
+                  ? () {
+                      _bloc.add(GenerateOTPEvent(phoneNumberController.text));
+                      _startCountdown();
+                    }
+                  : null,
+              child: Text(
+                _canResend
+                    ? AppLocalizations.of(context)!.resend_otp
+                    : _timeText,
+                style: AppTextFonts.poppinsMedium.copyWith(
+                  fontSize: 14,
+                  color: AppColors.color_E11B,
+                  decoration: _canResend
+                      ? TextDecoration.underline
+                      : TextDecoration.none,
+                  decorationColor: AppColors.color_E11B,
+                ),
               ),
             ),
           ],
@@ -377,9 +584,170 @@ class _HomePageState extends State<HomePage>
     );
   }
 
+  Widget _buildAccountLogin() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.account_balance,
+                    style: AppTextFonts.poppinsRegular.copyWith(
+                      fontSize: 12,
+                      color: AppColors.color_BCC0,
+                    ),
+                  ),
+                  SizedBox(height: 4),
+                  Text(
+                    "\$${Constant.formatNumber(ocsBasic?.value??0.0)}",
+                    style: AppTextFonts.poppinsSemiBold.copyWith(
+                      fontSize: 24,
+                      color: AppColors.color_FFFF,
+                    ),
+                  ),
+                  SizedBox(height: 2),
+                  Text(
+                    "${l10n.expired}: ${ocsBasic?.exp??""}",
+                    style: AppTextFonts.poppinsRegular.copyWith(
+                      fontSize: 10,
+                      color: AppColors.color_BCC0,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            Column(
+              children: [
+                SizedBox(
+                  width: 120,
+                  height: 32,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.colorMain,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      // padding: const EdgeInsets.symmetric(vertical: 14),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      l10n.top_up,
+                      style: AppTextFonts.poppinsSemiBold.copyWith(
+                        color: Colors.white,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 8),
+                SizedBox(
+                  width: 120,
+                  height: 32,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: AppColors.color_ECEC,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      // padding: const EdgeInsets.symmetric(vertical: 14),
+                      elevation: 0,
+                    ),
+                    child: Text(
+                      l10n.scan_card,
+                      style: AppTextFonts.poppinsSemiBold.copyWith(
+                        color: AppColors.color_1618,
+                        fontSize: 11,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(height: 12),
+        Row(
+          children: [
+            SvgPicture.asset(AppImages.icData),
+            SizedBox(width: 8),
+            Expanded(
+              child: Text(
+                l10n.data,
+                style: AppTextFonts.poppinsRegular.copyWith(
+                  fontSize: 12,
+                  color: AppColors.color_FFFF,
+                ),
+              ),
+            ),
+            Text(
+              "${Constant.formatNumber(ocsData?.value??0.0)}${Constant.MB}",
+              style: AppTextFonts.poppinsSemiBold.copyWith(
+                fontSize: 16,
+                color: AppColors.color_E11B,
+              ),
+            ),
+            SizedBox(width: 8),
+            SvgPicture.asset(
+              AppImages.icArrowRight,
+              width: 18,
+              height: 18,
+              colorFilter: const ColorFilter.mode(
+                AppColors.color_8588,
+                BlendMode.srcIn,
+              ),
+            ),
+
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildLoginSection() {
+    if (isLoggedIn) {
+      return _buildAccountLogin();
+    } else {
+      if (_isEnteringOTP) {
+        return _buildOTP();
+      } else {
+        return _buildNoLogin();
+      }
+    }
+  }
+
+  String get _timeText {
+    final minutes = (_secondsRemaining ~/ 60).toString().padLeft(2, '0');
+    final seconds = (_secondsRemaining % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
+  }
+
+  void _startCountdown() {
+    _secondsRemaining = 90;
+    _canResend = false;
+
+    _timer?.cancel();
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_secondsRemaining > 0) {
+        setState(() {
+          _secondsRemaining--;
+        });
+      } else {
+        setState(() {
+          _canResend = true;
+        });
+        timer.cancel();
+      }
+    });
+  }
+
   Widget _buildBody(
     BuildContext context,
-    HomeState state,
     AppLocalizations l10n,
   ) {
     final items = _buildItems(l10n);
@@ -496,7 +864,7 @@ class _HomePageState extends State<HomePage>
                     ),
                   ],
                 ),
-                child: _buildVasService(state),
+                child: _buildVasService(),
               ),
             ],
           ),
@@ -528,7 +896,7 @@ class _HomePageState extends State<HomePage>
             ),
 
             SizedBox(height: 12),
-            _buildItemPackage(state),
+            _buildItemPackage(),
           ],
         ),
         SizedBox(height: 20),
@@ -577,13 +945,17 @@ class _HomePageState extends State<HomePage>
                   children: [
                     Row(
                       children: [
-                        CircularProgressCustom(usedGB: 10.54, totalGB: 20),
+                        CircularProgressCustom(
+                          usedData: ocsData?.value ?? 0.0,
+                          totalData: 20,
+                          unit: Constant.MB,
+                        ),
                         SizedBox(width: 24),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              "Data Osja Monthly ",
+                              "Data Osja Monthly",
                               style: AppTextFonts.poppinsRegular.copyWith(
                                 fontSize: 12,
                                 color: AppColors.color_464B,
@@ -594,7 +966,8 @@ class _HomePageState extends State<HomePage>
                               text: TextSpan(
                                 children: [
                                   TextSpan(
-                                    text: '20.54 GB ',
+                                    text:
+                                        "${Constant.formatNumber(ocsData?.value ?? 0.0)} ${Constant.MB}",
                                     style: AppTextFonts.poppinsSemiBold
                                         .copyWith(
                                           fontSize: 18,
@@ -602,7 +975,7 @@ class _HomePageState extends State<HomePage>
                                         ),
                                   ),
                                   TextSpan(
-                                    text: "remaining",
+                                    text: " ${l10n.remaining}",
                                     style: AppTextFonts.poppinsSemiBold
                                         .copyWith(
                                           fontSize: 14,
@@ -614,7 +987,7 @@ class _HomePageState extends State<HomePage>
                             ),
                             SizedBox(height: 8),
                             Text(
-                              "Due Date: 19/01/2026",
+                              "${l10n.due_date}: ${ocsData?.exp ?? ""}",
                               style: AppTextFonts.poppinsRegular.copyWith(
                                 fontSize: 12,
                                 color: AppColors.color_8588,
@@ -636,13 +1009,29 @@ class _HomePageState extends State<HomePage>
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Expanded(
-                            child: _buildUsageInfo(l10n.call, '2000', 'MINS'),
+                            child: _buildUsageInfo(
+                              l10n.call,
+                              Constant.formatNumber(
+                                ocsCall?.value ?? 0.0,
+                              ),
+                              Constant.MINS,
+                            ),
                           ),
                           Expanded(
-                            child: _buildUsageInfo(l10n.sms, '20', 'SMS'),
+                            child: _buildUsageInfo(
+                              l10n.sms,
+                              Constant.formatNumber(ocsSms?.value ?? 0.0),
+                              Constant.SMS,
+                            ),
                           ),
                           Expanded(
-                            child: _buildUsageInfo(l10n.roaming, '0', 'MB'),
+                            child: _buildUsageInfo(
+                              l10n.roaming,
+                              Constant.formatNumber(
+                                ocsRoaming?.value ?? 0.0,
+                              ),
+                              Constant.MB,
+                            ),
                           ),
                         ],
                       ),
@@ -693,28 +1082,22 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildItemPackage(HomeState state) {
-    final packages = state.listPackageMobile ?? [];
-
-    if (packages.isEmpty) {
-      return const SizedBox(height: 210, child: Center(child: Text('No data')));
-    }
-
+  Widget _buildItemPackage() {
     return SizedBox(
       height: 210,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: packages.length,
+        itemCount: listPackageMobile!.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = packages[index];
+          final item = listPackageMobile![index];
           final info = parseShortDes(item.shortDes);
 
           EdgeInsetsGeometry padding = EdgeInsets.zero;
           if (index == 0) {
             padding = const EdgeInsets.only(left: 12);
           }
-          if (index == packages.length - 1) {
+          if (index == listPackageMobile!.length - 1) {
             padding = padding.add(const EdgeInsets.only(right: 12));
           }
 
@@ -878,13 +1261,7 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildVasService(HomeState state) {
-    final packages = state.listVasService ?? [];
-
-    if (packages.isEmpty) {
-      return const SizedBox(height: 210, child: Center(child: Text('No data')));
-    }
-
+  Widget _buildVasService() {
     return Container(
       height: 103,
       padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
@@ -894,16 +1271,16 @@ class _HomePageState extends State<HomePage>
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: packages.length,
+        itemCount: listVasService!.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = packages[index];
+          final item = listVasService![index];
 
           EdgeInsetsGeometry padding = EdgeInsets.zero;
           if (index == 0) {
             padding = const EdgeInsets.only(left: 12);
           }
-          if (index == packages.length - 1) {
+          if (index == listVasService!.length - 1) {
             padding = padding.add(const EdgeInsets.only(right: 12));
           }
 

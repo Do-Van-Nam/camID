@@ -1,7 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/banner_model.dart';
-import 'package:cam_id/main/data/model/test_package_model.dart';
 import 'package:cam_id/main/data/repository/all_app_repository.dart';
 import 'package:cam_id/main/data/repository/service_by_group_repository.dart';
 import 'package:cam_id/main/ui/metfone/metfone_bloc.dart';

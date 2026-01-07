@@ -349,5 +349,10 @@
   "enter_your_full_address": "Enter your full address",
   "charge_history": "Charge history",
   "scan_card": "Scan card",
-  "account_detail": "Account detail"
+  "account_detail": "Account detail",
+  "used":"used",
+  "remaining": "remaining",
+  "due_date":"Due Date",
+  "account_balance":"Account Balance",
+  "expired":"Expired"
 }

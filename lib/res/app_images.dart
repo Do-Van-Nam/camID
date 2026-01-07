@@ -204,6 +204,8 @@ class AppImages {
 
   static final String icFilter = 'assets/icons/ic_filter.svg';
   static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
+  static final String icData = 'assets/icons/ic_data.svg';
 
-  // ------------------------ N ------------------------
+
+// ------------------------ N ------------------------
 }

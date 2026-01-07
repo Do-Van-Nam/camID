@@ -1611,6 +1611,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Account detail'**
   String get account_detail;
+
+  /// No description provided for @used.
+  ///
+  /// In en, this message translates to:
+  /// **'used'**
+  String get used;
+
+  /// No description provided for @remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'remaining'**
+  String get remaining;
+
+  /// No description provided for @due_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Due Date'**
+  String get due_date;
+
+  /// No description provided for @account_balance.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Balance'**
+  String get account_balance;
+
+  /// No description provided for @expired.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired'**
+  String get expired;
 }
 
 class _AppLocalizationsDelegate
