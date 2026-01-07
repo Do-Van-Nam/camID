@@ -109,8 +109,10 @@ class SharePreferenceUtil {
     if (jsonString.isEmpty) return null;
 
     final jsonMap = jsonDecode(jsonString) as Map<String, dynamic>;
+    final user = UserInfoModel.fromJson(jsonMap);
     UserInfoModel.instance.fromJson(jsonMap);
-    return UserInfoModel.instance;
+
+    return user;
   }
 
   static Future saveToken(String token) async {

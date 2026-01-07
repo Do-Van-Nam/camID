@@ -16,3 +16,14 @@ class BannerChanged extends HomeEvent {
 }
 
 class LoginTapped extends HomeEvent {}
+
+class GetAllAppsEvent extends HomeEvent {
+  final bool isCallAPI;
+  GetAllAppsEvent({this.isCallAPI = false});
+}
+
+class GetServiceByGroupAppsEvent extends HomeEvent {
+  final String type;
+  final bool isCallAPI;
+  GetServiceByGroupAppsEvent(this.type, {this.isCallAPI = false});
+}

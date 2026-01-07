@@ -2,6 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/data/model/test_package_model.dart';
+import 'package:cam_id/main/data/repository/all_app_repository.dart';
+import 'package:cam_id/main/data/repository/service_by_group_repository.dart';
 import 'package:cam_id/main/ui/metfone/metfone_bloc.dart';
 import 'package:cam_id/main/ui/metfone/metfone_event.dart';
 import 'package:cam_id/main/ui/metfone/metfone_state.dart';
@@ -40,7 +42,7 @@ class _MetFonePageState extends State<MetFonePage>
   @override
   void initState() {
     super.initState();
-    _bloc = MetfoneBloc();
+    _bloc = MetfoneBloc(AppRepository(), ServiceRepository());
     _bloc.add(GetAllAppsEvent());
     _bloc.add(GetServiceByGroupAppsEvent("Recommend"));
     _bloc.add(GetFTTHPackageAppsEvent());
@@ -68,30 +70,38 @@ class _MetFonePageState extends State<MetFonePage>
           extendBodyBehindAppBar: true,
           backgroundColor: AppColors.color_F7F7,
           appBar: _buildAppBar(context, l10n),
-          body: BlocBuilder<MetfoneBloc, MetfoneState>(
-            builder: (context, state) {
-              return CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      children: [
-                        _buildBannerHeaderSection(context, state, l10n),
-                      ],
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: LoadingWidget(
-                      state: viewState,
-                      child: _buildBody(context, state, l10n),
-                    ),
-                  ),
-                ],
-              );
+          body: RefreshIndicator(
+            onRefresh: () async {
+              _bloc.add(GetAllAppsEvent(isCallAPI: true));
+              _bloc.add(GetServiceByGroupAppsEvent("Recommend", isCallAPI: true));
+              _bloc.add(GetFTTHPackageAppsEvent());
             },
+            child: BlocBuilder<MetfoneBloc, MetfoneState>(
+                builder: (context, state) {
+                  return CustomScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: Column(
+                          children: [
+                            _buildBannerHeaderSection(context, state, l10n),
+                          ],
+                        ),
+                      ),
+                      SliverToBoxAdapter(
+                        child: LoadingWidget(
+                          state: viewState,
+                          child: _buildBody(context, state, l10n),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+            ),
+          ),
           ),
         ),
-      ),
-    );
+      );
   }
 
   PreferredSizeWidget _buildAppBar(
@@ -231,7 +241,7 @@ class _MetFonePageState extends State<MetFonePage>
         children: [
           CarouselSlider(
             options: CarouselOptions(
-              height: 110,
+              height: 120,
               autoPlay: true,
               viewportFraction: 1,
               enlargeCenterPage: false,
@@ -246,7 +256,7 @@ class _MetFonePageState extends State<MetFonePage>
                 child: SafeImage(
                   url: banner.adImgUrl,
                   width: MediaQuery.of(context).size.width,
-                  height: 110,
+                  height: 120,
                   fit: BoxFit.cover,
                   placeholder: AppImages.imgPromotionDefault,
                   errorAsset: AppImages.imgPromotionDefault,
@@ -256,7 +266,7 @@ class _MetFonePageState extends State<MetFonePage>
           ),
           Column(
             children: [
-              const SizedBox(height: 120),
+              const SizedBox(height: 130),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: banners.asMap().entries.map((entry) {

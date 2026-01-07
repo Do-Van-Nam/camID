@@ -38,6 +38,12 @@ class UserInfoModel {
   String imageType = "";
   String isScan = "false";
 
+  factory UserInfoModel.fromJson(Map<String, dynamic> json) {
+    final m = UserInfoModel._internal();
+    m.fromJson(json);
+    return m;
+  }
+
   void fromJson(Map<String, dynamic> json) {
     phoneNumber = json['phone_number'] ?? "";
     fullName = json['full_name'] ?? "";
@@ -72,41 +78,39 @@ class UserInfoModel {
     isScan = json['is_scan']?.toString() ?? "false";
   }
 
-  Map<String, dynamic> toJson() {
-    return {
-      'phone_number': phoneNumber,
-      'full_name': fullName,
-      'username': username,
-      'email': email,
-      'address': address,
-      'gender': gender,
-      'avatar': avatar,
-      'verified': verified,
-      'province': province,
-      'district': district,
-      'code': code,
-      'user_id': userId,
-      'date_of_birth': dateOfBirth,
-      'identity_number': identityNumber,
-      'contact': contact,
-      'commune': commune,
-      'street': street,
-      'nationality': nationality,
-      'invited_code': invitedCode,
-      'fb_id': fbId,
-      'home_no': homeNo,
-      'id_type': idType,
-      'identity_type': identityType,
-      'issue_date': issueDate,
-      'expire_date': expireDate,
-      'visa_expire_date': visaExpireDate,
-      'image_front': imageFront,
-      'image_back': imageBack,
-      'image_selfie': imageSelfie,
-      'image_type': imageType,
-      'is_scan': isScan,
-    };
-  }
+  Map<String, dynamic> toJson() => {
+    'phone_number': phoneNumber,
+    'full_name': fullName,
+    'username': username,
+    'email': email,
+    'address': address,
+    'gender': gender,
+    'avatar': avatar,
+    'verified': verified,
+    'province': province,
+    'district': district,
+    'code': code,
+    'user_id': userId,
+    'date_of_birth': dateOfBirth,
+    'identity_number': identityNumber,
+    'contact': contact,
+    'commune': commune,
+    'street': street,
+    'nationality': nationality,
+    'invited_code': invitedCode,
+    'fb_id': fbId,
+    'home_no': homeNo,
+    'id_type': idType,
+    'identity_type': identityType,
+    'issue_date': issueDate,
+    'expire_date': expireDate,
+    'visa_expire_date': visaExpireDate,
+    'image_front': imageFront,
+    'image_back': imageBack,
+    'image_selfie': imageSelfie,
+    'image_type': imageType,
+    'is_scan': isScan,
+  };
 
   void clear() {
     phoneNumber = "";

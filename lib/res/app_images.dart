@@ -79,12 +79,6 @@ class AppImages {
   static final String imgChatBot5 = 'assets/images/chatbot_ic2.png';
   static final String imgBgLogin = 'assets/images/img_bg_login.png';
   static final String imgLogoLogin = 'assets/images/img_logo_login.png';
-  static final String imgBanner1 = 'assets/images/img_banner_1.png';
-  static final String imgBanner2 = 'assets/images/img_banner_2.png';
-  static final String imgBanner3 = 'assets/images/img_banner_3.png';
-  static final String imgBanner4 = 'assets/images/img_banner_4.png';
-  static final String imgBanner5 = 'assets/images/img_banner_5.png';
-  static final String imgBanner6 = 'assets/images/img_banner_6.png';
   static final String imgVasTest = 'assets/images/img_vas_test.png';
 
   // loyalty
@@ -203,4 +197,8 @@ class AppImages {
       'assets/images/img_entertainment_default.png';
   static final String imgAvatarDefault =
       'assets/images/img_avatar_default.png';
+  static final String icChargeHistory = 'assets/icons/ic_charge_history.svg';
+  static final String icScanCard = 'assets/icons/ic_scan_card.svg';
+  static final String icAccountDetail = 'assets/icons/ic_account_detail.svg';
+
 }

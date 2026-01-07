@@ -38,9 +38,9 @@ class IpccPlugin: FlutterPlugin, MethodChannel.MethodCallHandler {
                 sdk?.showCallFragment(camId)
                 result.success(null)
             }
-            "showCallVideo" -> {
+            "showVideoCall" -> {
                 val camId = call.argument<String>("camId")!!
-                android.util.Log.e("TAG-IPCC", "onMethodCall: showCallVideo || $camId")
+                android.util.Log.e("TAG-IPCC", "onMethodCall: showVideoCall || $camId")
                 sdk?.showVideoCallFragment(camId)
                 result.success(null)
             }

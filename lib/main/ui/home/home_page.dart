@@ -2,11 +2,15 @@ import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/test_package_model.dart';
 import 'package:cam_id/main/data/model/test_vas_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/repository/all_app_repository.dart';
+import 'package:cam_id/main/data/repository/service_by_group_repository.dart';
 import 'package:cam_id/main/ui/home/home_bloc.dart';
 import 'package:cam_id/main/ui/home/home_event.dart';
 import 'package:cam_id/main/ui/home/home_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
+import 'package:cam_id/main/utils/package_short_des.dart';
 import 'package:cam_id/main/utils/widget/circular_progress_widget.dart';
+import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -33,13 +37,6 @@ class _HomePageState extends State<HomePage>
   LoadingWidgetState viewState = LoadingWidgetState.success;
   final PageController _pageController = PageController();
   int _currentPage = 0;
-  final List<String> bannerImages = [
-    AppImages.imgBanner1,
-    AppImages.imgBanner2,
-    AppImages.imgBanner3,
-    AppImages.imgBanner4,
-    AppImages.imgBanner5
-  ];
 
   static const int _itemsPerPage = 4;
 
@@ -53,54 +50,19 @@ class _HomePageState extends State<HomePage>
       {'icon': AppImages.icEsim, 'title': l10n.esim},
       {'icon': AppImages.icMyService, 'title': l10n.my_services},
       {'icon': AppImages.icPaymentHistory, 'title': l10n.payment_history},
+      {'icon': AppImages.icTopUp, 'title': l10n.top_up},
+      {'icon': AppImages.icChargeHistory, 'title': l10n.charge_history},
+      {'icon': AppImages.icScanCard, 'title': l10n.scan_card},
+      {'icon': AppImages.icAccountDetail, 'title': l10n.account_detail},
     ];
   }
-
-  final List<VasItem> _vasItems = [
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-          AppImages.imgVasTest,
-    ),
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-      AppImages.imgVasTest,
-    ),
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-      AppImages.imgVasTest,
-    ),
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-      AppImages.imgVasTest,
-    ),
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-      AppImages.imgVasTest,
-    ),
-    VasItem(
-      title: 'Data Plus',
-      imageUrl:
-      AppImages.imgVasTest,
-    ),
-  ];
-
-  final List<PackageItem> _listPackage = [
-    PackageItem("Data Osja Monthly ", "10GB", "18", "30 days", "1000Mins"),
-    PackageItem("Data Osja 1 ", "8GB", "18", "30 days", "1000Mins"),
-    PackageItem("Data Osja 2 ", "4GB", "18", "30 days", "1000Mins"),
-    PackageItem("Data Osja 3 ", "13GB", "18", "30 days", "1000Mins"),
-    PackageItem("Data Osja 4 ", "15GB", "18", "30 days", "1000Mins"),
-  ];
 
   @override
   void initState() {
     super.initState();
-    _bloc = HomeBloc()..add(HomeStarted());
+    _bloc = HomeBloc(AppRepository(), ServiceRepository())..add(HomeStarted());
+    _bloc.add(GetAllAppsEvent());
+    _bloc.add(GetServiceByGroupAppsEvent("Recommend"));
   }
 
   @override
@@ -120,7 +82,6 @@ class _HomePageState extends State<HomePage>
     return BlocProvider.value(
       value: _bloc,
       child: BlocListener<HomeBloc, HomeState>(
-        // listenWhen: (prev, curr) => curr.navigateToLogin,
         listener: (context, state) {
           if (state.navigateToLogin) {
             context.push(PATH_LOGIN);
@@ -130,38 +91,44 @@ class _HomePageState extends State<HomePage>
           extendBodyBehindAppBar: true,
           backgroundColor: AppColors.color_0000,
           appBar: _buildAppBar(context, l10n),
-          body: BlocBuilder<HomeBloc, HomeState>(
-            builder: (context, state) {
-              return CustomScrollView(
-                slivers: [
-                  SliverToBoxAdapter(
-                    child: Column(
-                      children: [
-                        _buildBannerSection(context, state, l10n),
-                      ],
-                    ),
-                  ),
-
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.all(16),
-                      decoration: const BoxDecoration(
-                        color: AppColors.color_F7F7,
-                        borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(20),
-                        ),
-                      ),
-                      child: LoadingWidget(
-                        state: viewState,
-                        child: _buildBody(context, state, l10n),
-                      ),
-                    ),
-                  ),
-                ],
+          body: RefreshIndicator(
+            onRefresh: () async {
+              _bloc.add(GetAllAppsEvent(isCallAPI: true));
+              _bloc.add(
+                GetServiceByGroupAppsEvent("Recommend", isCallAPI: true),
               );
             },
+            child: BlocBuilder<HomeBloc, HomeState>(
+              builder: (context, state) {
+                return CustomScrollView(
+                  slivers: [
+                    SliverToBoxAdapter(
+                      child: Column(
+                        children: [_buildBannerSection(context, state, l10n)],
+                      ),
+                    ),
+
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Container(
+                        width: double.infinity,
+                        // padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                          color: AppColors.color_F7F7,
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
+                          ),
+                        ),
+                        child: LoadingWidget(
+                          state: viewState,
+                          child: _buildBody(context, state, l10n),
+                        ),
+                      ),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),
@@ -189,7 +156,7 @@ class _HomePageState extends State<HomePage>
               if (state.isLoggedIn) {
                 context.push(PATH_USER_PROFILE);
               } else {
-                context.read<HomeBloc>().add(LoginTapped());
+                _bloc.add(LoginTapped());
               }
             },
             child: Column(
@@ -286,6 +253,7 @@ class _HomePageState extends State<HomePage>
     HomeState state,
     AppLocalizations l10n,
   ) {
+    final banners = state.listBannerFooter ?? [];
     return Stack(
       children: [
         CarouselSlider(
@@ -298,18 +266,18 @@ class _HomePageState extends State<HomePage>
               context.read<HomeBloc>().add(BannerChanged(index));
             },
           ),
-          items: bannerImages.map((url) {
-            return Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                // borderRadius: const BorderRadius.only(
-                //   bottomLeft: Radius.circular(24),
-                //   bottomRight: Radius.circular(24),
-                // ),
-                image: DecorationImage(
-                  image: AssetImage(url),
-                  fit: BoxFit.cover,
-                ),
+          items: banners.map((banner) {
+            return ClipRRect(
+              // borderRadius: const BorderRadius.only(
+              //   bottomLeft: Radius.circular(24),
+              //   bottomRight: Radius.circular(24),
+              // ),
+              child: SafeImage(
+                url: banner.adImgUrl,
+                width: MediaQuery.of(context).size.width,
+                fit: BoxFit.cover,
+                placeholder: AppImages.imgEntertainmentDefault,
+                errorAsset: AppImages.imgEntertainmentDefault,
               ),
             );
           }).toList(),
@@ -319,7 +287,7 @@ class _HomePageState extends State<HomePage>
             const SizedBox(height: 212),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: bannerImages.asMap().entries.map((entry) {
+              children: banners.asMap().entries.map((entry) {
                 final isActive = state.bannerIndex == entry.key;
                 return Container(
                   width: isActive ? 30 : 6,
@@ -421,7 +389,7 @@ class _HomePageState extends State<HomePage>
         Container(
           width: double.infinity,
           padding: const EdgeInsets.fromLTRB(4, 12, 4, 12),
-          margin: const EdgeInsets.only(top: 4),
+          margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
           decoration: BoxDecoration(
             color: AppColors.color_FFFF,
             borderRadius: BorderRadius.circular(12),
@@ -490,186 +458,200 @@ class _HomePageState extends State<HomePage>
           ),
         ),
         SizedBox(height: 20),
-        Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  l10n.vasService,
-                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                    color: AppColors.color_1618,
-                    fontSize: 16,
+        Container(
+          margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    l10n.vasService,
+                    style: AppTextFonts.poppinsSemiBold.copyWith(
+                      color: AppColors.color_1618,
+                      fontSize: 16,
+                    ),
                   ),
-                ),
-                Spacer(),
-                Text(
-                  l10n.viewAll,
-                  style: AppTextFonts.poppinsMedium.copyWith(
-                    color: AppColors.color_E11B,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.fromLTRB(4, 12, 4, 12),
-              margin: const EdgeInsets.only(top: 12),
-              decoration: BoxDecoration(
-                color: AppColors.color_FFFF,
-                borderRadius: BorderRadius.circular(12),
-                boxShadow: const [
-                  BoxShadow(
-                    color: AppColors.color_1618_10,
-                    blurRadius: 12,
-                    offset: Offset(0, 1),
+                  Spacer(),
+                  Text(
+                    l10n.viewAll,
+                    style: AppTextFonts.poppinsMedium.copyWith(
+                      color: AppColors.color_E11B,
+                      fontSize: 12,
+                    ),
                   ),
                 ],
               ),
-              child: _buildItemVAS(),
-            ),
-          ],
-        ),
-        SizedBox(height: 20),
-        Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  l10n.services_for_you,
-                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                    color: AppColors.color_1618,
-                    fontSize: 16,
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  l10n.viewAll,
-                  style: AppTextFonts.poppinsMedium.copyWith(
-                    color: AppColors.color_E11B,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            _buildItemPackage(),
-          ],
-        ),
-        SizedBox(height: 20),
-        Column(
-          children: [
-            Row(
-              children: [
-                Text(
-                  l10n.my_usage,
-                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                    color: AppColors.color_1618,
-                    fontSize: 16,
-                  ),
-                ),
-                Spacer(),
-                Text(
-                  l10n.viewAll,
-                  style: AppTextFonts.poppinsMedium.copyWith(
-                    color: AppColors.color_E11B,
-                    fontSize: 12,
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(height: 12),
-            Container(
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    AppColors.color_FCF0,
-                    AppColors.color_FFEB,
-                    AppColors.color_FFEF,
-                    AppColors.color_FFF7,
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+                margin: const EdgeInsets.only(top: 12),
+                decoration: BoxDecoration(
+                  color: AppColors.color_FFFF,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: AppColors.color_1618_10,
+                      blurRadius: 12,
+                      offset: Offset(0, 1),
+                    ),
                   ],
                 ),
+                child: _buildVasService(state),
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            ],
+          ),
+        ),
+        SizedBox(height: 20),
+        Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+              child: Row(
                 children: [
-                  Row(
-                    children: [
-                      CircularProgressCustom(usedGB: 10.54, totalGB: 20),
-                      SizedBox(width: 24),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            "Data Osja Monthly ",
-                            style: AppTextFonts.poppinsRegular.copyWith(
-                              fontSize: 12,
-                              color: AppColors.color_464B,
-                            ),
-                          ),
-                          SizedBox(height: 4),
-                          RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '20.54 GB ',
-                                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                                    fontSize: 18,
-                                    color: AppColors.color_1618,
-                                  ),
-                                ),
-                                TextSpan(
-                                  text: "remaining",
-                                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                                    fontSize: 14,
-                                    color: AppColors.color_1618,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            "Due Date: 19/01/2026",
-                            style: AppTextFonts.poppinsRegular.copyWith(
-                              fontSize: 12,
-                              color: AppColors.color_8588,
-                            ),
-                          ),
-                        ],
-                      ),
+                  Text(
+                    l10n.services_for_you,
+                    style: AppTextFonts.poppinsSemiBold.copyWith(
+                      color: AppColors.color_1618,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    l10n.viewAll,
+                    style: AppTextFonts.poppinsMedium.copyWith(
+                      color: AppColors.color_E11B,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+
+            SizedBox(height: 12),
+            _buildItemPackage(state),
+          ],
+        ),
+        SizedBox(height: 20),
+        Container(
+          margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+          child: Column(
+            children: [
+              Row(
+                children: [
+                  Text(
+                    l10n.my_usage,
+                    style: AppTextFonts.poppinsSemiBold.copyWith(
+                      color: AppColors.color_1618,
+                      fontSize: 16,
+                    ),
+                  ),
+                  Spacer(),
+                  Text(
+                    l10n.viewAll,
+                    style: AppTextFonts.poppinsMedium.copyWith(
+                      color: AppColors.color_E11B,
+                      fontSize: 12,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(height: 12),
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(12),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topLeft,
+                    end: Alignment.bottomRight,
+                    colors: [
+                      AppColors.color_FCF0,
+                      AppColors.color_FFEB,
+                      AppColors.color_FFEF,
+                      AppColors.color_FFF7,
                     ],
                   ),
-                  Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(12),
-                    margin: const EdgeInsets.only(top: 12),
-                    decoration: BoxDecoration(
-                      color: AppColors.color_FFFF,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
                       children: [
-                        Expanded(
-                          child: _buildUsageInfo(l10n.call, '2000', 'MINS'),
-                        ),
-                        Expanded(child: _buildUsageInfo(l10n.sms, '20', 'SMS')),
-                        Expanded(
-                          child: _buildUsageInfo(l10n.roaming, '0', 'MB'),
+                        CircularProgressCustom(usedGB: 10.54, totalGB: 20),
+                        SizedBox(width: 24),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Data Osja Monthly ",
+                              style: AppTextFonts.poppinsRegular.copyWith(
+                                fontSize: 12,
+                                color: AppColors.color_464B,
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: '20.54 GB ',
+                                    style: AppTextFonts.poppinsSemiBold
+                                        .copyWith(
+                                          fontSize: 18,
+                                          color: AppColors.color_1618,
+                                        ),
+                                  ),
+                                  TextSpan(
+                                    text: "remaining",
+                                    style: AppTextFonts.poppinsSemiBold
+                                        .copyWith(
+                                          fontSize: 14,
+                                          color: AppColors.color_1618,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 8),
+                            Text(
+                              "Due Date: 19/01/2026",
+                              style: AppTextFonts.poppinsRegular.copyWith(
+                                fontSize: 12,
+                                color: AppColors.color_8588,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(12),
+                      margin: const EdgeInsets.only(top: 12),
+                      decoration: BoxDecoration(
+                        color: AppColors.color_FFFF,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Expanded(
+                            child: _buildUsageInfo(l10n.call, '2000', 'MINS'),
+                          ),
+                          Expanded(
+                            child: _buildUsageInfo(l10n.sms, '20', 'SMS'),
+                          ),
+                          Expanded(
+                            child: _buildUsageInfo(l10n.roaming, '0', 'MB'),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
         SizedBox(height: 40),
       ],
@@ -711,155 +693,184 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildItemPackage() {
+  Widget _buildItemPackage(HomeState state) {
+    final packages = state.listPackageMobile ?? [];
+
+    if (packages.isEmpty) {
+      return const SizedBox(height: 210, child: Center(child: Text('No data')));
+    }
+
     return SizedBox(
       height: 210,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: _listPackage.length,
+        itemCount: packages.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = _listPackage[index];
-          return Container(
-            width: 192,
-            height: 210,
-            decoration: BoxDecoration(
-              // color: AppColors.color_E11B,
-              borderRadius: BorderRadius.circular(16),
-              gradient: const LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [AppColors.color_E11B, AppColors.color_FF34],
-              ),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  height: 44,
-                  padding: const EdgeInsets.fromLTRB(12, 15, 12, 12),
-                  child: Row(
-                    children: [
-                      Text(
-                        item.name,
-                        style: AppTextFonts.poppinsRegular.copyWith(
-                          color: Colors.white,
-                          fontSize: 12,
-                        ),
-                      ),
-                      Spacer(),
-                      Text(
-                        item.data,
-                        style: AppTextFonts.poppinsSemiBold.copyWith(
-                          color: Colors.white,
-                          fontSize: 14,
-                        ),
-                      ),
-                    ],
-                  ),
+          final item = packages[index];
+          final info = parseShortDes(item.shortDes);
+
+          EdgeInsetsGeometry padding = EdgeInsets.zero;
+          if (index == 0) {
+            padding = const EdgeInsets.only(left: 12);
+          }
+          if (index == packages.length - 1) {
+            padding = padding.add(const EdgeInsets.only(right: 12));
+          }
+
+          return Padding(
+            padding: padding,
+            child: Container(
+              width: 200,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(16),
+                gradient: const LinearGradient(
+                  colors: [AppColors.color_E11B, AppColors.color_FF34],
                 ),
-                Expanded(
-                  child: Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
-                    decoration: BoxDecoration(
-                      color: AppColors.color_FFFF,
-                      borderRadius: BorderRadius.circular(16),
-                    ),
-                    child: Column(
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 44,
+                    padding: const EdgeInsets.fromLTRB(12, 15, 12, 12),
+                    child: Row(
                       children: [
-                        Container(
-                          width: double.infinity,
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 35,
-                            vertical: 8,
+                        Text(
+                          item.name!,
+                          style: AppTextFonts.poppinsRegular.copyWith(
+                            color: Colors.white,
+                            fontSize: 12,
                           ),
-                          decoration: BoxDecoration(
-                            color: AppColors.color_5F5F,
-                            borderRadius: BorderRadius.circular(16),
+                        ),
+                        const Spacer(),
+                        if (info.isParsed)
+                          Text(
+                            info.data!,
+                            style: AppTextFonts.poppinsSemiBold.copyWith(
+                              color: Colors.white,
+                              fontSize: 14,
+                            ),
                           ),
-                          child: RichText(
-                            text: TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: '\$${item.price}/',
-                                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                                    fontSize: 20,
-                                    color: AppColors.color_1618,
-                                  ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
+                      decoration: BoxDecoration(
+                        color: AppColors.color_FFFF,
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Column(
+                        children: [
+                          Container(
+                            width: double.infinity,
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                            decoration: BoxDecoration(
+                              color: AppColors.color_5F5F,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            child: Center(
+                              child: RichText(
+                                text: TextSpan(
+                                  children: [
+                                    TextSpan(
+                                      text:
+                                          '\$${Constant.formatNumber(item.price ?? 0.0)}/',
+                                      style: AppTextFonts.poppinsSemiBold
+                                          .copyWith(
+                                            fontSize: 20,
+                                            color: AppColors.color_1618,
+                                          ),
+                                    ),
+                                    TextSpan(
+                                      text: item.validity,
+                                      style: AppTextFonts.poppinsRegular
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color: AppColors.color_1618,
+                                          ),
+                                    ),
+                                  ],
                                 ),
-                                TextSpan(
-                                  text: item.expired,
+                              ),
+                            ),
+                          ),
+                          const SizedBox(height: 10),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SvgPicture.asset(AppImages.icCheck),
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: Text(
+                                  info.time ?? '',
                                   style: AppTextFonts.poppinsRegular.copyWith(
-                                    fontSize: 16,
-                                    color: AppColors.color_1618,
+                                    color: AppColors.color_8588,
+                                    fontSize: 12,
+                                  ),
+                                  softWrap: true,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          if (info.isParsed)
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                SvgPicture.asset(AppImages.icCheck),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: Text(
+                                    info.sms ?? '',
+                                    style: AppTextFonts.poppinsRegular.copyWith(
+                                      color: AppColors.color_8588,
+                                      fontSize: 12,
+                                    ),
+                                    softWrap: true,
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ),
-                        SizedBox(height: 10),
-                        Row(
-                          children: [
-                            SvgPicture.asset(AppImages.icCheck),
-                            SizedBox(width: 8),
-                            Text(
-                              item.description,
-                              style: AppTextFonts.poppinsRegular.copyWith(
-                                color: AppColors.color_8588,
-                                fontSize: 12,
+                          const Spacer(),
+                          const SizedBox(height: 8),
+                          SizedBox(
+                            height: 36,
+                            width: double.infinity,
+                            child: ElevatedButton(
+                              onPressed: () => {},
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.color_FFFF,
+                                elevation: 0,
+                                side: const BorderSide(
+                                  color: AppColors.color_1618,
+                                  width: 1,
+                                ),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(1000),
+                                ),
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 4,
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        Row(
-                          children: [
-                            SvgPicture.asset(AppImages.icCheck),
-                            SizedBox(width: 8),
-                            Text(
-                              item.description,
-                              style: AppTextFonts.poppinsRegular.copyWith(
-                                color: AppColors.color_8588,
-                                fontSize: 12,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 8),
-                        SizedBox(
-                          height: 36,
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            onPressed: () => {},
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: AppColors.color_FFFF,
-                              // foregroundColor: AppColors.color_E11B,
-                              elevation: 0,
-                              side: const BorderSide(
-                                color: AppColors.color_1618,
-                                width: 1,
-                              ),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(1000),
-                              ),
-                              padding: const EdgeInsets.symmetric(vertical: 4),
-                            ),
-                            child: Text(
-                              l10n.register,
-                              style: AppTextFonts.poppinsRegular.copyWith(
-                                color: AppColors.color_1618,
-                                fontSize: 14,
+                              child: Text(
+                                l10n.register,
+                                style: AppTextFonts.poppinsRegular.copyWith(
+                                  color: AppColors.color_1618,
+                                  fontSize: 14,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           );
         },
@@ -867,42 +878,64 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildItemVAS() {
-    return SizedBox(
-      height: 80,
+  Widget _buildVasService(HomeState state) {
+    final packages = state.listVasService ?? [];
+
+    if (packages.isEmpty) {
+      return const SizedBox(height: 210, child: Center(child: Text('No data')));
+    }
+
+    return Container(
+      height: 103,
+      padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+      ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: _vasItems.length,
+        itemCount: packages.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = _vasItems[index];
-          return Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: Image.asset(
-                  item.imageUrl,
+          final item = packages[index];
+
+          EdgeInsetsGeometry padding = EdgeInsets.zero;
+          if (index == 0) {
+            padding = const EdgeInsets.only(left: 12);
+          }
+          if (index == packages.length - 1) {
+            padding = padding.add(const EdgeInsets.only(right: 12));
+          }
+
+          return Padding(
+            padding: padding,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SafeImage(
+                  url: item.adImgUrl,
                   width: 54,
                   height: 54,
-                  fit: BoxFit.cover,
+                  borderRadius: BorderRadius.circular(10),
+                  placeholder: AppImages.imgPromotionDefault,
+                  errorAsset: AppImages.imgPromotionDefault,
                 ),
-              ),
-              const SizedBox(height: 8),
-              SizedBox(
-                width: 72,
-                child: Text(
-                  item.title,
-                  textAlign: TextAlign.center,
-                  style: AppTextFonts.poppinsMedium.copyWith(
-                    fontSize: 12,
-                    color: AppColors.color_1618,
+                const SizedBox(height: 8),
+                SizedBox(
+                  width: 72,
+                  child: Text(
+                    item.des ?? "",
+                    textAlign: TextAlign.center,
+                    style: AppTextFonts.poppinsRegular.copyWith(
+                      fontSize: 12,
+                      color: AppColors.color_1618,
+                    ),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                   ),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         },
       ),
@@ -917,7 +950,7 @@ class _HomePageState extends State<HomePage>
           const SizedBox(height: 6),
 
           SizedBox(
-            height: 36, // đủ cho 2 dòng
+            height: 38, // đủ cho 2 dòng
             child: Text(
               title,
               textAlign: TextAlign.center,

@@ -1281,6 +1281,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobile Package'**
   String get mobile_package;
+
+  /// No description provided for @charge_history.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge history'**
+  String get charge_history;
+
+  /// No description provided for @scan_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan card'**
+  String get scan_card;
+
+  /// No description provided for @account_detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Account detail'**
+  String get account_detail;
 }
 
 class _AppLocalizationsDelegate

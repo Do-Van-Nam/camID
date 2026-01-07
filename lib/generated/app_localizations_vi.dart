@@ -611,4 +611,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get mobile_package => 'Mobile Package';
+
+  @override
+  String get charge_history => 'Charge history';
+
+  @override
+  String get scan_card => 'Scan card';
+
+  @override
+  String get account_detail => 'Account detail';
 }

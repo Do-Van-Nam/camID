@@ -55,7 +55,10 @@
     "top_up",
     "exchanged_damaged_card",
     "ftth_package",
-    "mobile_package"
+    "mobile_package",
+    "charge_history",
+    "scan_card",
+    "account_detail"
   ],
 
   "vi": [
@@ -114,6 +117,9 @@
     "top_up",
     "exchanged_damaged_card",
     "ftth_package",
-    "mobile_package"
+    "mobile_package",
+    "charge_history",
+    "scan_card",
+    "account_detail"
   ]
 }
