@@ -1,4 +1,6 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/res/app_colors.dart';
+import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -70,13 +72,13 @@ class CustomBottomNav extends StatelessWidget {
                     center: Alignment.center,
                     radius: 1.0,
                     colors: [
-                      Colors.red.shade700,           // đỏ sát icon
-                      Colors.red.withOpacity(0.35),  // đỏ mờ
+                      Colors.red.shade700, // đỏ sát icon
+                      Colors.red.withOpacity(0.35), // đỏ mờ
                       Colors.transparent,
                     ],
                     stops: const [
-                      0.55,  // giữ đỏ sát
-                      0.75,  // lan ~2px
+                      0.55, // giữ đỏ sát
+                      0.75, // lan ~2px
                       1.0,
                     ],
                   ),
@@ -84,10 +86,7 @@ class CustomBottomNav extends StatelessWidget {
                 child: Container(
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    border: Border.all(
-                      color: Colors.white,
-                      width: 5,
-                    ),
+                    border: Border.all(color: Colors.white, width: 5),
                   ),
                   child: CircleAvatar(
                     radius: 35,
@@ -114,10 +113,15 @@ class CustomBottomNav extends StatelessWidget {
             const SizedBox(height: 36),
             Text(
               AppLocalizations.of(context)!.metfone,
-              style: TextStyle(
-                fontSize: 11,
-                color: isSelected ? Colors.red : Colors.grey,
-              ),
+              style: isSelected
+                  ? AppTextFonts.poppinsMedium.copyWith(
+                      fontSize: 10,
+                      color: AppColors.color_E11B,
+                    )
+                  : AppTextFonts.poppinsRegular.copyWith(
+                      fontSize: 10,
+                      color: AppColors.color_8588,
+                    ),
             ),
           ],
         ),
@@ -140,24 +144,29 @@ class CustomBottomNav extends StatelessWidget {
             width: isSelected ? 22 : 0,
             margin: const EdgeInsets.only(bottom: 6),
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: AppColors.color_E11B,
               borderRadius: BorderRadius.circular(4),
             ),
           ),
           SvgPicture.asset(
             icon,
             colorFilter: ColorFilter.mode(
-              isSelected ? Colors.red : Colors.grey,
+              isSelected ? AppColors.color_E11B : AppColors.color_8588,
               BlendMode.srcIn,
             ),
           ),
           const SizedBox(height: 4),
           Text(
             label,
-            style: TextStyle(
-              fontSize: 11,
-              color: isSelected ? Colors.red : Colors.grey,
-            ),
+            style: isSelected
+                ? AppTextFonts.poppinsMedium.copyWith(
+                    fontSize: 10,
+                    color: AppColors.color_E11B,
+                  )
+                : AppTextFonts.poppinsRegular.copyWith(
+                    fontSize: 10,
+                    color: AppColors.color_8588,
+                  ),
           ),
         ],
       ),
@@ -192,16 +201,6 @@ class BottomNavPainter extends CustomPainter {
     path.lineTo(width, cornerRadius);
     path.quadraticBezierTo(width, 0, width - cornerRadius, 0);
     path.lineTo(centerX + cutRadius, 0);
-
-    // path.arcTo(
-    //   Rect.fromCircle(
-    //     center: Offset(centerX, 0),
-    //     radius: cutRadius,
-    //   ),
-    //   0,
-    //   -3.141592653589793,
-    //   false,
-    // );
 
     path.lineTo(cornerRadius, 0);
     path.close();

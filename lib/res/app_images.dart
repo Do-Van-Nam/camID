@@ -23,7 +23,6 @@ class AppImages {
   static final String icCall = 'assets/icons/ic_call.svg';
   static final String icArmy = 'assets/icons/ic_army.svg';
   static final String icArrowRight = 'assets/icons/ic_arrow_right.svg';
-  static final String icAvatarDefault = 'assets/icons/ic_avatar_default.svg';
   static final String icCambodia = 'assets/icons/ic_cambodia_card.svg';
   static final String icLanguage = 'assets/icons/ic_language.svg';
   static final String icLogout = 'assets/icons/ic_logout.svg';
@@ -192,6 +191,19 @@ class AppImages {
   static final String icSimcard = 'assets/icons/ic_simcard.svg';
   static final String icTimer = 'assets/icons/ic_timer.svg';
   static final String icClock = 'assets/icons/ic_clock.svg';
+  static final String icNotificationV2 = 'assets/icons/ic_notification_v2.svg';
+  static final String icSearchV2 = 'assets/icons/ic_search_v2.svg';
+  static final String bgFTTHPackage = 'assets/icons/ic_bg_ftth.svg';
+  static final String imgFilmDefault =
+      'assets/images/img_film_default.png';
+  static final String imgGameDefault =
+      'assets/images/img_game_default.png';
+  static final String imgPromotionDefault =
+      'assets/images/img_promotion_default.png';
+  static final String imgEntertainmentDefault =
+      'assets/images/img_entertainment_default.png';
+  static final String imgAvatarDefault =
+      'assets/images/img_avatar_default.png';
   static final String icFilter = 'assets/icons/ic_filter.svg';
   static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
   static final String icCalendar2 = 'assets/icons/ic_calendar2.svg';

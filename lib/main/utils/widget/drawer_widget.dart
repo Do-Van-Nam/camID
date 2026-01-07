@@ -4,6 +4,7 @@ import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
@@ -192,14 +193,19 @@ class AppDrawer extends StatelessWidget {
   Widget _buildLoggedInHeader(BuildContext context) {
     return Row(
       children: [
-        CircleAvatar(
-          radius: 28,
-          backgroundImage: AssetImage(AppImages.icAvatarDefault),
+        SafeImage(
+          url: UserInfoModel.instance.avatar,
+          placeholder: AppImages.imgAvatarDefault,
+          errorAsset: AppImages.imgAvatarDefault,
+          isCircle: true,
+          width: 48,
+          height: 48,
         ),
         const SizedBox(width: 12),
         Expanded(
           child: GestureDetector(
             onTap: () {
+              Navigator.of(context).pop();
               context.push(PATH_USER_PROFILE);
             },
             child: Column(
@@ -252,6 +258,7 @@ class AppDrawer extends StatelessWidget {
             width: double.infinity,
             child: ElevatedButton(
               onPressed: () {
+                Navigator.of(context).pop();
                 _onLogin(context);
               },
               style: ElevatedButton.styleFrom(
