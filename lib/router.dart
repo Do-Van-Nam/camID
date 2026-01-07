@@ -2,15 +2,18 @@ import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
-import 'package:cam_id/main/ui/entertainment/game_list/game_list_page.dart';
-import 'package:cam_id/main/ui/entertainment/ranking/ranking_page.dart';
+import 'package:cam_id/main/ui/entertainment/game/game_list/game_list_page.dart';
+import 'package:cam_id/main/ui/entertainment/game/gift/gift_page.dart';
+import 'package:cam_id/main/ui/entertainment/game/ranking/ranking_page.dart';
 import 'package:cam_id/main/ui/edit_information/edit_information_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
+import 'package:cam_id/main/ui/help_center/feedback/feedback_page.dart';
 import 'package:cam_id/main/ui/identity_verification/identity_verification_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
+import 'package:cam_id/main/ui/notification/notification_detail/notification_detail_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
@@ -51,6 +54,7 @@ const String PATH_IDENTITY_VERIFICATION = "/identity_verification";
 
 // notificaion
 const String PATH_NOTIFICATION = "/notificaion";
+const String PATH_NOTIFICATION_DETAIL = "/notificaion/detail";
 
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
@@ -62,6 +66,9 @@ const String PATH_EDIT_INFORMATION = "/edit_information";
 const String PATH_GAME = "/game";
 const String PATH_GAME_LIST = "/game_list";
 const String PATH_RANKING = "/ranking";
+const String PATH_GIFT = "/gift";
+
+const String PATH_HELPCENTER_FEEDBACK = "/gift";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -109,10 +116,18 @@ final GoRouter router = GoRouter(
           path: PATH_FEEDBACK,
           builder: (context, state) => FeedbackPage(),
         ),
+        GoRoute(
+          path: PATH_HELPCENTER_FEEDBACK,
+          builder: (context, state) => HelpCenterFeedbackPage(),
+        ),
         // notificaion
         GoRoute(
           path: PATH_NOTIFICATION,
           builder: (context, state) => NotificationPage(),
+        ),
+        GoRoute(
+          path: PATH_NOTIFICATION_DETAIL,
+          builder: (context, state) => NotificationDetailPage(),
         ),
         //chat bot
         GoRoute(
@@ -128,6 +143,7 @@ final GoRouter router = GoRouter(
           builder: (context, state) => GameListPage(),
         ),
         GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
+        GoRoute(path: PATH_GIFT, builder: (context, state) => GiftPage()),
         // ----------------------------------------------
         GoRoute(
           path: PATH_FIND_STORES,
@@ -209,7 +225,6 @@ final GoRouter router = GoRouter(
         //     return VerifyIdPage(idType: idType);
         //   },
         // ),
-
         GoRoute(
           path: PATH_EDIT_INFORMATION,
           builder: (context, state) {

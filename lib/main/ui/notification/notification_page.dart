@@ -4,6 +4,7 @@ import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
+import 'package:cam_id/router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -311,6 +312,7 @@ class _NotificationPageState extends State<NotificationPage>
           if (!noti.isRead) {
             context.read<NotificationBloc>().add(MarkAsReadEvent(noti.id));
           }
+          context.push(PATH_NOTIFICATION_DETAIL);
           // Có thể mở chi tiết thông báo ở đây
         },
         child: Container(

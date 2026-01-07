@@ -1012,12 +1012,6 @@ abstract class AppLocalizations {
   /// **'Enter your account FTTH'**
   String get accountFtthHint;
 
-  /// No description provided for @aaaaaaaaaaaaaaaaaaaaaaaaaaaa.
-  ///
-  /// In en, this message translates to:
-  /// **'aaaaaaaaaaaaaaaaaaaaaaaaaaa'**
-  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa;
-
   /// No description provided for @feedbackSuccessTitle.
   ///
   /// In en, this message translates to:
@@ -1132,6 +1126,336 @@ abstract class AppLocalizations {
   /// **'Recent Searches'**
   String get recentSearches;
 
+  /// No description provided for @detail.
+  ///
+  /// In en, this message translates to:
+  /// **'Detail'**
+  String get detail;
+
+  /// No description provided for @voice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get voice;
+
+  /// No description provided for @sms.
+  ///
+  /// In en, this message translates to:
+  /// **'SMS'**
+  String get sms;
+
+  /// No description provided for @data.
+  ///
+  /// In en, this message translates to:
+  /// **'Data'**
+  String get data;
+
+  /// No description provided for @getNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Get Now'**
+  String get getNow;
+
+  /// No description provided for @prizeList.
+  ///
+  /// In en, this message translates to:
+  /// **'Prize List'**
+  String get prizeList;
+
+  /// No description provided for @myPrize.
+  ///
+  /// In en, this message translates to:
+  /// **'My Prize'**
+  String get myPrize;
+
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @prize.
+  ///
+  /// In en, this message translates to:
+  /// **'Prize'**
+  String get prize;
+
+  /// No description provided for @feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback'**
+  String get feedback;
+
+  /// No description provided for @mobileVasEmoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile/VAS/e-Money'**
+  String get mobileVasEmoney;
+
+  /// No description provided for @ftthTv360.
+  ///
+  /// In en, this message translates to:
+  /// **'FTTH/TV360'**
+  String get ftthTv360;
+
+  /// No description provided for @enterAccountToVerify.
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter Account number to verify'**
+  String get enterAccountToVerify;
+
+  /// No description provided for @enterAccountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter account number'**
+  String get enterAccountNumber;
+
+  /// No description provided for @confirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get confirm;
+
+  /// No description provided for @otpSentTo.
+  ///
+  /// In en, this message translates to:
+  /// **'OTP has been sent to'**
+  String get otpSentTo;
+
+  /// No description provided for @didNotReceiveOtp.
+  ///
+  /// In en, this message translates to:
+  /// **'Didn\'t receive a OTP?'**
+  String get didNotReceiveOtp;
+
+  /// No description provided for @requestProcessed.
+  ///
+  /// In en, this message translates to:
+  /// **'Request in processed'**
+  String get requestProcessed;
+
+  /// No description provided for @noHistoryFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Hello {name}, there is no historical information reflecting your experience with the {service} service.'**
+  String noHistoryFound(Object name, Object service);
+
+  /// No description provided for @changeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Account'**
+  String get changeAccount;
+
+  /// No description provided for @addFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Add Feedback'**
+  String get addFeedback;
+
+  /// No description provided for @selectType.
+  ///
+  /// In en, this message translates to:
+  /// **'Select type'**
+  String get selectType;
+
+  /// No description provided for @select.
+  ///
+  /// In en, this message translates to:
+  /// **'Select'**
+  String get select;
+
+  /// No description provided for @customerName.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer name'**
+  String get customerName;
+
+  /// No description provided for @accountNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Account number'**
+  String get accountNumber;
+
+  /// No description provided for @phoneNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone number'**
+  String get phoneNumber;
+
+  /// No description provided for @error.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get error;
+
+  /// No description provided for @complaintType.
+  ///
+  /// In en, this message translates to:
+  /// **'Complaint type'**
+  String get complaintType;
+
+  /// No description provided for @enterFeedbackHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your feedback here'**
+  String get enterFeedbackHint;
+
+  /// No description provided for @uploadPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Upload photo'**
+  String get uploadPhoto;
+
+  /// No description provided for @sendFeedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Send feedback'**
+  String get sendFeedback;
+
+  /// No description provided for @successfully.
+  ///
+  /// In en, this message translates to:
+  /// **'Successfully'**
+  String get successfully;
+
+  /// No description provided for @feedbackSuccessMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'We will review it within 2 days then let you know by notification. Please login to your Camid account to get notification about your feedback'**
+  String get feedbackSuccessMsg;
+
+  /// No description provided for @statusReceived.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get statusReceived;
+
+  /// No description provided for @statusProcessing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get statusProcessing;
+
+  /// No description provided for @statusClosed.
+  ///
+  /// In en, this message translates to:
+  /// **'Closed'**
+  String get statusClosed;
+
+  /// No description provided for @selectDateRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Select Date Range'**
+  String get selectDateRange;
+
+  /// No description provided for @from.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get from;
+
+  /// No description provided for @to.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get to;
+
+  /// No description provided for @serviceType.
+  ///
+  /// In en, this message translates to:
+  /// **'Service type'**
+  String get serviceType;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @confirmChangeAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Are you sure want to change account feedback services?'**
+  String get confirmChangeAccount;
+
+  /// No description provided for @no.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get no;
+
+  /// No description provided for @yes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get yes;
+
+  /// No description provided for @feedbackDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Feedback Detail'**
+  String get feedbackDetail;
+
+  /// No description provided for @receiveDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive date'**
+  String get receiveDate;
+
+  /// No description provided for @expectedDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected deadline'**
+  String get expectedDeadline;
+
+  /// No description provided for @evaluateQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'Evaluate quality of feedback'**
+  String get evaluateQuality;
+
+  /// No description provided for @satisfy.
+  ///
+  /// In en, this message translates to:
+  /// **'Satisfy'**
+  String get satisfy;
+
+  /// No description provided for @notSatisfy.
+  ///
+  /// In en, this message translates to:
+  /// **'Not satisfy'**
+  String get notSatisfy;
+
+  /// No description provided for @time.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get time;
+
+  /// No description provided for @status.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get status;
+
+  /// No description provided for @received.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get received;
+
+  /// No description provided for @processing.
+  ///
+  /// In en, this message translates to:
+  /// **'Processing'**
+  String get processing;
+
+  /// No description provided for @aaaaaaaaaaaaaaaaaaaaaaaaaaaa.
+  ///
+  /// In en, this message translates to:
+  /// **'aaaaaaaaaaaaaaaaaaaaaaaaaaa'**
+  String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa;
+
   /// No description provided for @take_a_photo.
   ///
   /// In en, this message translates to:
@@ -1192,12 +1516,6 @@ abstract class AppLocalizations {
   /// **'Enter your ID'**
   String get enter_your_id;
 
-  /// No description provided for @select.
-  ///
-  /// In en, this message translates to:
-  /// **'Select'**
-  String get select;
-
   /// No description provided for @other.
   ///
   /// In en, this message translates to:
@@ -1245,12 +1563,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Call'**
   String get call;
-
-  /// No description provided for @sms.
-  ///
-  /// In en, this message translates to:
-  /// **'SMS'**
-  String get sms;
 
   /// No description provided for @roaming.
   ///

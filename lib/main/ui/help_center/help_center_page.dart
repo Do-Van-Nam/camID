@@ -198,7 +198,7 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                                 AppImages.icFeedBack,
                                 l10n.feedbackTitleLabel,
                                 () {
-                                  context.push(PATH_FEEDBACK);
+                                  context.push(PATH_HELPCENTER_FEEDBACK);
                                 },
                               ),
                               supportIcon(

@@ -174,6 +174,7 @@ class AppImages {
   static final String icCamIdLogo = 'assets/icons/ic_camid_logo.svg';
   static final String icTrash = 'assets/icons/ic_trash.svg';
   static final String icCalendarCircle = 'assets/icons/ic_calendar_circle.svg';
+  static final String icCalendarGray = 'assets/icons/ic_calendar_gray.svg';
   static final String icTask = 'assets/icons/ic_task.svg';
   static final String icTrashBlack = 'assets/icons/ic_trash_black.svg';
   static final String icClose = 'assets/icons/ic_close.svg';
@@ -201,4 +202,8 @@ class AppImages {
   static final String icScanCard = 'assets/icons/ic_scan_card.svg';
   static final String icAccountDetail = 'assets/icons/ic_account_detail.svg';
 
+  static final String icFilter = 'assets/icons/ic_filter.svg';
+  static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
+
+  // ------------------------ N ------------------------
 }
