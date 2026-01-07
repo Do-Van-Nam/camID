@@ -128,16 +128,15 @@ class GamePage extends StatelessWidget {
                             child: _buildBigButton(
                               l10n.myGift,
                               AppImages.imgReward,
+                              () => context.push(PATH_GIFT),
                             ),
                           ),
                           const SizedBox(width: 16),
                           Expanded(
-                            child: GestureDetector(
-                              onTap: () => context.push(PATH_RANKING),
-                              child: _buildBigButton(
-                                l10n.ranking,
-                                AppImages.imgRanking,
-                              ),
+                            child: _buildBigButton(
+                              l10n.ranking,
+                              AppImages.imgRanking,
+                              () => context.push(PATH_RANKING),
                             ),
                           ),
                         ],
@@ -332,21 +331,24 @@ class GamePage extends StatelessWidget {
     );
   }
 
-  Widget _buildBigButton(String title, String image) {
-    return Container(
-      height: 80,
-      padding: EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: Center(
-        child: Text(
-          title,
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
+  Widget _buildBigButton(String title, String image, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 80,
+        padding: EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(image), fit: BoxFit.cover),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Center(
+          child: Text(
+            title,
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
           ),
         ),
       ),
