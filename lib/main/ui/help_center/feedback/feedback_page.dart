@@ -5,12 +5,14 @@ import 'package:cam_id/main/data/model/notify/notify_model.dart';
 import 'package:cam_id/main/ui/help_center/feedback/feedback_bloc.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
+import 'package:cam_id/main/utils/widget/drop_down_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/router.dart';
 import 'package:dotted_dashed_line/dotted_dashed_line.dart';
+import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -145,8 +147,8 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
         if (state.isLoadingNews) {
           return const Center(child: CircularProgressIndicator());
         }
+        // nhap otp
         if (state.isSentOTP) {
-          // nhap otp
           return Align(
             alignment: AlignmentGeometry.topCenter,
             child: Padding(
@@ -246,6 +248,7 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
             ),
           );
         }
+        // list request rong
         if (!state.isInitial && state.newsNotifications.isEmpty) {
           return Align(
             alignment: AlignmentGeometry.topCenter,
@@ -307,6 +310,7 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
             ),
           );
         }
+        // khoi tao, nhap so dien thoai
         if (state.isInitial) {
           // nhap so dien thoai
           return Align(
@@ -382,8 +386,189 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
             ),
           );
         }
-        return // List request
-        SafeArea(
+
+        //add request
+        return SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                    left: 16.0,
+                    right: 16,
+                    top: 16,
+                  ),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: commonContainer(
+                      child: Column(
+                        spacing: 8,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            l10n.selectType,
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 16,
+                              color: AppColors.color_8588,
+                            ),
+                          ),
+                          CustomDropdownButton3(
+                            dropdownItems: ["1", "2", "2"],
+                            hint: l10n.select,
+                            onChanged: (value) => {},
+                            value: "1",
+                            icon: AppImages.icArrowDown,
+                          ),
+                          Text(
+                            l10n.customerName,
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 16,
+                              color: AppColors.color_8588,
+                            ),
+                          ),
+                          inputTextField(
+                            hintText: l10n.nameHint,
+                            maxLine: 1,
+                            onChanged: (value) {},
+                          ),
+                          Row(
+                            spacing: 16,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  spacing: 16,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      l10n.accountNumber,
+                                      style: AppStyles.poppins12Regular
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color: AppColors.color_8588,
+                                          ),
+                                    ),
+                                    inputTextField(
+                                      hintText: l10n.enterAccountNumber,
+                                      maxLine: 1,
+                                      onChanged: (value) {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  spacing: 16,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      l10n.phoneNumber,
+                                      style: AppStyles.poppins12Regular
+                                          .copyWith(
+                                            fontSize: 16,
+                                            color: AppColors.color_8588,
+                                          ),
+                                    ),
+                                    inputTextField(
+                                      hintText: l10n.enter_your_phone_number,
+                                      maxLine: 1,
+                                      onChanged: (value) {},
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            l10n.error,
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 16,
+                              color: AppColors.color_8588,
+                            ),
+                          ),
+                          CustomDropdownButton3(
+                            dropdownItems: ["1", "2", "2"],
+                            hint: l10n.select,
+                            onChanged: (value) => {},
+                            value: "1",
+                            icon: AppImages.icArrowDown,
+                          ),
+                          Text(
+                            l10n.complaintType,
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 16,
+                              color: AppColors.color_8588,
+                            ),
+                          ),
+                          CustomDropdownButton3(
+                            dropdownItems: ["1", "2", "2"],
+                            hint: l10n.select,
+                            onChanged: (value) => {},
+                            value: "1",
+                            icon: AppImages.icArrowDown,
+                          ),
+                          Text(
+                            l10n.feedback,
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 16,
+                              color: AppColors.color_8588,
+                            ),
+                          ),
+                          inputTextField(
+                            hintText: l10n.enterFeedbackHint,
+                            maxLine: 1,
+                            onChanged: (value) {},
+                          ),
+                          SizedBox(height: 8),
+                          FDottedLine(
+                            color: AppColors.color_8588, // Màu của đường viền
+                            strokeWidth: 1.5, // Độ dày của viền
+                            dottedLength: 6.0, // Độ dài mỗi đoạn nét đứt
+                            space: 4.0, // Khoảng cách giữa các nét đứt
+                            corner: FDottedLineCorner.all(16), // Bo góc ở đây
+                            child: Container(
+                              width: double.infinity,
+                              padding: const EdgeInsets.symmetric(
+                                vertical: 20,
+                                horizontal: 16,
+                              ),
+                              decoration: const BoxDecoration(
+                                color: Colors.transparent, // Trong suốt
+                              ),
+                              child: Row(
+                                spacing: 8,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(AppImages.icCamera),
+                                  Text(
+                                    l10n.uploadPhoto,
+                                    style: AppStyles.poppins12Regular.copyWith(
+                                      color: AppColors.colorMain,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                //color: Colors.white,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(color: Colors.white),
+                //padding: EdgeInsets.all(8),
+                child: commonButton(text: l10n.sendFeedback, onPressed: () {}),
+              ),
+            ],
+          ),
+        );
+
+        // List request
+        return SafeArea(
           child: Column(
             children: [
               Expanded(
