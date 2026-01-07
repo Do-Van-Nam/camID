@@ -100,3 +100,18 @@ Widget supportIcon(String icon, String label, VoidCallback onTap) {
     ),
   );
 }
+
+Widget commonContainer({required Widget child}) {
+  return Container(
+    width: double.infinity,
+    padding: EdgeInsets.all(16),
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(16),
+      boxShadow: [
+        BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10),
+      ],
+    ),
+    child: child,
+  );
+}

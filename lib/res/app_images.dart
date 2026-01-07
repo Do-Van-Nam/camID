@@ -194,6 +194,9 @@ class AppImages {
   static final String icClock = 'assets/icons/ic_clock.svg';
   static final String icFilter = 'assets/icons/ic_filter.svg';
   static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
+  static final String icCalendar2 = 'assets/icons/ic_calendar2.svg';
+  static final String icRadioBtn = 'assets/icons/ic_radio_btn.svg';
+  static final String icRadioBtnTicked = 'assets/icons/ic_radio_btn_ticked.svg';
 
   // ------------------------ N ------------------------
 }

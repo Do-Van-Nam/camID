@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cam_id/main/data/model/notify/notify_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -5,13 +7,15 @@ part 'feedback_event.dart';
 part 'feedback_state.dart';
 
 class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
+  Timer? _timer;
+  static const int _initialSeconds = 90;
   FeedbackBloc() : super(FeedbackState.initial()) {
     // Load News Notifications
     on<LoadNewsNotifications>((event, emit) async {
       emit(state.copyWith(isLoadingNews: true));
       await Future.delayed(const Duration(seconds: 1)); // Giả lập API
       final fakeNews = List.generate(
-        16,
+        10,
         (i) => NotificationItem(
           id: i + 1,
           title: "Tin tức mới $i",
@@ -88,5 +92,106 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
         // Giả lập wsClearAllComplainNotification
       }
     });
+    on<PhoneChanged>((event, emit) {
+      emit(state.copyWith(phoneNumber: event.phone));
+    });
+    on<OtpDigitChanged>((event, emit) {
+      final digits = List<String>.from(state.digits);
+      digits[event.index] = event.digit;
+      emit(state.copyWith(digits: digits));
+    });
+
+    on<OtpDigitDeleted>((event, emit) {
+      final digits = List<String>.from(state.digits);
+      if (event.index >= 0 && event.index < 6) digits[event.index] = '';
+      emit(state.copyWith(digits: digits));
+    });
+
+    on<OtpPaste>((event, emit) {
+      final pasted = event.text.replaceAll(RegExp(r'\D'), '').split('');
+      if (pasted.length == 6) {
+        emit(state.copyWith(digits: pasted));
+      }
+    });
+
+    on<OtpClear>((event, emit) {
+      emit(state.copyWith(digits: List.filled(6, '')));
+    });
+
+    // Thêm event cho timer
+    on<StartTimer>((event, emit) {
+      _startTimer(emit);
+    });
+
+    on<TickTimer>((event, emit) {
+      if (event.seconds > 0) {
+        emit(state.copyWith(remainingSeconds: event.seconds - 1));
+      } else {
+        emit(state.copyWith(remainingSeconds: 0, isResendEnabled: true));
+        _timer?.cancel();
+      }
+    });
+
+    on<ResendOtp>((event, emit) {
+      emit(
+        state.copyWith(
+          digits: List.filled(6, ''),
+          remainingSeconds: _initialSeconds,
+          isResendEnabled: false,
+        ),
+      );
+      _startTimer(emit);
+      // Ở đây bạn sẽ gọi API resend OTP thật
+    });
+    on<ChangeAcc>((event, emit) {
+      emit(state.copyWith(isInitial: true, phoneNumber: ""));
+    });
+    on<SendOtp>((event, emit) {
+      emit(
+        state.copyWith(
+          isSentOTP: true,
+          isInitial: false,
+          digits: List.filled(6, ''),
+          remainingSeconds: _initialSeconds,
+          isResendEnabled: false,
+        ),
+      );
+      _startTimer(emit);
+      // Ở đây bạn sẽ gọi API resend OTP thật
+    });
+    // gui otp di
+    on<SubmitOtp>((event, emit) {
+      emit(
+        state.copyWith(
+          isSentOTP: false,
+          digits: List.filled(6, ''),
+          remainingSeconds: _initialSeconds,
+          isResendEnabled: false,
+        ),
+      );
+      add(LoadNewsNotifications());
+      // gọi API submit OTP thật
+    });
+    // Tự động bắt đầu timer khi khởi tạo
+    // add(StartTimer());
   }
+
+  void _startTimer(Emitter<FeedbackState> emit) {
+    _timer?.cancel();
+    emit(
+      state.copyWith(remainingSeconds: _initialSeconds, isResendEnabled: false),
+    );
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      add(TickTimer(_initialSeconds - timer.tick));
+    });
+  }
+
+  @override
+  Future<void> close() {
+    _timer?.cancel();
+    return super.close();
+  }
+
+  bool get isComplete => state.digits.every((d) => d.isNotEmpty);
+  String get otpCode => state.digits.join();
 }

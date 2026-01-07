@@ -65,11 +65,21 @@ void doShowDialog(BuildContext context, Widget child) {
     },
   );
 }
-void doShowBottomSheet(BuildContext context,Widget child) {
+
+void doShowBottomSheet(BuildContext context, Widget child) {
   showModalBottomSheet(
     context: context,
     isScrollControlled: true, // Cho phép popup cao hơn nếu nội dung dài
     backgroundColor: Colors.transparent, // Để lộ bo góc của Container bên dưới
     builder: (context) => child,
   );
+}
+
+String fomatTime(int second) {
+  final secs = second < 0 ? 0 : second;
+  final minutes = secs ~/ 60;
+  final secondsLeft = secs % 60;
+  final mm = minutes.toString().padLeft(2, '0');
+  final ss = secondsLeft.toString().padLeft(2, '0');
+  return '$mm:$ss';
 }
