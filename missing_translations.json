@@ -107,7 +107,20 @@
     "top_up",
     "exchanged_damaged_card",
     "ftth_package",
-    "mobile_package"
+    "mobile_package",
+    "roaming",
+    "top_up",
+    "exchanged_damaged_card",
+    "ftth_package",
+    "mobile_package",
+    "charge_history",
+    "scan_card",
+    "account_detail",
+    "used",
+    "remaining",
+    "due_date",
+    "account_balance",
+    "expired"
   ],
 
   "vi": [
@@ -218,6 +231,14 @@
     "top_up",
     "exchanged_damaged_card",
     "ftth_package",
-    "mobile_package"
+    "mobile_package",
+    "charge_history",
+    "scan_card",
+    "account_detail",
+    "used",
+    "remaining",
+    "due_date",
+    "account_balance",
+    "expired"
   ]
 }

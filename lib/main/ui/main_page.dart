@@ -20,20 +20,20 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _currentIndex = 0;
-  // final PageController _pageController =
-  // PageController();
-  //
-  // void _onItemTapped(int index) {
-  //   setState(() {
-  //     _currentIndex = index;
-  //     _pageController.animateToPage(
-  //       index,
-  //       duration: Duration(milliseconds: 300),
-  //       curve: Curves.bounceOut,
-  //     );
-  //   });
-  //   _pageController.jumpToPage(index);
-  // }
+  final PageController _pageController =
+  PageController();
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+      _pageController.animateToPage(
+        index,
+        duration: Duration(milliseconds: 300),
+        curve: Curves.bounceOut,
+      );
+    });
+    _pageController.jumpToPage(index);
+  }
 
   @override
   void initState() {
@@ -44,8 +44,9 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: const AppDrawer(),
-      body: IndexedStack(
-        index: _currentIndex,
+      body: PageView(
+        controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
         children: [
           HomePage(),
           LoyaltyPage(),
@@ -64,7 +65,7 @@ class _MainPageState extends State<MainPage> {
           // }
 
           setState(() => _currentIndex = index);
-          // _onItemTapped(index);
+          _onItemTapped(index);
         },
       ),
     );
@@ -77,3 +78,4 @@ class _MainPageState extends State<MainPage> {
     context.push(PATH_LOGIN);
   }
 }
+

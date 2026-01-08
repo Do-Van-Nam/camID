@@ -173,7 +173,9 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                               supportIcon(
                                 AppImages.icVideoCall,
                                 l10n.video_call,
-                                () {},
+                                () {
+                                  _onShowVideoCall();
+                                },
                               ),
                               supportIcon(
                                 AppImages.icMessenger,
@@ -270,9 +272,15 @@ class _HelpCenterPageState extends State<HelpCenterPage>
   }
 
   Future<void> _onShowCall() async {
-    String userName = UserInfoModel.instance.username;
-    final camId = userName.isEmpty ? DeviceUtils.getDeviceId() : userName;
-    await IpccPlugin.showCall(camId);
+    int userName = UserInfoModel.instance.userId;
+    final camId = userName == 0 ? DeviceUtils.getDeviceId() : userName;
+    await IpccPlugin.showCall(camId.toString());
+  }
+
+  Future<void> _onShowVideoCall() async {
+    int userName = UserInfoModel.instance.userId;
+    final camId = userName == 0 ? DeviceUtils.getDeviceId() : userName;
+    await IpccPlugin.showVideoCall(camId.toString());
   }
 
   Future<void> _onShowSpeedTest() async {
