@@ -146,6 +146,28 @@ class FeedbackBloc extends Bloc<FeedbackEvent, FeedbackState> {
     on<ChangeAcc>((event, emit) {
       emit(state.copyWith(isInitial: true, phoneNumber: ""));
     });
+    on<FilterServiceTypeChanged>((event, emit) {
+      emit(state.copyWith(filterServiceType: event.type));
+    });
+    on<DateFilterChanged>((event, emit) {
+      if (event.type == "from") {
+        // Nếu ngày From mới sau ngay toDate , cap nhat toDate sau ngay do
+        if (event.date.isAfter(state.toDate) ||
+            event.date.isAtSameMomentAs(state.toDate)) {
+          emit(state.copyWith(fromDate: event.date, toDate: event.date));
+        } else {
+          emit(state.copyWith(fromDate: event.date));
+        }
+      } else {
+        // Nếu ngày To mới vẫn sau ngày From hiện tại -> Cho phép cập nhật
+        if (event.date.isAfter(state.fromDate) ||
+            event.date.isAtSameMomentAs(state.fromDate)) {
+          emit(state.copyWith(toDate: event.date));
+        } else {
+          print("Lỗi: Ngày kết thúc không được nhỏ hơn ngày bắt đầu");
+        }
+      }
+    });
     on<SendOtp>((event, emit) {
       emit(
         state.copyWith(

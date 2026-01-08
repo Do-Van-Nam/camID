@@ -194,21 +194,23 @@ class AppImages {
   static final String icNotificationV2 = 'assets/icons/ic_notification_v2.svg';
   static final String icSearchV2 = 'assets/icons/ic_search_v2.svg';
   static final String bgFTTHPackage = 'assets/icons/ic_bg_ftth.svg';
-  static final String imgFilmDefault =
-      'assets/images/img_film_default.png';
-  static final String imgGameDefault =
-      'assets/images/img_game_default.png';
+  static final String imgFilmDefault = 'assets/images/img_film_default.png';
+  static final String imgGameDefault = 'assets/images/img_game_default.png';
   static final String imgPromotionDefault =
       'assets/images/img_promotion_default.png';
   static final String imgEntertainmentDefault =
       'assets/images/img_entertainment_default.png';
-  static final String imgAvatarDefault =
-      'assets/images/img_avatar_default.png';
+  static final String imgAvatarDefault = 'assets/images/img_avatar_default.png';
   static final String icFilter = 'assets/icons/ic_filter.svg';
   static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
   static final String icCalendar2 = 'assets/icons/ic_calendar2.svg';
+  static final String icCalendarRed = 'assets/icons/ic_calendar_red.svg';
   static final String icRadioBtn = 'assets/icons/ic_radio_btn.svg';
   static final String icRadioBtnTicked = 'assets/icons/ic_radio_btn_ticked.svg';
+  static final String icAmount = 'assets/icons/ic_amount.svg';
+  static final String imgAmount = 'assets/images/img_amount.png';
+  static final String imgAmount2 = 'assets/images/img_amount2.png';
+  static final String icAmount2 = 'assets/icons/ic_amount2.svg';
 
   // ------------------------ N ------------------------
 }

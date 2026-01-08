@@ -1186,6 +1186,24 @@ abstract class AppLocalizations {
   /// **'Feedback'**
   String get feedback;
 
+  /// No description provided for @mobile.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobile'**
+  String get mobile;
+
+  /// No description provided for @wifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Wifi'**
+  String get wifi;
+
+  /// No description provided for @emoney.
+  ///
+  /// In en, this message translates to:
+  /// **'E-Money'**
+  String get emoney;
+
   /// No description provided for @mobileVasEmoney.
   ///
   /// In en, this message translates to:
@@ -1449,6 +1467,132 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Processing'**
   String get processing;
+
+  /// No description provided for @tierBenefits.
+  ///
+  /// In en, this message translates to:
+  /// **'Tier Benefits'**
+  String get tierBenefits;
+
+  /// No description provided for @bronzeMember.
+  ///
+  /// In en, this message translates to:
+  /// **'BRONZE MEMBER'**
+  String get bronzeMember;
+
+  /// No description provided for @points.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get points;
+
+  /// No description provided for @usedPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Used points'**
+  String get usedPoints;
+
+  /// No description provided for @upgradeToGold.
+  ///
+  /// In en, this message translates to:
+  /// **'Upgrade to Gold'**
+  String get upgradeToGold;
+
+  /// No description provided for @needPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Need {count} Points'**
+  String needPoints(Object count);
+
+  /// No description provided for @viewHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'View history'**
+  String get viewHistory;
+
+  /// No description provided for @bronze.
+  ///
+  /// In en, this message translates to:
+  /// **'Bronze'**
+  String get bronze;
+
+  /// No description provided for @silver.
+  ///
+  /// In en, this message translates to:
+  /// **'Silver'**
+  String get silver;
+
+  /// No description provided for @gold.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold'**
+  String get gold;
+
+  /// No description provided for @diamond.
+  ///
+  /// In en, this message translates to:
+  /// **'Diamond'**
+  String get diamond;
+
+  /// No description provided for @requirements.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirements'**
+  String get requirements;
+
+  /// No description provided for @pointsNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'Points Needed'**
+  String get pointsNeeded;
+
+  /// No description provided for @activePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Active Period'**
+  String get activePeriod;
+
+  /// No description provided for @months.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} Months'**
+  String months(Object count);
+
+  /// No description provided for @exclusivePrivileges.
+  ///
+  /// In en, this message translates to:
+  /// **'Exclusive Privileges'**
+  String get exclusivePrivileges;
+
+  /// No description provided for @privilege1.
+  ///
+  /// In en, this message translates to:
+  /// **'Receive 100,000 reward points on your birthday.'**
+  String get privilege1;
+
+  /// No description provided for @privilege2.
+  ///
+  /// In en, this message translates to:
+  /// **'Prioritize prompt resolution of customer issues and complaints.'**
+  String get privilege2;
+
+  /// No description provided for @privilege3.
+  ///
+  /// In en, this message translates to:
+  /// **'Redeem points for rewards and partner programs.'**
+  String get privilege3;
+
+  /// No description provided for @privilege4.
+  ///
+  /// In en, this message translates to:
+  /// **'Deposit fee waived when increasing your credit limit up to 10 million VND.'**
+  String get privilege4;
+
+  /// No description provided for @privilege5.
+  ///
+  /// In en, this message translates to:
+  /// **'Dedicated customer service hotline'**
+  String get privilege5;
 
   /// No description provided for @aaaaaaaaaaaaaaaaaaaaaaaaaaaa.
   ///

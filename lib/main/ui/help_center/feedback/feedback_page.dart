@@ -1,11 +1,8 @@
-import 'dart:math';
-
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/notify/notify_model.dart';
 import 'package:cam_id/main/ui/help_center/feedback/feedback_bloc.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
-import 'package:cam_id/main/utils/widget/drop_down_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
@@ -16,10 +13,8 @@ import 'package:fdottedline_nullsafety/fdottedline__nullsafety.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import 'feedback_bloc.dart';
 
 class HelpCenterFeedbackPage extends StatefulWidget {
   const HelpCenterFeedbackPage({super.key});
@@ -85,9 +80,26 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
                     height: 24,
                   ),
                   onPressed: () {
-                    // final FeedbackBloc = context.read<FeedbackBloc>();
+                    final feedbackBloc = context.read<FeedbackBloc>();
 
-                    doShowBottomSheet(context, _buildBottomSheet(context));
+                    showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        // Cung cấp Bloc cho context của Dialog
+                        return BlocProvider.value(
+                          value: feedbackBloc,
+                          child: Dialog(
+                            backgroundColor: Colors.transparent,
+                            // BlocBuilder phải nằm ở ĐÂY để lắng nghe thay đổi khi đang mở Dialog
+                            child: BlocBuilder<FeedbackBloc, FeedbackState>(
+                              builder: (context, state) {
+                                return _buildFilterDialog(context, state);
+                              },
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                 );
               },
@@ -561,7 +573,12 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(color: Colors.white),
                 //padding: EdgeInsets.all(8),
-                child: commonButton(text: l10n.sendFeedback, onPressed: () {}),
+                child: commonButton(
+                  text: l10n.sendFeedback,
+                  onPressed: () {
+                    doShowDialog(context, _buildSuccessDialog(context));
+                  },
+                ),
               ),
             ],
           ),
@@ -827,75 +844,6 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
     );
   }
 
-  Widget _buildBottomSheet(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: const BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        spacing: 16,
-        mainAxisSize: MainAxisSize.min, // Chỉ cao bằng nội dung bên trong
-        children: [
-          // 2. Nội dung chính
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SizedBox(),
-              Text(
-                l10n.more, // Dùng l10n.notificationTitle nếu muốn
-                style: AppStyles.header.copyWith(fontSize: 18),
-              ),
-              GestureDetector(
-                onTap: () => context.pop(),
-                child: SvgPicture.asset(AppImages.icClose),
-              ),
-            ],
-          ),
-          // 1. Thanh gạch ngang nhỏ trên đầu (Handle bar)
-          Divider(
-            color: Colors.grey.withOpacity(0.2), // Màu xám mờ
-            thickness: 1, // Độ dày của đường kẻ
-            height:
-                1, // Khoảng cách mà widget này chiếm (bao gồm cả khoảng trống trên dưới)
-            indent: 16, // Khoảng cách thụt vào từ bên trái
-            endIndent: 16, // Khoảng cách thụt vào từ bên phải
-          ),
-          GestureDetector(
-            onTap: () {
-              context.read<FeedbackBloc>().add(ReadAllEvent(false));
-              context.pop();
-            },
-
-            child: Row(
-              spacing: 8,
-              children: [
-                SvgPicture.asset(AppImages.icTask),
-                Text(l10n.readAll, style: AppStyles.poppins14Medium),
-              ],
-            ),
-          ),
-          GestureDetector(
-            onTap: () {
-              context.read<FeedbackBloc>().add(ClearAllEvent(false));
-              context.pop();
-            },
-            child: Row(
-              spacing: 8,
-              children: [
-                SvgPicture.asset(AppImages.icTrashBlack),
-                Text(l10n.clearAll, style: AppStyles.poppins14Medium),
-              ],
-            ),
-          ),
-          const SizedBox(height: 20), // Khoảng trống an toàn dưới cùng
-        ],
-      ),
-    );
-  }
-
   Widget _buildEmptyNoti(l10n) {
     return Center(
       child: Column(
@@ -1046,6 +994,298 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
               ),
             ],
           ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFilterDialog(BuildContext context, FeedbackState state) {
+    final bloc = context.read<FeedbackBloc>();
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 10.0),
+          ),
+        ],
+      ),
+      child: Column(
+        spacing: 8,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize
+            .min, // Quan trọng: Để popup không chiếm hết chiều cao màn hình
+        children: [
+          // 2. Tiêu đề
+          Center(
+            child: Text(
+              l10n.selectDateRange,
+              style: AppTextFonts.poppinsSemiBold.copyWith(
+                color: Colors.black,
+                fontSize: 18,
+              ),
+            ),
+          ),
+          // chon ngay thang
+          Row(
+            spacing: 8,
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.from,
+                      style: AppStyles.poppins12Regular.copyWith(
+                        fontSize: 16,
+                        color: AppColors.color_8588,
+                      ),
+                    ),
+                    _buildDatePickerField(
+                      context: context,
+                      selectedDate: state.fromDate,
+                      onDateSelected: (newDate) {
+                        bloc.add(DateFilterChanged(newDate, "from"));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      l10n.to,
+                      style: AppStyles.poppins12Regular.copyWith(
+                        fontSize: 16,
+                        color: AppColors.color_8588,
+                      ),
+                    ),
+                    _buildDatePickerField(
+                      context: context,
+                      selectedDate: state.toDate,
+                      onDateSelected: (newDate) {
+                        bloc.add(DateFilterChanged(newDate, "to"));
+                      },
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          // chon service type
+          Text(
+            l10n.serviceType,
+            style: AppStyles.poppins12Regular.copyWith(
+              fontSize: 16,
+              color: AppColors.color_8588,
+            ),
+          ),
+          Row(
+            spacing: 8,
+            children: [
+              Expanded(
+                child: _buildFilterSertypeItem(
+                  selectedType: state.filterServiceType,
+                  type: "e-money",
+                  label: l10n.emoney,
+                  context: context,
+                ),
+              ),
+              Expanded(
+                child: _buildFilterSertypeItem(
+                  selectedType: state.filterServiceType,
+                  type: "mobile",
+                  label: l10n.mobile,
+                  context: context,
+                ),
+              ),
+              Expanded(
+                child: _buildFilterSertypeItem(
+                  selectedType: state.filterServiceType,
+                  type: "wifi",
+                  label: l10n.wifi,
+                  context: context,
+                ),
+              ),
+            ],
+          ),
+
+          // chon error
+          Text(
+            l10n.error,
+            style: AppStyles.poppins12Regular.copyWith(
+              fontSize: 16,
+              color: AppColors.color_8588,
+            ),
+          ),
+          CustomDropdownButton3(
+            dropdownItems: ["1", "2", "2"],
+            hint: l10n.select,
+            onChanged: (value) => {},
+            value: "1",
+            icon: AppImages.icArrowDown,
+          ),
+          // 4. Các nút bấm hành động
+          Row(
+            spacing: 8,
+            children: [
+              Expanded(
+                child: commonButton(
+                  text: l10n.cancel,
+                  color: AppColors.color_5F5F,
+                  textColor: AppColors.color_0000,
+                  onPressed: () => context.pop(),
+                ),
+              ),
+              Expanded(
+                child: commonButton(
+                  text: l10n.search,
+                  onPressed: () {
+                    bloc.add(ChangeAcc());
+                    context.pop();
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDatePickerField({
+    required BuildContext context,
+    required DateTime selectedDate,
+    required Function(DateTime) onDateSelected,
+  }) {
+    return GestureDetector(
+      onTap: () async {
+        // Mở DatePicker của hệ thống
+        final DateTime? picked = await showDatePicker(
+          context: context,
+          initialDate: selectedDate,
+          firstDate: DateTime(2000),
+          lastDate: DateTime(2101),
+        );
+        print(picked);
+        if (picked != null && picked != selectedDate) {
+          onDateSelected(picked);
+        }
+      },
+      child: grayContainer(
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          spacing: 8,
+          children: [
+            Text(
+              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
+              style: AppStyles.poppins12Regular.copyWith(fontSize: 14),
+            ),
+            SvgPicture.asset(AppImages.icCalendarRed),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildFilterSertypeItem({
+    required String selectedType,
+    required String type,
+    required String label,
+    required BuildContext context,
+  }) {
+    return InkWell(
+      onTap: () {
+        context.read<FeedbackBloc>().add(FilterServiceTypeChanged(type));
+      },
+      borderRadius: BorderRadius.circular(12),
+      child: Ink(
+        width: double.infinity,
+        decoration: BoxDecoration(
+          color: AppColors.color_F7F7,
+          border: Border.all(color: AppColors.color_E4E6),
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            Image.asset(
+              type == selectedType ? AppImages.imgAmount : AppImages.imgAmount2,
+              width: double.infinity,
+              fit: BoxFit.fitWidth,
+            ),
+            // Nội dung nút
+            Text(
+              label,
+              style: AppStyles.poppins14Medium.copyWith(
+                color: type == selectedType
+                    ? AppColors.colorMain
+                    : AppColors.color_0000,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSuccessDialog(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.rectangle,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 10.0,
+            offset: Offset(0.0, 10.0),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize
+            .min, // Quan trọng: Để popup không chiếm hết chiều cao màn hình
+        children: [
+          // 1. Icon hoặc Hình ảnh phía trên
+          SvgPicture.asset(AppImages.icGreenTick, width: 64, height: 64),
+          const SizedBox(height: 16),
+
+          // 2. Tiêu đề
+          Text(
+            l10n.successfully, // Có thể dùng l10n.informationTitle
+            style: AppTextFonts.poppinsSemiBold.copyWith(
+              color: Colors.black,
+              fontSize: 18,
+            ),
+          ),
+          const SizedBox(height: 12),
+
+          // 3. Nội dung mô tả
+          Text(
+            l10n.feedbackSuccessMsg,
+            style: AppTextFonts.poppinsRegular.copyWith(
+              color: AppColors.color_8588,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.center,
+            //     style: AppTextFonts.poppins12Regular,
+          ),
+          const SizedBox(height: 24),
+
+          // 4. Các nút bấm hành động
+          commonButton(text: l10n.close, onPressed: () => context.pop()),
         ],
       ),
     );

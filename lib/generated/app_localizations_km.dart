@@ -565,6 +565,15 @@ class AppLocalizationsKm extends AppLocalizations {
   String get feedback => 'Feedback';
 
   @override
+  String get mobile => 'Mobile';
+
+  @override
+  String get wifi => 'Wifi';
+
+  @override
+  String get emoney => 'E-Money';
+
+  @override
   String get mobileVasEmoney => 'Mobile/VAS/e-Money';
 
   @override
@@ -699,6 +708,75 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get processing => 'Processing';
+
+  @override
+  String get tierBenefits => 'Tier Benefits';
+
+  @override
+  String get bronzeMember => 'BRONZE MEMBER';
+
+  @override
+  String get points => 'Points';
+
+  @override
+  String get usedPoints => 'Used points';
+
+  @override
+  String get upgradeToGold => 'Upgrade to Gold';
+
+  @override
+  String needPoints(Object count) {
+    return 'Need $count Points';
+  }
+
+  @override
+  String get viewHistory => 'View history';
+
+  @override
+  String get bronze => 'Bronze';
+
+  @override
+  String get silver => 'Silver';
+
+  @override
+  String get gold => 'Gold';
+
+  @override
+  String get diamond => 'Diamond';
+
+  @override
+  String get requirements => 'Requirements';
+
+  @override
+  String get pointsNeeded => 'Points Needed';
+
+  @override
+  String get activePeriod => 'Active Period';
+
+  @override
+  String months(Object count) {
+    return '$count Months';
+  }
+
+  @override
+  String get exclusivePrivileges => 'Exclusive Privileges';
+
+  @override
+  String get privilege1 => 'Receive 100,000 reward points on your birthday.';
+
+  @override
+  String get privilege2 =>
+      'Prioritize prompt resolution of customer issues and complaints.';
+
+  @override
+  String get privilege3 => 'Redeem points for rewards and partner programs.';
+
+  @override
+  String get privilege4 =>
+      'Deposit fee waived when increasing your credit limit up to 10 million VND.';
+
+  @override
+  String get privilege5 => 'Dedicated customer service hotline';
 
   @override
   String get aaaaaaaaaaaaaaaaaaaaaaaaaaaa => 'aaaaaaaaaaaaaaaaaaaaaaaaaaa';

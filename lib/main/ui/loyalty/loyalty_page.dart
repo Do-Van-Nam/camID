@@ -6,10 +6,12 @@ import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
+import 'package:cam_id/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:go_router/go_router.dart';
 import './loyalty_bloc.dart';
 
 class LoyaltyPage extends StatelessWidget {
@@ -164,7 +166,9 @@ class LoyaltyPage extends StatelessWidget {
                                       height: 32,
                                     ),
                                     ElevatedButton(
-                                      onPressed: () {},
+                                      onPressed: () {
+                                        context.push(PATH_TIER_BENEFIT);
+                                      },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: Colors.black,
                                         padding: const EdgeInsets.symmetric(

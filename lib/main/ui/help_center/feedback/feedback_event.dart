@@ -59,3 +59,14 @@ class PhoneChanged extends FeedbackEvent {
   final String phone;
   PhoneChanged(this.phone);
 }
+
+class FilterServiceTypeChanged extends FeedbackEvent {
+  final String type;
+  FilterServiceTypeChanged(this.type);
+}
+
+class DateFilterChanged extends FeedbackEvent {
+  final DateTime date;
+  final String type;
+  DateFilterChanged(this.date, this.type);
+}

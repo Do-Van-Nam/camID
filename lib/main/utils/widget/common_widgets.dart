@@ -120,6 +120,18 @@ Widget commonContainer({required Widget child}) {
   );
 }
 
+Widget grayContainer({required Widget child}) {
+  return Container(
+    padding: const EdgeInsets.all(16),
+    width: double.infinity,
+    decoration: BoxDecoration(
+      color: AppColors.color_F7F7,
+      borderRadius: BorderRadius.circular(16),
+    ),
+    child: child,
+  );
+}
+
 Widget inputTextField({
   required String hintText,
   required int maxLine,

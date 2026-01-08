@@ -14,6 +14,7 @@ import 'package:cam_id/main/ui/identity_verification/identity_verification_page.
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
+import 'package:cam_id/main/ui/loyalty/tier_benefit/tier_page.dart';
 import 'package:cam_id/main/ui/notification/notification_detail/notification_detail_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
@@ -56,6 +57,8 @@ const String PATH_IDENTITY_VERIFICATION = "/identity_verification";
 // notificaion
 const String PATH_NOTIFICATION = "/notificaion";
 const String PATH_NOTIFICATION_DETAIL = "/notificaion/detail";
+//loyalty
+const String PATH_TIER_BENEFIT = "/tier-benefit";
 
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
@@ -150,6 +153,10 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
         GoRoute(path: PATH_GIFT, builder: (context, state) => GiftPage()),
+        GoRoute(
+          path: PATH_TIER_BENEFIT,
+          builder: (context, state) => TierPage(),
+        ),
         // ----------------------------------------------
         GoRoute(
           path: PATH_FIND_STORES,

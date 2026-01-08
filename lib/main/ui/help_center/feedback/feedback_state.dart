@@ -12,6 +12,9 @@ class FeedbackState {
   final List<String> digits;
   final int remainingSeconds;
   final bool isResendEnabled;
+  final DateTime fromDate;
+  final DateTime toDate;
+  final String filterServiceType;
   FeedbackState({
     required this.newsNotifications,
     required this.complainNotifications,
@@ -24,6 +27,9 @@ class FeedbackState {
     required this.isSentOTP,
     required this.isLoadingRequest,
     required this.isInitial,
+    required this.fromDate,
+    required this.toDate,
+    required this.filterServiceType,
   });
 
   factory FeedbackState.initial() => FeedbackState(
@@ -38,6 +44,9 @@ class FeedbackState {
     isSentOTP: false,
     isLoadingRequest: false,
     isInitial: true,
+    fromDate: DateTime.now(),
+    toDate: DateTime.now(),
+    filterServiceType: 'e-money',
   );
 
   FeedbackState copyWith({
@@ -52,6 +61,9 @@ class FeedbackState {
     bool? isSentOTP,
     bool? isLoadingRequest,
     bool? isInitial,
+    DateTime? fromDate,
+    DateTime? toDate,
+    String? filterServiceType,
   }) {
     return FeedbackState(
       newsNotifications: newsNotifications ?? this.newsNotifications,
@@ -66,6 +78,9 @@ class FeedbackState {
       remainingSeconds: remainingSeconds ?? this.remainingSeconds,
       isResendEnabled: isResendEnabled ?? this.isResendEnabled,
       isInitial: isInitial ?? this.isInitial,
+      fromDate: fromDate ?? this.fromDate,
+      toDate: toDate ?? this.toDate,
+      filterServiceType: filterServiceType ?? this.filterServiceType,
     );
   }
 }
