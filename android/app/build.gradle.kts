@@ -96,6 +96,9 @@ dependencies {
 
     //ipcc
     implementation("com.nabinbhandari.android:permissions:4.0.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.1.0")
+    implementation ("com.squareup:android-times-square:1.7.11@aar")
+    implementation ("com.makeramen:roundedimageview:2.3.0")
 }
 
 flutter {

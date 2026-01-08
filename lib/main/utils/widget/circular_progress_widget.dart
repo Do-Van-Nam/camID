@@ -1,20 +1,23 @@
+import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:flutter/material.dart';
 
 class CircularProgressCustom extends StatelessWidget {
-  final double usedGB;
-  final double totalGB;
+  final double usedData;
+  final double totalData;
+  final String unit;
 
   const CircularProgressCustom({
     super.key,
-    required this.usedGB,
-    required this.totalGB,
+    required this.usedData,
+    required this.totalData, required this.unit,
   });
 
   @override
   Widget build(BuildContext context) {
-    double progress = usedGB / totalGB;
+    double progress = usedData / totalData;
 
     return SizedBox(
       width: 112,
@@ -26,14 +29,14 @@ class CircularProgressCustom extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "${usedGB.toStringAsFixed(2)} GB",
+                "${Constant.formatNumber(usedData)} $unit",
                 style: AppTextFonts.poppinsMedium.copyWith(
                   fontSize: 12,
                   color: AppColors.color_1818,
                 ),
               ),
               Text(
-                "used",
+                AppLocalizations.of(context)!.used,
                 style: AppTextFonts.poppinsMedium.copyWith(
                   fontSize: 12,
                   color: AppColors.color_1818,
