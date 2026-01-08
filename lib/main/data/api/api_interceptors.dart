@@ -13,9 +13,9 @@ class ApiInterceptors extends InterceptorsWrapper {
 
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final method = options.method;
     final uri = options.uri;
     final data = options.data;
@@ -62,7 +62,7 @@ class ApiInterceptors extends InterceptorsWrapper {
     final uri = err.requestOptions.path;
     var data = "";
     // if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
-      if (err.response?.statusCode == 401) {
+    if (err.response?.statusCode == 401) {
       // bool success = await _createToken();
       // if (success) {
       //   err.requestOptions.headers["Authorization"] = "Bearer $token";
@@ -71,7 +71,7 @@ class ApiInterceptors extends InterceptorsWrapper {
       //   final clonedRequest = await dio.fetch(err.requestOptions);
       //   return handler.resolve(clonedRequest);
       // }
-        appForceLogout();
+      appForceLogout();
     }
     AppLogger().logInfo("⚠️ ERROR[$statusCode] => PATH: $uri\n DATA: $data");
     super.onError(err, handler);
@@ -81,10 +81,10 @@ class ApiInterceptors extends InterceptorsWrapper {
     await SharePreferenceUtil.removeKey(ShareKey.KEY_USER_INFO);
     await SharePreferenceUtil.removeKey(ShareKey.KEY_ACCESS_TOKEN);
     await SharePreferenceUtil.removeKey(ShareKey.KEY_REFRESH_TOKEN);
+    await SharePreferenceUtil.removeKey(ShareKey.KEY_PHONE_NUMBER);
     UserInfoModel.instance.clear();
-    router.go(PATH_LOGIN);
+    router.pushReplacement(PATH_HOME);
   }
-
 
   // Hàm refresh token
   Future<bool> _createToken() async {
@@ -136,11 +136,11 @@ class RetryOnConnectionChangeInterceptor extends Interceptor {
 
     var rs =
         (retryCount < maxRetries) &&
-            err.type == DioErrorType.unknown &&
-            ((err.error is HttpException &&
-                (err.message ?? "").contains(
-                  'Connection closed before full header was received',
-                )));
+        err.type == DioErrorType.unknown &&
+        ((err.error is HttpException &&
+            (err.message ?? "").contains(
+              'Connection closed before full header was received',
+            )));
     if (!rs) {
       retryCount = 0;
     }

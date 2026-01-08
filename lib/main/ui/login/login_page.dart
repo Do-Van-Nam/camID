@@ -8,6 +8,7 @@ import 'package:cam_id/main/ui/login/login_bloc.dart';
 import 'package:cam_id/main/ui/login/login_event.dart';
 import 'package:cam_id/main/ui/login/login_state.dart';
 import 'package:cam_id/main/utils/app_config.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -195,13 +196,7 @@ class _LoginPageState extends State<LoginPage> {
       LoadingOverlayWidget.show(context);
       bloc.add(SignUpEvent(phoneController.text, false, "123456"));
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(
-            AppLocalizations.of(context)!.phone_number_is_not_valid,
-          ),
-        ),
-      );
+      AppToast.show(context, AppLocalizations.of(context)!.phone_number_is_not_valid);
     }
   }
 
@@ -215,9 +210,7 @@ class _LoginPageState extends State<LoginPage> {
     }
     if (state is SignUpFailure) {
       LoadingOverlayWidget.hide();
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text(state.message)));
+      AppToast.show(context, state.message);
     }
   }
 

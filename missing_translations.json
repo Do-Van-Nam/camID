@@ -115,7 +115,13 @@
     "remaining",
     "due_date",
     "account_balance",
-    "expired"
+    "expired",
+    "internet_wifi",
+    "buy_e_sim",
+    "metfone_services",
+    "scan_scratch_card",
+    "account_details",
+    "filter"
   ],
 
   "vi": [
@@ -234,6 +240,12 @@
     "remaining",
     "due_date",
     "account_balance",
-    "expired"
+    "expired",
+    "internet_wifi",
+    "buy_e_sim",
+    "metfone_services",
+    "scan_scratch_card",
+    "account_details",
+    "filter"
   ]
 }

@@ -250,7 +250,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _onSignIn(SignInEvent event, Emitter<HomeState> emit) async {
-    emit(SignInLoading());
+    emit(HomeLoading());
 
     Map<String, dynamic> body = {
       "apiKey": "",
