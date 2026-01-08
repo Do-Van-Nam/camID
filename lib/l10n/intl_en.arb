@@ -307,6 +307,7 @@
   "status": "Status",
   "received": "Received",
   "processing": "Processing",
+  "resend":"Resend",
 "aaaaaaaaaaaaaaaaaaaaaaaaaaaa":"aaaaaaaaaaaaaaaaaaaaaaaaaaa",
 
   "identity_verification": "Identity Verification",

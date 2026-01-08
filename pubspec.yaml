@@ -62,6 +62,7 @@ dependencies:
   cached_network_image: ^3.4.1
   flutter_slidable: ^4.0.3
   dotted_dashed_line: ^0.0.3
+  fdottedline_nullsafety: ^2.0.1 
   # myid_kyc_plugin:
   #   path: ./myid_kyc_plugin
   ipcc_plugin:

@@ -11,6 +11,7 @@ import 'package:cam_id/main/ui/entertainment/game/ranking/ranking_page.dart';
 import 'package:cam_id/main/ui/edit_information/edit_information_page.dart';
 import 'package:cam_id/main/ui/find_stores/find_stores_page.dart';
 import 'package:cam_id/main/ui/force_update/force_update_page.dart';
+import 'package:cam_id/main/ui/help_center/feedback/feedback_detail/feedback_detail_page.dart';
 import 'package:cam_id/main/ui/help_center/feedback/feedback_page.dart';
 import 'package:cam_id/main/ui/identity_verification/identity_verification_page.dart';
 import 'package:cam_id/main/ui/internet_wifi/internet_wifi_page.dart';
@@ -72,10 +73,12 @@ const String PATH_EDIT_INFORMATION = "/edit_information";
 //entertainment
 //game
 const String PATH_GAME = "/game";
-const String PATH_GAME_LIST = "/game_list";
+const String PATH_GAME_LIST = "/game-list";
 const String PATH_RANKING = "/ranking";
 const String PATH_GIFT = "/gift";
 
+const String PATH_HELPCENTER_FEEDBACK = "/help-center/feedback";
+const String PATH_HELPCENTER_FEEDBACK_DETAIL = "/help-center/feedback/detail";
 const String PATH_HELPCENTER_FEEDBACK = "/gift";
 const String PATH_CHARGE_HISTORY = "/charge_history";
 const String PATH_PAYMENT_HISTORY = "/payment_history";
@@ -135,6 +138,10 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: PATH_HELPCENTER_FEEDBACK,
           builder: (context, state) => HelpCenterFeedbackPage(),
+        ),
+        GoRoute(
+          path: PATH_HELPCENTER_FEEDBACK_DETAIL,
+          builder: (context, state) => FeedbackDetailPage(),
         ),
         // notificaion
         GoRoute(
