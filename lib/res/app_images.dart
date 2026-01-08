@@ -79,12 +79,6 @@ class AppImages {
   static final String imgChatBot5 = 'assets/images/chatbot_ic2.png';
   static final String imgBgLogin = 'assets/images/img_bg_login.png';
   static final String imgLogoLogin = 'assets/images/img_logo_login.png';
-  static final String imgBanner1 = 'assets/images/img_banner_1.png';
-  static final String imgBanner2 = 'assets/images/img_banner_2.png';
-  static final String imgBanner3 = 'assets/images/img_banner_3.png';
-  static final String imgBanner4 = 'assets/images/img_banner_4.png';
-  static final String imgBanner5 = 'assets/images/img_banner_5.png';
-  static final String imgBanner6 = 'assets/images/img_banner_6.png';
   static final String imgVasTest = 'assets/images/img_vas_test.png';
 
   // loyalty
@@ -201,12 +195,18 @@ class AppImages {
   static final String imgEntertainmentDefault =
       'assets/images/img_entertainment_default.png';
   static final String imgAvatarDefault = 'assets/images/img_avatar_default.png';
+  static final String icChargeHistory = 'assets/icons/ic_charge_history.svg';
+  static final String icScanCard = 'assets/icons/ic_scan_card.svg';
+  static final String icAccountDetail = 'assets/icons/ic_account_detail.svg';
+
   static final String icFilter = 'assets/icons/ic_filter.svg';
   static final String icNoRQ = 'assets/icons/ic_no_rq.svg';
   static final String icCalendar2 = 'assets/icons/ic_calendar2.svg';
   static final String icCalendarRed = 'assets/icons/ic_calendar_red.svg';
   static final String icRadioBtn = 'assets/icons/ic_radio_btn.svg';
   static final String icRadioBtnTicked = 'assets/icons/ic_radio_btn_ticked.svg';
+  static final String icData = 'assets/icons/ic_data.svg';
+
   static final String icAmount = 'assets/icons/ic_amount.svg';
   static final String imgAmount = 'assets/images/img_amount.png';
   static final String imgAmount2 = 'assets/images/img_amount2.png';

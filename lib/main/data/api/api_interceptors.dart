@@ -1,6 +1,9 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:cam_id/main/data/model/user_info_model.dart';
+import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/router.dart';
 import 'package:dio/dio.dart';
 
 class ApiInterceptors extends InterceptorsWrapper {
@@ -47,7 +50,9 @@ class ApiInterceptors extends InterceptorsWrapper {
     final uri = response.requestOptions.uri;
     final data = jsonEncode(response.data);
     AppLogger().logInfo("✅ RESPONSE[$statusCode] => PATH: $uri\n DATA: $data");
-    if (response.statusCode == 401) {}
+    if (response.statusCode == 401) {
+      appForceLogout();
+    }
     super.onResponse(response, handler);
   }
 
@@ -56,19 +61,30 @@ class ApiInterceptors extends InterceptorsWrapper {
     final statusCode = err.response?.statusCode;
     final uri = err.requestOptions.path;
     var data = "";
-    if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
-      bool success = await _createToken();
-      if (success) {
-        err.requestOptions.headers["Authorization"] = "Bearer $token";
-
-        // Gửi lại request với token mới
-        final clonedRequest = await dio.fetch(err.requestOptions);
-        return handler.resolve(clonedRequest);
-      }
+    // if (err.response?.statusCode == 401 || err.response?.statusCode == 403) {
+      if (err.response?.statusCode == 401) {
+      // bool success = await _createToken();
+      // if (success) {
+      //   err.requestOptions.headers["Authorization"] = "Bearer $token";
+      //
+      //   // Gửi lại request với token mới
+      //   final clonedRequest = await dio.fetch(err.requestOptions);
+      //   return handler.resolve(clonedRequest);
+      // }
+        appForceLogout();
     }
     AppLogger().logInfo("⚠️ ERROR[$statusCode] => PATH: $uri\n DATA: $data");
     super.onError(err, handler);
   }
+
+  Future<void> appForceLogout() async {
+    await SharePreferenceUtil.removeKey(ShareKey.KEY_USER_INFO);
+    await SharePreferenceUtil.removeKey(ShareKey.KEY_ACCESS_TOKEN);
+    await SharePreferenceUtil.removeKey(ShareKey.KEY_REFRESH_TOKEN);
+    UserInfoModel.instance.clear();
+    router.go(PATH_LOGIN);
+  }
+
 
   // Hàm refresh token
   Future<bool> _createToken() async {

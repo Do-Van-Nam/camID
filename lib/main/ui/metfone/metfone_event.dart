@@ -23,12 +23,15 @@ class BannerFooterChanged extends MetfoneEvent {
   List<Object?> get props => [index];
 }
 
-class GetAllAppsEvent extends MetfoneEvent {}
+class GetAllAppsEvent extends MetfoneEvent {
+  final bool isCallAPI;
+  GetAllAppsEvent({this.isCallAPI = false});
+}
 
 class GetServiceByGroupAppsEvent extends MetfoneEvent {
   final String type;
-
-  GetServiceByGroupAppsEvent(this.type);
+  final bool isCallAPI;
+  GetServiceByGroupAppsEvent(this.type, {this.isCallAPI = false});
 }
 
 class GetFTTHPackageAppsEvent extends MetfoneEvent {}

@@ -273,7 +273,7 @@ class _LoginOTPPageState extends State<LoginOTPPage> {
             if (state is GetUserInfoSuccess) {
               LoadingOverlayWidget.hide();
               _onSaveUserInfo(state.user);
-              context.go(PATH_HOME);
+              context.pushReplacement(PATH_HOME);
             }
           },
         ),
