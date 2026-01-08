@@ -48,6 +48,13 @@ class Constant {
   static const String FUNC_SCAN_CARD = "scan_card";
   static const String FUNC_ACCOUNT_DETAIL = "account_detail";
 
+  static const String HISTORY_BASIC = "basic";
+  static const String HISTORY_DATA = "data";
+  static const String HISTORY_CALL = "call";
+  static const String HISTORY_SMS = "sms";
+  static const String HISTORY_ROAMING = "roaming";
+
+
   static String normalizePhone(String phone) {
     String p = phone.trim();
 

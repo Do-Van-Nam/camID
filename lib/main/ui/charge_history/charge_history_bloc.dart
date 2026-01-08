@@ -7,6 +7,7 @@ import 'package:cam_id/main/data/model/value_charging_history_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/ui/charge_history/charge_history_event.dart';
 import 'package:cam_id/main/ui/charge_history/charge_history_state.dart';
+import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/main/utils/logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -57,16 +58,29 @@ class ChargeHistoryBloc extends Bloc<ChargeHistoryEvent, ChargeHistoryState> {
           );
 
       if (result.isSuccess && result.result?.wsResponse != null) {
-        final list = result.result!.wsResponse!;
+        final list = result.result?.wsResponse ?? [];
 
-        final valueList = list
-            .where((e) => e.values != null)
-            .expand((e) => e.values!)
+        final type = event.type;
+        _cache[type] = list
+            .expand((e) => e.values ?? [])
+            .map((e) => e as ValueChargingHistoryModel)
             .toList();
+        final listBasic = _cache[Constant.HISTORY_BASIC] ?? [];
+        final listData = _cache[Constant.HISTORY_DATA] ?? [];
+        final listCall = _cache[Constant.HISTORY_CALL] ?? [];
+        final listSMS = _cache[Constant.HISTORY_SMS] ?? [];
+        final listRoaming = _cache[Constant.HISTORY_ROAMING] ?? [];
 
-        _cache[event.type] = valueList;
-
-        emit(GetChargeHistorySuccess(list, Map.from(_cache)));
+        emit(
+          GetChargeHistorySuccess(
+            list,
+            listBasic,
+            listData,
+            listCall,
+            listSMS,
+            listRoaming,
+          ),
+        );
       }
     } catch (e) {
       AppLogger().logError(e.toString());

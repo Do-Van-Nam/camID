@@ -9,6 +9,7 @@ import 'package:cam_id/main/ui/language/language_bloc.dart';
 import 'package:cam_id/main/ui/language/language_event.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
@@ -29,25 +30,29 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
   late final ChargeHistoryBloc _bloc;
 
   late final l10n = AppLocalizations.of(context)!;
-  Map<String, List<ValueChargingHistoryModel>> dataType = {};
   List<ChargeHistoryModel>? listChargingHistory;
   final startTime = DateTime.now().millisecondsSinceEpoch;
   final sevenDaysAgoTime = DateTime.now()
       .subtract(const Duration(days: 7))
       .millisecondsSinceEpoch;
+  LoadingWidgetState viewState = LoadingWidgetState.loading;
+  LoadingWidgetState viewStateChild = LoadingWidgetState.success;
 
-  String _selectedType = "basic";
+  String _selectedType = Constant.HISTORY_BASIC;
   int _selectedIndex = 0;
+  List<ValueChargingHistoryModel>? listBasic = [];
+  List<ValueChargingHistoryModel>? listData = [];
+  List<ValueChargingHistoryModel>? listCall = [];
+  List<ValueChargingHistoryModel>? listSMS = [];
+  List<ValueChargingHistoryModel>? listRoaming = [];
+  final Set<String> _calledTypes = {};
 
   @override
   void initState() {
     super.initState();
     _bloc = ChargeHistoryBloc();
-    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, "basic"));
-    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, "data"));
-    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, "call"));
-    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, "sms"));
-    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, "roaming"));
+    _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, Constant.HISTORY_BASIC));
+    _calledTypes.add(_selectedType);
   }
 
   @override
@@ -56,11 +61,22 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
       value: _bloc,
       child: BlocListener<ChargeHistoryBloc, ChargeHistoryState>(
         listener: (context, state) {
+          if (state is ChargeHistoryLoading) {
+            viewState = LoadingWidgetState.loading;
+          }
           if (state is GetChargeHistorySuccess) {
             setState(() {
               listChargingHistory = state.listChargingHistory;
-              dataType = state.data;
+              listBasic = state.listBasic;
+              listData = state.listData;
+              listCall = state.listCall;
+              listSMS = state.listSMS;
+              listRoaming = state.listRoaming;
             });
+            viewState = LoadingWidgetState.success;
+          }
+          if (state is GetChargeHistoryFailure) {
+            viewState = LoadingWidgetState.empty;
           }
         },
         child: Scaffold(
@@ -107,20 +123,13 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
                 children: [
                   SizedBox(height: 16),
                   _buildTabType(),
-                  SizedBox(height: 16),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16),
-                    child: Text(
-                      l10n.loyaltyHistory,
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        fontSize: 14,
-                        color: AppColors.color_464B,
-                      ),
+                  Expanded(
+                    child: LoadingWidget(
+                      state: viewState,
+                      // onRetry: _initData,
+                      child: _buildBody(context),
                     ),
                   ),
-
-                  SizedBox(height: 12),
-                  _buildListByType(),
                 ],
               );
             },
@@ -130,217 +139,250 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
     );
   }
 
-  Widget _buildTabType() {
-    final list = listChargingHistory ?? [];
+  // Widget _buildBody(BuildContext context) {
+  //   List<ValueChargingHistoryModel>? items;
+  //   items = _currentList;
+  //   return Column(
+  //     crossAxisAlignment: CrossAxisAlignment.start,
+  //     children: [
+  //       const SizedBox(height: 16),
+  //       if (items != null && items.isNotEmpty)
+  //         Container(
+  //           padding: const EdgeInsets.symmetric(horizontal: 16),
+  //           child: Text(
+  //             l10n.loyaltyHistory,
+  //             style: AppTextFonts.poppinsRegular.copyWith(
+  //               fontSize: 14,
+  //               color: AppColors.color_464B,
+  //             ),
+  //           ),
+  //         ),
+  //       const SizedBox(height: 12),
+  //       _buildListByType(),
+  //     ],
+  //   );
+  // }
+  Widget _buildBody(BuildContext context) {
+    final items = _currentList;
 
-    return SizedBox(
-      height: 105,
-      child: ListView.separated(
-        scrollDirection: Axis.horizontal,
-        itemCount: list.length,
-        separatorBuilder: (_, __) => const SizedBox(width: 8),
-        itemBuilder: (context, index) {
-          final item = list[index];
-
-          EdgeInsetsGeometry padding = EdgeInsets.zero;
-          if (index == 0) padding = const EdgeInsets.only(left: 12);
-          if (index == list.length - 1) {
-            padding = padding.add(const EdgeInsets.only(right: 12));
-          }
-
-          return Padding(
-            padding: padding,
-            child: InkWell(
-              onTap: () {
-                setState(() {
-                  _selectedIndex = index;
-                  _selectedType = item.type ?? "";
-                });
-              },
-              child: Container(
-                width: 90,
-                padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 8),
-                decoration: BoxDecoration(
-                  color: _selectedIndex == index
-                      ? AppColors.color_E11B
-                      : Colors.white,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                SvgPicture.asset(_getIcon(item.type, _selectedIndex == index)),
-                    const SizedBox(height: 8),
-                    Text(
-                      item.type ?? "",
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        fontSize: 10,
-                        color: AppColors.color_8588,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    _formatValueText(item.type, item.value),
-                  ],
-                ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const SizedBox(height: 16),
+        if (items != null && items.isNotEmpty)
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              l10n.loyaltyHistory,
+              style: AppTextFonts.poppinsRegular.copyWith(
+                fontSize: 14,
+                color: AppColors.color_464B,
               ),
             ),
-          );
+          ),
+        const SizedBox(height: 12),
+        Expanded(
+          child: LoadingWidget(
+            state: (items?.isEmpty ?? true)
+                ? LoadingWidgetState.empty
+                : LoadingWidgetState.success,
+            child: (items?.isEmpty ?? true)
+                ? Container()
+                : ListView.separated(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              itemCount: items!.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (_, index) {
+                final item = items[index];
+                return _buildListItem(item);
+              },
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 
-        },
+  Widget _buildListItem(ValueChargingHistoryModel item) {
+    return Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            item.day ?? '',
+            style: AppTextFonts.poppinsSemiBold.copyWith(
+              fontSize: 14,
+              color: AppColors.color_1618,
+            ),
+          ),
+          const SizedBox(height: 4),
+          Text(
+            "${item.total ?? 0} - ${item.duration ?? 0}",
+            style: AppTextFonts.poppinsRegular.copyWith(
+              fontSize: 12,
+              color: AppColors.color_464B,
+            ),
+          ),
+          if (item.valuesChild != null)
+            Column(
+              children: item.valuesChild!.map((e) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 4),
+                  child: Text(
+                    "${e.subType} - ${e.amount} - ${e.duration}",
+                    style: AppTextFonts.poppinsRegular.copyWith(
+                      fontSize: 12,
+                      color: AppColors.color_8588,
+                    ),
+                  ),
+                );
+              }).toList(),
+            ),
+        ],
       ),
     );
   }
 
-  Widget _buildListByType() {
-    final items = dataType[_selectedType] ?? [];
-
-    if (items.isEmpty) {
-      return Expanded(
-        child: Center(
-          child: Text(
-            l10n.no_data,
-            style: AppTextFonts.poppinsRegular.copyWith(
-              fontSize: 12,
-              color: AppColors.color_8588,
-            ),
-          ),
-        ),
-      );
-    }
-
-    return Expanded(
+  Widget _buildTabType() {
+    return SizedBox(
+      height: 105,
       child: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
-        itemCount: items.length,
-        separatorBuilder: (_, __) => SizedBox(height: 12),
-        itemBuilder: (_, index) {
-          final item = items[index];
-          return Container(
-            padding: EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12),
+        scrollDirection: Axis.horizontal,
+        itemCount: listChargingHistory?.length ?? 0,
+        separatorBuilder: (_, __) => const SizedBox(width: 8),
+        itemBuilder: (context, index) {
+          final item = listChargingHistory![index];
+          return Padding(
+            padding: EdgeInsets.only(
+              left: index == 0 ? 12 : 0,
+              right: index == listChargingHistory!.length - 1 ? 12 : 0,
             ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  item.day ?? '',
-                  style: AppTextFonts.poppinsSemiBold.copyWith(
-                    fontSize: 14,
-                    color: AppColors.color_1618,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  "${item.total ?? 0} - ${item.duration ?? 0}",
-                  style: AppTextFonts.poppinsRegular.copyWith(
-                    fontSize: 12,
-                    color: AppColors.color_464B,
-                  ),
-                ),
-                if (item.valuesChild != null)
-                  Column(
-                    children: item.valuesChild!.map((e) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 4),
-                        child: Text(
-                          "${e.subType} - ${e.amount} - ${e.duration}",
-                          style: AppTextFonts.poppinsRegular.copyWith(
-                            fontSize: 12,
-                            color: AppColors.color_8588,
-                          ),
-                        ),
-                      );
-                    }).toList(),
-                  ),
-              ],
-            ),
+            child: _buildTabItem(item, _selectedIndex == index, index),
           );
         },
+      ),
+    );
+
+  }
+
+  Widget _buildTabItem(ChargeHistoryModel item, bool selected, int index) {
+    return InkWell(
+      onTap: () {
+        setState(() {
+          _selectedIndex = index;
+          _selectedType = item.type ?? "";
+        });
+        if (!_calledTypes.contains(_selectedType)) {
+          _bloc.add(GetChargeHistoryEvent(sevenDaysAgoTime, _selectedType));
+          _calledTypes.add(_selectedType);
+        }
+      },
+      child: Container(
+        width: 90,
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        decoration: BoxDecoration(
+          color: selected ? AppColors.color_E11B : Colors.white,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SvgPicture.asset(_getIcon(item.type, selected)),
+            const SizedBox(height: 8),
+            Text(
+              item.type ?? "",
+              style: AppTextFonts.poppinsRegular.copyWith(
+                fontSize: 10,
+                color: selected ? AppColors.color_FFFF : AppColors.color_8588,
+              ),
+            ),
+            const SizedBox(height: 2),
+            _formatValueText(item.type, item.value, selected),
+          ],
+        ),
       ),
     );
   }
 
   String _getIcon(String? type, bool selected) {
     switch (type) {
-      case 'basic':
-        return selected ? AppImages.icTabBasicSelected : AppImages.icTabBasicUnSelected;
-      case 'data':
-        return selected ? AppImages.icTabDataSelected : AppImages.icTabDataUnSelected;
-      case 'call':
-        return selected ? AppImages.icTabCallSelected : AppImages.icTabCallUnSelected;
-      case 'roaming':
-        return selected ? AppImages.icTabRoamingSelected : AppImages.icTabRoamingUnSelected;
-      case 'sms':
-        return selected ? AppImages.icTabSMSSelected : AppImages.icTabSMSUnSelected;
+      case Constant.HISTORY_BASIC:
+        return selected
+            ? AppImages.icTabBasicSelected
+            : AppImages.icTabBasicUnSelected;
+      case Constant.HISTORY_DATA:
+        return selected
+            ? AppImages.icTabDataSelected
+            : AppImages.icTabDataUnSelected;
+      case Constant.HISTORY_CALL:
+        return selected
+            ? AppImages.icTabCallSelected
+            : AppImages.icTabCallUnSelected;
+      case Constant.HISTORY_SMS:
+        return selected
+            ? AppImages.icTabRoamingSelected
+            : AppImages.icTabRoamingUnSelected;
+      case Constant.HISTORY_ROAMING:
+        return selected
+            ? AppImages.icTabSMSSelected
+            : AppImages.icTabSMSUnSelected;
       default:
         return AppImages.icTabBasicUnSelected;
     }
   }
 
-  Widget _formatValueText(String? type, double? value) {
+  List<ValueChargingHistoryModel>? get _currentList {
+    switch (_selectedType) {
+      case Constant.HISTORY_BASIC: return listBasic;
+      case Constant.HISTORY_DATA: return listData;
+      case Constant.HISTORY_CALL: return listCall;
+      case Constant.HISTORY_SMS: return listSMS;
+      case Constant.HISTORY_ROAMING: return listRoaming;
+      default: return [];
+    }
+  }
+
+  Widget _formatValueText(String? type, double? value, bool selected) {
     final v = value ?? 0;
     final number = Constant.formatNumber(v);
 
-    late final String unit;
-    switch (type) {
-      case 'basic':
-        unit = "\$";
-        break;
-      case 'data':
-      case 'roaming':
-        unit = Constant.MB;
-        break;
-      case 'call':
-        unit = Constant.MINS;
-        break;
-      case 'sms':
-        unit = Constant.SMS;
-        break;
-      default:
-        unit = "";
-    }
-
-    if (type == 'basic') {
-      return RichText(
-        text: TextSpan(
-          children: [
-            TextSpan(
-              text: unit,
-              style: AppTextFonts.poppinsRegular.copyWith(
-                fontSize: 12,
-                color: AppColors.color_1618,
-              ),
-            ),
-            TextSpan(
-              text: number,
-              style: AppTextFonts.poppinsSemiBold.copyWith(
-                fontSize: 14,
-                color: AppColors.color_1618,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
+    final unit = switch(type) {
+      Constant.HISTORY_BASIC => "\$",
+      Constant.HISTORY_DATA || Constant.HISTORY_ROAMING => Constant.MB,
+      Constant.HISTORY_CALL => Constant.MINS,
+      Constant.HISTORY_SMS => Constant.SMS,
+      _ => ""
+    };
 
     return RichText(
       text: TextSpan(
         children: [
+          if (type == Constant.HISTORY_BASIC)
+            TextSpan(
+              text: unit,
+              style: AppTextFonts.poppinsRegular.copyWith(
+                fontSize: 12,
+                color: selected ? AppColors.color_FFFF : AppColors.color_1618,
+              ),
+            ),
           TextSpan(
             text: number,
             style: AppTextFonts.poppinsSemiBold.copyWith(
               fontSize: 14,
-              color: AppColors.color_1618,
+              color: selected ? AppColors.color_FFFF : AppColors.color_1618,
             ),
           ),
-          if (unit.isNotEmpty)
+          if (type != Constant.HISTORY_BASIC && unit.isNotEmpty)
             TextSpan(
               text: " $unit",
               style: AppTextFonts.poppinsRegular.copyWith(
                 fontSize: 12,
-                color: AppColors.color_1618,
+                color: selected ? AppColors.color_FFFF : AppColors.color_1618,
               ),
             ),
         ],
