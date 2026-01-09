@@ -19,7 +19,7 @@ class BuyESimPage extends StatefulWidget {
 }
 
 class _BuyESimPagePageState extends State<BuyESimPage> {
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
 
   @override
   void initState() {

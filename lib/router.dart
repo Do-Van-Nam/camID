@@ -2,6 +2,7 @@ import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/ui/account_detail/account_detail_page.dart';
 import 'package:cam_id/main/ui/buy_e_sim/buy_e_sim_page.dart';
 import 'package:cam_id/main/ui/charge_history/charge_history_page.dart';
+import 'package:cam_id/main/ui/charge_history_detail/charge_history_detail_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
 import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
@@ -90,6 +91,7 @@ const String PATH_TOP_UP = "/top_up";
 const String PATH_METFONE_SERVICE = "/metfone_service";
 const String PATH_SCAN_SCRATCH_CARD = "/scan_scratch_card";
 const String PATH_ACCOUNT_DETAILS = "/account_details";
+const String PATH_CHARGE_HISTORY_DETAILS = "/charge_history_details";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -296,6 +298,16 @@ final GoRouter router = GoRouter(
         GoRoute(
           path: PATH_ACCOUNT_DETAILS,
           builder: (context, state) => AccountDetailPage(),
+        ),
+        GoRoute(
+          path: PATH_CHARGE_HISTORY_DETAILS,
+          builder: (context, state) {
+            final extra = state.extra as Map<String, dynamic>;
+            return ChargeHistoryDetailPage(
+              extra["type"] as String,
+              extra["day"] as String,
+            );
+          },
         ),
       ],
     ),

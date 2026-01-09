@@ -145,7 +145,23 @@
     "metfone_services",
     "scan_scratch_card",
     "account_details",
-    "filter"
+    "filter",
+    "total",
+    "view_details",
+    "seconds",
+    "service",
+    "message",
+    "messages",
+    "second",
+    "service_",
+    "services",
+    "basic",
+    "all",
+    "today",
+    "last7Days",
+    "last30Days",
+    "customDay",
+    "no_internet_connection"
   ],
 
   "vi": [
@@ -294,6 +310,22 @@
     "metfone_services",
     "scan_scratch_card",
     "account_details",
-    "filter"
+    "filter",
+    "total",
+    "view_details",
+    "seconds",
+    "service",
+    "message",
+    "messages",
+    "second",
+    "service_",
+    "services",
+    "basic",
+    "all",
+    "today",
+    "last7Days",
+    "last30Days",
+    "customDay",
+    "no_internet_connection"
   ]
 }

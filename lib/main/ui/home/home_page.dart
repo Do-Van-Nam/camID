@@ -40,7 +40,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with AutomaticKeepAliveClientMixin {
   late final HomeBloc _bloc;
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
   final phoneNumberController = TextEditingController();
   LoadingWidgetState viewState = LoadingWidgetState.success;
   final PageController _pageController = PageController();

@@ -19,7 +19,7 @@ class TopUpPage extends StatefulWidget {
 }
 
 class _TopUpPageState extends State<TopUpPage> {
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
 
   @override
   void initState() {

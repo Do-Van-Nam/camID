@@ -19,7 +19,7 @@ class InternetWifiPage extends StatefulWidget {
 }
 
 class _InternetWifiPagePageState extends State<InternetWifiPage> {
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
 
   @override
   void initState() {

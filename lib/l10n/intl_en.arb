@@ -385,5 +385,21 @@
   "metfone_services": "Metfone services",
   "scan_scratch_card": "Scan scratch card",
   "account_details": "Account details",
-  "filter": "Filter"
+  "filter": "Filter",
+  "total": "Total",
+  "view_details": "View details",
+  "seconds": "seconds",
+  "service": "Service",
+  "message": "message",
+  "messages": "messages",
+  "second": "second",
+  "service_": "service",
+  "services": "services",
+  "basic": "Basic",
+  "all": "All",
+  "today": "Today",
+  "last7Days": "7 days",
+  "last30Days": "30 days",
+  "customDay": "Custom day",
+  "no_internet_connection": "No internet connection"
 }

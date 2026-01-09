@@ -19,6 +19,7 @@ class GetChargeHistorySuccess extends ChargeHistoryState {
   final List<ValueChargingHistoryModel>? listCall;
   final List<ValueChargingHistoryModel>? listSMS;
   final List<ValueChargingHistoryModel>? listRoaming;
+  final String type;
 
   GetChargeHistorySuccess(
     this.listChargingHistory,
@@ -26,12 +27,13 @@ class GetChargeHistorySuccess extends ChargeHistoryState {
     this.listData,
     this.listCall,
     this.listSMS,
-    this.listRoaming,
+    this.listRoaming, this.type,
   );
 }
 
 class GetChargeHistoryFailure extends ChargeHistoryState {
   final String message;
+  final String type;
 
-  GetChargeHistoryFailure(this.message);
+  GetChargeHistoryFailure(this.message, this.type);
 }

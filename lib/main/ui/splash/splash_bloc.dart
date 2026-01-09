@@ -65,6 +65,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       final isFirstOpenApp = await SharePreferenceUtil.getBool(
         ShareKey.KEY_FIRST_OPEN_APP,
       );
+      AppLogger().logInfo("CHECK_LOGIN $isFirstOpenApp");
       emit(
         SplashResolved(
           next: (isLogin || isFirstOpenApp)
@@ -78,6 +79,7 @@ class SplashBloc extends Bloc<SplashEvent, SplashState> {
       final isFirstOpenApp = await SharePreferenceUtil.getBool(
         ShareKey.KEY_FIRST_OPEN_APP,
       );
+      AppLogger().logInfo("CHECK_LOGIN $isFirstOpenApp");
       emit(
         SplashResolved(
           next: (isLogin || isFirstOpenApp)

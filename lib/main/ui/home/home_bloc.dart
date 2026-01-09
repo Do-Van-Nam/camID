@@ -57,7 +57,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     LoginTapped event,
     Emitter<HomeState> emit,
   ) async {
-    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+    // await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
     await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
     AppConfig.instance.isFirstOpenApp = false;
 

@@ -53,6 +53,8 @@ class Constant {
   static const String HISTORY_CALL = "call";
   static const String HISTORY_SMS = "sms";
   static const String HISTORY_ROAMING = "roaming";
+  static const String HISTORY_OTHER = "other";
+  static const String HISTORY_SERVICE = "service";
 
 
   static String normalizePhone(String phone) {
@@ -92,4 +94,21 @@ class Constant {
     return value.toString();
   }
 
+  static int parseTimestamp(String dayString) {
+    if (dayString.isEmpty) {
+      return DateTime.now().millisecondsSinceEpoch;
+    }
+
+    try {
+      final parts = dayString.split('/');
+      final day = int.parse(parts[0]);
+      final month = int.parse(parts[1]);
+      final year = int.parse(parts[2]);
+
+      final utcDate = DateTime.utc(year, month, day);
+      return utcDate.millisecondsSinceEpoch;
+    } catch (_) {
+      return DateTime.now().millisecondsSinceEpoch;
+    }
+  }
 }

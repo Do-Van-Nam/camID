@@ -19,7 +19,7 @@ class MetfoneServicePage extends StatefulWidget {
 }
 
 class _MetfoneServicePageState extends State<MetfoneServicePage> {
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
 
   @override
   void initState() {

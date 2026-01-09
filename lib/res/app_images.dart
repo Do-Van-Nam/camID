@@ -223,5 +223,11 @@ class AppImages {
   static final String icTabCallUnSelected = 'assets/icons/ic_tab_call_unselected.svg';
   static final String icTabRoamingUnSelected = 'assets/icons/ic_tab_roaming_unselected.svg';
   static final String icTabSMSUnSelected = 'assets/icons/ic_tab_sms_unselected.svg';
+  static final String icCardChargeHistory = 'assets/icons/ic_card_charge_history.svg';
+  static final String icHistoryCall = 'assets/icons/ic_history_call.svg';
+  static final String icHistorySMS = 'assets/icons/ic_history_sms.svg';
+  static final String icHistoryService = 'assets/icons/ic_history_service.svg';
+  static final String icHistoryData = 'assets/icons/ic_history_data.svg';
+
 // ------------------------ N ------------------------
 }
