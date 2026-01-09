@@ -82,7 +82,6 @@ const String PATH_GIFT = "/gift";
 
 const String PATH_HELPCENTER_FEEDBACK = "/help-center/feedback";
 const String PATH_HELPCENTER_FEEDBACK_DETAIL = "/help-center/feedback/detail";
-const String PATH_HELPCENTER_FEEDBACK = "/gift";
 const String PATH_CHARGE_HISTORY = "/charge_history";
 const String PATH_PAYMENT_HISTORY = "/payment_history";
 const String PATH_INTERNET_WIFI = "/internet_wifi";
