@@ -1,3 +1,4 @@
+import 'package:cam_id/main/ui/splash/splash_event.dart';
 import 'package:cam_id/router.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:flutter/material.dart';
@@ -9,15 +10,29 @@ import '../../utils/service/navigation_handler.dart';
 import 'splash_bloc.dart';
 import 'splash_state.dart';
 
-class SplashPage extends StatelessWidget {
+class SplashPage extends StatefulWidget{
   const SplashPage({super.key});
 
+  @override
+  State<SplashPage> createState() => _SplashPageState();
+
+}
+
+class _SplashPageState extends State<SplashPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<SplashBloc>().add(SplashStarted());
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<SplashBloc, SplashState>(
       listener: (context, state) {
         if (state is SplashResolved) {
-          // Sử dụng SchedulerBinding để đảm bảo navigation không block animation
+// Sử dụng SchedulerBinding để đảm bảo navigation không block animation
           SchedulerBinding.instance.addPostFrameCallback((_) {
             switch (state.next) {
               case SplashNext.home:
@@ -34,7 +49,7 @@ class SplashPage extends StatelessWidget {
                 break;
             }
 
-            // App is ready for queued navigation (deeplink/notification).
+// App is ready for queued navigation (deeplink/notification).
             NavigationHandler.instance.markReady();
           });
         }
@@ -45,6 +60,7 @@ class SplashPage extends StatelessWidget {
     );
   }
 }
+
 
 class _SplashLoadingIndicator extends StatelessWidget {
   const _SplashLoadingIndicator();

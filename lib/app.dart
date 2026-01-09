@@ -31,9 +31,10 @@ class _AppState extends State<App> {
   @override
   void initState() {
     super.initState();
-    // Run initialization in parallel (non-blocking)
-    _initIpccSdk();
-    _initDeeplinks();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _initIpccSdk();
+      _initDeeplinks();
+    });
     // Load device info in background (non-blocking)
     unawaited(DeviceUtils.getDeviceInfo());
   }
@@ -71,7 +72,7 @@ class _AppState extends State<App> {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => LanguageBloc()..add(LoadLanguageEvent())),
-        BlocProvider(create: (_) => SplashBloc()..add(SplashStarted())),
+        BlocProvider(create: (_) => SplashBloc()),
       ],
       child: BlocBuilder<LanguageBloc, LanguageState>(
         builder: (context, languageState) {

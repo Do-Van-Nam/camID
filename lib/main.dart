@@ -33,17 +33,7 @@ void main() async {
 
   // Setup background message handler (non-blocking registration)
   FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
-  // Run independent operations in parallel
-  // await LocalNotificationService.instance.init();
-
-  // Start app immediately - fetch RemoteConfig in background
   runApp(const App());
-
-  // Fetch fresh RemoteConfig in background (non-blocking)
-  // unawaited(RemoteConfigService().init());
-
-  // Initialize FCM in background (non-blocking)
-  // unawaited(FcmService().init());
 }
 
 @pragma('vm:entry-point')
