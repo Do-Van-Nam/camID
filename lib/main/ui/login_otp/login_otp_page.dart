@@ -9,6 +9,7 @@ import 'package:cam_id/main/ui/login_otp/login_otp_event.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -249,16 +250,12 @@ class _LoginOTPPageState extends State<LoginOTPPage> {
           listener: (context, state) {
             if (state is SignInFailure) {
               LoadingOverlayWidget.hide();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppToast.show(context, state.message);
             }
 
             if (state is GetUserInfoFailure) {
               LoadingOverlayWidget.hide();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppToast.show(context, state.message);
             }
 
             if (state is GenerateOTPSuccess || state is GenerateOTPFailure) {

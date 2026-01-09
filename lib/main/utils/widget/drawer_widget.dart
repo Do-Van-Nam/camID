@@ -124,6 +124,9 @@ class AppDrawer extends StatelessWidget {
                           await SharePreferenceUtil.removeKey(
                             ShareKey.KEY_REFRESH_TOKEN,
                           );
+                          await SharePreferenceUtil.removeKey(
+                            ShareKey.KEY_PHONE_NUMBER,
+                          );
                           UserInfoModel.instance.clear();
                           if (!context.mounted) return;
                           context.go(PATH_LOGIN);

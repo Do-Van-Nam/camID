@@ -1,4 +1,5 @@
 import 'package:cam_id/main/utils/utility_fuctions.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -58,16 +59,19 @@ class FeedbackPage extends StatelessWidget {
         body: BlocConsumer<FeedbackBloc, FeedbackState>(
           listener: (context, state) {
             if (state.submitSuccess) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text(l10n.feedbackThankYou),
-                ), // "Cảm ơn phản hồi của bạn!"
-              );
+              AppToast.show(context, l10n.feedbackThankYou);
+
+              // ScaffoldMessenger.of(context).showSnackBar(
+              //   SnackBar(
+              //     content: Text(l10n.feedbackThankYou),
+              //   ), // "Cảm ơn phản hồi của bạn!"
+              // );
             }
             if (state.errorMessage != null) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
+              AppToast.show(context, state.errorMessage!);
+              // ScaffoldMessenger.of(
+              //   context,
+              // ).showSnackBar(SnackBar(content: Text(state.errorMessage!)));
             }
           },
           builder: (context, state) {

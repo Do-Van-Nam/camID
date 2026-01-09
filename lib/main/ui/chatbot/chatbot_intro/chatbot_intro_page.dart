@@ -1,5 +1,6 @@
 import 'package:cam_id/app.dart';
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -40,9 +41,7 @@ class ChatbotIntroPage extends StatelessWidget {
               context.push(PATH_CHATBOT);
             }
             if (state is ChatbotIntroError) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppToast.show(context, state.message);
             }
           },
           builder: (context, state) {

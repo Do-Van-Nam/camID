@@ -795,4 +795,22 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get expired => 'Expired';
+
+  @override
+  String get internet_wifi => 'Internet Wifi';
+
+  @override
+  String get buy_e_sim => 'Buy e-SIM';
+
+  @override
+  String get metfone_services => 'Metfone services';
+
+  @override
+  String get scan_scratch_card => 'Scan scratch card';
+
+  @override
+  String get account_details => 'Account details';
+
+  @override
+  String get filter => 'Filter';
 }

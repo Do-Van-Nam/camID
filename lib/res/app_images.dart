@@ -208,7 +208,18 @@ class AppImages {
   static final String icRadioBtn = 'assets/icons/ic_radio_btn.svg';
   static final String icRadioBtnTicked = 'assets/icons/ic_radio_btn_ticked.svg';
   static final String icData = 'assets/icons/ic_data.svg';
+  static final String icFilterV2 = 'assets/icons/ic_filter_v2.svg';
 
+  static final String icTabBasicSelected = 'assets/icons/ic_tab_basic_selected.svg';
+  static final String icTabDataSelected = 'assets/icons/ic_tab_data_selected.svg';
+  static final String icTabCallSelected = 'assets/icons/ic_tab_call_selected.svg';
+  static final String icTabRoamingSelected = 'assets/icons/ic_tab_roaming_selected.svg';
+  static final String icTabSMSSelected = 'assets/icons/ic_tab_sms_selected.svg';
 
+  static final String icTabBasicUnSelected = 'assets/icons/ic_tab_basic_unselected.svg';
+  static final String icTabDataUnSelected = 'assets/icons/ic_tab_data_unselected.svg';
+  static final String icTabCallUnSelected = 'assets/icons/ic_tab_call_unselected.svg';
+  static final String icTabRoamingUnSelected = 'assets/icons/ic_tab_roaming_unselected.svg';
+  static final String icTabSMSUnSelected = 'assets/icons/ic_tab_sms_unselected.svg';
 // ------------------------ N ------------------------
 }
