@@ -8,6 +8,7 @@ import 'package:cam_id/main/ui/identity_verification/identity_verification_bloc.
 import 'package:cam_id/main/ui/identity_verification/identity_verification_event.dart';
 import 'package:cam_id/main/ui/identity_verification/identity_verification_state.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
@@ -182,9 +183,7 @@ class _IdentityVerificationState extends State<IdentityVerificationPage> {
 
                     if (state.errorMessage != null) {
                       LoadingOverlayWidget.hide();
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage!)),
-                      );
+                      AppToast.show(context, state.errorMessage??AppLocalizations.of(context)!.error_occurred);
                     }
                   }
               ),

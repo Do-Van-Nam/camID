@@ -1785,6 +1785,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expired'**
   String get expired;
+
+  /// No description provided for @internet_wifi.
+  ///
+  /// In en, this message translates to:
+  /// **'Internet Wifi'**
+  String get internet_wifi;
+
+  /// No description provided for @buy_e_sim.
+  ///
+  /// In en, this message translates to:
+  /// **'Buy e-SIM'**
+  String get buy_e_sim;
+
+  /// No description provided for @metfone_services.
+  ///
+  /// In en, this message translates to:
+  /// **'Metfone services'**
+  String get metfone_services;
+
+  /// No description provided for @scan_scratch_card.
+  ///
+  /// In en, this message translates to:
+  /// **'Scan scratch card'**
+  String get scan_scratch_card;
+
+  /// No description provided for @account_details.
+  ///
+  /// In en, this message translates to:
+  /// **'Account details'**
+  String get account_details;
+
+  /// No description provided for @filter.
+  ///
+  /// In en, this message translates to:
+  /// **'Filter'**
+  String get filter;
 }
 
 class _AppLocalizationsDelegate

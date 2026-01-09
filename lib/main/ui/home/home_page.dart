@@ -14,6 +14,7 @@ import 'package:cam_id/main/ui/home/home_event.dart';
 import 'package:cam_id/main/ui/home/home_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/package_short_des.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/circular_progress_widget.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
@@ -53,7 +54,7 @@ class _HomePageState extends State<HomePage>
   int bannerIndex = 0;
   List<AdsModel>? listBannerFooter = [];
   List<AdsModel>? listVasService = [];
-  List<PackageModel>? listPackageMobile= [];
+  List<PackageModel>? listPackageMobile = [];
   AccountsOcsDetailModel? ocsBasic;
   AccountsOcsDetailModel? ocsData;
   AccountsOcsDetailModel? ocsCall;
@@ -66,14 +67,14 @@ class _HomePageState extends State<HomePage>
 
   List<Map<String, String>> _buildItems(AppLocalizations l10n) {
     return [
-      {'icon': AppImages.icFTTH, 'title': l10n.ftth},
-      {'icon': AppImages.icEsim, 'title': l10n.esim},
-      {'icon': AppImages.icMyService, 'title': l10n.my_services},
-      {'icon': AppImages.icPaymentHistory, 'title': l10n.payment_history},
-      {'icon': AppImages.icTopUp, 'title': l10n.top_up},
-      {'icon': AppImages.icChargeHistory, 'title': l10n.charge_history},
-      {'icon': AppImages.icScanCard, 'title': l10n.scan_card},
-      {'icon': AppImages.icAccountDetail, 'title': l10n.account_detail},
+      {'key': Constant.FUNC_FTTH, 'icon': AppImages.icFTTH, 'title': l10n.ftth},
+      {'key': Constant.FUNC_ESIM, 'icon': AppImages.icEsim, 'title': l10n.esim},
+      {'key': Constant.FUNC_MY_SERVICES, 'icon': AppImages.icMyService, 'title': l10n.my_services},
+      {'key': Constant.FUNC_PAYMENT_HISTORY, 'icon': AppImages.icPaymentHistory, 'title': l10n.payment_history},
+      {'key': Constant.FUNC_TOP_UP, 'icon': AppImages.icTopUp, 'title': l10n.top_up},
+      {'key': Constant.FUNC_CHARGE_HISTORY, 'icon': AppImages.icChargeHistory, 'title': l10n.charge_history},
+      {'key': Constant.FUNC_SCAN_CARD, 'icon': AppImages.icScanCard, 'title': l10n.scan_card},
+      {'key': Constant.FUNC_ACCOUNT_DETAIL, 'icon': AppImages.icAccountDetail, 'title': l10n.account_detail},
     ];
   }
 
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage>
       value: _bloc,
       child: BlocListener<HomeBloc, HomeState>(
         listener: (context, state) {
-          if(state is HomeLoading){
+          if (state is HomeLoading) {
             LoadingOverlayWidget.show(context);
           }
           if (state is OnTapLogin) {
@@ -116,13 +117,13 @@ class _HomePageState extends State<HomePage>
               isLoggedIn = state.isLoggedIn;
             });
           }
-          if(state is GetAllAppSuccess){
+          if (state is GetAllAppSuccess) {
             setState(() {
               listBannerFooter = state.listBanner;
               listVasService = state.listVas;
             });
           }
-          if(state is GetServiceByGroupSuccess) {
+          if (state is GetServiceByGroupSuccess) {
             setState(() {
               listPackageMobile = state.listPackage;
             });
@@ -136,11 +137,9 @@ class _HomePageState extends State<HomePage>
           }
           if (state is SignUpFailure) {
             LoadingOverlayWidget.hide();
-            ScaffoldMessenger.of(
-              context,
-            ).showSnackBar(SnackBar(content: Text(state.message)));
+            AppToast.show(context, state.message);
           }
-          if(state is GetAccountsOcsDetailSuccess){
+          if (state is GetAccountsOcsDetailSuccess) {
             setState(() {
               ocsBasic = state.ocsBasic;
               ocsData = state.ocsData;
@@ -153,11 +152,14 @@ class _HomePageState extends State<HomePage>
             LoadingOverlayWidget.hide();
             _onSaveToken(state.data, _bloc);
           }
+          if (state is SignInFailure) {
+            LoadingOverlayWidget.hide();
+            AppToast.show(context, state.message);
+          }
           if (state is GetUserInfoSuccess) {
             LoadingOverlayWidget.hide();
             _onSaveUserInfo(state.user);
             _bloc.add(HomeStarted());
-
           }
         },
         child: Scaffold(
@@ -217,7 +219,10 @@ class _HomePageState extends State<HomePage>
   Future<void> _onSaveToken(SignInModel model, HomeBloc bloc) async {
     String token = "Bearer ${model.accessToken}";
 
-    await SharePreferenceUtil.setString(ShareKey.KEY_PHONE_NUMBER, phoneNumberController.text);
+    await SharePreferenceUtil.setString(
+      ShareKey.KEY_PHONE_NUMBER,
+      phoneNumberController.text,
+    );
     await SharePreferenceUtil.setString(ShareKey.KEY_ACCESS_TOKEN, token);
     await SharePreferenceUtil.setString(
       ShareKey.KEY_REFRESH_TOKEN,
@@ -226,6 +231,7 @@ class _HomePageState extends State<HomePage>
 
     bloc.add(GetUserInfoEvent(token));
   }
+
   PreferredSizeWidget _buildAppBar(
     BuildContext context,
     AppLocalizations l10n,
@@ -339,60 +345,73 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildBannerSection(
-    BuildContext context,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildBannerSection(BuildContext context, AppLocalizations l10n) {
+    final isEmpty = listBannerFooter == null || listBannerFooter!.isEmpty;
+
     return Stack(
       children: [
-        CarouselSlider(
-          options: CarouselOptions(
+        if (isEmpty)
+          SafeImage(
             height: 415,
-            autoPlay: true,
-            viewportFraction: 1.05,
-            enlargeCenterPage: true,
-            onPageChanged: (index, reason) {
-              setState(() {
-                bannerIndex = index;
-              });
-            },
-          ),
-          items: listBannerFooter?.map((banner) {
-            return ClipRRect(
-              // borderRadius: const BorderRadius.only(
-              //   bottomLeft: Radius.circular(24),
-              //   bottomRight: Radius.circular(24),
-              // ),
-              child: SafeImage(
+            url: null,
+            width: MediaQuery.of(context).size.width,
+            fit: BoxFit.cover,
+            placeholder: AppImages.imgEntertainmentDefault,
+            errorAsset: AppImages.imgEntertainmentDefault,
+          )
+        else
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 415,
+              autoPlay: true,
+              viewportFraction: 1.05,
+              enlargeCenterPage: true,
+              onPageChanged: (index, reason) {
+                setState(() => bannerIndex = index);
+              },
+            ),
+            items: listBannerFooter!.map((banner) {
+              return SafeImage(
                 url: banner.adImgUrl,
                 width: MediaQuery.of(context).size.width,
                 fit: BoxFit.cover,
                 placeholder: AppImages.imgEntertainmentDefault,
                 errorAsset: AppImages.imgEntertainmentDefault,
-              ),
-            );
-          }).toList(),
-        ),
+              );
+            }).toList(),
+          ),
         Column(
           children: [
             const SizedBox(height: 212),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: listBannerFooter!.asMap().entries.map((entry) {
-                final isActive = bannerIndex == entry.key;
-                return Container(
-                  width: isActive ? 30 : 6,
-                  height: 6,
-                  margin: const EdgeInsets.symmetric(horizontal: 4),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: isActive
-                        ? AppColors.color_FFFF
-                        : AppColors.color_FFFF_70,
-                  ),
-                );
-              }).toList(),
+              children: isEmpty
+                  ? [
+                      Container(
+                        width: 30,
+                        height: 6,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: AppColors.color_FFFF,
+                        ),
+                      ),
+                    ]
+                  : listBannerFooter!.asMap().entries.map((entry) {
+                      final isActive = bannerIndex == entry.key;
+                      return Container(
+                        width: isActive ? 30 : 6,
+                        height: 6,
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(3),
+                          color: isActive
+                              ? AppColors.color_FFFF
+                              : AppColors.color_FFFF_70,
+                        ),
+                      );
+                    }).toList(),
             ),
+
             Container(
               width: double.infinity,
               margin: const EdgeInsets.only(left: 16, right: 16, top: 8),
@@ -400,10 +419,7 @@ class _HomePageState extends State<HomePage>
               decoration: BoxDecoration(
                 color: AppColors.color_1818_80,
                 borderRadius: BorderRadius.circular(16),
-                border: Border.all(
-                  color: AppColors.color_FFFF_16, // màu border
-                  width: 1,
-                ),
+                border: Border.all(color: AppColors.color_FFFF_16, width: 1),
               ),
               child: _buildLoginSection(),
             ),
@@ -453,7 +469,14 @@ class _HomePageState extends State<HomePage>
           width: double.infinity,
           child: ElevatedButton(
             onPressed: () {
-              _bloc.add(SignUpEvent(phoneNumberController.text, false, "123456"));
+              if (isValidCambodiaPhone(phoneNumberController.text)) {
+                LoadingOverlayWidget.show(context);
+                _bloc.add(
+                  SignUpEvent(phoneNumberController.text, false, "123456"),
+                );
+              } else {
+                AppToast.show(context, l10n.phone_number_is_not_valid);
+              }
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.color_E11B,
@@ -501,13 +524,20 @@ class _HomePageState extends State<HomePage>
           ),
         ),
         SizedBox(height: 4),
-        Text(
-          l10n.changeAccount,
-          style: AppTextFonts.poppinsRegular.copyWith(
-            fontSize: 14,
-            color: AppColors.color_FFFF,
-            decoration: TextDecoration.underline,
-            decorationColor: AppColors.color_FFFF,
+        InkWell(
+          onTap: () {
+            setState(() {
+              _isEnteringOTP = false;
+            });
+          },
+          child: Text(
+            l10n.changeAccount,
+            style: AppTextFonts.poppinsRegular.copyWith(
+              fontSize: 14,
+              color: AppColors.color_FFFF,
+              decoration: TextDecoration.underline,
+              decorationColor: AppColors.color_FFFF,
+            ),
           ),
         ),
         SizedBox(height: 12),
@@ -602,7 +632,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   SizedBox(height: 4),
                   Text(
-                    "\$${Constant.formatNumber(ocsBasic?.value??0.0)}",
+                    "\$${Constant.formatNumber(ocsBasic?.value ?? 0.0)}",
                     style: AppTextFonts.poppinsSemiBold.copyWith(
                       fontSize: 24,
                       color: AppColors.color_FFFF,
@@ -610,7 +640,7 @@ class _HomePageState extends State<HomePage>
                   ),
                   SizedBox(height: 2),
                   Text(
-                    "${l10n.expired}: ${ocsBasic?.exp??""}",
+                    "${l10n.expired}: ${ocsBasic?.exp ?? ""}",
                     style: AppTextFonts.poppinsRegular.copyWith(
                       fontSize: 10,
                       color: AppColors.color_BCC0,
@@ -686,7 +716,7 @@ class _HomePageState extends State<HomePage>
               ),
             ),
             Text(
-              "${Constant.formatNumber(ocsData?.value??0.0)}${Constant.MB}",
+              "${Constant.formatNumber(ocsData?.value ?? 0.0)}${Constant.MB}",
               style: AppTextFonts.poppinsSemiBold.copyWith(
                 fontSize: 16,
                 color: AppColors.color_E11B,
@@ -702,7 +732,6 @@ class _HomePageState extends State<HomePage>
                 BlendMode.srcIn,
               ),
             ),
-
           ],
         ),
       ],
@@ -746,10 +775,7 @@ class _HomePageState extends State<HomePage>
     });
   }
 
-  Widget _buildBody(
-    BuildContext context,
-    AppLocalizations l10n,
-  ) {
+  Widget _buildBody(BuildContext context, AppLocalizations l10n) {
     final items = _buildItems(l10n);
     final pageCount = _getPageCount(items);
     return Column(
@@ -793,7 +819,7 @@ class _HomePageState extends State<HomePage>
                       children: List.generate(_itemsPerPage, (index) {
                         if (index < pageItems.length) {
                           final item = pageItems[index];
-                          return _buildItem(item['icon']!, item['title']!);
+                          return _buildItem(item['key']!, item['icon']!, item['title']!);
                         }
                         return const Expanded(child: SizedBox());
                       }),
@@ -869,36 +895,39 @@ class _HomePageState extends State<HomePage>
             ],
           ),
         ),
-        SizedBox(height: 20),
-        Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
-              child: Row(
-                children: [
-                  Text(
-                    l10n.services_for_you,
-                    style: AppTextFonts.poppinsSemiBold.copyWith(
-                      color: AppColors.color_1618,
-                      fontSize: 16,
+        if ((listPackageMobile ?? []).isNotEmpty) ...[
+          SizedBox(height: 20),
+          Column(
+            children: [
+              Container(
+                margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
+                child: Row(
+                  children: [
+                    Text(
+                      l10n.services_for_you,
+                      style: AppTextFonts.poppinsSemiBold.copyWith(
+                        color: AppColors.color_1618,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  Spacer(),
-                  Text(
-                    l10n.viewAll,
-                    style: AppTextFonts.poppinsMedium.copyWith(
-                      color: AppColors.color_E11B,
-                      fontSize: 12,
+                    Spacer(),
+                    Text(
+                      l10n.viewAll,
+                      style: AppTextFonts.poppinsMedium.copyWith(
+                        color: AppColors.color_E11B,
+                        fontSize: 12,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
 
-            SizedBox(height: 12),
-            _buildItemPackage(),
-          ],
-        ),
+              SizedBox(height: 12),
+              _buildItemPackage(),
+            ],
+          ),
+        ],
+
         SizedBox(height: 20),
         Container(
           margin: const EdgeInsets.fromLTRB(16, 20, 16, 0),
@@ -914,11 +943,16 @@ class _HomePageState extends State<HomePage>
                     ),
                   ),
                   Spacer(),
-                  Text(
-                    l10n.viewAll,
-                    style: AppTextFonts.poppinsMedium.copyWith(
-                      color: AppColors.color_E11B,
-                      fontSize: 12,
+                  InkWell(
+                    onTap: () {
+                      context.push(PATH_CHARGE_HISTORY);
+                    },
+                    child: Text(
+                      l10n.viewAll,
+                      style: AppTextFonts.poppinsMedium.copyWith(
+                        color: AppColors.color_E11B,
+                        fontSize: 12,
+                      ),
                     ),
                   ),
                 ],
@@ -1011,9 +1045,7 @@ class _HomePageState extends State<HomePage>
                           Expanded(
                             child: _buildUsageInfo(
                               l10n.call,
-                              Constant.formatNumber(
-                                ocsCall?.value ?? 0.0,
-                              ),
+                              Constant.formatNumber(ocsCall?.value ?? 0.0),
                               Constant.MINS,
                             ),
                           ),
@@ -1027,9 +1059,7 @@ class _HomePageState extends State<HomePage>
                           Expanded(
                             child: _buildUsageInfo(
                               l10n.roaming,
-                              Constant.formatNumber(
-                                ocsRoaming?.value ?? 0.0,
-                              ),
+                              Constant.formatNumber(ocsRoaming?.value ?? 0.0),
                               Constant.MB,
                             ),
                           ),
@@ -1083,21 +1113,26 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildItemPackage() {
+    final list = listPackageMobile ?? [];
+
+    if (list.isEmpty) {
+      return const SizedBox.shrink();
+    }
     return SizedBox(
       height: 210,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: listPackageMobile!.length,
+        itemCount: list.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = listPackageMobile![index];
+          final item = list[index];
           final info = parseShortDes(item.shortDes);
 
           EdgeInsetsGeometry padding = EdgeInsets.zero;
           if (index == 0) {
             padding = const EdgeInsets.only(left: 12);
           }
-          if (index == listPackageMobile!.length - 1) {
+          if (index == list.length - 1) {
             padding = padding.add(const EdgeInsets.only(right: 12));
           }
 
@@ -1262,6 +1297,12 @@ class _HomePageState extends State<HomePage>
   }
 
   Widget _buildVasService() {
+    final list = listVasService ?? [];
+
+    if (list.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Container(
       height: 103,
       padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
@@ -1271,16 +1312,16 @@ class _HomePageState extends State<HomePage>
       ),
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: listVasService!.length,
+        itemCount: list.length,
         separatorBuilder: (_, __) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
-          final item = listVasService![index];
+          final item = list[index];
 
           EdgeInsetsGeometry padding = EdgeInsets.zero;
           if (index == 0) {
             padding = const EdgeInsets.only(left: 12);
           }
-          if (index == listVasService!.length - 1) {
+          if (index == list.length - 1) {
             padding = padding.add(const EdgeInsets.only(right: 12));
           }
 
@@ -1319,25 +1360,66 @@ class _HomePageState extends State<HomePage>
     );
   }
 
-  Widget _buildItem(String icon, String title) {
-    return Expanded(
-      child: Column(
-        children: [
-          SvgPicture.asset(icon),
-          const SizedBox(height: 6),
+  bool isValidCambodiaPhone(String phone) {
+    return (phone.startsWith('+855') || phone.startsWith('0')) &&
+        phone.length >= 9 &&
+        phone.length <= 14;
+  }
 
-          SizedBox(
-            height: 38, // đủ cho 2 dòng
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-              // style: AppTextFonts.poppins12Regular,
+  Widget _buildItem(String key, String icon, String title) {
+    return Expanded(
+      child: InkWell(
+        onTap: () => _onItemTap(key),
+        child: Column(
+          children: [
+            SvgPicture.asset(icon),
+            const SizedBox(height: 6),
+            SizedBox(
+              height: 38,
+              width: 80,
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: AppTextFonts.poppinsRegular.copyWith(
+                  fontSize: 12,
+                  color: AppColors.color_1618,
+                ),
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
+  }
+
+  void _onItemTap(String key) {
+    switch (key) {
+      case Constant.FUNC_FTTH:
+        context.push(PATH_INTERNET_WIFI);
+        break;
+      case Constant.FUNC_ESIM:
+        context.push(PATH_BUY_E_SIM);
+        break;
+      case Constant.FUNC_MY_SERVICES:
+        context.push(PATH_METFONE_SERVICE);
+        break;
+      case Constant.FUNC_PAYMENT_HISTORY:
+        context.push(PATH_PAYMENT_HISTORY);
+        break;
+      case Constant.FUNC_TOP_UP:
+        context.push(PATH_TOP_UP);
+        break;
+      case Constant.FUNC_CHARGE_HISTORY:
+        context.push(PATH_CHARGE_HISTORY);
+        break;
+      case Constant.FUNC_SCAN_CARD:
+        context.push(PATH_SCAN_SCRATCH_CARD);
+        break;
+      case Constant.FUNC_ACCOUNT_DETAIL:
+        context.push(PATH_ACCOUNT_DETAILS);
+        break;
+    }
   }
 }

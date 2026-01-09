@@ -39,6 +39,21 @@ class Constant {
   static const String MINS = "MINS";
   static const String SMS = "SMS";
 
+  static const String FUNC_FTTH = "ftth";
+  static const String FUNC_ESIM = "esim";
+  static const String FUNC_MY_SERVICES = "my_services";
+  static const String FUNC_PAYMENT_HISTORY = "payment_history";
+  static const String FUNC_TOP_UP = "top_up";
+  static const String FUNC_CHARGE_HISTORY = "charge_history";
+  static const String FUNC_SCAN_CARD = "scan_card";
+  static const String FUNC_ACCOUNT_DETAIL = "account_detail";
+
+  static const String HISTORY_BASIC = "basic";
+  static const String HISTORY_DATA = "data";
+  static const String HISTORY_CALL = "call";
+  static const String HISTORY_SMS = "sms";
+  static const String HISTORY_ROAMING = "roaming";
+
 
   static String normalizePhone(String phone) {
     String p = phone.trim();

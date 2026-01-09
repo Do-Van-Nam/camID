@@ -7,6 +7,7 @@ import 'package:cam_id/main/ui/verify/verify_event.dart';
 import 'package:cam_id/main/ui/verify/verify_state.dart';
 import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -264,15 +265,11 @@ class _VerifyPageState extends State<VerifyPage> {
           listener: (context, state) {
             if (state is GetOTPByServiceSuccess) {
             } else if (state is GetOTPByServiceFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppToast.show(context, state.message);
             } else if (state is ConfirmOTPSuccess) {
               context.push(PATH_USER_INFORMATION);
             } else if (state is ConfirmOTPFailure) {
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text(state.message)));
+              AppToast.show(context, state.message);
             }
           },
         ),

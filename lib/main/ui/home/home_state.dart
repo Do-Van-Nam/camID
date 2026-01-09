@@ -8,88 +8,6 @@ import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:equatable/equatable.dart';
 
 class HomeState extends Equatable {
-  // final bool isLoading;
-  // final bool isLoggedIn;
-  // final int bannerIndex;
-  // final bool navigateToLogin;
-  // final List<AdsModel>? listBannerFooter;
-  // final List<AdsModel>? listVasService;
-  // final List<PackageModel>? listPackageMobile;
-  // final AccountsOcsDetailModel? ocsBasic;
-  // final AccountsOcsDetailModel? ocsData;
-  // final AccountsOcsDetailModel? ocsCall;
-  // final AccountsOcsDetailModel? ocsSms;
-  // final AccountsOcsDetailModel? ocsRoaming;
-  // final bool signUpSuccess;
-  // final bool signInSuccess;
-  // final SignInModel? signInModel;
-  // final String? error;
-  //
-  // const HomeState({
-  //   required this.isLoggedIn,
-  //   required this.bannerIndex,
-  //   this.navigateToLogin = false,
-  //   this.listBannerFooter,
-  //   this.listVasService,
-  //   this.listPackageMobile,
-  //   required this.isLoading,
-  //   this.error,
-  //   this.ocsBasic,
-  //   this.ocsData,
-  //   this.ocsCall,
-  //   this.ocsSms,
-  //   this.ocsRoaming,
-  //   this.signUpSuccess = false,
-  //   this.signInSuccess = false,
-  //   this.signInModel,
-  // });
-
-  // factory HomeState.initial() {
-  //   return HomeState(
-  //     isLoggedIn: UserInfoModel.instance.username.isNotEmpty,
-  //     bannerIndex: 0,
-  //     isLoading: false,
-  //   );
-  // }
-  //
-  // HomeState copyWith({
-  //   bool? isLoggedIn,
-  //   int? bannerIndex,
-  //   bool? isLoading,
-  //   bool? navigateToLogin,
-  //   List<AdsModel>? listBannerFooter,
-  //   List<AdsModel>? listVasService,
-  //   List<PackageModel>? listPackageMobile,
-  //   AccountsOcsDetailModel? ocsBasic,
-  //   AccountsOcsDetailModel? ocsData,
-  //   AccountsOcsDetailModel? ocsCall,
-  //   AccountsOcsDetailModel? ocsSms,
-  //   AccountsOcsDetailModel? ocsRoaming,
-  //   bool? signUpSuccess,
-  //   bool? signInSuccess,
-  //   SignInModel? signInModel,
-  //   String? error,
-  // }) {
-  //   return HomeState(
-  //     isLoading: isLoading ?? this.isLoading,
-  //     isLoggedIn: isLoggedIn ?? this.isLoggedIn,
-  //     bannerIndex: bannerIndex ?? this.bannerIndex,
-  //     navigateToLogin: navigateToLogin ?? false,
-  //     listBannerFooter: listBannerFooter ?? this.listBannerFooter,
-  //     listVasService: listVasService ?? this.listVasService,
-  //     listPackageMobile: listPackageMobile ?? this.listPackageMobile,
-  //     ocsBasic: ocsBasic ?? this.ocsBasic,
-  //     ocsData: ocsData ?? this.ocsData,
-  //     ocsCall: ocsCall ?? this.ocsCall,
-  //     ocsSms: ocsSms ?? this.ocsSms,
-  //     ocsRoaming: ocsRoaming ?? this.ocsRoaming,
-  //     signUpSuccess: signUpSuccess ?? this.signUpSuccess,
-  //     signInSuccess: signInSuccess ?? this.signInSuccess,
-  //     signInModel: signInModel ?? this.signInModel,
-  //     error: error,
-  //   );
-  // }
-
   @override
   List<Object?> get props => [];
 }
@@ -174,8 +92,6 @@ class GenerateOTPFailure extends HomeState {
 
   GenerateOTPFailure(this.message);
 }
-
-class SignInLoading extends HomeState {}
 
 class SignInSuccess extends HomeState {
   final String message;

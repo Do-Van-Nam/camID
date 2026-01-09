@@ -379,5 +379,11 @@
   "remaining": "remaining",
   "due_date":"Due Date",
   "account_balance":"Account Balance",
-  "expired":"Expired"
+  "expired":"Expired",
+  "internet_wifi": "Internet Wifi",
+  "buy_e_sim": "Buy e-SIM",
+  "metfone_services": "Metfone services",
+  "scan_scratch_card": "Scan scratch card",
+  "account_details": "Account details",
+  "filter": "Filter"
 }
