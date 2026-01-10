@@ -69,12 +69,36 @@ class _HomePageState extends State<HomePage>
     return [
       {'key': Constant.FUNC_FTTH, 'icon': AppImages.icFTTH, 'title': l10n.ftth},
       {'key': Constant.FUNC_ESIM, 'icon': AppImages.icEsim, 'title': l10n.esim},
-      {'key': Constant.FUNC_MY_SERVICES, 'icon': AppImages.icMyService, 'title': l10n.my_services},
-      {'key': Constant.FUNC_PAYMENT_HISTORY, 'icon': AppImages.icPaymentHistory, 'title': l10n.payment_history},
-      {'key': Constant.FUNC_TOP_UP, 'icon': AppImages.icTopUp, 'title': l10n.top_up},
-      {'key': Constant.FUNC_CHARGE_HISTORY, 'icon': AppImages.icChargeHistory, 'title': l10n.charge_history},
-      {'key': Constant.FUNC_SCAN_CARD, 'icon': AppImages.icScanCard, 'title': l10n.scan_card},
-      {'key': Constant.FUNC_ACCOUNT_DETAIL, 'icon': AppImages.icAccountDetail, 'title': l10n.account_detail},
+      {
+        'key': Constant.FUNC_MY_SERVICES,
+        'icon': AppImages.icMyService,
+        'title': l10n.my_services,
+      },
+      {
+        'key': Constant.FUNC_PAYMENT_HISTORY,
+        'icon': AppImages.icPaymentHistory,
+        'title': l10n.payment_history,
+      },
+      {
+        'key': Constant.FUNC_TOP_UP,
+        'icon': AppImages.icTopUp,
+        'title': l10n.top_up,
+      },
+      {
+        'key': Constant.FUNC_CHARGE_HISTORY,
+        'icon': AppImages.icChargeHistory,
+        'title': l10n.charge_history,
+      },
+      {
+        'key': Constant.FUNC_SCAN_CARD,
+        'icon': AppImages.icScanCard,
+        'title': l10n.scan_card,
+      },
+      {
+        'key': Constant.FUNC_ACCOUNT_DETAIL,
+        'icon': AppImages.icAccountDetail,
+        'title': l10n.account_detail,
+      },
     ];
   }
 
@@ -385,6 +409,22 @@ class _HomePageState extends State<HomePage>
               );
             }).toList(),
           ),
+        Container(
+          width: double.infinity,
+          height: 415,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors: [
+                Colors.transparent,
+                Colors.transparent,
+                Colors.transparent,
+                AppColors.color_0000,
+              ],
+              begin: Alignment.topCenter, // hướng gradient
+              end: Alignment.bottomCenter,
+            ),
+          ),
+        ),
         Column(
           children: [
             const SizedBox(height: 212),
@@ -428,6 +468,7 @@ class _HomePageState extends State<HomePage>
               ),
               child: _buildLoginSection(),
             ),
+
           ],
         ),
       ],
@@ -824,7 +865,11 @@ class _HomePageState extends State<HomePage>
                       children: List.generate(_itemsPerPage, (index) {
                         if (index < pageItems.length) {
                           final item = pageItems[index];
-                          return _buildItem(item['key']!, item['icon']!, item['title']!);
+                          return _buildItem(
+                            item['key']!,
+                            item['icon']!,
+                            item['title']!,
+                          );
                         }
                         return const Expanded(child: SizedBox());
                       }),
