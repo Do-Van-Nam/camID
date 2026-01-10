@@ -34,7 +34,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       "token": "",
       "language": "",
       "versionApp": "",
-      "wsCode": "wsInitLinkedPayment",
+      "wsCode": WSCode.wsInitLinkedPayment,
       "wsRequest": {"camId": "", "isdn": "", "partnerCode": "", "language": ""},
     };
 
@@ -65,7 +65,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       "username": "",
       "language": "",
       "versionApp": DeviceUtils.getVersion(),
-      "wsCode": "wsCheckLinkedPaymentEmoney",
+      "wsCode": WSCode.wsCheckLinkedPaymentEmoney,
       "wsRequest": {
         "camId": event.camId,
         "isdn": event.isdn,
@@ -110,7 +110,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       "username": "",
       "versionApp": DeviceUtils.getVersion(),
       "language": event.language,
-      "wsCode": "wsGetListPaymentMethod",
+      "wsCode": WSCode.wsGetListPaymentMethod,
       "wsRequest": {
         "camId": event.camId,
         "service": event.service,
@@ -183,7 +183,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       "apiKey": "6CB8FC45D491D87CECB53428D79423BD",
       "sessionId": "",
       "username": "",
-      "wsCode": "wsGenerateQRCodeFTTHCommission",
+      "wsCode": WSCode.wsGenerateQRCodeFTTHCommission,
       "wsRequest": {"camID": "", "eventCode": "FTTH", "phoneNumber": ""},
     };
 
@@ -214,7 +214,7 @@ class UserProfileBloc extends Bloc<UserProfileEvent, UserProfileState> {
       "apiKey": "",
       "sessionId": "",
       "username": "",
-      "wsCode": "wsAbaCheckAbaCard",
+      "wsCode": WSCode.wsAbaCheckAbaCard,
       "wsRequest": {"linkedPaymentId": "", "camId": "", "language": ""},
     };
 

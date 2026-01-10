@@ -18,3 +18,26 @@ class ApiEndPoint {
       "$DOMAIN/camid-auth/api/v1/user/update-avatar";
   static String API_UPDATE_USER = "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
 }
+
+class WSCode {
+  static String wsHistoryChargeV2 = "wsHistoryChargeV2";
+  static String wsHistoryChargeDetailV2 = "wsHistoryChargeDetailV2";
+  static String wsGetAccountsOcsDetailV2 = "wsGetAccountsOcsDetailV2";
+  static String wsGetAllApps = "wsGetAllApps";
+  static String wsGetServicesByGroup = "wsGetServicesByGroup";
+  static String wsDetectOCRFromImage = "wsDetectOCRFromImage";
+  static String getPackageInforV2 = "getPackageInforV2";
+  static String wsInitLinkedPayment = "wsInitLinkedPayment";
+  static String wsCheckLinkedPaymentEmoney = "wsCheckLinkedPaymentEmoney";
+  static String wsGetListPaymentMethod = "wsGetListPaymentMethod";
+  static String wsGenerateQRCodeFTTHCommission = "wsGenerateQRCodeFTTHCommission";
+  static String wsAbaCheckAbaCard = "wsAbaCheckAbaCard";
+  static String wsGetOTPByService = "wsGetOTPByService";
+  static String wsConfirmOTP = "wsConfirmOTP";
+  static String getListPaperType = "getListPaperType";
+  static String wsPaymentHistory = "wsPaymentHistory";
+  static String wsGetListAutoRenew = "wsGetListAutoRenew";
+  static String wsGetCurrentUsedServices = "wsGetCurrentUsedServices";
+  static String wsGetServices = "wsGetServices";
+  static String wsDoActionService = "wsDoActionService";
+}

@@ -228,6 +228,7 @@ class AppImages {
   static final String icHistorySMS = 'assets/icons/ic_history_sms.svg';
   static final String icHistoryService = 'assets/icons/ic_history_service.svg';
   static final String icHistoryData = 'assets/icons/ic_history_data.svg';
+  static final String icLogoV2 = 'assets/icons/ic_logo_v2.svg';
 
 // ------------------------ N ------------------------
 }

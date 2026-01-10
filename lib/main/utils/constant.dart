@@ -56,7 +56,9 @@ class Constant {
   static const String HISTORY_OTHER = "other";
   static const String HISTORY_SERVICE = "service";
 
-
+  static const int WS_DO_ACTION_SERVICE_ACTION_TYPE_REGISTER = 0;
+  static const int WS_DO_ACTION_SERVICE_ACTION_TYPE_CANCEL = 1;
+  static const String SUPER_EXCHANGE = "Super Exchange";
   static String normalizePhone(String phone) {
     String p = phone.trim();
 

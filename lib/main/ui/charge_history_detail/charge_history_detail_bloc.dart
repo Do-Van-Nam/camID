@@ -31,7 +31,7 @@ class ChargeHistoryDetailBloc extends Bloc<ChargeHistoryDetailEvent, ChargeHisto
       "sessionId": "",
       "token": "",
       "versionApp": DeviceUtils.getVersion(),
-      "wsCode": "wsHistoryChargeDetailV2",
+      "wsCode": WSCode.wsHistoryChargeDetailV2,
       "wsRequest": {
         "isdn": "66200017",
         "language": language,

@@ -78,6 +78,8 @@ class _ToastWidgetState extends State<_ToastWidget>
     return IgnorePointer(
       ignoring: true,
       child: Center(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
         child: FadeTransition(
           opacity: _opacity,
           child: Material(
@@ -96,6 +98,7 @@ class _ToastWidgetState extends State<_ToastWidget>
           ),
         ),
       ),
+      )
     );
   }
 }

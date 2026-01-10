@@ -139,7 +139,7 @@ class MetfoneBloc extends Bloc<MetfoneEvent, MetfoneState> {
     emit(state.copyWith(isLoading: true, error: null));
     final language = await SharePreferenceUtil.getLanguageCode();
     final body = {
-      "wsCode": "getPackageInforV2",
+      "wsCode": WSCode.getPackageInforV2,
       "wsRequest": {
         "language": language
       },

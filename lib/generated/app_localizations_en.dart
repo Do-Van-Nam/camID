@@ -939,4 +939,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get no_internet_connection => 'No internet connection';
+
+  @override
+  String get auto_renew => 'Auto renew';
+
+  @override
+  String get service_for_you => 'Service for you';
+
+  @override
+  String get back => 'Back';
+
+  @override
+  String get confirm_off_service_title => 'Do you want to OFF auto-renew?';
+
+  @override
+  String get confirm_on_service_title =>
+      'Do you want to cancel the old package and sign up a new one?';
 }

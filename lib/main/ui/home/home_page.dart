@@ -90,6 +90,7 @@ class _HomePageState extends State<HomePage>
 
   @override
   void dispose() {
+    _timer?.cancel();
     _bloc.close();
     phoneNumberController.dispose();
     super.dispose();
@@ -134,6 +135,7 @@ class _HomePageState extends State<HomePage>
               _isEnteringOTP = true;
             });
             _bloc.add(GenerateOTPEvent(phoneNumberController.text));
+            _startCountdown();
           }
           if (state is SignUpFailure) {
             LoadingOverlayWidget.hide();
@@ -160,6 +162,9 @@ class _HomePageState extends State<HomePage>
             LoadingOverlayWidget.hide();
             _onSaveUserInfo(state.user);
             _bloc.add(HomeStarted());
+            _bloc.add(GetAllAppsEvent());
+            _bloc.add(GetServiceByGroupAppsEvent("Recommend"));
+            _bloc.add(GetAccountsOcsDetailEvent());
           }
         },
         child: Scaffold(
