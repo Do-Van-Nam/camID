@@ -34,7 +34,7 @@ class _MetFonePageState extends State<MetFonePage>
   @override
   bool get wantKeepAlive => true;
   late final MetfoneBloc _bloc;
-  late final l10n = AppLocalizations.of(context)!;
+  AppLocalizations get l10n => AppLocalizations.of(context)!;
   LoadingWidgetState viewState = LoadingWidgetState.success;
   int _selectedIndex = 0;
 

@@ -79,12 +79,15 @@ class ChargeHistoryBloc extends Bloc<ChargeHistoryEvent, ChargeHistoryState> {
             listCall,
             listSMS,
             listRoaming,
+            event.type
           ),
         );
+      } else {
+        emit(GetChargeHistoryFailure(result.result?.message??"", event.type));
       }
     } catch (e) {
       AppLogger().logError(e.toString());
-      emit(GetChargeHistoryFailure(e.toString()));
+      emit(GetChargeHistoryFailure(e.toString(), event.type));
     }
   }
 }

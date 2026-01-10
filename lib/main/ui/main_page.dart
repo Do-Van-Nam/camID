@@ -5,6 +5,7 @@ import 'package:cam_id/main/ui/help_center/help_center_page.dart';
 import 'package:cam_id/main/ui/home/home_page.dart';
 import 'package:cam_id/main/ui/loyalty/loyalty_page.dart';
 import 'package:cam_id/main/ui/metfone/metfone_page.dart';
+import 'package:cam_id/main/utils/app_check.dart';
 import 'package:cam_id/main/utils/app_config.dart';
 import 'package:cam_id/main/utils/custom_bottom_nav.dart';
 import 'package:cam_id/main/utils/widget/drawer_widget.dart';
@@ -59,10 +60,10 @@ class _MainPageState extends State<MainPage> {
       bottomNavigationBar: CustomBottomNav(
         currentIndex: _currentIndex,
         onTabSelected: (index) async {
-          // if (index == 2 && UserInfoModel.instance.username.isEmpty) {
-          //   _onLogin();
-          //   return;
-          // }
+          if (index == 2 && await AppCheck.checkLogin(context) == false) {
+            _onLogin();
+            return;
+          }
 
           setState(() => _currentIndex = index);
           _onItemTapped(index);
@@ -72,7 +73,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   Future<void> _onLogin() async {
-    await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+    // await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
     await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
     if (!mounted) return;
     context.push(PATH_LOGIN);

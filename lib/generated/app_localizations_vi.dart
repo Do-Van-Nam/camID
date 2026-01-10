@@ -891,4 +891,52 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get filter => 'Filter';
+
+  @override
+  String get total => 'Total';
+
+  @override
+  String get view_details => 'View details';
+
+  @override
+  String get seconds => 'seconds';
+
+  @override
+  String get service => 'Service';
+
+  @override
+  String get message => 'message';
+
+  @override
+  String get messages => 'messages';
+
+  @override
+  String get second => 'second';
+
+  @override
+  String get service_ => 'service';
+
+  @override
+  String get services => 'services';
+
+  @override
+  String get basic => 'Basic';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get last7Days => '7 days';
+
+  @override
+  String get last30Days => '30 days';
+
+  @override
+  String get customDay => 'Custom day';
+
+  @override
+  String get no_internet_connection => 'No internet connection';
 }

@@ -1,5 +1,6 @@
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
+import 'package:cam_id/main/utils/app_check.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
@@ -167,14 +168,19 @@ class _HelpCenterPageState extends State<HelpCenterPage>
                                 AppImages.icVoiceCall,
                                 l10n.voice_call,
                                 () async {
-                                  _onShowCall();
+                                  if(await AppCheck.checkLoginAndInternet(context)){
+                                    _onShowCall();
+                                  }
+
                                 },
                               ),
                               supportIcon(
                                 AppImages.icVideoCall,
                                 l10n.video_call,
-                                () {
+                                () async{
+                                  if(await AppCheck.checkLoginAndInternet(context)){
                                   _onShowVideoCall();
+                                  }
                                 },
                               ),
                               supportIcon(
