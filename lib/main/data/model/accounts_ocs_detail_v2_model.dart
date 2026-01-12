@@ -1,15 +1,15 @@
 import 'package:cam_id/main/data/model/value_account_model.dart';
 
-class AccountsOcsDetailModel {
+class AccountsOcsDetailV2Model{
   String? type;
   double? value;
   String? exp;
   List<Value>? values;
 
-  AccountsOcsDetailModel();
+  AccountsOcsDetailV2Model();
 
-  factory AccountsOcsDetailModel.fromJson(Map<String, dynamic> json) {
-    final model = AccountsOcsDetailModel();
+  factory AccountsOcsDetailV2Model.fromJson(Map<String, dynamic> json) {
+    final model = AccountsOcsDetailV2Model();
     model.type = json['type'] ?? '';
     model.value = (json['value'] != null)
         ? (json['value'] as num).toDouble()

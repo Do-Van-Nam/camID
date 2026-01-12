@@ -1,3 +1,4 @@
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/charge_history_model.dart';
 import 'package:cam_id/main/data/model/value_charging_history_model.dart';
@@ -49,7 +50,7 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
     Constant.HISTORY_ROAMING: LoadingWidgetState.loading,
   };
   bool _showTabs = false;
-  String selectedFilter = "last7days";
+  String selectedFilter = Constant.WEEK;
   int startTime = DateTime.now().subtract(const Duration(days: 7)).millisecondsSinceEpoch;
   int endTime = DateTime.now().millisecondsSinceEpoch;
 
@@ -155,7 +156,7 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
                                   child: InkWell(
                                     onTap: () async {
                                       // showMyBottomSheet(context);
-                                      final result = await showFilterBottomSheet(context, selectedFilter);
+                                      final result = await showFilterBottomSheet(context, selectedFilter,showFull: false);
                                       if (result != null) {
                                         _updateFilter(result);
                                       }
@@ -805,25 +806,25 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
     );
   }
 
-  void _updateFilter(String filter) {
+  Future<void> _updateFilter(String filter) async{
     final now = DateTime.now();
 
     int newStartTime;
     int newEndTime = now.millisecondsSinceEpoch;
 
     switch (filter) {
-      case "today":
+      case Constant.TODAY:
         newStartTime = DateTime(now.year, now.month, now.day).millisecondsSinceEpoch;
         break;
-      case "last7days":
+      case Constant.WEEK:
         newStartTime = now.subtract(const Duration(days: 7)).millisecondsSinceEpoch;
         break;
-      case "last30days":
-        newStartTime = now.subtract(const Duration(days: 30)).millisecondsSinceEpoch;
-        break;
-      case "custom":
-        newStartTime = startTime;
-        break;
+      // case Constant.MONTH:
+      //   newStartTime = now.subtract(const Duration(days: 30)).millisecondsSinceEpoch;
+      //   break;
+      // case Constant.CUSTOM:
+      //   await _pickCustomDate();
+      //   return;
       default:
         newStartTime = now.subtract(const Duration(days: 7)).millisecondsSinceEpoch;
     }
@@ -837,5 +838,4 @@ class _ChargeHistoryPageState extends State<ChargeHistoryPage> {
       _bloc.add(GetChargeHistoryEvent(startTime, _selectedType));
     });
   }
-
 }
