@@ -19,6 +19,7 @@ import 'package:cam_id/main/ui/internet_wifi/internet_wifi_page.dart';
 import 'package:cam_id/main/ui/language/language_page.dart';
 import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
+import 'package:cam_id/main/ui/loyalty/history/gift_page.dart';
 import 'package:cam_id/main/ui/loyalty/tier_benefit/tier_page.dart';
 import 'package:cam_id/main/ui/metfone_service/metfone_service_page.dart';
 import 'package:cam_id/main/ui/notification/notification_detail/notification_detail_page.dart';
@@ -68,7 +69,7 @@ const String PATH_NOTIFICATION = "/notificaion";
 const String PATH_NOTIFICATION_DETAIL = "/notificaion/detail";
 //loyalty
 const String PATH_TIER_BENEFIT = "/tier-benefit";
-
+const String PATH_HISTORY_GIFT = "/loyalty/history";
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
@@ -171,6 +172,7 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
         GoRoute(path: PATH_GIFT, builder: (context, state) => GiftPage()),
+        GoRoute(path: PATH_HISTORY_GIFT, builder: (context, state) => HistoryPage()),
         GoRoute(
           path: PATH_TIER_BENEFIT,
           builder: (context, state) => TierPage(),

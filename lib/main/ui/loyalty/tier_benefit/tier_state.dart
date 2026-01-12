@@ -1,43 +1,48 @@
-// chat_state.dart
 part of 'tier_bloc.dart';
 
+enum TierType { bronze, silver, gold, diamond }
+
 class TierState {
-  final List<Message> messages;
-  final bool isTyping;
-  final bool isOpenMenu;
-  final String selectedLanguage; // "km" hoặc "en"
+  final TierType selectedTier;
+  final TierType currentTier; // Current user's tier
+  final int currentPoints;
+  final int usedPoints;
+  final int pointsNeeded; // Points needed for next tier
+  final String userName;
 
   TierState({
-    required this.messages,
-    required this.isTyping,
-    required this.selectedLanguage,
-    required this.isOpenMenu,
+    required this.selectedTier,
+    required this.currentTier,
+    required this.currentPoints,
+    required this.usedPoints,
+    required this.pointsNeeded,
+    required this.userName,
   });
 
   factory TierState.initial() => TierState(
-    messages: [
-      Message(
-        text: "Please select a language below",
-        isBot: true,
-        time: DateTime.now(),
-      ),
-    ],
-    isTyping: false,
-    selectedLanguage: "en",
-    isOpenMenu: false,
+    selectedTier: TierType.bronze,
+    currentTier: TierType.bronze,
+    currentPoints: 910,
+    usedPoints: 6,
+    pointsNeeded: 1500,
+    userName: "Chan chan",
   );
 
   TierState copyWith({
-    List<Message>? messages,
-    bool? isTyping,
-    String? selectedLanguage,
-    bool? isOpenMenu,
+    TierType? selectedTier,
+    TierType? currentTier,
+    int? currentPoints,
+    int? usedPoints,
+    int? pointsNeeded,
+    String? userName,
   }) {
     return TierState(
-      messages: messages ?? this.messages,
-      isTyping: isTyping ?? this.isTyping,
-      selectedLanguage: selectedLanguage ?? this.selectedLanguage,
-      isOpenMenu: isOpenMenu ?? this.isOpenMenu,
+      selectedTier: selectedTier ?? this.selectedTier,
+      currentTier: currentTier ?? this.currentTier,
+      currentPoints: currentPoints ?? this.currentPoints,
+      usedPoints: usedPoints ?? this.usedPoints,
+      pointsNeeded: pointsNeeded ?? this.pointsNeeded,
+      userName: userName ?? this.userName,
     );
   }
 }

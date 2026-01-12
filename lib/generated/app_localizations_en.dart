@@ -438,6 +438,46 @@ class AppLocalizationsEn extends AppLocalizations {
   String get loyaltyFree => 'Free';
 
   @override
+  String get history => 'History';
+
+  @override
+  String get all => 'All';
+
+  @override
+  String get received => 'Received';
+
+  @override
+  String get used => 'used';
+
+  @override
+  String get telecommunications => 'Telecommunications';
+
+  @override
+  String pointsPlus(Object count) {
+    return '+$count points';
+  }
+
+  @override
+  String pointsMinus(Object count) {
+    return '-$count points';
+  }
+
+  @override
+  String get points => 'Points';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get thisWeek => 'This Week';
+
+  @override
+  String get thisMonth => 'This Month';
+
+  @override
+  String get thisYear => 'This Year';
+
+  @override
   String get notificationTitle => 'Notifications';
 
   @override
@@ -554,9 +594,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get myPrize => 'My Prize';
-
-  @override
-  String get history => 'History';
 
   @override
   String get prize => 'Prize';
@@ -704,9 +741,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get status => 'Status';
 
   @override
-  String get received => 'Received';
-
-  @override
   String get processing => 'Processing';
 
   @override
@@ -714,9 +748,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bronzeMember => 'BRONZE MEMBER';
-
-  @override
-  String get points => 'Points';
 
   @override
   String get usedPoints => 'Used points';
@@ -860,9 +891,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get account_detail => 'Account detail';
 
   @override
-  String get used => 'used';
-
-  @override
   String get remaining => 'remaining';
 
   @override
@@ -921,12 +949,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get basic => 'Basic';
-
-  @override
-  String get all => 'All';
-
-  @override
-  String get today => 'Today';
 
   @override
   String get last7Days => '7 days';

@@ -1048,7 +1048,7 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
                         color: AppColors.color_8588,
                       ),
                     ),
-                    _buildDatePickerField(
+                    datePickerField(
                       context: context,
                       selectedDate: state.fromDate,
                       onDateSelected: (newDate) {
@@ -1069,7 +1069,7 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
                         color: AppColors.color_8588,
                       ),
                     ),
-                    _buildDatePickerField(
+                    datePickerField(
                       context: context,
                       selectedDate: state.toDate,
                       onDateSelected: (newDate) {
@@ -1162,40 +1162,6 @@ class _HelpCenterFeedbackPageState extends State<HelpCenterFeedbackPage>
     );
   }
 
-  Widget _buildDatePickerField({
-    required BuildContext context,
-    required DateTime selectedDate,
-    required Function(DateTime) onDateSelected,
-  }) {
-    return GestureDetector(
-      onTap: () async {
-        // Mở DatePicker của hệ thống
-        final DateTime? picked = await showDatePicker(
-          context: context,
-          initialDate: selectedDate,
-          firstDate: DateTime(2000),
-          lastDate: DateTime(2101),
-        );
-        print(picked);
-        if (picked != null && picked != selectedDate) {
-          onDateSelected(picked);
-        }
-      },
-      child: grayContainer(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          spacing: 8,
-          children: [
-            Text(
-              "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}",
-              style: AppStyles.poppins12Regular.copyWith(fontSize: 14),
-            ),
-            SvgPicture.asset(AppImages.icCalendarRed),
-          ],
-        ),
-      ),
-    );
-  }
 
   Widget _buildFilterSertypeItem({
     required String selectedType,
