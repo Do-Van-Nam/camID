@@ -37,41 +37,46 @@ class _TierPageState extends State<TierPage> {
         ),
         body: BlocBuilder<TierBloc, TierState>(
           builder: (context, state) {
-            return Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [
-                    Color(0xFF8B1A1A), // Dark red
-                    Color(0xFF2A2A2A), // Dark gray
-                    Color(0xFF1A1A1A), // Black/dark gray
-                  ],
-                  stops: [0.0, 0.5, 1.0],
+            return Stack(
+              children: [
+                Positioned(
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  child: Image.asset(AppImages.chatbotBG, fit: BoxFit.fitWidth),
                 ),
-              ),
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(height: 60),
-                      // Current Tier Card
-                      _buildCurrentTierCard(context, state),
-                      SizedBox(height: 24),
-                      // Tier Selection
-                      _buildTierSelection(context, state),
-                      SizedBox(height: 24),
-                      // Requirements Section
-                      _buildRequirementsSection(context),
-                      SizedBox(height: 24),
-                      // Exclusive Privileges Section
-                      _buildPrivilegesSection(context),
-                      SizedBox(height: 32),
-                    ],
+                SafeArea(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 20),
+                    decoration: const BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(24),
+                        topRight: Radius.circular(24),
+                      ),
+                    ),
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          // SizedBox(height: 12),
+                          _buildCurrentTierCard(context, state),
+                          SizedBox(height: 24),
+                          // Tier Selection
+                          _buildTierSelection(context, state),
+                          SizedBox(height: 24),
+                          // Requirements Section
+                          _buildRequirementsSection(context),
+                          SizedBox(height: 24),
+                          // Exclusive Privileges Section
+                          _buildPrivilegesSection(context),
+                          SizedBox(height: 32),
+                        ],
+                      ),
+                    ),
                   ),
                 ),
-              ),
+              ],
             );
           },
         ),
@@ -85,130 +90,130 @@ class _TierPageState extends State<TierPage> {
     final progress =
         state.currentPoints / (state.currentPoints + state.pointsNeeded);
 
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 16),
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Color(0xFFD4A574), // Light brown
-            Color(0xFFB8946A), // Beige
-          ],
-        ),
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tierInfo.name.toUpperCase(),
-                    style: AppTextFonts.poppinsBold.copyWith(
-                      fontSize: 20,
-                      color: AppColors.color_FFFF,
-                    ),
-                  ),
-                  SizedBox(height: 4),
-                  Text(
-                    state.userName,
-                    style: AppTextFonts.poppinsRegular.copyWith(
-                      fontSize: 14,
-                      color: Color(0xFF888888),
-                    ),
-                  ),
-                ],
-              ),
-              SvgPicture.asset(tierInfo.icon, width: 64, height: 64),
-            ],
+    return AspectRatio(
+      aspectRatio: 343 / 200,
+      child: Container(
+        // margin: EdgeInsets.symmetric(horizontal: 16),
+        width: double.infinity,
+        padding: EdgeInsets.all(35),
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(AppImages.imgBronzeCard),
+            fit: BoxFit.contain,
           ),
-          SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: Column(
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      "${state.currentPoints} Points",
+                      tierInfo.name.toUpperCase(),
                       style: AppTextFonts.poppinsBold.copyWith(
-                        fontSize: 18,
+                        fontSize: 20,
                         color: AppColors.color_FFFF,
                       ),
                     ),
-                    SizedBox(height: 8),
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(4),
-                      child: LinearProgressIndicator(
-                        value: progress,
-                        minHeight: 8,
-                        backgroundColor: Color(0xFFE8D5C4),
-                        valueColor: AlwaysStoppedAnimation<Color>(
-                          Color(0xFFD4A574),
-                        ),
-                      ),
-                    ),
-                    SizedBox(height: 8),
+                    SizedBox(height: 4),
                     Text(
-                      "Upgrade to ${nextTierInfo.name}",
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        fontSize: 12,
-                        color: Color(0xFF888888),
-                      ),
-                    ),
-                    Text(
-                      "Need ${state.pointsNeeded} Points",
-                      style: AppTextFonts.poppinsBold.copyWith(
-                        fontSize: 12,
-                        color: AppColors.color_FFFF,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              SizedBox(width: 16),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "${state.usedPoints} Used points",
+                      state.userName,
                       style: AppTextFonts.poppinsRegular.copyWith(
                         fontSize: 14,
                         color: Color(0xFF888888),
                       ),
                     ),
-                    SizedBox(height: 12),
-                    Container(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 10,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Color(0xFFE8D5C4),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      child: Text(
-                        "View history",
-                        style: AppTextFonts.poppinsMedium.copyWith(
-                          fontSize: 12,
-                          color: Color(0xFF333333),
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ),
                   ],
                 ),
-              ),
-            ],
-          ),
-        ],
+                SvgPicture.asset(tierInfo.icon, width: 64, height: 64),
+              ],
+            ),
+            SizedBox(height: 24),
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${state.currentPoints} Points",
+                        style: AppTextFonts.poppinsBold.copyWith(
+                          fontSize: 18,
+                          color: AppColors.color_FFFF,
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(4),
+                        child: LinearProgressIndicator(
+                          value: progress,
+                          minHeight: 8,
+                          backgroundColor: Color(0xFFE8D5C4),
+                          valueColor: AlwaysStoppedAnimation<Color>(
+                            Color(0xFFD4A574),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 8),
+                      Text(
+                        "Upgrade to ${nextTierInfo.name}",
+                        style: AppTextFonts.poppinsRegular.copyWith(
+                          fontSize: 12,
+                          color: Color(0xFF888888),
+                        ),
+                      ),
+                      Text(
+                        "Need ${state.pointsNeeded} Points",
+                        style: AppTextFonts.poppinsBold.copyWith(
+                          fontSize: 12,
+                          color: AppColors.color_FFFF,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(width: 16),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        "${state.usedPoints} Used points",
+                        style: AppTextFonts.poppinsRegular.copyWith(
+                          fontSize: 14,
+                          color: Color(0xFF888888),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 10,
+                        ),
+                        decoration: BoxDecoration(
+                          color: Color(0xFFE8D5C4),
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        child: Text(
+                          "View history",
+                          style: AppTextFonts.poppinsMedium.copyWith(
+                            fontSize: 12,
+                            color: Color(0xFF333333),
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }

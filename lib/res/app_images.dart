@@ -247,6 +247,11 @@ class AppImages {
   static final String icTimer2 = 'assets/icons/ic_timer2.svg';
   static final String icCalendarSearch = 'assets/icons/ic_calendar_search.svg';
   static final String icMagicStar = 'assets/icons/ic_magic_star.svg';
+  static final String icCardBronze = 'assets/icons/ic_card_bronze.svg';
+  static final String imgBronzeCard = 'assets/images/bronze_card.png';
+
+  static final String icLogoMetfone = 'assets/icons/ic_logo_metfone.svg';
+  static final String icCheck2 = 'assets/icons/ic_check2.svg';
 
   // ------------------------ N ------------------------
 }
