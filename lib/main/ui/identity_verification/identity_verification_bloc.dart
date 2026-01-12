@@ -35,7 +35,7 @@ class IdentityVerificationBloc
     emit(state.copyWith(isLoading: true, errorMessage: null, ocrFailed: false));
 
     final body = {
-      "wsCode": "wsDetectOCRFromImage",
+      "wsCode": WSCode.wsDetectOCRFromImage,
       "wsRequest": {
         "image": event.image,
         "type": event.type,

@@ -24,7 +24,7 @@ class SelectIdTypeBloc extends Bloc<SelectIDTypeEvent, SelectIDTypeState> {
       "token": "",
       "language": event.language,
       "versionApp": "",
-      "wsCode": "getListPaperType",
+      "wsCode": WSCode.getListPaperType,
       "wsRequest": {"language": event.language},
     };
 

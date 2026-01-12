@@ -152,14 +152,14 @@ class _ChargeHistoryDetailPageState extends State<ChargeHistoryDetailPage>
                               child: TabBar(
                                 controller: _tabController,
                                 indicator: BoxDecoration(
-                                  color: Colors.black,
+                                  color: AppColors.color_1618,
                                   borderRadius: BorderRadius.circular(30),
                                 ),
                                 indicatorColor: Colors.grey,
                                 dividerColor: Colors.transparent,
                                 indicatorSize: TabBarIndicatorSize.tab,
-                                labelColor: Colors.white,
-                                unselectedLabelColor: Colors.black,
+                                labelColor: AppColors.color_FFFF,
+                                unselectedLabelColor: AppColors.color_464B,
                                 tabs: _tabs.map((e) {
                                   return Tab(
                                     child: Text(

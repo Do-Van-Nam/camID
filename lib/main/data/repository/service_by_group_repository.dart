@@ -21,7 +21,7 @@ class ServiceRepository {
     final language = await SharePreferenceUtil.getLanguageCode();
 
     final body = {
-      "wsCode": "wsGetServicesByGroup",
+      "wsCode": WSCode.wsGetServicesByGroup,
       "wsRequest": {
         "language": language,
         "serviceGroupId": type,

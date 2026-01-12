@@ -23,7 +23,7 @@ class AppRepository {
     final versionApp = await PackageInfo.fromPlatform().then((e) => e.version);
 
     final body = {
-      "wsCode": "wsGetAllApps",
+      "wsCode": WSCode.wsGetAllApps,
       "username": isdn,
       "apiKey": ApiEndPoint.API_KEY_V2,
       "wsRequest": {
