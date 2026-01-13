@@ -252,6 +252,7 @@ class AppImages {
 
   static final String icLogoMetfone = 'assets/icons/ic_logo_metfone.svg';
   static final String icCheck2 = 'assets/icons/ic_check2.svg';
+  static final String icLogoV2 = 'assets/icons/ic_logo_v2.svg';
 
   // ------------------------ N ------------------------
 }

@@ -1953,6 +1953,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No internet connection'**
   String get no_internet_connection;
+
+  /// No description provided for @auto_renew.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto renew'**
+  String get auto_renew;
+
+  /// No description provided for @service_for_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Service for you'**
+  String get service_for_you;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @confirm_off_service_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to OFF auto-renew?'**
+  String get confirm_off_service_title;
+
+  /// No description provided for @confirm_on_service_title.
+  ///
+  /// In en, this message translates to:
+  /// **'Do you want to cancel the old package and sign up a new one?'**
+  String get confirm_on_service_title;
 }
 
 class _AppLocalizationsDelegate

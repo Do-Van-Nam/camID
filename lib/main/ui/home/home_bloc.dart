@@ -25,7 +25,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ServiceRepository serviceRepo;
   HomeBloc(this.appRepo, this.serviceRepo) : super(HomeInitial()) {
     on<HomeStarted>(_onStarted);
-    // on<BannerChanged>(_onBannerChanged);
     on<LoginTapped>(_onLoginTapped);
     on<GetAllAppsEvent>(_onGetAllApp);
     on<GetServiceByGroupAppsEvent>(_onGetServiceByGroup);
@@ -45,13 +44,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     AppLogger().logInfo("USER: ${UserInfoModel.instance.username}");
     emit(OnStarted(UserInfoModel.instance.username.isNotEmpty == true));
   }
-
-  // void _onBannerChanged(
-  //     BannerChanged event,
-  //     Emitter<HomeState> emit,
-  //     ) {
-  //   emit(state.copyWith(bannerIndex: event.index));
-  // }
 
   Future<void> _onLoginTapped(
     LoginTapped event,
@@ -130,7 +122,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     final isdn = await SharePreferenceUtil.getString(ShareKey.KEY_PHONE_NUMBER);
 
     final body = {
-      "wsCode": "wsGetAccountsOcsDetailV2",
+      "wsCode": WSCode.wsGetAccountsOcsDetailV2,
       "apiKey": ApiEndPoint.API_KEY,
       "language": language,
       "versionApp": DeviceUtils.getVersion(),

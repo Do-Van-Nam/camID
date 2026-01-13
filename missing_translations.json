@@ -167,7 +167,12 @@
     "last7Days",
     "last30Days",
     "customDay",
-    "no_internet_connection"
+    "no_internet_connection",
+    "auto_renew",
+    "service_for_you",
+    "back",
+    "confirm_off_service_title",
+    "confirm_on_service_title"
   ],
 
   "vi": [
@@ -338,6 +343,11 @@
     "last7Days",
     "last30Days",
     "customDay",
-    "no_internet_connection"
+    "no_internet_connection",
+    "auto_renew",
+    "service_for_you",
+    "back",
+    "confirm_off_service_title",
+    "confirm_on_service_title"
   ]
 }

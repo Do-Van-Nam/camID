@@ -23,7 +23,7 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
       "token": "",
       "language": "",
       "versionApp": "",
-      "wsCode": "wsGetOTPByService",
+      "wsCode": WSCode.wsGetOTPByService,
       "wsRequest": {
         "isdn": event.phone,
         "service": event.service,
@@ -63,7 +63,7 @@ class VerifyBloc extends Bloc<VerifyEvent, VerifyState> {
       "token": "",
       "language": "",
       "versionApp": "",
-      "wsCode": "wsConfirmOTP",
+      "wsCode": WSCode.wsConfirmOTP,
       "wsRequest": {
         "isdn": event.phone,
         "service": event.service,

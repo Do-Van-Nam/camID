@@ -32,7 +32,7 @@ class ChargeHistoryBloc extends Bloc<ChargeHistoryEvent, ChargeHistoryState> {
       "sessionId": "",
       "token": "",
       "versionApp": DeviceUtils.getVersion(),
-      "wsCode": "wsHistoryChargeV2",
+      "wsCode": WSCode.wsHistoryChargeV2,
       "wsRequest": {
         "isdn": "66200017",
         "language": language,

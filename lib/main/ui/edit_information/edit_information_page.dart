@@ -32,7 +32,7 @@ class _EditInformationState extends State<EditInformationPage> {
   final dateController = TextEditingController();
   String? selectedGender;
   final addressController = TextEditingController();
-  String? selectedValue; // biến lưu giá trị được chọn
+  String? selectedValue;
   final List<String> items = ['Apple', 'Banana', 'Orange'];
   @override
   void initState() {
