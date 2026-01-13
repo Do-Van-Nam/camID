@@ -1,4 +1,4 @@
-import 'package:cam_id/main/data/model/accounts_ocs_detail_model.dart';
+import 'package:cam_id/main/data/model/accounts_ocs_detail_v2_model.dart';
 import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/data/model/image_kyc_model.dart';
 import 'package:cam_id/main/data/model/mobile_package_model.dart';
@@ -51,11 +51,11 @@ class GetServiceByGroupFailure extends HomeState {
 }
 
 class GetAccountsOcsDetailSuccess extends HomeState {
-  final AccountsOcsDetailModel? ocsBasic;
-  final AccountsOcsDetailModel? ocsData;
-  final AccountsOcsDetailModel? ocsCall;
-  final AccountsOcsDetailModel? ocsSms;
-  final AccountsOcsDetailModel? ocsRoaming;
+  final AccountsOcsDetailV2Model? ocsBasic;
+  final AccountsOcsDetailV2Model? ocsData;
+  final AccountsOcsDetailV2Model? ocsCall;
+  final AccountsOcsDetailV2Model? ocsSms;
+  final AccountsOcsDetailV2Model? ocsRoaming;
 
   GetAccountsOcsDetailSuccess(this.ocsBasic, this.ocsData, this.ocsCall, this.ocsSms, this.ocsRoaming);
 

@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:cam_id/generated/app_localizations.dart';
-import 'package:cam_id/main/data/model/accounts_ocs_detail_model.dart';
+import 'package:cam_id/main/data/model/accounts_ocs_detail_v2_model.dart';
 import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/data/model/mobile_package_model.dart';
 import 'package:cam_id/main/data/model/sign_in_model.dart';
@@ -55,11 +55,11 @@ class _HomePageState extends State<HomePage>
   List<AdsModel>? listBannerFooter = [];
   List<AdsModel>? listVasService = [];
   List<PackageModel>? listPackageMobile = [];
-  AccountsOcsDetailModel? ocsBasic;
-  AccountsOcsDetailModel? ocsData;
-  AccountsOcsDetailModel? ocsCall;
-  AccountsOcsDetailModel? ocsSms;
-  AccountsOcsDetailModel? ocsRoaming;
+  AccountsOcsDetailV2Model? ocsBasic;
+  AccountsOcsDetailV2Model? ocsData;
+  AccountsOcsDetailV2Model? ocsCall;
+  AccountsOcsDetailV2Model? ocsSms;
+  AccountsOcsDetailV2Model? ocsRoaming;
 
   int _getPageCount(List items) {
     return (items.length / _itemsPerPage).ceil();

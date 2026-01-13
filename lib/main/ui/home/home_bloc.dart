@@ -3,7 +3,7 @@ import 'package:cam_id/main/base/base_response_v2.dart';
 import 'package:cam_id/main/base/base_result.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
-import 'package:cam_id/main/data/model/accounts_ocs_detail_model.dart';
+import 'package:cam_id/main/data/model/accounts_ocs_detail_v2_model.dart';
 import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/repository/all_app_repository.dart';
@@ -131,15 +131,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     try {
       final result = await ApiUtil.getInstance()!
-          .postParsed<BaseResponseV2<BaseResult<List<AccountsOcsDetailModel>>>>(
+          .postParsed<BaseResponseV2<BaseResult<List<AccountsOcsDetailV2Model>>>>(
             url: ApiEndPoint.API_USER_ROUTING,
             body: body,
             fromJson: (json) => BaseResponseV2.fromJson(
               json,
-              (data) => BaseResult<List<AccountsOcsDetailModel>>.fromJson(
+              (data) => BaseResult<List<AccountsOcsDetailV2Model>>.fromJson(
                 data,
                 (list) => (list as List)
-                    .map((e) => AccountsOcsDetailModel.fromJson(e))
+                    .map((e) => AccountsOcsDetailV2Model.fromJson(e))
                     .toList(),
               ),
             ),
@@ -147,8 +147,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       if (result.isSuccess && result.result?.wsResponse != null) {
         final wsResponse = result.result!.wsResponse as List<dynamic>;
-        AccountsOcsDetailModel? getOcsByType(String type) {
-          for (final e in wsResponse.cast<AccountsOcsDetailModel>()) {
+        AccountsOcsDetailV2Model? getOcsByType(String type) {
+          for (final e in wsResponse.cast<AccountsOcsDetailV2Model>()) {
             if (e.type == type) {
               return e;
             }
