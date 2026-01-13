@@ -213,6 +213,18 @@
       "exchanged": {}
     }
   },
+  "history": "History",
+  "all": "All",
+  "received": "Received",
+  "used": "Used",
+  "telecommunications": "Telecommunications",
+  "pointsPlus": "+{count} points",
+  "pointsMinus": "-{count} points",
+  "points": "points",
+  "today": "Today",
+  "thisWeek": "This Week",
+  "thisMonth": "This Month",
+  "thisYear": "This Year",
   "notificationTitle": "Notifications",
   "notificationTabNews": "News",
   "notificationTabComplain": "Complaints",
