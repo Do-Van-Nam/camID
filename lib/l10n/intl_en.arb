@@ -428,5 +428,15 @@
   "amount": "Amount",
   "top_up_number": "Top-up number",
   "content_auto_renew_FTTH": "Auto renew at the end of validity date",
-  "expires": "Expires"
+  "expires": "Expires",
+  "choose_an_option": "Choose an option",
+  "internet_wifi_account": "Internet Wifi account",
+  "enter_your_internet_wifi_account": "Enter your Internet wifi account",
+  "change_package": "Change Package",
+  "package": "Package",
+  "refer_friend": "Refer Friend",
+  "speed_test": "Speed Test",
+  "payment": "Payment",
+  "my_order": "My Order",
+  "recommend_for_you": "Recommend for you"
 }

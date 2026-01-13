@@ -10,6 +10,8 @@ import 'package:cam_id/main/ui/payment_history/payment_history_state.dart';
 import 'package:cam_id/main/utils/bottom_sheet/cancel_auto_renew_bottom_sheet.dart';
 import 'package:cam_id/main/utils/bottom_sheet/filter_bottom_sheet.dart';
 import 'package:cam_id/main/utils/constant.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -279,7 +281,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
           ..linkedPaymentId = 'LPID_${index}_$i'
           ..cancelConfirmMessage = 'Bạn có chắc muốn tắt dịch vụ $i?'
           ..expiredIn = '${(i + 1) * 5} ngày'
-          ..originalService = 'Origin Service $i';
+          ..originalService = 'top-up';
       });
   });
 
@@ -297,6 +299,12 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
   String filter = Constant.WEEK;
   LinkedPaymentMethodModel? linkedPaymentMethodModel;
   InfoPayment? infoPayment;
+  bool isLoadingMoreAuto = false;
+  bool hasMoreAuto = true;
+  bool isLoadingMoreHistory = false;
+  bool hasMoreHistory = true;
+  final ScrollController _scrollAutoRenewController = ScrollController();
+  final ScrollController _scrollHistoryController = ScrollController();
 
   @override
   void initState() {
@@ -310,11 +318,33 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
         fromDate,
         toDate,
         filter,
-        pageHistory,
-        pageSizeHistory,
+        pageAutoRenew,
+        pageSizeAutoRenew,
       ),
     );
     _tabController = TabController(length: 2, vsync: this);
+    _scrollAutoRenewController.addListener(() {
+      if (_scrollAutoRenewController.position.pixels >=
+          _scrollAutoRenewController.position.maxScrollExtent - 50) {
+        _loadMoreAuto();
+      }
+    });
+
+    _scrollHistoryController.addListener(() {
+      if (_scrollHistoryController.position.pixels >=
+          _scrollHistoryController.position.maxScrollExtent - 50) {
+        _loadMoreHistory();
+      }
+    });
+  }
+
+  @override
+  void dispose() {
+    _bloc.close();
+    _tabController.dispose();
+    _scrollAutoRenewController.dispose();
+    _scrollHistoryController.dispose();
+    super.dispose();
   }
 
   @override
@@ -338,7 +368,16 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
             if (state is GetPaymentHistorySuccess) {
               setState(() {
                 viewStateHistory = LoadingWidgetState.success;
-                listPayment = state.listPayment;
+
+                if (pageHistory == 1) {
+                  listPayment = state.listPayment;
+                } else {
+                  listPayment?.addAll(state.listPayment ?? []);
+                }
+
+                hasMoreHistory =
+                    (state.listPayment?.length ?? 0) == pageSizeHistory;
+                isLoadingMoreHistory = false;
               });
             }
 
@@ -346,14 +385,29 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
               setState(() {
                 listPayment = fakePaymentList;
                 viewStateHistory = LoadingWidgetState.success;
-                // viewStateHistory = LoadingWidgetState.empty;
+                // if (pageHistory == 1 && listPayment?.isEmpty == true) {
+                //   viewStateHistory = LoadingWidgetState.empty;
+                // } else {
+                //   viewStateHistory = LoadingWidgetState.success;
+                //   isLoadingMoreHistory = false;
+                //   hasMoreHistory = false;
+                // }
               });
             }
 
             if (state is GetAutoRenewSuccess) {
               setState(() {
-                listAutoRenew = state.listAutoRenew;
                 viewStateAutoRenew = LoadingWidgetState.success;
+
+                if (pageAutoRenew == 1) {
+                  listAutoRenew = state.listAutoRenew;
+                } else {
+                  listAutoRenew?.addAll(state.listAutoRenew ?? []);
+                }
+
+                hasMoreAuto =
+                    (state.listAutoRenew?.length ?? 0) == pageSizeAutoRenew;
+                isLoadingMoreAuto = false;
               });
             }
 
@@ -361,8 +415,52 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
               setState(() {
                 listAutoRenew = fakeAutoRenewList;
                 viewStateAutoRenew = LoadingWidgetState.success;
-                // viewStateAutoRenew = LoadingWidgetState.empty;
+                // if (pageAutoRenew == 1 && listAutoRenew?.isEmpty == true) {
+                //   viewStateAutoRenew = LoadingWidgetState.empty;
+                // } else {
+                //   viewStateAutoRenew = LoadingWidgetState.success;
+                //   isLoadingMoreAuto = false;
+                //   hasMoreAuto = false;
+                // }
               });
+            }
+
+            if (state is CancelAutoRenewSuccess) {
+              LoadingOverlayWidget.hide();
+              pageSizeHistory = 1;
+              _bloc.add(
+                GetAutoRenewHistoryEvent(
+                  fromDate,
+                  toDate,
+                  filter,
+                  pageAutoRenew,
+                  pageSizeAutoRenew,
+                ),
+              );
+            }
+
+            if (state is CancelAutoRenewFailure) {
+              LoadingOverlayWidget.hide();
+              AppToast.show(context, state.message);
+            }
+
+            if (state is SaveAutoRenewSuccess) {
+              LoadingOverlayWidget.hide();
+              pageSizeHistory = 1;
+              _bloc.add(
+                GetAutoRenewHistoryEvent(
+                  fromDate,
+                  toDate,
+                  filter,
+                  pageAutoRenew,
+                  pageSizeAutoRenew,
+                ),
+              );
+            }
+
+            if (state is SaveAutoRenewFailure) {
+              LoadingOverlayWidget.hide();
+              AppToast.show(context, state.message);
             }
           },
           child: Scaffold(
@@ -459,6 +557,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
     return LoadingWidget(
       state: viewStateHistory,
       child: ListView.builder(
+        controller: _scrollHistoryController,
         padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
         itemCount: listPayment?.length,
         itemBuilder: (context, index) {
@@ -551,17 +650,18 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
     return LoadingWidget(
       state: viewStateAutoRenew,
       child: ListView.builder(
+        controller: _scrollAutoRenewController,
         padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
-        itemCount: fakeAutoRenewList.length,
+        itemCount: listAutoRenew?.length,
         itemBuilder: (context, index) {
-          final parent = fakeAutoRenewList[index];
+          final parent = listAutoRenew?[index];
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (index != 0) SizedBox(height: 16),
               Text(
-                parent.paymentDate ?? '',
+                parent?.paymentDate ?? '',
                 style: AppTextFonts.poppinsRegular.copyWith(
                   fontSize: 14,
                   color: AppColors.color_464B,
@@ -575,11 +675,11 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                 ),
                 child: Column(
                   children: [
-                    ...List.generate(parent.historyPerDayList?.length ?? 0, (
+                    ...List.generate(parent?.historyPerDayList?.length ?? 0, (
                       i,
                     ) {
-                      final item = parent.historyPerDayList![i];
-                      bool isOn = item.status == 0;
+                      final item = parent?.historyPerDayList![i];
+                      bool isOn = item?.status == 0;
                       return Container(
                         // margin: const EdgeInsets.only(bottom: 8),
                         padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
@@ -595,7 +695,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        item.service ?? '',
+                                        item?.service ?? '',
                                         style: AppTextFonts.poppinsSemiBold
                                             .copyWith(
                                               fontSize: 14,
@@ -603,7 +703,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                                             ),
                                       ),
                                       Text(
-                                        item.content ?? '',
+                                        item?.content ?? '',
                                         style: AppTextFonts.poppinsRegular
                                             .copyWith(
                                               fontSize: 12,
@@ -616,7 +716,7 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                                 Column(
                                   children: [
                                     Text(
-                                      '\$${item.amount}',
+                                      '\$${item?.amount}',
                                       style: AppTextFonts.poppinsSemiBold
                                           .copyWith(
                                             fontSize: 14,
@@ -630,13 +730,14 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
                                         onChanged: (v) {
                                           setState(() {
                                             // isOn = v;
-                                            if(isOn){
+                                            if (isOn) {
                                               showCancelPaymentBottomSheet(
                                                 context,
-                                                item,
+                                                item!,
                                               );
                                             } else {
-                                              // wsSaveAutoRenew
+                                              LoadingOverlayWidget.show(context);
+                                              _bloc.add(SaveAutoRenewEvent(item?.id ?? ""));
                                             }
                                           });
                                         },
@@ -700,14 +801,15 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
         linkedPaymentMethodModel: linkedPaymentMethodModel,
         infoPayment: infoPayment,
         onCancel: () => Navigator.of(context).pop(),
-          onConfirm: (paymentType, paymentMethod) {
-            Navigator.of(context).pop();
-            if(paymentType == PaymentType.CANCEL){
-              // wsCancelAutoRenew
-            }
-          },
+        onConfirm: (paymentType, paymentMethod) {
+          Navigator.of(context).pop();
+          if (paymentType == PaymentType.CANCEL) {
+            LoadingOverlayWidget.show(context);
+            _bloc.add(CancelAutoRenewEvent(data.id ?? ""));
+          }
+        },
 
-          paymentType: PaymentType.CANCEL,
+        paymentType: PaymentType.CANCEL,
       ),
     );
   }
@@ -752,8 +854,8 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
           fromDate,
           toDate,
           filter,
-          pageHistory,
-          pageSizeHistory,
+          pageAutoRenew,
+          pageSizeAutoRenew,
         ),
       );
     });
@@ -806,16 +908,40 @@ class _PaymentHistoryPageState extends State<PaymentHistoryPage>
         toDate = Constant.formatDateV2(end.millisecondsSinceEpoch);
         filter = Constant.CUSTOM;
       });
-
+      pageAutoRenew = 1;
       _bloc.add(
         GetAutoRenewHistoryEvent(
           fromDate,
           toDate,
           filter,
-          pageHistory,
-          pageSizeHistory,
+          pageAutoRenew,
+          pageSizeAutoRenew,
         ),
       );
     }
+  }
+
+  void _loadMoreAuto() {
+    if (isLoadingMoreAuto || !hasMoreAuto) return;
+    setState(() => isLoadingMoreAuto = true);
+    pageAutoRenew++;
+    _bloc.add(
+      GetAutoRenewHistoryEvent(
+        fromDate,
+        toDate,
+        filter,
+        pageAutoRenew,
+        pageSizeAutoRenew,
+      ),
+    );
+  }
+
+  void _loadMoreHistory() {
+    if (isLoadingMoreHistory || !hasMoreHistory) return;
+    setState(() => isLoadingMoreHistory = true);
+    pageHistory++;
+    _bloc.add(
+      GetPaymentHistoryEvent(fromDate, toDate, pageHistory, pageSizeHistory),
+    );
   }
 }

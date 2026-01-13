@@ -1027,4 +1027,35 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get expires => 'Expires';
+
+  @override
+  String get choose_an_option => 'Choose an option';
+
+  @override
+  String get internet_wifi_account => 'Internet Wifi account';
+
+  @override
+  String get enter_your_internet_wifi_account =>
+      'Enter your Internet wifi account';
+
+  @override
+  String get change_package => 'Change Package';
+
+  @override
+  String get package => 'Package';
+
+  @override
+  String get refer_friend => 'Refer Friend';
+
+  @override
+  String get speed_test => 'Speed Test';
+
+  @override
+  String get payment => 'Payment';
+
+  @override
+  String get my_order => 'My Order';
+
+  @override
+  String get recommend_for_you => 'Recommend for you';
 }

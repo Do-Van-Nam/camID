@@ -61,7 +61,7 @@ class _MainPageState extends State<MainPage> {
         currentIndex: _currentIndex,
         onTabSelected: (index) async {
           if (index == 2 && await AppCheck.checkLogin(context) == false) {
-            _onLogin();
+            // _onLogin();
             return;
           }
 
@@ -72,11 +72,11 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Future<void> _onLogin() async {
-    // await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
-    await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
-    if (!mounted) return;
-    context.push(PATH_LOGIN);
-  }
+  // Future<void> _onLogin() async {
+  //   // await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+  //   await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
+  //   if (!mounted) return;
+  //   context.push(PATH_LOGIN);
+  // }
 }
 

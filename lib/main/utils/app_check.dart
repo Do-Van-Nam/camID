@@ -11,9 +11,9 @@ class AppCheck {
   static Future<bool> checkLogin(BuildContext context) async {
     final bool isLoggedIn = UserInfoModel.instance.username.isNotEmpty;
     if (!isLoggedIn) {
-      // await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
-      // await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
-      // context.push(PATH_LOGIN);
+      await SharePreferenceUtil.setBool(ShareKey.KEY_FIRST_OPEN_APP, false);
+      await SharePreferenceUtil.setBool(ShareKey.KEY_CHANGE_OPEN_APP, true);
+      context.push(PATH_LOGIN);
       return false;
     }
     return true;

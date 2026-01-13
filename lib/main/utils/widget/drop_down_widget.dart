@@ -1,15 +1,19 @@
+import 'package:cam_id/main/data/model/drop_down_model.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
+import 'package:cam_id/res/app_images.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class CustomDropdownButton2 extends StatelessWidget {
+class CustomDropdownButton2<T> extends StatelessWidget {
   const CustomDropdownButton2({
     required this.hint,
     required this.value,
     required this.dropdownItems,
     required this.onChanged,
+    required this.itemTitle,
+    required this.itemIcon,
     this.selectedItemBuilder,
     this.hintAlignment,
     this.valueAlignment,
@@ -33,12 +37,21 @@ class CustomDropdownButton2 extends StatelessWidget {
     this.scrollbarThickness,
     this.scrollbarAlwaysShow,
     this.offset = Offset.zero,
+    this.valueColor,
+    this.iconColor,
+    required this.isFtth,
+    required this.valueTextStyle,
     super.key,
   });
+
   final String hint;
-  final String? value;
-  final List<String> dropdownItems;
-  final ValueChanged<String?>? onChanged;
+  final List<T> dropdownItems;
+  final T? value;
+  final ValueChanged<T?>? onChanged;
+
+  final String Function(T) itemTitle;
+  final String Function(T) itemIcon;
+
   final DropdownButtonBuilder? selectedItemBuilder;
   final Alignment? hintAlignment;
   final Alignment? valueAlignment;
@@ -60,12 +73,15 @@ class CustomDropdownButton2 extends StatelessWidget {
   final double? scrollbarThickness;
   final bool? scrollbarAlwaysShow;
   final Offset offset;
+  final Color? valueColor;
+  final Color? iconColor;
+  final bool isFtth;
+  final TextStyle valueTextStyle;
 
   @override
   Widget build(BuildContext context) {
     return DropdownButtonHideUnderline(
-      child: DropdownButton2<String>(
-        //To avoid long text overflowing.
+      child: DropdownButton2<T>(
         isExpanded: true,
         hint: Container(
           alignment: hintAlignment,
@@ -75,30 +91,111 @@ class CustomDropdownButton2 extends StatelessWidget {
             maxLines: 1,
             style: AppTextFonts.poppinsRegular.copyWith(
               fontSize: 14,
-              color: AppColors.color_8588
-            )
+              color: AppColors.color_8588,
+            ),
           ),
         ),
         value: value,
-        items: dropdownItems
-            .map((String item) => DropdownMenuItem<String>(
-          value: item,
-          child: Container(
-            alignment: valueAlignment,
-            child: Text(
-              item,
-              overflow: TextOverflow.ellipsis,
-              maxLines: 1,
-              style: AppTextFonts.poppinsRegular.copyWith(
-                  fontSize: 14,
-                  color: AppColors.color_1618
-              )
+        items: dropdownItems.map((T item) {
+          final bool selected = value == item;
+
+          if (isFtth) {
+            return DropdownMenuItem(
+              value: item,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    itemIcon(item),
+                    width: iconSize ?? 24,
+                    height: iconSize ?? 24,
+                    colorFilter: ColorFilter.mode(
+                      selected
+                          ? AppColors.color_E11B
+                          : AppColors.color_1618,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      itemTitle(item),
+                      overflow: TextOverflow.ellipsis,
+                      style: valueTextStyle.copyWith(
+                        fontSize: 14,
+                        color: selected
+                            ? AppColors.color_E11B
+                            : AppColors.color_1618,
+                      ),
+                    ),
+                  ),
+                  SvgPicture.asset(
+                    selected
+                        ? AppImages.icRadioSelected
+                        : AppImages.icRadioUnselected,
+                    width: iconSize ?? 24,
+                    height: iconSize ?? 24,
+                  ),
+                ],
+              ),
+            );
+          }
+
+          return DropdownMenuItem(
+            value: item,
+            child: Row(
+              children: [
+                SvgPicture.asset(itemIcon(item), width: 20, height: 20),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    itemTitle(item),
+                    overflow: TextOverflow.ellipsis,
+                    style: valueTextStyle.copyWith(
+                      fontSize: 14,
+                      color: AppColors.color_1618,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ))
-            .toList(),
+          );
+        }).toList(),
+
         onChanged: onChanged,
-        selectedItemBuilder: selectedItemBuilder,
+        selectedItemBuilder: isFtth
+            ? (context) {
+          return dropdownItems.map((item) {
+            return Container(
+              alignment: valueAlignment,
+              child: Row(
+                children: [
+                  SvgPicture.asset(
+                    itemIcon(item),
+                    width: iconSize ?? 24,
+                    height: iconSize ?? 24,
+                    colorFilter: ColorFilter.mode(
+                      iconColor ?? AppColors.color_E11B,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(
+                      itemTitle(item),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                      style: valueTextStyle.copyWith(
+                        fontSize: 14,
+                        color: valueColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            );
+          }).toList();
+        }
+            : selectedItemBuilder,
         buttonStyleData: ButtonStyleData(
           height: buttonHeight ?? 40,
           width: buttonWidth ?? 140,
@@ -106,24 +203,27 @@ class CustomDropdownButton2 extends StatelessWidget {
           decoration: buttonDecoration ??
               BoxDecoration(
                 borderRadius: BorderRadius.circular(14),
-                border: Border.all(
-                  color: Colors.black45,
-                ),
+                border: Border.all(color: Colors.black45),
               ),
           elevation: buttonElevation,
         ),
         iconStyleData: IconStyleData(
-          icon: icon != null ? SvgPicture.asset(
+          icon: icon != null
+              ? SvgPicture.asset(
             icon!,
             width: iconSize ?? 20,
             height: iconSize ?? 20,
-          ) : const Icon(Icons.arrow_forward_ios_outlined),
+            colorFilter: ColorFilter.mode(
+              iconColor ?? AppColors.color_8588,
+              BlendMode.srcIn,
+            ),
+          )
+              : const Icon(Icons.arrow_forward_ios_outlined),
           iconSize: iconSize ?? 20,
           iconEnabledColor: iconEnabledColor,
           iconDisabledColor: iconDisabledColor,
         ),
         dropdownStyleData: DropdownStyleData(
-          //Max height for the dropdown menu & becoming scrollable if there are more items. If you pass Null it will take max height possible for the items.
           maxHeight: dropdownHeight ?? 200,
           width: dropdownWidth ?? 140,
           padding: dropdownPadding,
@@ -133,7 +233,6 @@ class CustomDropdownButton2 extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14),
               ),
           elevation: dropdownElevation ?? 8,
-          //Null or Offset(0, 0) will open just under the button. You can edit as you want.
           offset: offset,
           scrollbarTheme: ScrollbarThemeData(
             radius: scrollbarRadius ?? const Radius.circular(40),

@@ -35,3 +35,29 @@ class GetAutoRenewFailure extends PaymentHistoryState {
 
   GetAutoRenewFailure(this.message);
 }
+
+class CancelAutoRenewSuccess extends PaymentHistoryState {
+  final String message;
+
+  CancelAutoRenewSuccess(this.message);
+
+}
+
+class CancelAutoRenewFailure extends PaymentHistoryState {
+  final String message;
+
+  CancelAutoRenewFailure(this.message);
+}
+
+class SaveAutoRenewSuccess extends PaymentHistoryState {
+  final String message;
+
+  SaveAutoRenewSuccess(this.message);
+
+}
+
+class SaveAutoRenewFailure extends PaymentHistoryState {
+  final String message;
+
+  SaveAutoRenewFailure(this.message);
+}
