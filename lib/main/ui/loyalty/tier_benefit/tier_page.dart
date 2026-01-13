@@ -1,3 +1,4 @@
+import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_styles.dart';
 import 'package:cam_id/res/app_fonts.dart';
@@ -93,9 +94,9 @@ class _TierPageState extends State<TierPage> {
     return AspectRatio(
       aspectRatio: 343 / 200,
       child: Container(
-        // margin: EdgeInsets.symmetric(horizontal: 16),
+        margin: EdgeInsets.symmetric(horizontal: 16),
         width: double.infinity,
-        padding: EdgeInsets.all(35),
+        padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(AppImages.imgBronzeCard),
@@ -104,110 +105,86 @@ class _TierPageState extends State<TierPage> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
+          spacing: 12,
           children: [
+            Spacer(),
+            Text(
+              tierInfo.name.toUpperCase(),
+              style: AppTextFonts.poppinsBold.copyWith(
+                fontSize: 20,
+                color: AppColors.color_FFFF,
+              ),
+            ),
+            Text(
+              state.userName,
+              style: AppTextFonts.poppinsRegular.copyWith(
+                fontSize: 14,
+                color: AppColors.color_FFFF,
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "${state.currentPoints} Points",
+                  style: AppTextFonts.poppinsBold.copyWith(
+                    fontSize: 18,
+                    color: AppColors.color_FFFF,
+                  ),
+                ),
+                Text(
+                  "${state.usedPoints} Used points",
+                  style: AppTextFonts.poppinsRegular.copyWith(
+                    fontSize: 14,
+                    color: AppColors.color_FFFF,
+                  ),
+                ),
+              ],
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                value: progress,
+                minHeight: 8,
+                backgroundColor: Color(0xFFE8D5C4),
+                valueColor: AlwaysStoppedAnimation<Color>(AppColors.color_FFFF),
+              ),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tierInfo.name.toUpperCase(),
-                      style: AppTextFonts.poppinsBold.copyWith(
-                        fontSize: 20,
+                      "Upgrade to ${nextTierInfo.name}",
+                      style: AppTextFonts.poppinsRegular.copyWith(
+                        fontSize: 12,
                         color: AppColors.color_FFFF,
                       ),
                     ),
-                    SizedBox(height: 4),
                     Text(
-                      state.userName,
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        fontSize: 14,
-                        color: Color(0xFF888888),
+                      "Need ${state.pointsNeeded} Points",
+                      style: AppTextFonts.poppinsBold.copyWith(
+                        fontSize: 12,
+                        color: AppColors.color_FFFF,
                       ),
                     ),
                   ],
                 ),
-                SvgPicture.asset(tierInfo.icon, width: 64, height: 64),
-              ],
-            ),
-            SizedBox(height: 24),
-            Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${state.currentPoints} Points",
-                        style: AppTextFonts.poppinsBold.copyWith(
-                          fontSize: 18,
-                          color: AppColors.color_FFFF,
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(4),
-                        child: LinearProgressIndicator(
-                          value: progress,
-                          minHeight: 8,
-                          backgroundColor: Color(0xFFE8D5C4),
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Color(0xFFD4A574),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "Upgrade to ${nextTierInfo.name}",
-                        style: AppTextFonts.poppinsRegular.copyWith(
-                          fontSize: 12,
-                          color: Color(0xFF888888),
-                        ),
-                      ),
-                      Text(
-                        "Need ${state.pointsNeeded} Points",
-                        style: AppTextFonts.poppinsBold.copyWith(
-                          fontSize: 12,
-                          color: AppColors.color_FFFF,
-                        ),
-                      ),
-                    ],
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  decoration: BoxDecoration(
+                    color: AppColors.color_FFFF,
+                    borderRadius: BorderRadius.circular(1000),
                   ),
-                ),
-                SizedBox(width: 16),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${state.usedPoints} Used points",
-                        style: AppTextFonts.poppinsRegular.copyWith(
-                          fontSize: 14,
-                          color: Color(0xFF888888),
-                        ),
-                      ),
-                      SizedBox(height: 12),
-                      Container(
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 10,
-                        ),
-                        decoration: BoxDecoration(
-                          color: Color(0xFFE8D5C4),
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: Text(
-                          "View history",
-                          style: AppTextFonts.poppinsMedium.copyWith(
-                            fontSize: 12,
-                            color: Color(0xFF333333),
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ],
+                  child: Text(
+                    "View history",
+                    style: AppTextFonts.poppinsMedium.copyWith(
+                      fontSize: 12,
+                      color: Color(0xFF333333),
+                    ),
+                    textAlign: TextAlign.center,
                   ),
                 ),
               ],
@@ -220,49 +197,45 @@ class _TierPageState extends State<TierPage> {
 
   Widget _buildTierSelection(BuildContext context, TierState state) {
     final l10n = AppLocalizations.of(context)!;
-    return Column(
-      children: [
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _buildTierBadge(
-                context,
-                TierType.bronze,
-                AppImages.icBronze,
-                l10n.bronze,
-                state.selectedTier == TierType.bronze,
-                state.currentTier == TierType.bronze,
-              ),
-              _buildTierBadge(
-                context,
-                TierType.silver,
-                AppImages.icSilver,
-                l10n.silver,
-                state.selectedTier == TierType.silver,
-                state.currentTier == TierType.silver,
-              ),
-              _buildTierBadge(
-                context,
-                TierType.gold,
-                AppImages.icGold,
-                l10n.gold,
-                state.selectedTier == TierType.gold,
-                state.currentTier == TierType.gold,
-              ),
-              _buildTierBadge(
-                context,
-                TierType.diamond,
-                AppImages.icDiamond,
-                l10n.diamond,
-                state.selectedTier == TierType.diamond,
-                state.currentTier == TierType.diamond,
-              ),
-            ],
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 16),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: [
+          _buildTierBadge(
+            context,
+            TierType.bronze,
+            AppImages.imgBronze,
+            l10n.bronze,
+            state.selectedTier == TierType.bronze,
+            AppColors.color_8568,
           ),
-        ),
-      ],
+          _buildTierBadge(
+            context,
+            TierType.silver,
+            AppImages.imgSilver,
+            l10n.silver,
+            state.selectedTier == TierType.silver,
+            AppColors.color_8588,
+          ),
+          _buildTierBadge(
+            context,
+            TierType.gold,
+            AppImages.imgGold,
+            l10n.gold,
+            state.selectedTier == TierType.gold,
+            AppColors.color_FDB9,
+          ),
+          _buildTierBadge(
+            context,
+            TierType.diamond,
+            AppImages.imgDiamond,
+            l10n.diamond,
+            state.selectedTier == TierType.diamond,
+            AppColors.color_AA87,
+          ),
+        ],
+      ),
     );
   }
 
@@ -272,35 +245,41 @@ class _TierPageState extends State<TierPage> {
     String iconPath,
     String name,
     bool isSelected,
-    bool isCurrentTier,
+    Color color,
   ) {
-    final isActive = isSelected || isCurrentTier;
-    return GestureDetector(
-      onTap: () {
-        context.read<TierBloc>().add(SelectTierEvent(tier));
-      },
-      child: Column(
-        children: [
-          Container(
+    final isActive = isSelected;
+    return Expanded(
+      child: AspectRatio(
+        aspectRatio: 1.0,
+        child: GestureDetector(
+          onTap: () {
+            context.read<TierBloc>().add(SelectTierEvent(tier));
+          },
+          child: Container(
+            // width: 101,
+            // height: 101,
             padding: EdgeInsets.all(12),
             decoration: BoxDecoration(
-              color: isActive ? Color(0xFFD4A574) : Colors.transparent,
+              color: isActive ? color.withAlpha(10) : Colors.transparent,
               borderRadius: BorderRadius.circular(12),
-              border: isActive
-                  ? Border.all(color: Color(0xFF8B6F47), width: 2)
-                  : null,
+              border: isActive ? Border.all(color: color, width: 2) : null,
             ),
-            child: SvgPicture.asset(iconPath, width: 48, height: 48),
-          ),
-          SizedBox(height: 8),
-          Text(
-            name,
-            style: AppTextFonts.poppinsRegular.copyWith(
-              fontSize: 12,
-              color: Color(0xFF888888),
+            // child: SvgPicture.asset(iconPath, width: 48, height: 48),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(iconPath, width: 56, height: 56),
+                Text(
+                  name,
+                  style: AppTextFonts.poppinsRegular.copyWith(
+                    fontSize: 12,
+                    color: isSelected ? color : AppColors.color_0000,
+                  ),
+                ),
+              ],
             ),
           ),
-        ],
+        ),
       ),
     );
   }
@@ -312,13 +291,7 @@ class _TierPageState extends State<TierPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.requirements,
-            style: AppTextFonts.poppinsBold.copyWith(
-              fontSize: 16,
-              color: Color(0xFF888888),
-            ),
-          ),
+          Text(l10n.requirements, style: AppStyles.header),
           SizedBox(height: 16),
           Row(
             children: [
@@ -326,28 +299,30 @@ class _TierPageState extends State<TierPage> {
                 child: Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Color(0xFF2A2A2A),
+                    color: AppColors.color_F9FA,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        AppImages.icMedalStar,
+                      commonSvgIcon(
+                        icon: AppImages.icMedalStar,
                         width: 24,
                         height: 24,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.colorMain,
-                          BlendMode.srcIn,
-                        ),
                       ),
                       SizedBox(width: 12),
                       Expanded(
-                        child: Text(
-                          "${l10n.pointsNeeded} 35.000",
-                          style: AppTextFonts.poppinsRegular.copyWith(
-                            fontSize: 14,
-                            color: Color(0xFF888888),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(" 35.000", style: AppStyles.header),
+                            Text(
+                              l10n.pointsNeeded,
+                              style: AppTextFonts.poppinsRegular.copyWith(
+                                fontSize: 14,
+                                color: Color(0xFF888888),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -359,28 +334,31 @@ class _TierPageState extends State<TierPage> {
                 child: Container(
                   padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Color(0xFF2A2A2A),
+                    color: AppColors.color_F9FA,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Row(
                     children: [
-                      SvgPicture.asset(
-                        AppImages.icTimer2,
+                      commonSvgIcon(
+                        icon: AppImages.icTimer2,
                         width: 24,
                         height: 24,
-                        colorFilter: ColorFilter.mode(
-                          AppColors.colorMain,
-                          BlendMode.srcIn,
-                        ),
                       ),
+
                       SizedBox(width: 12),
                       Expanded(
-                        child: Text(
-                          " 12",
-                          style: AppTextFonts.poppinsRegular.copyWith(
-                            fontSize: 14,
-                            color: Color(0xFF888888),
-                          ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text("12", style: AppStyles.header),
+                            Text(
+                              l10n.activePeriod,
+                              style: AppTextFonts.poppinsRegular.copyWith(
+                                fontSize: 14,
+                                color: Color(0xFF888888),
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -397,11 +375,11 @@ class _TierPageState extends State<TierPage> {
   Widget _buildPrivilegesSection(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final privileges = [
-      "100,000",
-      "Prioritize prompt resolution of customer issues and complaints.",
-      "Redeem points for rewards and partner programs.",
-      "Deposit fee waived when increasing your credit limit up to 10 million VND.",
-      "Dedicated customer service hotline",
+      "1. 100,000",
+      "2. Prioritize prompt resolution of customer issues and complaints.",
+      "3. Redeem points for rewards and partner programs.",
+      "4. Deposit fee waived when increasing your credit limit up to 10 million VND.",
+      "5. Dedicated customer service hotline",
     ];
 
     return Padding(
@@ -409,37 +387,14 @@ class _TierPageState extends State<TierPage> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.exclusivePrivileges,
-            style: AppTextFonts.poppinsBold.copyWith(
-              fontSize: 16,
-              color: Color(0xFF888888),
-            ),
-          ),
+          Text(l10n.exclusivePrivileges, style: AppStyles.header),
           SizedBox(height: 16),
           ...privileges.asMap().entries.map((entry) {
             return Padding(
               padding: EdgeInsets.only(bottom: 12),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "${entry.key + 1}. ",
-                    style: AppTextFonts.poppinsRegular.copyWith(
-                      fontSize: 14,
-                      color: Color(0xFF888888),
-                    ),
-                  ),
-                  Expanded(
-                    child: Text(
-                      entry.value,
-                      style: AppTextFonts.poppinsRegular.copyWith(
-                        fontSize: 14,
-                        color: Color(0xFF888888),
-                      ),
-                    ),
-                  ),
-                ],
+              child: Text(
+                entry.value,
+                style: AppTextFonts.poppinsRegular.copyWith(fontSize: 14),
               ),
             );
           }),

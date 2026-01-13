@@ -1,3 +1,4 @@
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/notify/notify_model.dart';
@@ -16,21 +17,18 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'gift_bloc.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class VoucherDetailPage extends StatefulWidget {
+  const VoucherDetailPage({super.key});
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<VoucherDetailPage> createState() => _VoucherDetailPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage>
+class _VoucherDetailPageState extends State<VoucherDetailPage>
     with SingleTickerProviderStateMixin {
-  late TabController _tabController;
-
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -72,7 +70,7 @@ class _HistoryPageState extends State<HistoryPage>
           actions: [
             IconButton(
               icon: SvgPicture.asset(
-                AppImages.icCalendarSearch,
+                AppImages.icSearchBlack,
                 width: 24,
                 height: 24,
               ),
@@ -99,145 +97,22 @@ class _HistoryPageState extends State<HistoryPage>
                 );
               },
             ),
+            SizedBox(width: 16),
           ],
-          bottom: PreferredSize(
-            preferredSize: const Size.fromHeight(56),
-
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 16),
-
-                decoration: BoxDecoration(
-                  color: AppColors.color_5F5F,
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                child: TabBar(
-                  // padding: const EdgeInsets.symmetric(
-                  //   horizontal: 16,
-                  //   vertical: 8,
-                  // ),
-                  controller: _tabController,
-                  indicator: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  indicatorColor: Colors.grey,
-                  dividerColor: Colors.transparent,
-                  // Tùy chỉnh kích thước indicator
-                  indicatorSize:
-                      TabBarIndicatorSize.tab, // Tắt indicator mặc định
-                  labelColor: Colors.white, // Chữ tab được chọn: trắng
-                  unselectedLabelColor: Colors.black, // Chữ tab không chọn: xám
-                  // isScrollable: true,
-                  tabs: [
-                    Tab(child: Text(l10n.all)),
-                    Tab(child: Text(l10n.received)),
-                    Tab(child: Text(l10n.used)),
-                  ],
-                ),
+        ),
+        body: SafeArea(
+          child: Column(
+            children: [
+              Expanded(
+                child: SingleChildScrollView(child: CouponCardWithNotches()),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: commonButton(text: l10n.loyaltyRedeem, onPressed: () {}),
+              ),
+            ],
           ),
         ),
-        body: TabBarView(
-          controller: _tabController,
-          children: [
-            _buildHistoryTab(l10n),
-            _buildHistoryTab(l10n),
-            _buildHistoryTab(l10n),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHistoryTab(AppLocalizations l10n) {
-    return BlocBuilder<GiftBloc, GiftState>(
-      builder: (context, state) {
-        if (state.isLoadingNews) {
-          return const Center(child: CircularProgressIndicator());
-        }
-        if (state.newsNotifications.isEmpty) {
-          return Center(child: _buildEmptyNoti(l10n)); // "Không có thông báo"
-        }
-        return Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: ListView.builder(
-              shrinkWrap:
-                  true, // Quan trọng: Yêu cầu ListView chỉ chiếm không gian vừa đủ
-              physics:
-                  const NeverScrollableScrollPhysics(), // Tắt cuộn riêng của ListView
-              itemCount: state.newsNotifications.length,
-              itemBuilder: (context, index) {
-                final noti = state.newsNotifications[index];
-                return _buildHistoryCard(
-                  noti,
-                  context,
-                  index < state.newsNotifications.length - 1,
-                );
-              },
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Widget _buildHistoryCard(
-    NotificationItem noti,
-    BuildContext context,
-    bool hasBottomBorder,
-  ) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            blurRadius: 10,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Row(
-        spacing: 8,
-        children: [
-          CircleAvatar(
-            radius: 30,
-            backgroundColor: Colors.pink[50],
-            child: SvgPicture.asset(
-              AppImages.icMagicStar,
-              width: 24,
-              height: 24,
-            ),
-          ),
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
-              children: [
-                Text("iphone", style: AppStyles.poppins14Medium),
-
-                Row(
-                  children: [
-                    SvgPicture.asset(AppImages.icCalendarCircle),
-                    Text("1/2/2025 5:12", style: AppStyles.poppins12Regular),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Text(
-            "${AppLocalizations.of(context)!.points} 100",
-            style: AppStyles.poppins14Medium,
-          ),
-        ],
       ),
     );
   }
@@ -259,7 +134,6 @@ class _HistoryPageState extends State<HistoryPage>
 
   @override
   void dispose() {
-    _tabController.dispose();
     super.dispose();
   }
 
@@ -441,6 +315,236 @@ class _HistoryPageState extends State<HistoryPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class TopPartClipper extends CustomClipper<Path> {
+  final double notchRadius; // Bán kính của vết lõm
+  final double notchOffset; // Khoảng cách từ trên/dưới đến tâm vết lõm
+
+  TopPartClipper({this.notchRadius = 15.0, this.notchOffset = 20.0});
+
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0, size.height); // Bắt đầu từ dưới trái đi lên
+    path.lineTo(size.width, size.height); // Đi ngang qua dưới cùng
+    path.lineTo(
+      size.width,
+      notchOffset + notchRadius,
+    ); // Đi lên tới vị trí vết lõm bên phải
+
+    // Vẽ cung lõm bên phải
+    path.arcToPoint(
+      Offset(size.width, notchOffset - notchRadius),
+      radius: Radius.circular(notchRadius),
+      clockwise: true, // Lõm vào
+    );
+
+    path.lineTo(size.width, 0); // Đi thẳng lên đỉnh phải
+    path.lineTo(0, 0); // Đi ngang qua đỉnh trái
+
+    path.lineTo(
+      0,
+      notchOffset + notchRadius,
+    ); // Đi lên tới vị trí vết lõm bên trai
+    // Vẽ cung lõm bên trái
+    path.arcToPoint(
+      Offset(0, notchOffset - notchRadius),
+      radius: Radius.circular(notchRadius),
+      clockwise: true, // Lõm vào
+    );
+    path.close();
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+class DashedLinePainter extends CustomPainter {
+  final Color color;
+  final double strokeWidth;
+  final double dashWidth;
+  final double gapWidth;
+
+  DashedLinePainter({
+    this.color = Colors.grey,
+    this.strokeWidth = 2.0,
+    this.dashWidth = 5.0,
+    this.gapWidth = 5.0,
+  });
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    var paint = Paint()
+      ..color = color
+      ..strokeWidth = strokeWidth
+      ..strokeCap = StrokeCap.round;
+
+    double startX = 0;
+    while (startX < size.width) {
+      canvas.drawLine(
+        Offset(startX, size.height / 2),
+        Offset(startX + dashWidth, size.height / 2),
+        paint,
+      );
+      startX += dashWidth + gapWidth;
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant DashedLinePainter oldDelegate) => false;
+}
+
+class BottomNotchClipper extends CustomClipper<Path> {
+  final double notchRadius; // Bán kính mỗi vết lõm
+  final double startOffset; // Khoảng cách từ mép trái đến vết lõm đầu tiên
+  final double endOffset; // Khoảng cách từ mép phải đến vết lõm cuối cùng
+
+  BottomNotchClipper({
+    this.notchRadius = 10.0,
+    this.startOffset = 20.0,
+    this.endOffset = 20.0,
+  });
+
+  @override
+  Path getClip(Size size) {
+    Path path = Path();
+
+    path.lineTo(0, size.height); // Đi từ trên trái xuống dưới trái
+
+    // Vẽ hàng bán nguyệt lõm ở cạnh đáy
+    double currentX = 0;
+    while (currentX < size.width) {
+      // Bắt đầu 1 nửa hình tròn (đi lên)
+      path.relativeArcToPoint(
+        Offset(notchRadius * 2, 0),
+        radius: Radius.circular(notchRadius),
+        clockwise: false, // Lõm vào
+      );
+      currentX += notchRadius * 2;
+    }
+
+    path.lineTo(size.width, 0); // Đi từ dưới phải lên trên phải
+    path.close(); // Đóng path
+
+    return path;
+  }
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Path> oldClipper) => false;
+}
+
+// Ví dụ về sử dụng trong Widget Build
+class CouponCardWithNotches extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.all(20),
+      child: ClipPath(
+        // Bọc cả thẻ bằng ClipPath chung
+        clipper: TopPartClipper(
+          notchRadius: 15,
+          notchOffset: 60,
+        ), // Notch cho phần trên
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10),
+            ],
+          ),
+          child: Column(
+            mainAxisSize:
+                MainAxisSize.min, // Đảm bảo Column không chiếm hết chiều cao
+            children: [
+              // --- PHẦN TRÊN: Ảnh và nội dung ---
+              Container(
+                height: 120, // Chiều cao của phần trên
+                child: Stack(
+                  children: [
+                    // Ảnh nền hoặc nội dung chính
+                    Positioned.fill(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(16),
+                          topRight: Radius.circular(16),
+                        ),
+                        child: Image.network(
+                          "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2nmWoa-66Yo5xylQwIiAxtvMrK2pB2l4CA&s",
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                    // Nội dung text ở giữa
+                    Center(
+                      child: Text(
+                        "DISCOUNT 50%",
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          shadows: [
+                            Shadow(color: Colors.black54, blurRadius: 4),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // Đường nét đứt (thêm vào sau cùng để hiện lên trên)
+                    Positioned(
+                      left: 0,
+                      right: 0,
+                      bottom: 0, // Đặt ở cuối phần trên
+                      height: 20, // Chiều cao của đường đứt
+                      child: CustomPaint(
+                        painter: DashedLinePainter(
+                          color: Colors.grey[400]!,
+                          dashWidth: 6,
+                          gapWidth: 4,
+                          strokeWidth: 1.5,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              // --- PHẦN DƯỚI: Các bán nguyệt lõm xếp cạnh nhau ---
+              ClipPath(
+                clipper: BottomNotchClipper(
+                  notchRadius: 10,
+                ), // Các bán nguyệt dưới
+                child: Container(
+                  color: Colors.deepPurpleAccent,
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
+                    vertical: 10,
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.star, color: Colors.white),
+                      SizedBox(width: 8),
+                      Expanded(
+                        child: Text(
+                          "Redeem now and get exclusive benefits!",
+                          style: TextStyle(color: Colors.white, fontSize: 16),
+                        ),
+                      ),
+                      Icon(Icons.arrow_forward_ios, color: Colors.white),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 10), // Khoảng cách cuối cùng
+            ],
+          ),
+        ),
       ),
     );
   }
