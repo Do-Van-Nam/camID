@@ -934,6 +934,78 @@ abstract class AppLocalizations {
   /// **'Free'**
   String get loyaltyFree;
 
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
+  /// No description provided for @all.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get all;
+
+  /// No description provided for @received.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get received;
+
+  /// No description provided for @used.
+  ///
+  /// In en, this message translates to:
+  /// **'used'**
+  String get used;
+
+  /// No description provided for @telecommunications.
+  ///
+  /// In en, this message translates to:
+  /// **'Telecommunications'**
+  String get telecommunications;
+
+  /// No description provided for @pointsPlus.
+  ///
+  /// In en, this message translates to:
+  /// **'+{count} points'**
+  String pointsPlus(Object count);
+
+  /// No description provided for @pointsMinus.
+  ///
+  /// In en, this message translates to:
+  /// **'-{count} points'**
+  String pointsMinus(Object count);
+
+  /// No description provided for @points.
+  ///
+  /// In en, this message translates to:
+  /// **'Points'**
+  String get points;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This Week'**
+  String get thisWeek;
+
+  /// No description provided for @thisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'This Month'**
+  String get thisMonth;
+
+  /// No description provided for @thisYear.
+  ///
+  /// In en, this message translates to:
+  /// **'This Year'**
+  String get thisYear;
+
   /// No description provided for @notificationTitle.
   ///
   /// In en, this message translates to:
@@ -1167,12 +1239,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'My Prize'**
   String get myPrize;
-
-  /// No description provided for @history.
-  ///
-  /// In en, this message translates to:
-  /// **'History'**
-  String get history;
 
   /// No description provided for @prize.
   ///
@@ -1456,12 +1522,6 @@ abstract class AppLocalizations {
   /// **'Status'**
   String get status;
 
-  /// No description provided for @received.
-  ///
-  /// In en, this message translates to:
-  /// **'Received'**
-  String get received;
-
   /// No description provided for @processing.
   ///
   /// In en, this message translates to:
@@ -1479,12 +1539,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'BRONZE MEMBER'**
   String get bronzeMember;
-
-  /// No description provided for @points.
-  ///
-  /// In en, this message translates to:
-  /// **'Points'**
-  String get points;
 
   /// No description provided for @usedPoints.
   ///
@@ -1756,12 +1810,6 @@ abstract class AppLocalizations {
   /// **'Account detail'**
   String get account_detail;
 
-  /// No description provided for @used.
-  ///
-  /// In en, this message translates to:
-  /// **'used'**
-  String get used;
-
   /// No description provided for @remaining.
   ///
   /// In en, this message translates to:
@@ -1881,18 +1929,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Basic'**
   String get basic;
-
-  /// No description provided for @all.
-  ///
-  /// In en, this message translates to:
-  /// **'All'**
-  String get all;
-
-  /// No description provided for @today.
-  ///
-  /// In en, this message translates to:
-  /// **'Today'**
-  String get today;
 
   /// No description provided for @last7Days.
   ///

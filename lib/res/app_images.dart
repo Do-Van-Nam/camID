@@ -208,26 +208,50 @@ class AppImages {
   static final String icData = 'assets/icons/ic_data.svg';
   static final String icFilterV2 = 'assets/icons/ic_filter_v2.svg';
 
-  static final String icTabBasicSelected = 'assets/icons/ic_tab_basic_selected.svg';
-  static final String icTabDataSelected = 'assets/icons/ic_tab_data_selected.svg';
-  static final String icTabCallSelected = 'assets/icons/ic_tab_call_selected.svg';
-  static final String icTabRoamingSelected = 'assets/icons/ic_tab_roaming_selected.svg';
+  static final String icTabBasicSelected =
+      'assets/icons/ic_tab_basic_selected.svg';
+  static final String icTabDataSelected =
+      'assets/icons/ic_tab_data_selected.svg';
+  static final String icTabCallSelected =
+      'assets/icons/ic_tab_call_selected.svg';
+  static final String icTabRoamingSelected =
+      'assets/icons/ic_tab_roaming_selected.svg';
   static final String icTabSMSSelected = 'assets/icons/ic_tab_sms_selected.svg';
   static final String icAmount = 'assets/icons/ic_amount.svg';
   static final String imgAmount = 'assets/images/img_amount.png';
   static final String imgAmount2 = 'assets/images/img_amount2.png';
   static final String icAmount2 = 'assets/icons/ic_amount2.svg';
 
-  static final String icTabBasicUnSelected = 'assets/icons/ic_tab_basic_unselected.svg';
-  static final String icTabDataUnSelected = 'assets/icons/ic_tab_data_unselected.svg';
-  static final String icTabCallUnSelected = 'assets/icons/ic_tab_call_unselected.svg';
-  static final String icTabRoamingUnSelected = 'assets/icons/ic_tab_roaming_unselected.svg';
-  static final String icTabSMSUnSelected = 'assets/icons/ic_tab_sms_unselected.svg';
-  static final String icCardChargeHistory = 'assets/icons/ic_card_charge_history.svg';
+  static final String icTabBasicUnSelected =
+      'assets/icons/ic_tab_basic_unselected.svg';
+  static final String icTabDataUnSelected =
+      'assets/icons/ic_tab_data_unselected.svg';
+  static final String icTabCallUnSelected =
+      'assets/icons/ic_tab_call_unselected.svg';
+  static final String icTabRoamingUnSelected =
+      'assets/icons/ic_tab_roaming_unselected.svg';
+  static final String icTabSMSUnSelected =
+      'assets/icons/ic_tab_sms_unselected.svg';
+  static final String icCardChargeHistory =
+      'assets/icons/ic_card_charge_history.svg';
   static final String icHistoryCall = 'assets/icons/ic_history_call.svg';
   static final String icHistorySMS = 'assets/icons/ic_history_sms.svg';
   static final String icHistoryService = 'assets/icons/ic_history_service.svg';
   static final String icHistoryData = 'assets/icons/ic_history_data.svg';
+  //tier benefit
+  static final String icGold = 'assets/icons/ic_gold.svg';
+  static final String icBronze = 'assets/icons/ic_bronze.svg';
+  static final String icSilver = 'assets/icons/ic_silver.svg';
+  static final String icDiamond = 'assets/icons/ic_diamond.svg';
+  static final String icMedalStar = 'assets/icons/ic_medal_star.svg';
+  static final String icTimer2 = 'assets/icons/ic_timer2.svg';
+  static final String icCalendarSearch = 'assets/icons/ic_calendar_search.svg';
+  static final String icMagicStar = 'assets/icons/ic_magic_star.svg';
+  static final String icCardBronze = 'assets/icons/ic_card_bronze.svg';
+  static final String imgBronzeCard = 'assets/images/bronze_card.png';
+
+  static final String icLogoMetfone = 'assets/icons/ic_logo_metfone.svg';
+  static final String icCheck2 = 'assets/icons/ic_check2.svg';
   static final String icLogoV2 = 'assets/icons/ic_logo_v2.svg';
   static final String icAccountActive = 'assets/icons/ic_account_active.svg';
   static final String icAccountExpired = 'assets/icons/ic_account_expired.svg';
@@ -252,5 +276,5 @@ class AppImages {
   static final String icFuncFeedback = 'assets/icons/ic_func_feedback.svg';
   static final String icFuncMyOrder = 'assets/icons/ic_func_my_order.svg';
 
-// ------------------------ N ------------------------
+  // ------------------------ N ------------------------
 }
