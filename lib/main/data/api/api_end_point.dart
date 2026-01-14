@@ -5,7 +5,8 @@ class ApiEndPoint {
       "https://apigw.camid.app:8423/ApiGateway/CoreService";
   static bool isDev = false;
   static String DOMAIN = isDev ? DOMAIN_API_DEV : DOMAIN_API;
-  static String API_KEY = "5E648E0585B500A5CB8F0B392D4965A8176E352E1DC3A4FE31186CEB0EA5BE46";
+  static String API_KEY =
+      "5E648E0585B500A5CB8F0B392D4965A8176E352E1DC3A4FE31186CEB0EA5BE46";
   static String API_KEY_V2 = "6CB8FC45D491D87CECB53428D79423BD";
 
   static String API_SIGN_UP = "$DOMAIN/camid-auth/api/v1/auth/signup";
@@ -16,7 +17,10 @@ class ApiEndPoint {
   static String API_USER_ROUTING = "$DOMAIN_API_GATEWAY/UserRouting";
   static String API_UPDATE_AVATAR =
       "$DOMAIN/camid-auth/api/v1/user/update-avatar";
-  static String API_UPDATE_USER = "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
+  static String API_UPDATE_USER =
+      "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
+
+  // chatbot
 }
 
 class WSCode {
@@ -30,7 +34,8 @@ class WSCode {
   static String wsInitLinkedPayment = "wsInitLinkedPayment";
   static String wsCheckLinkedPaymentEmoney = "wsCheckLinkedPaymentEmoney";
   static String wsGetListPaymentMethod = "wsGetListPaymentMethod";
-  static String wsGenerateQRCodeFTTHCommission = "wsGenerateQRCodeFTTHCommission";
+  static String wsGenerateQRCodeFTTHCommission =
+      "wsGenerateQRCodeFTTHCommission";
   static String wsAbaCheckAbaCard = "wsAbaCheckAbaCard";
   static String wsGetOTPByService = "wsGetOTPByService";
   static String wsConfirmOTP = "wsConfirmOTP";
@@ -41,4 +46,9 @@ class WSCode {
   static String wsGetServices = "wsGetServices";
   static String wsDoActionService = "wsDoActionService";
   static String wsGetAccountsOcsDetail = "wsGetAccountsOcsDetail";
+  //chat bot
+  static String wsGetMenu = "get-menu";
+  static String wsSuggestQuestion = "suggest-question";
+  static String wsSuggestMenu = "suggest-menu";
+  static String wsFaqQuery = "faq-query";
 }

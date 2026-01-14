@@ -9,14 +9,14 @@ class ChatbotIntroBloc extends Bloc<ChatbotIntroEvent, ChatbotIntroState> {
     on<StartChatEvent>((event, emit) async {
       emit(ChatbotIntroLoading());
       // Giả lập gọi API (thay bằng API thật sau)
-      await Future.delayed(const Duration(seconds: 1));
+     // await Future.delayed(const Duration(seconds: 1));
       emit(ChatbotIntroSuccess(startNew: true));
     });
 
     on<ContinueChatEvent>((event, emit) async {
       emit(ChatbotIntroLoading());
       // Giả lập gọi API (kiểm tra session cũ)
-      await Future.delayed(const Duration(seconds: 1));
+     // await Future.delayed(const Duration(seconds: 1));
       emit(ChatbotIntroSuccess(startNew: false));
     });
   }

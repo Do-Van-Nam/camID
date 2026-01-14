@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
+import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -88,13 +89,20 @@ class GamePage extends StatelessWidget {
                         items: state.banners
                             .map(
                               (url) => Container(
-                                margin: EdgeInsets.symmetric(horizontal: 8),
+                                margin: EdgeInsets.symmetric(horizontal: 18),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(url),
-                                    fit: BoxFit.cover,
-                                  ),
+                                  // image: DecorationImage(
+                                  //   image: CachedNetworkImageProvider(url),
+                                  //   fit: BoxFit.cover,
+                                  // ),
+                                ),
+                                child: SafeImage(
+                                  width: double.infinity,
+                                  url: url,
+                                  placeholder:
+                                      AppImages.imgEntertainmentDefault,
+                                  errorAsset: AppImages.imgEntertainmentDefault,
                                 ),
                               ),
                             )

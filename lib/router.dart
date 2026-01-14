@@ -3,8 +3,8 @@ import 'package:cam_id/main/ui/account_detail/account_detail_page.dart';
 import 'package:cam_id/main/ui/buy_e_sim/buy_e_sim_page.dart';
 import 'package:cam_id/main/ui/charge_history/charge_history_page.dart';
 import 'package:cam_id/main/ui/charge_history_detail/charge_history_detail_page.dart';
-import 'package:cam_id/main/ui/chatbot/chatbot_intro/chatbot_intro_page.dart';
-import 'package:cam_id/main/ui/chatbot/chatbot_main/chat_page.dart';
+import 'package:cam_id/main/ui/help_center/chatbot/chatbot_intro/chatbot_intro_page.dart';
+import 'package:cam_id/main/ui/help_center/chatbot/chatbot_main/chat_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/game_list/game_list_page.dart';
 import 'package:cam_id/main/ui/entertainment/game/gift/gift_page.dart';
@@ -166,8 +166,13 @@ final GoRouter router = GoRouter(
           path: PATH_CHATBOT_INTRO,
           builder: (context, state) => ChatbotIntroPage(),
         ),
-        GoRoute(path: PATH_CHATBOT, builder: (context, state) => ChatBotPage()),
-        //entertainment
+        GoRoute(
+          path: PATH_CHATBOT,
+          builder: (context, state) {
+            final msg = state.extra as String?;
+            return ChatBotPage(initialMessage: msg);
+          },
+        ), //entertainment
         //game
         GoRoute(path: PATH_GAME, builder: (context, state) => GamePage()),
         GoRoute(

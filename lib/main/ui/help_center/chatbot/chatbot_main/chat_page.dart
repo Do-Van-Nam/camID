@@ -1,16 +1,27 @@
+import 'dart:async';
+import 'dart:developer' as developer;
 import 'dart:math';
 
+import 'package:cam_id/main/data/api/api_end_point.dart';
+import 'package:cam_id/main/data/model/chatbot/button_callback.dart';
+import 'package:cam_id/main/data/model/chatbot/button_callback_data_item.dart';
+import 'package:cam_id/main/data/model/chatbot/ws_response_data.dart';
+import 'package:cam_id/main/utils/utility_fuctions.dart';
+import 'package:cam_id/main/utils/widget/image_widget.dart';
+import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:flutter_svg/svg.dart';
-import './chat_bloc.dart';
+import 'chat_bloc.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 
 class ChatBotPage extends StatefulWidget {
-  const ChatBotPage({super.key});
+  final String? initialMessage;
+
+  const ChatBotPage({super.key, this.initialMessage});
 
   @override
   State<ChatBotPage> createState() => _ChatBotPageState();
@@ -24,7 +35,9 @@ class _ChatBotPageState extends State<ChatBotPage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (_) => ChatBloc(),
+      create: (_) =>
+          ChatBloc()
+            ..add(InitChatEvent(widget.initialMessage ?? l10n.chatbotStart)),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -123,15 +136,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                 return _buildBotTyping();
                               }
                               final msg = state.messages[index];
-                              return _buildMessageBubble(msg);
+                              return _buildMessageBubble(msg, context);
                             },
                           ),
                         ),
 
-                        if (state.messages.length == 1)
-                          _buildLanguageSelection(state),
-                        if (state.messages.length > 2)
-                          _buildQuickButtons(context),
                         _buildInputField(context, state),
                       ],
                     ),
@@ -176,6 +185,13 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                   _,
                                 ) {
                                   context.read<ChatBloc>().add(
+                                    SendMessageEvent(
+                                      l10n.mainMenu,
+                                      "main_menu",
+                                      WSCode.wsGetMenu,
+                                    ),
+                                  );
+                                  context.read<ChatBloc>().add(
                                     ToggleMenuEvent(),
                                   );
                                 });
@@ -189,6 +205,21 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                   _,
                                 ) {
                                   context.read<ChatBloc>().add(
+                                    SendMessageEvent(
+                                      l10n.changePhoneNumberLogin,
+                                      "change_phone_number",
+                                      WSCode.wsGetMenu,
+                                    ),
+                                  );
+                                  context.read<ChatBloc>().add(
+                                    SendMessageEvent(
+                                      l10n.changePhoneNumberLogin,
+                                      "change_phone_number",
+                                      "reset-user",
+                                      userMessage: false,
+                                    ),
+                                  );
+                                  context.read<ChatBloc>().add(
                                     ToggleMenuEvent(),
                                   );
                                 });
@@ -197,18 +228,25 @@ class _ChatBotPageState extends State<ChatBotPage> {
                             _buildMenuItem(
                               iconPath: AppImages.icMessage,
                               label: l10n.newChat,
-                              onTap: () {
-                                WidgetsBinding.instance.addPostFrameCallback((
-                                  _,
-                                ) {
-                                  context.read<ChatBloc>().add(
-                                    ToggleMenuEvent(),
-                                  );
-                                });
+                              onTap: () async {
+                                final completer = Completer();
+                                context.read<ChatBloc>().add(
+                                  ResetChatEvent(completer: completer),
+                                );
+
+                                await completer
+                                    .future; // Đợi cho đến khi Bloc xử lý xong Reset
+
+                                context.read<ChatBloc>().add(
+                                  SendMessageEvent(
+                                    l10n.chatbotStart,
+                                    "new_chat",
+                                    WSCode.wsGetMenu,
+                                  ),
+                                );
+                                context.read<ChatBloc>().add(ToggleMenuEvent());
+
                                 if (_controller.text.trim().isNotEmpty) {
-                                  context.read<ChatBloc>().add(
-                                    SendMessageEvent(_controller.text.trim()),
-                                  );
                                   _controller.clear();
                                 }
                               },
@@ -223,6 +261,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                                   context.read<ChatBloc>().add(
                                     ToggleMenuEvent(),
                                   );
+                                  makePhoneCall("1204");
                                 });
                                 print('Gọi nhân viên');
                               },
@@ -240,29 +279,219 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  Widget _buildMessageBubble(Message msg) {
-    return Align(
-      alignment: msg.isBot ? Alignment.centerLeft : Alignment.centerRight,
+  Widget _buildMessageBubble(WsResponseData msg, BuildContext context) {
+    developer.log(msg.buttonCallbackDataList.length.toString());
+    return msg.isBot
+        // tra loi cua bot
+        ? Align(
+            alignment: Alignment.centerLeft,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              spacing: 8,
+              children: [
+                // noi dung tra loi cua bot
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  padding: EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: Colors.grey[200],
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(msg.answer ?? msg.descriptionButton),
+                      SizedBox(height: 4),
+                      Text(
+                        '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
+                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                      ),
+                    ],
+                  ),
+                ),
+                // cac nut lua chon
+                msg.buttonCallbackDataList.isNotEmpty
+                    ?
+                      // chi co 1 nhom nut
+                      msg.buttonCallbackDataList.length == 1
+                          ? LayoutBuilder(
+                              builder: (context, constraints) {
+                                double width = constraints.maxWidth;
+                                List<ButtonCallback> buttons = msg
+                                    .buttonCallbackDataList[0]
+                                    .buttonCallBacks;
+                                int itemCount = buttons.length;
+
+                                return Wrap(
+                                  children: List.generate(itemCount, (index) {
+                                    // Kiểm tra nếu là phần tử cuối cùng và tổng số lượng là số lẻ
+                                    bool isLastAndOdd =
+                                        (index == itemCount - 1) &&
+                                        (itemCount % 2 != 0);
+
+                                    return Container(
+                                      width: isLastAndOdd
+                                          ? width
+                                          : width /
+                                                2, // Nếu lẻ thì rộng 100%, ngược lại 50%
+
+                                      child: _buildBotButton(
+                                        buttons[index],
+                                        context,
+                                      ),
+                                    );
+                                  }),
+                                );
+                              },
+                            )
+                          // co nhieu hon 1 nhom nut
+                          : SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              //height: 250,
+                              child: Row(
+                                children: List.generate(
+                                  msg.buttonCallbackDataList.length,
+                                  (index) {
+                                    return _buildGroupBotButton(
+                                      msg.buttonCallbackDataList[index],
+                                      context,
+                                    );
+                                  },
+                                ),
+                              ),
+                            )
+                    : SizedBox(),
+                msg.suggestionQuestion?.isNotEmpty ?? false
+                    ? LayoutBuilder(
+                        builder: (context, constraints) {
+                          double width = constraints.maxWidth;
+                          List<String> buttons = msg.suggestionQuestion!;
+                          int itemCount = buttons.length;
+                          return Wrap(
+                            children: List.generate(itemCount, (index) {
+                              ButtonCallback temp = ButtonCallback(
+                                buttonName: buttons[index],
+                                callbackData: "callbackData",
+                                type: "type",
+                                isCallLinkIfLogin: "isCallLinkIfLogin",
+                              );
+                              return Container(
+                                width: width,
+
+                                child: _buildBotButton(temp, context, true),
+                              );
+                            }),
+                          );
+                        },
+                      )
+                    : SizedBox(),
+              ],
+            ),
+          )
+        : Align(
+            alignment: Alignment.centerRight,
+            child: Container(
+              margin: EdgeInsets.symmetric(vertical: 8),
+              padding: EdgeInsets.all(12),
+              decoration: BoxDecoration(
+                color: Colors.red[50],
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(msg.descriptionButton),
+                  SizedBox(height: 4),
+                  Text(
+                    '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
+                    style: TextStyle(fontSize: 10, color: Colors.grey),
+                  ),
+                ],
+              ),
+            ),
+          );
+  }
+
+  Widget _buildBotButton(
+    ButtonCallback buttonCallback,
+    BuildContext context, [
+    bool isQuestion = false,
+  ]) {
+    bool hasUrl = buttonCallback.iconNameAddress != null;
+    return GestureDetector(
+      onTap: () {
+        isQuestion
+            ? context.read<ChatBloc>().add(
+                SendMessageFromInputEvent(buttonCallback.buttonName),
+              )
+            : context.read<ChatBloc>().add(
+                SendMessageEvent(
+                  buttonCallback.buttonName,
+                  buttonCallback.callbackData,
+                  WSCode.wsGetMenu,
+                ),
+              );
+      },
       child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
+        margin: EdgeInsets.all(8),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
-          color: msg.isBot ? Colors.grey[200] : Colors.red[50],
+          color: Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
         ),
-        child: Column(
-          crossAxisAlignment: msg.isBot
-              ? CrossAxisAlignment.start
-              : CrossAxisAlignment.end,
-          children: [
-            Text(msg.text),
-            SizedBox(height: 4),
-            Text(
-              '${msg.time.hour}:${msg.time.minute.toString().padLeft(2, '0')}',
-              style: TextStyle(fontSize: 10, color: Colors.grey),
-            ),
-          ],
-        ),
+        child: hasUrl
+            ? Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+
+                children: [
+                  CircleAvatar(
+                    child: SafeImage(
+                      url: buttonCallback.buttonName,
+                      placeholder: AppImages.imgEntertainmentDefault,
+                      errorAsset: AppImages.imgEntertainmentDefault,
+                    ),
+                  ),
+                  Text(buttonCallback.buttonName),
+                ],
+              )
+            : Center(child: Text(buttonCallback.buttonName)),
+      ),
+    );
+  }
+
+  Widget _buildGroupBotButton(
+    ButtonCallbackDataItem item,
+    BuildContext context,
+  ) {
+    return Container(
+      width: 250,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Text(item.title ?? ""),
+          ...item.buttonCallBacks
+              .map(
+                (btn) => TextButton(
+                  onPressed: () {
+                    context.read<ChatBloc>().add(
+                      SendMessageEvent(
+                        btn.buttonName,
+                        btn.callbackData,
+                        WSCode.wsGetMenu,
+                      ),
+                    );
+                  },
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(AppImages.icTickCircle),
+                      Text(btn.buttonName),
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
+        ],
       ),
     );
   }
@@ -296,79 +525,11 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  Widget _buildLanguageSelection(ChatState state) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _buildLangButton(
-            'ខ្មែរ',
-            'km',
-            state.selectedLanguage == 'km',
-            context,
-          ),
-          _buildLangButton(
-            'English',
-            'en',
-            state.selectedLanguage == 'en',
-            context,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildLangButton(
-    String text,
-    String lang,
-    bool selected,
-    BuildContext context,
-  ) {
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: selected ? Colors.red : Colors.grey[300],
-      ),
-      onPressed: () => context.read<ChatBloc>().add(ChangeLanguageEvent(lang)),
-      child: Text(
-        text,
-        style: TextStyle(color: selected ? Colors.white : Colors.black),
-      ),
-    );
-  }
-
-  Widget _buildQuickButtons(BuildContext context) {
-    return Padding(
-      padding: EdgeInsets.all(16),
-      child: Wrap(
-        spacing: 12,
-        runSpacing: 12,
-        children: [
-          _quickButton('Mobile Service', context),
-          _quickButton('WiFi Service', context),
-          _quickButton('Switch Language', context),
-          _quickButton('FAQs', context),
-        ],
-      ),
-    );
-  }
-
-  Widget _quickButton(String text, BuildContext context) {
-    return OutlinedButton(
-      onPressed: () {
-        _controller.text = text;
-        context.read<ChatBloc>().add(SendMessageEvent(text));
-        _controller.clear();
-      },
-      child: Text(text),
-    );
-  }
-
   Widget _buildInputField(BuildContext context, ChatState state) {
     final l10n = AppLocalizations.of(context)!;
     return Container(
       padding: EdgeInsets.all(16),
-      color: Colors.grey[100],
+      color: Colors.white,
       child: Row(
         children: [
           ElevatedButton(
@@ -382,7 +543,6 @@ class _ChatBotPageState extends State<ChatBotPage> {
               // colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn), // Nếu cần đổi màu icon trắng
             ),
           ),
-
           Expanded(
             child: TextField(
               controller: _controller,
@@ -395,8 +555,12 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 fillColor: Colors.white,
               ),
               onSubmitted: (value) {
-                if (value.trim().isNotEmpty) {
-                  context.read<ChatBloc>().add(SendMessageEvent(value.trim()));
+                if (value.trim().isNotEmpty && !state.isTyping) {
+                  developer.log("nhap input va gui");
+                  print("nhap input va gui");
+                  context.read<ChatBloc>().add(
+                    SendMessageFromInputEvent(value.trim()),
+                  );
                   _controller.clear();
                 }
               },
@@ -404,12 +568,13 @@ class _ChatBotPageState extends State<ChatBotPage> {
           ),
           SizedBox(width: 8),
           FloatingActionButton(
+            enableFeedback: !state.isTyping,
             backgroundColor: Colors.red,
             shape: CircleBorder(),
             onPressed: () {
-              if (_controller.text.trim().isNotEmpty) {
+              if (_controller.text.trim().isNotEmpty && !state.isTyping) {
                 context.read<ChatBloc>().add(
-                  SendMessageEvent(_controller.text.trim()),
+                  SendMessageFromInputEvent(_controller.text.trim()),
                 );
                 _controller.clear();
               }

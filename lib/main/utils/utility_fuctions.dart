@@ -83,3 +83,14 @@ String fomatTime(int second) {
   final ss = secondsLeft.toString().padLeft(2, '0');
   return '$mm:$ss';
 }
+
+Future<void> makePhoneCall(String phoneNumber) async {
+  final Uri launchUri = Uri(scheme: 'tel', path: phoneNumber);
+
+  if (await canLaunchUrl(launchUri)) {
+    await launchUrl(launchUri);
+  } else {
+    // Thông báo lỗi nếu không mở được (ví dụ: đang chạy trên trình giả lập)
+    print('Could not launch $launchUri');
+  }
+}

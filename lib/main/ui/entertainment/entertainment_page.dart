@@ -1,5 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
+import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
@@ -124,37 +125,14 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                               return CachedNetworkImage(
                                 imageUrl: url,
                                 // 1. Placeholder: Hiển thị khi đang tải
-                                placeholder: (context, url) => Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 5.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[200],
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(24),
-                                      bottomRight: Radius.circular(24),
-                                    ),
-                                  ),
-                                  child: const Center(
-                                    child: CircularProgressIndicator(),
-                                  ),
+                                placeholder: (context, url) => Image.asset(
+                                  AppImages.imgEntertainmentDefault,
                                 ),
                                 // 2. ErrorWidget: Hiển thị khi lỗi
-                                errorWidget: (context, url, error) => Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.symmetric(
-                                    horizontal: 5.0,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Colors.grey[300],
-                                    borderRadius: const BorderRadius.only(
-                                      bottomLeft: Radius.circular(24),
-                                      bottomRight: Radius.circular(24),
+                                errorWidget: (context, url, error) =>
+                                    Image.asset(
+                                      AppImages.imgEntertainmentDefault,
                                     ),
-                                  ),
-                                  child: const Icon(Icons.error),
-                                ),
                                 // 3. ImageBuilder: Lắp ảnh vào BoxDecoration sau khi tải xong
                                 imageBuilder: (context, imageProvider) =>
                                     Container(
@@ -398,25 +376,12 @@ class _EntertainmentPageState extends State<EntertainmentPage>
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: CachedNetworkImage(
-                  imageUrl: url,
-                  width: 160,
+                child: SafeImage(
+                  url: url,
+                  placeholder: AppImages.imgFilmDefault,
+                  errorAsset: AppImages.imgFilmDefault,
                   height: 200,
-                  fit: BoxFit.cover,
-                  placeholder: (context, url) => Container(
-                    width: 160,
-                    height: 100,
-                    color: Colors.grey[200],
-                  ),
-                  errorWidget: (context, url, error) => Container(
-                    width: 160,
-                    height: 100,
-                    color: Colors.grey,
-                    child: const Icon(
-                      Icons.broken_image,
-                      color: Colors.white70,
-                    ),
-                  ),
+                  width: 160,
                 ),
               ),
 
@@ -472,19 +437,12 @@ class _EntertainmentPageState extends State<EntertainmentPage>
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: CachedNetworkImage(
-              imageUrl: url,
-              width: 60,
+            child: SafeImage(
+              url: url,
+              placeholder: AppImages.imgGameDefault,
+              errorAsset: AppImages.imgGameDefault,
               height: 60,
-              fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Container(width: 60, height: 60, color: Colors.grey[200]),
-              errorWidget: (context, url, error) => Container(
-                width: 60,
-                height: 60,
-                color: Colors.grey,
-                child: const Icon(Icons.broken_image, color: Colors.white70),
-              ),
+              width: 60,
             ),
           ),
           SizedBox(
@@ -542,19 +500,12 @@ class _EntertainmentPageState extends State<EntertainmentPage>
             // Ảnh game (bo góc trên)
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
-              child: CachedNetworkImage(
-                imageUrl: url,
-                width: 80,
+              child: SafeImage(
+                url: url,
+                placeholder: AppImages.imgGameDefault,
+                errorAsset: AppImages.imgGameDefault,
                 height: 80,
-                fit: BoxFit.cover,
-                placeholder: (context, url) =>
-                    Container(width: 80, height: 80, color: Colors.grey[200]),
-                errorWidget: (context, url, error) => Container(
-                  width: 80,
-                  height: 80,
-                  color: Colors.grey,
-                  child: const Icon(Icons.broken_image, color: Colors.white70),
-                ),
+                width: 80,
               ),
             ),
 

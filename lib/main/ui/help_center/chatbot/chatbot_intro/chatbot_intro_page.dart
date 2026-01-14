@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
-import './chatbot_intro_bloc.dart';
+import 'chatbot_intro_bloc.dart';
 
 class ChatbotIntroPage extends StatelessWidget {
   const ChatbotIntroPage({super.key});
@@ -38,7 +38,12 @@ class ChatbotIntroPage extends StatelessWidget {
         body: BlocConsumer<ChatbotIntroBloc, ChatbotIntroState>(
           listener: (context, state) {
             if (state is ChatbotIntroSuccess) {
-              context.push(PATH_CHATBOT);
+              String extra = state.startNew ? l10n.chatbotStart : "continue";
+              print("extra: ${extra}");
+              context.push(
+                PATH_CHATBOT,
+                extra: state.startNew ? l10n.chatbotStart : "continue",
+              );
             }
             if (state is ChatbotIntroError) {
               AppToast.show(context, state.message);
