@@ -40,4 +40,5 @@ class WSCode {
   static String wsGetCurrentUsedServices = "wsGetCurrentUsedServices";
   static String wsGetServices = "wsGetServices";
   static String wsDoActionService = "wsDoActionService";
+  static String wsGetAccountsOcsDetail = "wsGetAccountsOcsDetail";
 }

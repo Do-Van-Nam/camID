@@ -977,4 +977,76 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get confirm_on_service_title =>
       'Do you want to cancel the old package and sign up a new one?';
+
+  @override
+  String get account_status => 'Account Status';
+
+  @override
+  String get until_date => 'Until date';
+
+  @override
+  String get from_date => 'From date';
+
+  @override
+  String get active => 'Active';
+
+  @override
+  String get expired_validity => 'Expired validity';
+
+  @override
+  String get temporarily_suspended => 'Temporarily suspended';
+
+  @override
+  String get free_call_to_hotline => 'Free call to hotline';
+
+  @override
+  String get police => 'Police';
+
+  @override
+  String get fire_truck => 'Fire Truck';
+
+  @override
+  String get ambulance => 'Ambulance';
+
+  @override
+  String get until => 'until';
+
+  @override
+  String get text_active_1 =>
+      'Make outgoing/incoming calls, send SMS and access data as normal';
+
+  @override
+  String get text_active_2 =>
+      'Your main balance can use for register any packages or any services or you can call/sms off-net or call overseas';
+
+  @override
+  String get text_expired_1 => 'Get incoming call and receive sms as normal';
+
+  @override
+  String get text_expired_2 => 'Your main balance cannot be used';
+
+  @override
+  String get text_expired_3 =>
+      'Your package for using internet, outgoing calls, SMS is temporarily suspended';
+
+  @override
+  String get text_suspended_1 =>
+      'Incoming/outgoing calls, SMS is temporarily suspended';
+
+  @override
+  String get text_suspended_2 =>
+      'Your package for using internet or using main balance is temporarily suspended';
+
+  @override
+  String get amount => 'Amount';
+
+  @override
+  String get top_up_number => 'Top-up number';
+
+  @override
+  String get content_auto_renew_FTTH =>
+      'Auto renew at the end of validity date';
+
+  @override
+  String get expires => 'Expires';
 }

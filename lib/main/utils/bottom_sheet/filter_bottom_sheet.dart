@@ -1,4 +1,5 @@
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/utils/constant.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
@@ -7,9 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 Future<String?> showFilterBottomSheet(
     BuildContext context,
-    String currentValue,
+    String currentValue,{bool showFull = true}
     ) {
-  final List<String> options = ["today", "last7days", "last30days", "custom"];
   final l10n = AppLocalizations.of(context)!;
 
   return showModalBottomSheet<String>(
@@ -84,10 +84,12 @@ Future<String?> showFilterBottomSheet(
                 const SizedBox(height: 16),
                 const Divider(height: 1, color: AppColors.color_F7F7),
 
-                buildItem("today", l10n.today),
-                buildItem("last7days", l10n.last7Days),
-                buildItem("last30days", l10n.last30Days),
-                buildItem("custom", l10n.customDay),
+                buildItem(Constant.TODAY, l10n.today),
+                buildItem(Constant.WEEK, l10n.last7Days),
+                if(showFull)...[
+                  buildItem(Constant.MONTH, l10n.last30Days),
+                  buildItem(Constant.CUSTOM, l10n.customDay),
+                ]
               ],
             ),
           );

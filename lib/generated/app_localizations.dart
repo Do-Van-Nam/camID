@@ -1983,6 +1983,138 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Do you want to cancel the old package and sign up a new one?'**
   String get confirm_on_service_title;
+
+  /// No description provided for @account_status.
+  ///
+  /// In en, this message translates to:
+  /// **'Account Status'**
+  String get account_status;
+
+  /// No description provided for @until_date.
+  ///
+  /// In en, this message translates to:
+  /// **'Until date'**
+  String get until_date;
+
+  /// No description provided for @from_date.
+  ///
+  /// In en, this message translates to:
+  /// **'From date'**
+  String get from_date;
+
+  /// No description provided for @active.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get active;
+
+  /// No description provided for @expired_validity.
+  ///
+  /// In en, this message translates to:
+  /// **'Expired validity'**
+  String get expired_validity;
+
+  /// No description provided for @temporarily_suspended.
+  ///
+  /// In en, this message translates to:
+  /// **'Temporarily suspended'**
+  String get temporarily_suspended;
+
+  /// No description provided for @free_call_to_hotline.
+  ///
+  /// In en, this message translates to:
+  /// **'Free call to hotline'**
+  String get free_call_to_hotline;
+
+  /// No description provided for @police.
+  ///
+  /// In en, this message translates to:
+  /// **'Police'**
+  String get police;
+
+  /// No description provided for @fire_truck.
+  ///
+  /// In en, this message translates to:
+  /// **'Fire Truck'**
+  String get fire_truck;
+
+  /// No description provided for @ambulance.
+  ///
+  /// In en, this message translates to:
+  /// **'Ambulance'**
+  String get ambulance;
+
+  /// No description provided for @until.
+  ///
+  /// In en, this message translates to:
+  /// **'until'**
+  String get until;
+
+  /// No description provided for @text_active_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Make outgoing/incoming calls, send SMS and access data as normal'**
+  String get text_active_1;
+
+  /// No description provided for @text_active_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your main balance can use for register any packages or any services or you can call/sms off-net or call overseas'**
+  String get text_active_2;
+
+  /// No description provided for @text_expired_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Get incoming call and receive sms as normal'**
+  String get text_expired_1;
+
+  /// No description provided for @text_expired_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your main balance cannot be used'**
+  String get text_expired_2;
+
+  /// No description provided for @text_expired_3.
+  ///
+  /// In en, this message translates to:
+  /// **'Your package for using internet, outgoing calls, SMS is temporarily suspended'**
+  String get text_expired_3;
+
+  /// No description provided for @text_suspended_1.
+  ///
+  /// In en, this message translates to:
+  /// **'Incoming/outgoing calls, SMS is temporarily suspended'**
+  String get text_suspended_1;
+
+  /// No description provided for @text_suspended_2.
+  ///
+  /// In en, this message translates to:
+  /// **'Your package for using internet or using main balance is temporarily suspended'**
+  String get text_suspended_2;
+
+  /// No description provided for @amount.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amount;
+
+  /// No description provided for @top_up_number.
+  ///
+  /// In en, this message translates to:
+  /// **'Top-up number'**
+  String get top_up_number;
+
+  /// No description provided for @content_auto_renew_FTTH.
+  ///
+  /// In en, this message translates to:
+  /// **'Auto renew at the end of validity date'**
+  String get content_auto_renew_FTTH;
+
+  /// No description provided for @expires.
+  ///
+  /// In en, this message translates to:
+  /// **'Expires'**
+  String get expires;
 }
 
 class _AppLocalizationsDelegate

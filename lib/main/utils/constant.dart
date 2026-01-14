@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class Constant {
   Constant._();
   // PAYMENT SEVICE
@@ -59,6 +61,16 @@ class Constant {
   static const int WS_DO_ACTION_SERVICE_ACTION_TYPE_REGISTER = 0;
   static const int WS_DO_ACTION_SERVICE_ACTION_TYPE_CANCEL = 1;
   static const String SUPER_EXCHANGE = "Super Exchange";
+
+  static const String ACTIVATED = "Activated";
+  static const String EXPIRED = "Account.STATUS.2.en";
+  static const String SUSPENEDE = "Disabled";
+
+  static const String TODAY = "TODAY";
+  static const String WEEK = "7DAYS";
+  static const String MONTH = "30DAYS";
+  static const String CUSTOM = "CUSTOM";
+
   static String normalizePhone(String phone) {
     String p = phone.trim();
 
@@ -113,4 +125,21 @@ class Constant {
       return DateTime.now().millisecondsSinceEpoch;
     }
   }
+
+  static String formatDate(String? input) {
+    try {
+      if (input == null || input.isEmpty) return "";
+      final inputFormat = DateFormat("dd/MM/yyyy HH:mm:ss");
+      final outputFormat = DateFormat("dd/MM/yyyy");
+
+      final date = inputFormat.parse(input);
+      return outputFormat.format(date);
+    } catch (e) {
+      return "";
+    }
+  }
+
+  static String formatDateV2(int millis) =>
+      DateFormat('dd/MM/yyyy').format(DateTime.fromMillisecondsSinceEpoch(millis));
+
 }

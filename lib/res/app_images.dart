@@ -257,6 +257,16 @@ class AppImages {
   static final String icLogoMetfone = 'assets/icons/ic_logo_metfone.svg';
   static final String icCheck2 = 'assets/icons/ic_check2.svg';
   static final String icLogoV2 = 'assets/icons/ic_logo_v2.svg';
+  static final String icAccountActive = 'assets/icons/ic_account_active.svg';
+  static final String icAccountExpired = 'assets/icons/ic_account_expired.svg';
+  static final String icAccountSuspended = 'assets/icons/ic_account_suspended.svg';
+  static final String icTickCircle = 'assets/icons/ic_tick_circle.svg';
+  static final String icExpired = 'assets/icons/ic_expired.svg';
+  static final String icCloseCircle = 'assets/icons/ic_close_circle.svg';
+  static final String icHotline = 'assets/icons/ic_hotline.svg';
+  static final String icCheckV2 = 'assets/icons/ic_check_v2.svg';
+  static final String icCloseV2 = 'assets/icons/ic_close_v2.svg';
+  static final String icEmoney = 'assets/icons/ic_emoney.svg';
 
   // ------------------------ N ------------------------
 }
