@@ -1,3 +1,4 @@
+import 'package:buttons_tabbar/buttons_tabbar.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/notify/notify_model.dart';
@@ -16,21 +17,21 @@ import 'package:flutter_svg/svg.dart';
 import 'package:go_router/go_router.dart';
 import 'gift_bloc.dart';
 
-class HistoryPage extends StatefulWidget {
-  const HistoryPage({super.key});
+class VoucherListPage extends StatefulWidget {
+  const VoucherListPage({super.key});
 
   @override
-  State<HistoryPage> createState() => _HistoryPageState();
+  State<VoucherListPage> createState() => _VoucherListPageState();
 }
 
-class _HistoryPageState extends State<HistoryPage>
+class _VoucherListPageState extends State<VoucherListPage>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 4, vsync: this);
   }
 
   @override
@@ -72,7 +73,7 @@ class _HistoryPageState extends State<HistoryPage>
           actions: [
             IconButton(
               icon: SvgPicture.asset(
-                AppImages.icCalendarSearch,
+                AppImages.icSearchBlack,
                 width: 24,
                 height: 24,
               ),
@@ -99,6 +100,7 @@ class _HistoryPageState extends State<HistoryPage>
                 );
               },
             ),
+            SizedBox(width: 16),
           ],
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(56),
@@ -109,31 +111,37 @@ class _HistoryPageState extends State<HistoryPage>
                 margin: const EdgeInsets.symmetric(horizontal: 16),
 
                 decoration: BoxDecoration(
-                  color: AppColors.color_5F5F,
+                  // color: AppColors.color_5F5F,
                   borderRadius: BorderRadius.circular(30),
                 ),
-                child: TabBar(
-                  // padding: const EdgeInsets.symmetric(
-                  //   horizontal: 16,
-                  //   vertical: 8,
-                  // ),
+                child: ButtonsTabBar(
                   controller: _tabController,
-                  indicator: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(30),
+                  // Cấu hình khi ĐƯỢC CHỌN
+                  backgroundColor: Colors.black,
+                  labelStyle: AppStyles.header.copyWith(
+                    color: Colors.white,
+                    fontSize: 14,
                   ),
-                  indicatorColor: Colors.grey,
-                  dividerColor: Colors.transparent,
-                  // Tùy chỉnh kích thước indicator
-                  indicatorSize:
-                      TabBarIndicatorSize.tab, // Tắt indicator mặc định
-                  labelColor: Colors.white, // Chữ tab được chọn: trắng
-                  unselectedLabelColor: Colors.black, // Chữ tab không chọn: xám
-                  // isScrollable: true,
+
+                  // Cấu hình khi CHƯA CHỌN
+                  unselectedBackgroundColor: AppColors.color_5F5F,
+                  unselectedLabelStyle: AppStyles.header.copyWith(
+                    fontSize: 14,
+                    color: AppColors.color_0000,
+                  ),
+
+                  // Tùy chỉnh chung
+                  borderWidth: 0,
+                  radius: 30,
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
+                  ),
                   tabs: [
-                    Tab(child: Text(l10n.all)),
-                    Tab(child: Text(l10n.received)),
-                    Tab(child: Text(l10n.used)),
+                    Tab(text: l10n.loyaltyShopping),
+                    Tab(text: l10n.loyaltyRestaurantHotel),
+                    Tab(text: l10n.loyaltyHealthCare),
+                    Tab(text: l10n.loyaltyTravel),
                   ],
                 ),
               ),
@@ -143,6 +151,7 @@ class _HistoryPageState extends State<HistoryPage>
         body: TabBarView(
           controller: _tabController,
           children: [
+            _buildHistoryTab(l10n),
             _buildHistoryTab(l10n),
             _buildHistoryTab(l10n),
             _buildHistoryTab(l10n),
@@ -171,13 +180,10 @@ class _HistoryPageState extends State<HistoryPage>
               physics:
                   const NeverScrollableScrollPhysics(), // Tắt cuộn riêng của ListView
               itemCount: state.newsNotifications.length,
+              padding: EdgeInsets.only(bottom: 16),
               itemBuilder: (context, index) {
                 final noti = state.newsNotifications[index];
-                return _buildHistoryCard(
-                  noti,
-                  context,
-                  index < state.newsNotifications.length - 1,
-                );
+                return _buildVoucherCard(l10n);
               },
             ),
           ),
@@ -441,6 +447,96 @@ class _HistoryPageState extends State<HistoryPage>
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildVoucherCard(AppLocalizations l10n) {
+    return GestureDetector(
+      onTap: () => context.push(PATH_VOUCHER_DETAIL),
+      child: Container(
+        width: double.infinity,
+        height: 160,
+        margin: EdgeInsets.only(bottom: 16),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(color: Colors.grey.withOpacity(0.3), blurRadius: 10),
+          ],
+        ),
+        child: Row(
+          children: [
+            ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                bottomLeft: Radius.circular(16),
+              ),
+              child: CachedNetworkImage(
+                imageUrl:
+                    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQn2nmWoa-66Yo5xylQwIiAxtvMrK2pB2l4CA&s",
+                placeholder: (context, url) =>
+                    CircularProgressIndicator(), // Đang tải
+                errorWidget: (context, url, error) =>
+                    Icon(Icons.error, color: Colors.red), // Lỗi
+                fit: BoxFit.cover,
+                width: 160,
+                height: 160,
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(12),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text("coupon.title"),
+                    const SizedBox(height: 8),
+
+                    Row(
+                      children: [
+                        SvgPicture.asset(
+                          AppImages.icCoin,
+                          width: 24,
+                          height: 24,
+                        ),
+                        Text("${"coupon.points"}"),
+                      ],
+                    ),
+                    Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        SizedBox(width: 12),
+                        OutlinedButton(
+                          style: OutlinedButton.styleFrom(
+                            side: const BorderSide(
+                              color: Colors.black,
+                              width: 2,
+                            ), // Viền đen, độ dày 2
+                            foregroundColor: Colors
+                                .black, // Màu chữ + icon (quan trọng nhất!)
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(
+                                30,
+                              ), // Bo góc nếu muốn
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 24,
+                              vertical: 12,
+                            ), // Tùy chỉnh padding
+                          ),
+                          onPressed: () {},
+                          child: Text(l10n.loyaltyRedeem),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -29,7 +29,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
-          leadingWidth: 250,
+          leadingWidth: 550,
           leading: Row(
             children: [
               IconButton(
@@ -54,10 +54,7 @@ class _ChatBotPageState extends State<ChatBotPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    l10n.chatbotTitle,
-                    style: AppStyles.headerWhite,
-                  ),
+                  Text(l10n.chatbotTitle, style: AppStyles.headerWhite),
                   const SizedBox(height: 4),
                   Row(
                     children: [

@@ -243,6 +243,10 @@ class AppImages {
   static final String icBronze = 'assets/icons/ic_bronze.svg';
   static final String icSilver = 'assets/icons/ic_silver.svg';
   static final String icDiamond = 'assets/icons/ic_diamond.svg';
+  static final String imgGold = 'assets/images/img_gold.png';
+  static final String imgBronze = 'assets/images/img_bronze.png';
+  static final String imgSilver = 'assets/images/img_silver.png';
+  static final String imgDiamond = 'assets/images/img_diamond.png';
   static final String icMedalStar = 'assets/icons/ic_medal_star.svg';
   static final String icTimer2 = 'assets/icons/ic_timer2.svg';
   static final String icCalendarSearch = 'assets/icons/ic_calendar_search.svg';

@@ -21,6 +21,8 @@ import 'package:cam_id/main/ui/login/login_page.dart';
 import 'package:cam_id/main/ui/login_otp/login_otp_page.dart';
 import 'package:cam_id/main/ui/loyalty/history/gift_page.dart';
 import 'package:cam_id/main/ui/loyalty/tier_benefit/tier_page.dart';
+import 'package:cam_id/main/ui/loyalty/voucher_detail/gift_page.dart';
+import 'package:cam_id/main/ui/loyalty/voucher_list/gift_page.dart';
 import 'package:cam_id/main/ui/metfone_service/metfone_service_page.dart';
 import 'package:cam_id/main/ui/notification/notification_detail/notification_detail_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
@@ -70,6 +72,8 @@ const String PATH_NOTIFICATION_DETAIL = "/notificaion/detail";
 //loyalty
 const String PATH_TIER_BENEFIT = "/tier-benefit";
 const String PATH_HISTORY_GIFT = "/loyalty/history";
+const String PATH_VOUCHER_LIST = "/loyalty/voucher-list";
+const String PATH_VOUCHER_DETAIL = "/loyalty/voucher-detail";
 // chatbot
 const String PATH_CHATBOT_INTRO = "/chatbot-info";
 const String PATH_CHATBOT = "/chatbot";
@@ -172,7 +176,19 @@ final GoRouter router = GoRouter(
         ),
         GoRoute(path: PATH_RANKING, builder: (context, state) => RankingPage()),
         GoRoute(path: PATH_GIFT, builder: (context, state) => GiftPage()),
-        GoRoute(path: PATH_HISTORY_GIFT, builder: (context, state) => HistoryPage()),
+        // loyalty
+        GoRoute(
+          path: PATH_VOUCHER_DETAIL,
+          builder: (context, state) => VoucherDetailPage(),
+        ),
+        GoRoute(
+          path: PATH_VOUCHER_LIST,
+          builder: (context, state) => VoucherListPage(),
+        ),
+        GoRoute(
+          path: PATH_HISTORY_GIFT,
+          builder: (context, state) => HistoryPage(),
+        ),
         GoRoute(
           path: PATH_TIER_BENEFIT,
           builder: (context, state) => TierPage(),
@@ -285,10 +301,7 @@ final GoRouter router = GoRouter(
           path: PATH_BUY_E_SIM,
           builder: (context, state) => BuyESimPage(),
         ),
-        GoRoute(
-          path: PATH_TOP_UP,
-          builder: (context, state) => TopUpPage(),
-        ),
+        GoRoute(path: PATH_TOP_UP, builder: (context, state) => TopUpPage()),
         GoRoute(
           path: PATH_METFONE_SERVICE,
           builder: (context, state) => MetfoneServicePage(),

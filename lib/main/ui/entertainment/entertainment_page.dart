@@ -121,21 +121,58 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                         items: bannerImages.map((url) {
                           return Builder(
                             builder: (BuildContext context) {
-                              return Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 5.0,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.only(
-                                    bottomLeft: Radius.circular(24),
-                                    bottomRight: Radius.circular(24),
+                              return CachedNetworkImage(
+                                imageUrl: url,
+                                // 1. Placeholder: Hiển thị khi đang tải
+                                placeholder: (context, url) => Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 5.0,
                                   ),
-                                  image: DecorationImage(
-                                    image: CachedNetworkImageProvider(url),
-                                    fit: BoxFit.cover,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[200],
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(24),
+                                      bottomRight: Radius.circular(24),
+                                    ),
+                                  ),
+                                  child: const Center(
+                                    child: CircularProgressIndicator(),
                                   ),
                                 ),
+                                // 2. ErrorWidget: Hiển thị khi lỗi
+                                errorWidget: (context, url, error) => Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 5.0,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: const BorderRadius.only(
+                                      bottomLeft: Radius.circular(24),
+                                      bottomRight: Radius.circular(24),
+                                    ),
+                                  ),
+                                  child: const Icon(Icons.error),
+                                ),
+                                // 3. ImageBuilder: Lắp ảnh vào BoxDecoration sau khi tải xong
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: const EdgeInsets.symmetric(
+                                        horizontal: 5.0,
+                                      ),
+                                      decoration: BoxDecoration(
+                                        borderRadius: const BorderRadius.only(
+                                          bottomLeft: Radius.circular(24),
+                                          bottomRight: Radius.circular(24),
+                                        ),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
                               );
                             },
                           );

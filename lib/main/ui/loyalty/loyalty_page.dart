@@ -262,16 +262,21 @@ class LoyaltyPage extends StatelessWidget {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceAround,
                                     children: [
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            AppImages.icCrown,
-                                            width: 20,
-                                            height: 20,
-                                          ),
-                                          SizedBox(width: 4),
-                                          Text(l10n.loyaltyTierBenefits),
-                                        ],
+                                      GestureDetector(
+                                        onTap: () =>
+                                            context.push(PATH_TIER_BENEFIT),
+
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              AppImages.icCrown,
+                                              width: 20,
+                                              height: 20,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Text(l10n.loyaltyTierBenefits),
+                                          ],
+                                        ),
                                       ),
                                       Container(
                                         width: 1,
@@ -281,16 +286,20 @@ class LoyaltyPage extends StatelessWidget {
                                         ),
                                         color: Colors.grey[400],
                                       ),
-                                      Row(
-                                        children: [
-                                          SvgPicture.asset(
-                                            AppImages.icHistory,
-                                            width: 20,
-                                            height: 20,
-                                          ),
-                                          SizedBox(width: 4),
-                                          Text(l10n.loyaltyHistory),
-                                        ],
+                                      GestureDetector(
+                                        onTap: () =>
+                                            context.push(PATH_HISTORY_GIFT),
+                                        child: Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              AppImages.icHistory,
+                                              width: 20,
+                                              height: 20,
+                                            ),
+                                            SizedBox(width: 4),
+                                            Text(l10n.loyaltyHistory),
+                                          ],
+                                        ),
                                       ),
                                     ],
                                   ),
@@ -310,7 +319,7 @@ class LoyaltyPage extends StatelessWidget {
                             // Reward title
                             viewAllHeader(
                               title: l10n.loyaltyReward,
-                              onViewAll: () {},
+                              onViewAll: () => context.push(PATH_VOUCHER_LIST),
                               context: context,
                             ),
 
@@ -387,32 +396,31 @@ class LoyaltyPage extends StatelessWidget {
                             const SizedBox(height: 30),
 
                             // Banner quảng cáo (text nếu cần dịch)
-                            Container(
-                              margin: const EdgeInsets.symmetric(
-                                horizontal: 16,
-                              ),
-                              height: 120,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(16),
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                    "https://via.placeholder.com/800x300?text=1\$+=+2500\$",
-                                  ),
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  l10n.loyaltyBannerPromotion, // Nếu muốn dịch banner text
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 24,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            ),
-
+                            // Container(
+                            //   margin: const EdgeInsets.symmetric(
+                            //     horizontal: 16,
+                            //   ),
+                            //   height: 120,
+                            //   decoration: BoxDecoration(
+                            //     borderRadius: BorderRadius.circular(16),
+                            //     image: DecorationImage(
+                            //       image: CachedNetworkImageProvider(
+                            //         "https://via.placeholder.com/800x300?text=1\$+=+2500\$",
+                            //       ),
+                            //       fit: BoxFit.cover,
+                            //     ),
+                            //   ),
+                            //   child: Center(
+                            //     child: Text(
+                            //       l10n.loyaltyBannerPromotion, // Nếu muốn dịch banner text
+                            //       style: const TextStyle(
+                            //         color: Colors.white,
+                            //         fontSize: 24,
+                            //         fontWeight: FontWeight.bold,
+                            //       ),
+                            //     ),
+                            //   ),
+                            // ),
                             const SizedBox(height: 30),
 
                             // Voucher title
