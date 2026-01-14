@@ -267,6 +267,18 @@ class AppImages {
   static final String icCheckV2 = 'assets/icons/ic_check_v2.svg';
   static final String icCloseV2 = 'assets/icons/ic_close_v2.svg';
   static final String icEmoney = 'assets/icons/ic_emoney.svg';
+  static final String icWifiFTTH = 'assets/icons/ic_wifi_ftth.svg';
+  static final String icPhoneFTTH = 'assets/icons/ic_phone_ftth.svg';
+  static final String icStatusCircle = 'assets/icons/ic_status_circle.svg';
+  static final String icRotateLeft = 'assets/icons/ic_rotate_left.svg';
+  static final String icSpeedNetworkV2 = 'assets/icons/ic_speed_network_v2.svg';
+  static final String icCoinV2 = 'assets/icons/ic_coin_v2.svg';
+  static final String icFuncReferFriend = 'assets/icons/ic_func_refer_friend.svg';
+  static final String icFuncSpeedTest = 'assets/icons/ic_func_speed_test.svg';
+  static final String icFuncSupport = 'assets/icons/ic_func_support.svg';
+  static final String icFuncPayment = 'assets/icons/ic_func_payment.svg';
+  static final String icFuncFeedback = 'assets/icons/ic_func_feedback.svg';
+  static final String icFuncMyOrder = 'assets/icons/ic_func_my_order.svg';
 
   // ------------------------ N ------------------------
 }

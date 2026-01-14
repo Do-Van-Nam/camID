@@ -176,7 +176,7 @@ class CancelAutoRenewBottomSheet extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  if (paymentType == PaymentType.FTTH)
+                  if (paymentType != PaymentType.FTTH) ...[
                     Text(
                       getAutoRenewTitle(),
                       style: AppTextFonts.poppinsRegular.copyWith(
@@ -184,13 +184,14 @@ class CancelAutoRenewBottomSheet extends StatelessWidget {
                         color: AppColors.color_8588,
                       ),
                     ),
-                  Text(
-                    getAutoRenewText()!,
-                    style: AppTextFonts.poppinsMedium.copyWith(
-                      fontSize: 14,
-                      color: AppColors.color_1618,
+                    Text(
+                      getAutoRenewText()!,
+                      style: AppTextFonts.poppinsMedium.copyWith(
+                        fontSize: 14,
+                        color: AppColors.color_1618,
+                      ),
                     ),
-                  ),
+                  ],
                 ],
               ),
             if (infoPayment?.contentWarning != null &&

@@ -19,6 +19,8 @@ class ApiEndPoint {
       "$DOMAIN/camid-auth/api/v1/user/update-avatar";
   static String API_UPDATE_USER =
       "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
+  static String API_GET_FTTH_ACCOUNT =
+      "$DOMAIN/camid-auth/api/v1/user/ftth-account";
 
   // chatbot
 }
@@ -46,6 +48,8 @@ class WSCode {
   static String wsGetServices = "wsGetServices";
   static String wsDoActionService = "wsDoActionService";
   static String wsGetAccountsOcsDetail = "wsGetAccountsOcsDetail";
+  static String wsCancelAutoRenew = "wsCancelAutoRenew";
+  static String wsSaveAutoRenew = "wsSaveAutoRenew";
   //chat bot
   static String wsGetMenu = "get-menu";
   static String wsSuggestQuestion = "suggest-question";

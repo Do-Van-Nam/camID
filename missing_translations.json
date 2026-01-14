@@ -194,7 +194,17 @@
     "amount",
     "top_up_number",
     "content_auto_renew_FTTH",
-    "expires"
+    "expires",
+    "choose_an_option",
+    "internet_wifi_account",
+    "enter_your_internet_wifi_account",
+    "change_package",
+    "package",
+    "refer_friend",
+    "speed_test",
+    "payment",
+    "my_order",
+    "recommend_for_you"
   ],
 
   "vi": [
@@ -392,6 +402,16 @@
     "amount",
     "top_up_number",
     "content_auto_renew_FTTH",
-    "expires"
+    "expires",
+    "choose_an_option",
+    "internet_wifi_account",
+    "enter_your_internet_wifi_account",
+    "change_package",
+    "package",
+    "refer_friend",
+    "speed_test",
+    "payment",
+    "my_order",
+    "recommend_for_you"
   ]
 }
