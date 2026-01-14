@@ -17,6 +17,7 @@ class ApiEndPoint {
   static String API_UPDATE_AVATAR =
       "$DOMAIN/camid-auth/api/v1/user/update-avatar";
   static String API_UPDATE_USER = "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
+  static String API_GET_FTTH_ACCOUNT = "$DOMAIN/camid-auth/api/v1/user/ftth-account";
 }
 
 class WSCode {
@@ -41,4 +42,6 @@ class WSCode {
   static String wsGetServices = "wsGetServices";
   static String wsDoActionService = "wsDoActionService";
   static String wsGetAccountsOcsDetail = "wsGetAccountsOcsDetail";
+  static String wsCancelAutoRenew = "wsCancelAutoRenew";
+  static String wsSaveAutoRenew = "wsSaveAutoRenew";
 }

@@ -201,7 +201,7 @@ class _EditInformationState extends State<EditInformationPage> {
             AppLocalizations.of(context)!.nationality,
           ),
           const SizedBox(height: 4),
-          CustomDropdownButton2(
+          CustomDropdownButton2<String>(
             hint: AppLocalizations.of(context)!.select,
             value: selectedValue,
             dropdownItems: items,
@@ -219,6 +219,10 @@ class _EditInformationState extends State<EditInformationPage> {
             icon: AppImages.icArrowDown,
             iconSize: 24,
             dropdownWidth: MediaQuery.of(context).size.width - 64,
+            isFtth: false,
+            valueTextStyle: AppTextFonts.poppinsRegular,
+            itemTitle: (item) => item,
+            itemIcon: (item) => "",
           ),
 
           const SizedBox(height: 16),

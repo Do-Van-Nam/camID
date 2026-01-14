@@ -2115,6 +2115,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expires'**
   String get expires;
+
+  /// No description provided for @choose_an_option.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an option'**
+  String get choose_an_option;
+
+  /// No description provided for @internet_wifi_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Internet Wifi account'**
+  String get internet_wifi_account;
+
+  /// No description provided for @enter_your_internet_wifi_account.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your Internet wifi account'**
+  String get enter_your_internet_wifi_account;
+
+  /// No description provided for @change_package.
+  ///
+  /// In en, this message translates to:
+  /// **'Change Package'**
+  String get change_package;
+
+  /// No description provided for @package.
+  ///
+  /// In en, this message translates to:
+  /// **'Package'**
+  String get package;
+
+  /// No description provided for @refer_friend.
+  ///
+  /// In en, this message translates to:
+  /// **'Refer Friend'**
+  String get refer_friend;
+
+  /// No description provided for @speed_test.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed Test'**
+  String get speed_test;
+
+  /// No description provided for @payment.
+  ///
+  /// In en, this message translates to:
+  /// **'Payment'**
+  String get payment;
+
+  /// No description provided for @my_order.
+  ///
+  /// In en, this message translates to:
+  /// **'My Order'**
+  String get my_order;
+
+  /// No description provided for @recommend_for_you.
+  ///
+  /// In en, this message translates to:
+  /// **'Recommend for you'**
+  String get recommend_for_you;
 }
 
 class _AppLocalizationsDelegate

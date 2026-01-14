@@ -23,3 +23,17 @@ class GetAutoRenewHistoryEvent extends PaymentHistoryEvent {
 
   GetAutoRenewHistoryEvent(this.fromDate, this.toDate,this.filter, this.page, this.pageSize, );
 }
+
+class CancelAutoRenewEvent extends PaymentHistoryEvent {
+  final String autoRenewId;
+
+  CancelAutoRenewEvent(this.autoRenewId);
+
+}
+
+class SaveAutoRenewEvent extends PaymentHistoryEvent {
+  final String autoRenewId;
+
+  SaveAutoRenewEvent(this.autoRenewId);
+
+}

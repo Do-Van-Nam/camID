@@ -71,6 +71,9 @@ class Constant {
   static const String MONTH = "30DAYS";
   static const String CUSTOM = "CUSTOM";
 
+  static const String UPDATE = "UPDATE";
+
+
   static String normalizePhone(String phone) {
     String p = phone.trim();
 
