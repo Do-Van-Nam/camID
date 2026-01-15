@@ -2,7 +2,7 @@
 part of 'chat_bloc.dart';
 
 class ChatState {
-  final List<WsResponseData> messages;
+  final List<ChatbotData> messages;
   final bool isTyping;
   final bool isOpenMenu;
   final String selectedLanguage; // "km" hoặc "en"
@@ -24,7 +24,7 @@ class ChatState {
   );
 
   ChatState copyWith({
-    List<WsResponseData>? messages,
+    List<ChatbotData>? messages,
     bool? isTyping,
     String? selectedLanguage,
     bool? isOpenMenu,

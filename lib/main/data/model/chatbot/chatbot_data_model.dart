@@ -1,6 +1,6 @@
-import 'button_callback_data_item.dart';
+import 'button_callback_data_item_model.dart';
 
-class WsResponseData {
+class ChatbotData {
   final String id;
   final String buttonName;
   final String callbackData;
@@ -17,7 +17,7 @@ class WsResponseData {
   final String? answer;
   final List<String>? suggestionQuestion;
 
-  WsResponseData({
+  ChatbotData({
     required this.id,
     required this.buttonName,
     required this.callbackData,
@@ -31,7 +31,7 @@ class WsResponseData {
     this.suggestionQuestion,
   });
 
-  factory WsResponseData.fromJson(Map<String, dynamic> json) {
+  factory ChatbotData.fromJson(Map<String, dynamic> json) {
     final buttonCallbackDataListJson =
         json['buttonCallbackDataList'] as List<dynamic>? ?? [];
     final buttonCallbackDataList = buttonCallbackDataListJson
@@ -40,7 +40,7 @@ class WsResponseData {
 
     final suggestionQuestionJson = json['suggestionQuestion'] as List<dynamic>?;
 
-    return WsResponseData(
+    return ChatbotData(
       id: json['id'] as String? ?? '',
       buttonName: json['buttonName'] as String? ?? '',
       callbackData: json['callbackData'] as String? ?? '',

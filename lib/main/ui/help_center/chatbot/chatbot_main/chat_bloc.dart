@@ -2,9 +2,9 @@ import 'dart:async';
 import 'dart:developer' as developer;
 
 import 'package:cam_id/main/data/api/api_end_point.dart';
-import 'package:cam_id/main/data/model/chatbot/ws_response_data.dart';
+import 'package:cam_id/main/data/model/chatbot/chatbot_data_model.dart';
 import 'package:cam_id/main/data/repository/chatbot_repository.dart';
-import 'package:cam_id/main/utils/chat_db_helper.dart';
+import 'package:cam_id/main/data/database/chat_db_helper.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -15,7 +15,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   ChatBloc() : super(ChatState.initial()) {
     // Gửi tin nhắn
     on<SendMessageEvent>((event, emit) async {
-      var userMessage = WsResponseData(
+      if (state.isTyping) return;
+      var userMessage = ChatbotData(
         id: "user",
         buttonName: '',
         callbackData: '',
@@ -33,7 +34,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
           isTyping: true,
         ),
       );
-      await ChatDatabaseHelper.instance.saveMessage(userMessage);
+      await ChatBotDbHelper.instance.saveMessage(userMessage);
       final repo = ChatBotRepository();
       try {
         print("goi api");
@@ -50,7 +51,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             isTyping: false,
           ),
         );
-        await ChatDatabaseHelper.instance.saveMessage(botMessage);
+        await ChatBotDbHelper.instance.saveMessage(botMessage);
         print("response");
         print(botReply);
         // Sử dụng menuResponse.data!.descriptionButton, menuResponse.data!.buttonCallbackDataList...
@@ -61,7 +62,8 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       }
     });
     on<SendMessageFromInputEvent>((event, emit) async {
-      var userMessage = WsResponseData(
+      if (state.isTyping) return;
+      var userMessage = ChatbotData(
         id: "user",
         buttonName: '',
         callbackData: '',
@@ -77,7 +79,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
         ),
       );
 
-      await ChatDatabaseHelper.instance.saveMessage(userMessage);
+      await ChatBotDbHelper.instance.saveMessage(userMessage);
       final repo = ChatBotRepository();
       try {
         print("goi api");
@@ -94,7 +96,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             //isTyping: false,
           ),
         );
-        await ChatDatabaseHelper.instance.saveMessage(botMessage);
+        await ChatBotDbHelper.instance.saveMessage(botMessage);
         final botReply2 = await repo.getReply(
           buttonCallback: "",
           wsCode: WSCode.wsSuggestMenu,
@@ -107,7 +109,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
             isTyping: false,
           ),
         );
-        await ChatDatabaseHelper.instance.saveMessage(botMessage2);
+        await ChatBotDbHelper.instance.saveMessage(botMessage2);
         print("response");
         print(botReply);
         // Sử dụng menuResponse.data!.descriptionButton, menuResponse.data!.buttonCallbackDataList...
@@ -127,26 +129,28 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(state.copyWith(isOpenMenu: !state.isOpenMenu));
     });
     on<ResetChatEvent>((event, emit) async {
-      await ChatDatabaseHelper.instance.clearHistory();
+      await ChatBotDbHelper.instance.clearHistory();
       emit(state.copyWith(messages: []));
       event.completer?.complete();
     });
     on<InitChatEvent>((event, emit) async {
       if (event.initialMessage == "continue") {
-        final history = await ChatDatabaseHelper.instance.loadMessages();
+        final history = await ChatBotDbHelper.instance.loadMessages();
         print("history");
         print(history);
-        emit(state.copyWith(messages: history));
-      } else {
-        await ChatDatabaseHelper.instance.clearHistory();
-        add(
-          SendMessageEvent(
-            event.initialMessage,
-            "list_language",
-            WSCode.wsGetMenu,
-          ),
-        );
+        if (history.isNotEmpty) {
+          emit(state.copyWith(messages: history));
+          return;
+        }
       }
+      await ChatBotDbHelper.instance.clearHistory();
+      add(
+        SendMessageEvent(
+          event.initialMessage,
+          "list_language",
+          WSCode.wsGetMenu,
+        ),
+      );
     });
   }
 }

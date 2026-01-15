@@ -3,9 +3,9 @@ import 'dart:developer' as developer;
 import 'dart:math';
 
 import 'package:cam_id/main/data/api/api_end_point.dart';
-import 'package:cam_id/main/data/model/chatbot/button_callback.dart';
-import 'package:cam_id/main/data/model/chatbot/button_callback_data_item.dart';
-import 'package:cam_id/main/data/model/chatbot/ws_response_data.dart';
+import 'package:cam_id/main/data/model/chatbot/button_callback_model.dart';
+import 'package:cam_id/main/data/model/chatbot/button_callback_data_item_model.dart';
+import 'package:cam_id/main/data/model/chatbot/chatbot_data_model.dart';
 import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
@@ -279,135 +279,280 @@ class _ChatBotPageState extends State<ChatBotPage> {
     );
   }
 
-  Widget _buildMessageBubble(WsResponseData msg, BuildContext context) {
+  Widget _buildMessageBubble(ChatbotData msg, BuildContext context) {
     developer.log(msg.buttonCallbackDataList.length.toString());
+    List<String> images = [
+      AppImages.icKhmer,
+      AppImages.icEng,
+      AppImages.icChina,
+    ];
     return msg.isBot
         // tra loi cua bot
         ? Align(
             alignment: Alignment.centerLeft,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              spacing: 8,
+            child: SizedBox(
+              width: double.infinity,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                spacing: 8,
+                children: [
+                  // noi dung tra loi cua bot
+                  Row(
+                    spacing: 4,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(AppImages.imgChatBot5),
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              bottom: 6,
+                              left: -2,
+                              child: SvgPicture.asset(AppImages.icBotChatTail),
+                            ),
+                            Container(
+                              margin: EdgeInsets.symmetric(vertical: 8),
+                              padding: EdgeInsets.all(12),
+                              decoration: BoxDecoration(
+                                color: AppColors.color_F7F7,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: IntrinsicWidth(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      msg.answer ?? msg.descriptionButton,
+                                      style: AppStyles.poppins12Regular
+                                          .copyWith(fontSize: 14),
+                                    ),
+                                    SizedBox(height: 4),
+                                    Align(
+                                      alignment: AlignmentGeometry.centerRight,
+                                      child:
+                                          // Spacer(),
+                                          Text(
+                                            '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
+                                            style: AppStyles.poppins12Regular
+                                                .copyWith(
+                                                  fontSize: 10,
+                                                  color: AppColors.color_AEAE,
+                                                ),
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  // cac nut lua chon
+                  msg.buttonCallbackDataList.isNotEmpty
+                      ?
+                        // chi co 1 nhom nut
+                        msg.buttonCallbackDataList.length == 1
+                            ?
+                              // neu la lua chon ngon ngu
+                              msg.id == "11" ||
+                                      msg.callbackData == "list_language"
+                                  ? Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 48.0,
+                                      ),
+                                      child: SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          spacing: 12,
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: List.generate(3, (index) {
+                                            return Container(
+                                              width: 100,
+                                              child: _buildBotButton(
+                                                msg
+                                                    .buttonCallbackDataList[0]
+                                                    .buttonCallBacks[index],
+                                                context,
+                                                false,
+                                                true,
+                                                images[index],
+                                              ),
+                                            );
+                                          }),
+                                        ),
+                                      ),
+                                    )
+                                  : Padding(
+                                      padding: const EdgeInsets.only(
+                                        left: 48.0,
+                                      ),
+                                      child: LayoutBuilder(
+                                        builder: (context, constraints) {
+                                          double width = constraints.maxWidth;
+                                          List<ButtonCallback> buttons = msg
+                                              .buttonCallbackDataList[0]
+                                              .buttonCallBacks;
+                                          int itemCount = buttons.length;
+
+                                          return Column(
+                                            spacing: 8,
+                                            children: List.generate(itemCount, (
+                                              index,
+                                            ) {
+                                              // Kiểm tra nếu là phần tử cuối cùng và tổng số lượng là số lẻ
+                                              bool isLastAndOdd =
+                                                  (index == itemCount - 1) &&
+                                                  (itemCount % 2 != 0);
+
+                                              return isLastAndOdd
+                                                  ? Container(
+                                                      width: isLastAndOdd
+                                                          ? width
+                                                          : width /
+                                                                2, // Nếu lẻ thì rộng 100%, ngược lại 50%
+
+                                                      child: _buildBotButton(
+                                                        buttons[index],
+                                                        context,
+                                                      ),
+                                                    )
+                                                  : index <
+                                                        (itemCount + 1) / 2 - 1
+                                                  ? IntrinsicHeight(
+                                                      child: Row(
+                                                        spacing: 8,
+                                                        children: [
+                                                          Expanded(
+                                                            child:
+                                                                _buildBotButton(
+                                                                  buttons[2 *
+                                                                      index],
+                                                                  context,
+                                                                ),
+                                                          ),
+                                                          Expanded(
+                                                            child:
+                                                                _buildBotButton(
+                                                                  buttons[2 *
+                                                                          index +
+                                                                      1],
+                                                                  context,
+                                                                ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    )
+                                                  : SizedBox();
+                                            }),
+                                          );
+                                        },
+                                      ),
+                                    )
+                            // co nhieu hon 1 nhom nut
+                            : SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                //height: 250,
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  spacing: 8,
+                                  children: [
+                                    SizedBox(width: 48),
+                                    ...List.generate(
+                                      msg.buttonCallbackDataList.length,
+                                      (index) {
+                                        return _buildGroupBotButton(
+                                          msg.buttonCallbackDataList[index],
+                                          context,
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              )
+                      : SizedBox(),
+                  // cau hoi goi y
+                  msg.suggestionQuestion?.isNotEmpty ?? false
+                      ? Padding(
+                          padding: const EdgeInsets.only(left: 48.0),
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              double width = constraints.maxWidth;
+                              List<String> buttons = msg.suggestionQuestion!;
+                              int itemCount = buttons.length;
+
+                              return Wrap(
+                                spacing: 16,
+                                runSpacing: 8,
+                                alignment: WrapAlignment.start,
+                                children: List.generate(itemCount, (index) {
+                                  ButtonCallback temp = ButtonCallback(
+                                    buttonName: buttons[index],
+                                    callbackData: "callbackData",
+                                    type: "type",
+                                    isCallLinkIfLogin: "isCallLinkIfLogin",
+                                  );
+
+                                  return SizedBox(
+                                    width: width,
+                                    child: _buildBotButton(temp, context, true),
+                                  );
+                                }),
+                              );
+                            },
+                          ),
+                        )
+                      : SizedBox(),
+                ],
+              ),
+            ),
+          )
+        :
+          // tin nhan cua nguoi dung
+          Align(
+            alignment: Alignment.centerRight,
+            child: Stack(
               children: [
-                // noi dung tra loi cua bot
+                Positioned(
+                  bottom: 6,
+                  right: -2,
+                  child: SvgPicture.asset(AppImages.icUserChatTail),
+                ),
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 8),
                   padding: EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.grey[200],
+                    color: Colors.red[50],
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text(msg.answer ?? msg.descriptionButton),
-                      SizedBox(height: 4),
                       Text(
-                        '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
-                        style: TextStyle(fontSize: 10, color: Colors.grey),
+                        msg.descriptionButton,
+                        style: AppStyles.poppins12Regular.copyWith(
+                          fontSize: 14,
+                        ),
+                      ),
+                      SizedBox(height: 4),
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
+                            style: AppStyles.poppins12Regular.copyWith(
+                              fontSize: 10,
+                              color: AppColors.color_AEAE,
+                            ),
+                          ),
+                          SvgPicture.asset(AppImages.icdoubleCheck),
+                        ],
                       ),
                     ],
                   ),
                 ),
-                // cac nut lua chon
-                msg.buttonCallbackDataList.isNotEmpty
-                    ?
-                      // chi co 1 nhom nut
-                      msg.buttonCallbackDataList.length == 1
-                          ? LayoutBuilder(
-                              builder: (context, constraints) {
-                                double width = constraints.maxWidth;
-                                List<ButtonCallback> buttons = msg
-                                    .buttonCallbackDataList[0]
-                                    .buttonCallBacks;
-                                int itemCount = buttons.length;
-
-                                return Wrap(
-                                  children: List.generate(itemCount, (index) {
-                                    // Kiểm tra nếu là phần tử cuối cùng và tổng số lượng là số lẻ
-                                    bool isLastAndOdd =
-                                        (index == itemCount - 1) &&
-                                        (itemCount % 2 != 0);
-
-                                    return Container(
-                                      width: isLastAndOdd
-                                          ? width
-                                          : width /
-                                                2, // Nếu lẻ thì rộng 100%, ngược lại 50%
-
-                                      child: _buildBotButton(
-                                        buttons[index],
-                                        context,
-                                      ),
-                                    );
-                                  }),
-                                );
-                              },
-                            )
-                          // co nhieu hon 1 nhom nut
-                          : SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              //height: 250,
-                              child: Row(
-                                children: List.generate(
-                                  msg.buttonCallbackDataList.length,
-                                  (index) {
-                                    return _buildGroupBotButton(
-                                      msg.buttonCallbackDataList[index],
-                                      context,
-                                    );
-                                  },
-                                ),
-                              ),
-                            )
-                    : SizedBox(),
-                msg.suggestionQuestion?.isNotEmpty ?? false
-                    ? LayoutBuilder(
-                        builder: (context, constraints) {
-                          double width = constraints.maxWidth;
-                          List<String> buttons = msg.suggestionQuestion!;
-                          int itemCount = buttons.length;
-                          return Wrap(
-                            children: List.generate(itemCount, (index) {
-                              ButtonCallback temp = ButtonCallback(
-                                buttonName: buttons[index],
-                                callbackData: "callbackData",
-                                type: "type",
-                                isCallLinkIfLogin: "isCallLinkIfLogin",
-                              );
-                              return Container(
-                                width: width,
-
-                                child: _buildBotButton(temp, context, true),
-                              );
-                            }),
-                          );
-                        },
-                      )
-                    : SizedBox(),
               ],
-            ),
-          )
-        : Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              margin: EdgeInsets.symmetric(vertical: 8),
-              padding: EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  Text(msg.descriptionButton),
-                  SizedBox(height: 4),
-                  Text(
-                    '${msg.datetime!.hour}:${msg.datetime!.minute.toString().padLeft(2, '0')}',
-                    style: TextStyle(fontSize: 10, color: Colors.grey),
-                  ),
-                ],
-              ),
             ),
           );
   }
@@ -416,6 +561,8 @@ class _ChatBotPageState extends State<ChatBotPage> {
     ButtonCallback buttonCallback,
     BuildContext context, [
     bool isQuestion = false,
+    bool isLanguageBtn = false,
+    String? languageImg,
   ]) {
     bool hasUrl = buttonCallback.iconNameAddress != null;
     return GestureDetector(
@@ -433,28 +580,44 @@ class _ChatBotPageState extends State<ChatBotPage> {
               );
       },
       child: Container(
-        margin: EdgeInsets.all(8),
+        // margin: EdgeInsets.all(8),
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(20),
         ),
-        child: hasUrl
-            ? Row(
+        child: isLanguageBtn
+            ? Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-
+                mainAxisSize: MainAxisSize.min,
+                spacing: 4,
                 children: [
                   CircleAvatar(
-                    child: SafeImage(
-                      url: buttonCallback.buttonName,
-                      placeholder: AppImages.imgEntertainmentDefault,
-                      errorAsset: AppImages.imgEntertainmentDefault,
-                    ),
+                    child:
+                        // SafeImage(
+                        //   url: buttonCallback.iconNameAddress,
+                        //   placeholder: AppImages.imgEntertainmentDefault,
+                        //   errorAsset: AppImages.imgEntertainmentDefault,
+                        // ),
+                        SvgPicture.asset(
+                          languageImg ?? " ",
+                          width: 36,
+                          height: 36,
+                        ),
                   ),
-                  Text(buttonCallback.buttonName),
+                  Text(
+                    buttonCallback.buttonName,
+                    style: AppStyles.poppins12Regular.copyWith(fontSize: 14),
+                  ),
                 ],
               )
-            : Center(child: Text(buttonCallback.buttonName)),
+            : Center(
+                child: Text(
+                  buttonCallback.buttonName,
+                  textAlign: TextAlign.center,
+                  style: AppStyles.poppins12Regular.copyWith(fontSize: 14),
+                ),
+              ),
       ),
     );
   }
@@ -463,34 +626,124 @@ class _ChatBotPageState extends State<ChatBotPage> {
     ButtonCallbackDataItem item,
     BuildContext context,
   ) {
-    return Container(
-      width: 250,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
+    return Padding(
+      padding: const EdgeInsets.only(top: 32.0),
+      child: Stack(
+        clipBehavior: Clip.none,
         children: [
-          Text(item.title ?? ""),
-          ...item.buttonCallBacks
-              .map(
-                (btn) => TextButton(
-                  onPressed: () {
-                    context.read<ChatBloc>().add(
-                      SendMessageEvent(
-                        btn.buttonName,
-                        btn.callbackData,
-                        WSCode.wsGetMenu,
+          Container(
+            clipBehavior: Clip.antiAlias,
+            width: 240, // Độ rộng phù hợp (có thể điều chỉnh theo màn hình)
+            // margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
+            // padding: const EdgeInsets.all(16),
+            height: 350,
+            decoration: BoxDecoration(
+              gradient: const LinearGradient(
+                colors: [AppColors.color_FFFD, AppColors.color_FFEE],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withAlpha(26),
+                  blurRadius: 8,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 80,
+                  decoration: BoxDecoration(color: AppColors.colorMain),
+                  child: Center(
+                    child: Text(
+                      item.title ?? "--",
+                      style: AppStyles.poppins14Medium.copyWith(
+                        fontSize: 16,
+                        color: AppColors.color_5F5F,
                       ),
-                    );
-                  },
-                  child: Row(
-                    children: [
-                      SvgPicture.asset(AppImages.icTickCircle),
-                      Text(btn.buttonName),
-                    ],
+                    ),
                   ),
                 ),
-              )
-              .toList(),
+
+                const SizedBox(height: 12),
+                Expanded(
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        ...item.buttonCallBacks.map((btn) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(
+                              vertical: 6,
+                              horizontal: 16,
+                            ),
+                            child: GestureDetector(
+                              onTap: () {
+                                context.read<ChatBloc>().add(
+                                  SendMessageEvent(
+                                    btn.buttonName,
+                                    btn.callbackData,
+                                    WSCode.wsGetMenu,
+                                  ),
+                                );
+                              },
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  SvgPicture.asset(
+                                    AppImages
+                                        .icCheck2, // Icon tick đỏ trong hình
+                                    width: 24,
+                                    height: 24,
+                                  ),
+                                  const SizedBox(width: 12),
+
+                                  Expanded(
+                                    child: Text(
+                                      btn.buttonName,
+                                      style: AppStyles.poppins12Regular,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        }),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            top: -20,
+            left: 60,
+            child: Container(
+              width: 120,
+              height: 40,
+              decoration: BoxDecoration(
+                color: AppColors.colorMain,
+                borderRadius: BorderRadius.circular(1000),
+                border: BoxBorder.all(color: AppColors.color_5F5F, width: 2),
+              ),
+              child: Image.asset(
+                AppImages
+                    .imgMetfoneTxt, // Thay bằng đường dẫn asset thật của bạn
+                // height: 40,
+                width: 40,
+                fit: BoxFit.none,
+              ),
+            ),
+          ),
         ],
       ),
     );
@@ -499,87 +752,126 @@ class _ChatBotPageState extends State<ChatBotPage> {
   Widget _buildBotTyping() {
     return Align(
       alignment: Alignment.centerLeft,
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 8),
-        padding: EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: Colors.grey[200],
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: List.generate(
-            3,
-            (i) => Container(
-              margin: EdgeInsets.only(right: 4),
-              width: 8,
-              height: 8,
-              decoration: BoxDecoration(
-                color: Colors.grey,
-                shape: BoxShape.circle,
+      child: Row(
+        spacing: 4,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Image.asset(AppImages.imgChatBot5),
+          Container(
+            // width: 50,
+            margin: EdgeInsets.symmetric(vertical: 8),
+            padding: EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[200],
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: List.generate(
+                3,
+                (i) => Container(
+                  margin: EdgeInsets.only(right: 4),
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: Colors.grey,
+                    shape: BoxShape.circle,
+                  ),
+                ),
               ),
             ),
           ),
-        ),
+        ],
       ),
     );
   }
 
   Widget _buildInputField(BuildContext context, ChatState state) {
     final l10n = AppLocalizations.of(context)!;
+
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
       color: Colors.white,
       child: Row(
         children: [
-          ElevatedButton(
-            onPressed: () {
-              context.read<ChatBloc>().add(ToggleMenuEvent());
-            },
-            child: SvgPicture.asset(
-              AppImages.icMenu,
-              width: 24,
-              height: 24,
-              // colorFilter: const ColorFilter.mode(Colors.white, BlendMode.srcIn), // Nếu cần đổi màu icon trắng
+          // Nút menu: hình tròn xám mờ
+          Container(
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: AppColors.color_F7F7, // xám mờ
             ),
-          ),
-          Expanded(
-            child: TextField(
-              controller: _controller,
-              decoration: InputDecoration(
-                hintText: 'Write your message',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                ),
-                filled: true,
-                fillColor: Colors.white,
-              ),
-              onSubmitted: (value) {
-                if (value.trim().isNotEmpty && !state.isTyping) {
-                  developer.log("nhap input va gui");
-                  print("nhap input va gui");
-                  context.read<ChatBloc>().add(
-                    SendMessageFromInputEvent(value.trim()),
-                  );
-                  _controller.clear();
-                }
+            child: IconButton(
+              icon: SvgPicture.asset(AppImages.icMenu, width: 24, height: 24),
+              onPressed: () {
+                context.read<ChatBloc>().add(ToggleMenuEvent());
               },
+              padding: const EdgeInsets.all(12), // Tăng padding để nút to hơn
+              constraints: const BoxConstraints(),
             ),
           ),
-          SizedBox(width: 8),
-          FloatingActionButton(
-            enableFeedback: !state.isTyping,
-            backgroundColor: Colors.red,
-            shape: CircleBorder(),
-            onPressed: () {
-              if (_controller.text.trim().isNotEmpty && !state.isTyping) {
-                context.read<ChatBloc>().add(
-                  SendMessageFromInputEvent(_controller.text.trim()),
-                );
-                _controller.clear();
-              }
-            },
-            child: SvgPicture.asset(AppImages.icSend, width: 24, height: 24),
+
+          const SizedBox(width: 12),
+
+          // Container bo góc chứa TextField + nút gửi
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: AppColors.color_F7F7, // Nền xám nhạt/mờ
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: const EdgeInsets.only(
+                top: 4,
+                right: 4,
+                bottom: 4,
+                left: 16,
+              ),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller,
+                      decoration: const InputDecoration(
+                        hintText: 'Write your message',
+                        border: InputBorder.none, // Bỏ viền mặc định
+                        contentPadding: EdgeInsets.symmetric(vertical: 8),
+                      ),
+                      onSubmitted: (value) {
+                        if (value.trim().isNotEmpty && !state.isTyping) {
+                          developer.log("nhap input va gui");
+                          print("nhap input va gui");
+                          context.read<ChatBloc>().add(
+                            SendMessageFromInputEvent(value.trim()),
+                          );
+                          _controller.clear();
+                        }
+                      },
+                    ),
+                  ),
+
+                  // Nút gửi nằm trong cùng Container
+                  FloatingActionButton(
+                    mini: true, // Kích thước nhỏ hơn
+                    backgroundColor: Colors.red,
+                    shape: const CircleBorder(),
+                    elevation: 0, // Bỏ bóng để hòa hợp với nền mờ
+                    onPressed: () {
+                      if (_controller.text.trim().isNotEmpty &&
+                          !state.isTyping) {
+                        context.read<ChatBloc>().add(
+                          SendMessageFromInputEvent(_controller.text.trim()),
+                        );
+                        _controller.clear();
+                      }
+                    },
+                    child: SvgPicture.asset(
+                      AppImages.icSend,
+                      width: 20,
+                      height: 20,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),

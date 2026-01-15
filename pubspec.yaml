@@ -82,7 +82,11 @@ dependencies:
   connectivity_plus: ^4.0.0
   calendar_date_picker2: ^0.5.2
   buttons_tabbar: ^1.3.15 
+  drift: ^2.30.1         # Phiên bản mới nhất hiện tại
+  sqlite3_flutter_libs: ^0.5.41
 dev_dependencies:
+  drift_dev: ^2.30.1
+  build_runner: ^2.10.5
   flutter_test:
     sdk: flutter
 

@@ -1,20 +1,20 @@
-import 'ws_response_data.dart';
+import 'chatbot_data_model.dart';
 
-class WsResponse {
+class ChatbotResponse {
   final bool success;
   final String? errorCode;
   final String? message;
-  final WsResponseData? data;
+  final ChatbotData? data;
 
-  WsResponse({required this.success, this.errorCode, this.message, this.data});
+  ChatbotResponse({required this.success, this.errorCode, this.message, this.data});
 
-  factory WsResponse.fromJson(Map<String, dynamic> json) {
-    return WsResponse(
+  factory ChatbotResponse.fromJson(Map<String, dynamic> json) {
+    return ChatbotResponse(
       success: json['success'] as bool? ?? false,
       errorCode: json['errorCode'] as String?,
       message: json['message'] as String?,
       data: json['data'] != null
-          ? WsResponseData.fromJson(json['data'] as Map<String, dynamic>)
+          ? ChatbotData.fromJson(json['data'] as Map<String, dynamic>)
           : null,
     );
   }

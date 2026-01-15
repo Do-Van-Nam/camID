@@ -61,6 +61,13 @@ class AppImages {
   static final String icExchanged = 'assets/icons/ic_exchanged.svg';
   static final String icSpeedNetwork = 'assets/icons/ic_speed_network.svg';
   static final String icDollar = 'assets/icons/ic_dollar.svg';
+  static final String icEng = 'assets/icons/ic_eng.svg';
+  static final String icKhmer = 'assets/icons/ic_khmer.svg';
+  static final String icChina = 'assets/icons/ic_china.svg';
+  static final String icMetfoneTxt = 'assets/icons/ic_metfone_txt.svg';
+  static final String icBotChatTail = 'assets/icons/ic_bot_chat_tail.svg';
+  static final String icUserChatTail = 'assets/icons/ic_user_chat_tail.svg';
+  static final String imgMetfoneTxt = 'assets/images/img_metfone_txt.png';
 
   //-------------------------------IMAGES-------------------------------------//
   static final String imgBGCamIDLogo = 'assets/images/bg_camid_logo.png';
@@ -259,7 +266,8 @@ class AppImages {
   static final String icLogoV2 = 'assets/icons/ic_logo_v2.svg';
   static final String icAccountActive = 'assets/icons/ic_account_active.svg';
   static final String icAccountExpired = 'assets/icons/ic_account_expired.svg';
-  static final String icAccountSuspended = 'assets/icons/ic_account_suspended.svg';
+  static final String icAccountSuspended =
+      'assets/icons/ic_account_suspended.svg';
   static final String icTickCircle = 'assets/icons/ic_tick_circle.svg';
   static final String icExpired = 'assets/icons/ic_expired.svg';
   static final String icCloseCircle = 'assets/icons/ic_close_circle.svg';
@@ -273,7 +281,8 @@ class AppImages {
   static final String icRotateLeft = 'assets/icons/ic_rotate_left.svg';
   static final String icSpeedNetworkV2 = 'assets/icons/ic_speed_network_v2.svg';
   static final String icCoinV2 = 'assets/icons/ic_coin_v2.svg';
-  static final String icFuncReferFriend = 'assets/icons/ic_func_refer_friend.svg';
+  static final String icFuncReferFriend =
+      'assets/icons/ic_func_refer_friend.svg';
   static final String icFuncSpeedTest = 'assets/icons/ic_func_speed_test.svg';
   static final String icFuncSupport = 'assets/icons/ic_func_support.svg';
   static final String icFuncPayment = 'assets/icons/ic_func_payment.svg';

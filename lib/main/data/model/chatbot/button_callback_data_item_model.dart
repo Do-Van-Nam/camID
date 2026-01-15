@@ -1,4 +1,4 @@
-import 'button_callback.dart';
+import 'button_callback_model.dart';
 
 class ButtonCallbackDataItem {
   final String? title;

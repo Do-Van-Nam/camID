@@ -2,7 +2,7 @@ import 'package:cam_id/main/base/base_response_v2.dart';
 import 'package:cam_id/main/base/base_result.dart';
 import 'package:cam_id/main/data/api/api_end_point.dart';
 import 'package:cam_id/main/data/api/api_util.dart';
-import 'package:cam_id/main/data/model/chatbot/ws_response.dart';
+import 'package:cam_id/main/data/model/chatbot/chatbot_response_model.dart';
 import 'package:cam_id/main/data/share_preference/share_preference.dart';
 import 'package:cam_id/main/utils/device_utils.dart';
 import 'package:package_info_plus/package_info_plus.dart';
@@ -14,9 +14,9 @@ class ChatBotRepository {
 
   // Cache nếu cần (ví dụ: menu ngôn ngữ ít thay đổi, có thể cache theo chatId)
   // Hiện tại mình để optional, nếu bạn muốn cache thì uncomment và mở rộng
-  // Map<String, WsResponse> _menuCache = {}; // Key: chatId
+  // Map<String, ChatbotResponse> _menuCache = {}; // Key: chatId
 
-  Future<WsResponse> getReply({
+  Future<ChatbotResponse> getReply({
     ///  required String chatId,
     required String buttonCallback,
     required String wsCode,
@@ -53,15 +53,15 @@ class ChatBotRepository {
     };
 
     final result = await ApiUtil.getInstance()!
-        .postParsed<BaseResponseV2<BaseResult<WsResponse>>>(
+        .postParsed<BaseResponseV2<BaseResult<ChatbotResponse>>>(
           url: ApiEndPoint
               .API_USER_ROUTING, // Hoặc dùng _baseUrl nếu bạn tách riêng
           body: body,
           fromJson: (json) => BaseResponseV2.fromJson(
             json,
-            (data) => BaseResult<WsResponse>.fromJson(
+            (data) => BaseResult<ChatbotResponse>.fromJson(
               data,
-              (ws) => WsResponse.fromJson(ws),
+              (ws) => ChatbotResponse.fromJson(ws),
             ),
           ),
         );
@@ -82,7 +82,7 @@ class ChatBotRepository {
   }
 
   // Phương thức bổ sung nếu bạn muốn lấy full response (tương tự getMenuFullResponse trước đó)
-  Future<BaseResponseV2<BaseResult<WsResponse>>> getMenuFullResponse({
+  Future<BaseResponseV2<BaseResult<ChatbotResponse>>> getMenuFullResponse({
     required String chatId,
     String buttonCallback = 'list_language',
     String? language,
@@ -103,14 +103,14 @@ class ChatBotRepository {
     };
 
     return await ApiUtil.getInstance()!
-        .postParsed<BaseResponseV2<BaseResult<WsResponse>>>(
+        .postParsed<BaseResponseV2<BaseResult<ChatbotResponse>>>(
           url: ApiEndPoint.API_USER_ROUTING,
           body: body,
           fromJson: (json) => BaseResponseV2.fromJson(
             json,
-            (data) => BaseResult<WsResponse>.fromJson(
+            (data) => BaseResult<ChatbotResponse>.fromJson(
               data,
-              (ws) => WsResponse.fromJson(ws),
+              (ws) => ChatbotResponse.fromJson(ws),
             ),
           ),
         );
