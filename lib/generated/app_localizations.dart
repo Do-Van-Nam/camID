@@ -2175,6 +2175,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recommend for you'**
   String get recommend_for_you;
+
+  /// No description provided for @speed.
+  ///
+  /// In en, this message translates to:
+  /// **'Speed'**
+  String get speed;
+
+  /// No description provided for @validity.
+  ///
+  /// In en, this message translates to:
+  /// **'Validity'**
+  String get validity;
+
+  /// No description provided for @promotions.
+  ///
+  /// In en, this message translates to:
+  /// **'Promotions'**
+  String get promotions;
+
+  /// No description provided for @month.
+  ///
+  /// In en, this message translates to:
+  /// **'month'**
+  String get month;
+
+  /// No description provided for @province_city.
+  ///
+  /// In en, this message translates to:
+  /// **'Province/City'**
+  String get province_city;
+
+  /// No description provided for @your_location.
+  ///
+  /// In en, this message translates to:
+  /// **'Your location'**
+  String get your_location;
+
+  /// No description provided for @your_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Your address'**
+  String get your_address;
+
+  /// No description provided for @content_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Example: 20, near the wholesale market'**
+  String get content_address;
+
+  /// No description provided for @get_otp.
+  ///
+  /// In en, this message translates to:
+  /// **'Get OTP'**
+  String get get_otp;
+
+  /// No description provided for @choose_your_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your address'**
+  String get choose_your_address;
+
+  /// No description provided for @pls_select_address.
+  ///
+  /// In en, this message translates to:
+  /// **'Please select the store address.'**
+  String get pls_select_address;
 }
 
 class _AppLocalizationsDelegate

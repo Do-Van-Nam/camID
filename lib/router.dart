@@ -27,6 +27,8 @@ import 'package:cam_id/main/ui/metfone_service/metfone_service_page.dart';
 import 'package:cam_id/main/ui/notification/notification_detail/notification_detail_page.dart';
 import 'package:cam_id/main/ui/notification/notification_page.dart';
 import 'package:cam_id/main/ui/payment_history/payment_history_page.dart';
+import 'package:cam_id/main/ui/recommend_for_you/recommend_for_you_page.dart';
+import 'package:cam_id/main/ui/register_ftth/register_ftth_page.dart';
 import 'package:cam_id/main/ui/scan_scratch_card/scan_scratch_card_page.dart';
 import 'package:cam_id/main/ui/search/search_page.dart';
 import 'package:cam_id/main/ui/feedback/feedback_page.dart';
@@ -97,6 +99,8 @@ const String PATH_METFONE_SERVICE = "/metfone_service";
 const String PATH_SCAN_SCRATCH_CARD = "/scan_scratch_card";
 const String PATH_ACCOUNT_DETAILS = "/account_details";
 const String PATH_CHARGE_HISTORY_DETAILS = "/charge_history_details";
+const String PATH_RECOMMEND_FOR_YOU = "/recommend_for_you";
+const String PATH_REGISTER_FTTH = "/register_ftth";
 
 final GoRouter router = GoRouter(
   initialLocation: PATH_SPLASH,
@@ -323,6 +327,14 @@ final GoRouter router = GoRouter(
               extra["day"] as String,
             );
           },
+        ),
+        GoRoute(
+          path: PATH_RECOMMEND_FOR_YOU,
+          builder: (context, state) => RecommendForYouPage(),
+        ),
+        GoRoute(
+          path: PATH_REGISTER_FTTH,
+          builder: (context, state) => RegisterFtthPage(),
         ),
       ],
     ),

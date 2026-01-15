@@ -11,6 +11,7 @@ class InternetWifiState extends Equatable {
 class InternetWifiInitial extends InternetWifiState {}
 
 class InternetWifiLoading extends InternetWifiState {}
+class LoginFTTHLoading extends InternetWifiState {}
 
 class GetFTTHAccountSuccess extends InternetWifiState {
   final FTTHAccountModel ftthAccount;
@@ -46,4 +47,24 @@ class GetAllAppFailure extends InternetWifiState {
   final String message;
 
   GetAllAppFailure(this.message);
+}
+
+class SendIDFTTHSuccess extends InternetWifiState {
+
+}
+
+class SendIDFTTHFailure extends InternetWifiState {
+  final String message;
+
+  SendIDFTTHFailure(this.message);
+}
+
+class SearchFTTHAccountByPhoneSuccess extends InternetWifiState {
+
+}
+
+class SearchFTTHAccountByPhoneFailure extends InternetWifiState {
+  final String message;
+
+  SearchFTTHAccountByPhoneFailure(this.message);
 }

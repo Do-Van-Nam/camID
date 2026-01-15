@@ -216,7 +216,11 @@ class AppDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  UserInfoModel.instance.fullName,
+                  UserInfoModel.instance.fullName.isNotEmpty
+                      ? UserInfoModel.instance.fullName
+                      : Constant.normalizePhoneV2(
+                          UserInfoModel.instance.phoneNumber,
+                        ),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: AppTextFonts.poppinsRegular.copyWith(

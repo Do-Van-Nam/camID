@@ -279,6 +279,9 @@ class AppImages {
   static final String icFuncPayment = 'assets/icons/ic_func_payment.svg';
   static final String icFuncFeedback = 'assets/icons/ic_func_feedback.svg';
   static final String icFuncMyOrder = 'assets/icons/ic_func_my_order.svg';
+  static final String icWifiCircle = 'assets/icons/ic_wifi.svg';
+  static final String icCalendarV2 = 'assets/icons/ic_calendar_v2.svg';
+  static final String icInformation = 'assets/icons/ic_information.svg';
 
   // ------------------------ N ------------------------
 }

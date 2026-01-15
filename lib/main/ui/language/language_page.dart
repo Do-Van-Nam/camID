@@ -30,7 +30,7 @@ class _LanguagePageState extends State<LanguagePage> {
   Future<void> _loadLanguage() async {
     final lang = await SharePreferenceUtil.getString(
       ShareKey.KEY_CHANGE_LANGUAGE,
-      defaultValue: 'vi',
+      defaultValue: 'en',
     );
     if (!mounted) return;
     AppLogger().logInfo("Language: $lang");
