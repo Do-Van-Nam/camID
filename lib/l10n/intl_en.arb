@@ -450,5 +450,16 @@
   "speed_test": "Speed Test",
   "payment": "Payment",
   "my_order": "My Order",
-  "recommend_for_you": "Recommend for you"
+  "recommend_for_you": "Recommend for you",
+  "speed": "Speed",
+  "validity": "Validity",
+  "promotions": "Promotions",
+  "month": "month",
+  "province_city": "Province/City",
+  "your_location": "Your location",
+  "your_address": "Your address",
+  "content_address": "Example: 20, near the wholesale market",
+  "get_otp": "Get OTP",
+  "choose_your_address": "Choose your address",
+  "pls_select_address": "Please select the store address."
 }

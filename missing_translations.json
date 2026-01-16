@@ -204,7 +204,18 @@
     "speed_test",
     "payment",
     "my_order",
-    "recommend_for_you"
+    "recommend_for_you",
+    "speed",
+    "validity",
+    "promotions",
+    "month",
+    "province_city",
+    "your_location",
+    "your_address",
+    "content_address",
+    "get_otp",
+    "choose_your_address",
+    "pls_select_address"
   ],
 
   "vi": [
@@ -412,6 +423,17 @@
     "speed_test",
     "payment",
     "my_order",
-    "recommend_for_you"
+    "recommend_for_you",
+    "speed",
+    "validity",
+    "promotions",
+    "month",
+    "province_city",
+    "your_location",
+    "your_address",
+    "content_address",
+    "get_otp",
+    "choose_your_address",
+    "pls_select_address"
   ]
 }

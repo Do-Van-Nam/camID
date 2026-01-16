@@ -21,6 +21,8 @@ class ApiEndPoint {
       "$DOMAIN/camid-auth/api/v1/user/update-user-v2";
   static String API_GET_FTTH_ACCOUNT =
       "$DOMAIN/camid-auth/api/v1/user/ftth-account";
+  static String API_SEND_ID_FTTH = "$DOMAIN/camid-auth/api/v1/openid/sendID";
+  static String API_GENERATE_OTP_FTTH = "$DOMAIN/camid-auth/api/v1/otp/get-otp";
 
   // chatbot
 }
@@ -50,6 +52,9 @@ class WSCode {
   static String wsGetAccountsOcsDetail = "wsGetAccountsOcsDetail";
   static String wsCancelAutoRenew = "wsCancelAutoRenew";
   static String wsSaveAutoRenew = "wsSaveAutoRenew";
+  static String searchFTTHAccountByPhoneNumber =
+      "searchFTTHAccountByPhoneNumber";
+  static String getListProvince = "getListProvince";
   //chat bot
   static String wsGetMenu = "get-menu";
   static String wsSuggestQuestion = "suggest-question";

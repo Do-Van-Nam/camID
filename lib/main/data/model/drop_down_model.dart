@@ -1,5 +1,5 @@
 class DropdownModel {
-  final String title;
+  String title;
   final String icon;
 
   DropdownModel(this.title, this.icon);
