@@ -249,16 +249,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.1.2"
-<<<<<<< HEAD
-  code_builder:
-    dependency: transitive
-    description:
-      name: code_builder
-      sha256: "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d"
-      url: "https://pub.dev"
-    source: hosted
-    version: "4.11.1"
-=======
   code_assets:
     dependency: transitive
     description:
@@ -267,7 +257,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.19.10"
->>>>>>> origin/main
+  code_builder:
+    dependency: transitive
+    description:
+      name: code_builder
+      sha256: "6a6cab2ba4680d6423f34a9b972a4c9a94ebe1b62ecec4e1a1f2cba91fd1319d"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.11.1"
   collection:
     dependency: transitive
     description:
@@ -396,7 +393,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.30.1"
-<<<<<<< HEAD
   drift_dev:
     dependency: "direct dev"
     description:
@@ -405,16 +401,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.30.1"
-=======
-  drift_flutter:
-    dependency: "direct main"
-    description:
-      name: drift_flutter
-      sha256: c07120854742a0cae2f7501a0da02493addde550db6641d284983c08762e60a7
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.2.8"
->>>>>>> origin/main
   dropdown_button2:
     dependency: "direct main"
     description:
@@ -747,8 +733,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-<<<<<<< HEAD
-=======
+  freezed:
+    dependency: "direct main"
+    description:
+      name: freezed
+      sha256: "03dd9b7423ff0e31b7e01b2204593e5e1ac5ee553b6ea9d8184dff4a26b9fb07"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.2.4"
+  freezed_annotation:
+    dependency: "direct main"
+    description:
+      name: freezed_annotation
+      sha256: "7294967ff0a6d98638e7acb774aac3af2550777accd8149c90af5b014e6d44d8"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.1.0"
   geocoding:
     dependency: "direct main"
     description:
@@ -829,7 +829,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.5"
->>>>>>> origin/main
   glob:
     dependency: transitive
     description:
@@ -866,10 +865,10 @@ packages:
     dependency: transitive
     description:
       name: google_maps_flutter_android
-      sha256: "3835f6ae5e8b8d4d454d913575069513c9f216e088b87aa5c18cb3610951c6b4"
+      sha256: "6dbbfc697eedd29c3634affb2d6b3e5ecfc4e6e50c8345f4b975cc969c74b582"
       url: "https://pub.dev"
     source: hosted
-    version: "2.18.6"
+    version: "2.18.9"
   google_maps_flutter_ios:
     dependency: transitive
     description:
@@ -1357,7 +1356,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
-<<<<<<< HEAD
   pubspec_parse:
     dependency: transitive
     description:
@@ -1374,8 +1372,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.1.0"
-=======
->>>>>>> origin/main
   rxdart:
     dependency: transitive
     description:
@@ -1549,18 +1545,13 @@ packages:
     source: hosted
     version: "2.9.4"
   sqlite3_flutter_libs:
-<<<<<<< HEAD
     dependency: "direct main"
-=======
-    dependency: transitive
->>>>>>> origin/main
     description:
       name: sqlite3_flutter_libs
       sha256: "1e800ebe7f85a80a66adacaa6febe4d5f4d8b75f244e9838a27cb2ffc7aec08d"
       url: "https://pub.dev"
     source: hosted
     version: "0.5.41"
-<<<<<<< HEAD
   sqlparser:
     dependency: transitive
     description:
@@ -1569,8 +1560,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.43.0"
-=======
->>>>>>> origin/main
   stack_trace:
     dependency: transitive
     description:
@@ -1703,10 +1692,10 @@ packages:
     dependency: transitive
     description:
       name: url_launcher_web
-      sha256: "4bd2b7b4dc4d4d0b94e5babfffbca8eac1a126c7f3d6ecbc1a11013faa3abba2"
+      sha256: d0412fcf4c6b31ecfdb7762359b7206ffba3bbffd396c6d9f9c4616ece476c1f
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.2"
   url_launcher_windows:
     dependency: transitive
     description:

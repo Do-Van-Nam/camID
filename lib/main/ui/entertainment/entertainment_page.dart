@@ -1,4 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
@@ -15,6 +16,8 @@ import '../miniapp/mini_app_bloc.dart';
 import '../miniapp/mini_app_event.dart';
 import './entertainment_bloc.dart';
 import 'package:cam_id/generated/app_localizations.dart';
+
+import 'entertainment_state.dart';
 
 class EntertainmentPage extends StatefulWidget {
   const EntertainmentPage({super.key});
@@ -43,7 +46,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     super.build(context); // Giữ state khi chuyển tab
     final l10n = AppLocalizations.of(context)!;
     return BlocProvider(
-      create: (_) => EntertainmentBloc(),
+      create: (_) => EntertainmentBloc()..add(GetBannerEvent()),
       child: Scaffold(
         extendBodyBehindAppBar: true,
         appBar: AppBar(
@@ -119,11 +122,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                             );
                           },
                         ),
-                        items: bannerImages.map((url) {
+                        items: state.bannerHeaderList.map((banner) {
                           return Builder(
                             builder: (BuildContext context) {
                               return CachedNetworkImage(
-                                imageUrl: url,
+                                imageUrl: banner.adImgUrl ?? "1",
                                 // 1. Placeholder: Hiển thị khi đang tải
                                 placeholder: (context, url) => Image.asset(
                                   AppImages.imgEntertainmentDefault,
@@ -157,29 +160,34 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                         }).toList(),
                       ),
 
-                      // Dấu chấm indicator
                       Column(
                         children: [
                           const SizedBox(height: 160),
+                          // Dấu chấm indicator
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
-                            children: bannerImages.asMap().entries.map((entry) {
-                              return Container(
-                                width: state.currentBannerIndex == entry.key
-                                    ? 16
-                                    : 6,
-                                height: 6,
-                                margin: const EdgeInsets.symmetric(
-                                  horizontal: 4,
-                                ),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3),
-                                  color: state.currentBannerIndex == entry.key
-                                      ? Colors.white
-                                      : Colors.grey,
-                                ),
-                              );
-                            }).toList(),
+                            children: state.bannerHeaderList
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                                  return Container(
+                                    width: state.currentBannerIndex == entry.key
+                                        ? 16
+                                        : 6,
+                                    height: 6,
+                                    margin: const EdgeInsets.symmetric(
+                                      horizontal: 4,
+                                    ),
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(3),
+                                      color:
+                                          state.currentBannerIndex == entry.key
+                                          ? Colors.white
+                                          : Colors.grey,
+                                    ),
+                                  );
+                                })
+                                .toList(),
                           ),
 
                           Container(
@@ -245,7 +253,9 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                   ),
                   viewAllHeader(
                     title: l10n.tv360,
-                    onViewAll: () {},
+                    onViewAll: () {
+                      openMiniApp(context, "https://tv360.metfone.com.kh/en");
+                    },
                     context: context,
                   ),
                   SingleChildScrollView(
@@ -253,11 +263,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ...bannerImages
+                        ...state.listTv360
                             .map(
-                              (url) => Padding(
+                              (item) => Padding(
                                 padding: const EdgeInsets.only(left: 16.0),
-                                child: _buildTv360Item(url),
+                                child: _buildTv360Item(item),
                               ),
                             )
                             .toList(),
@@ -267,7 +277,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                   ),
                   viewAllHeader(
                     title: l10n.game,
-                    onViewAll: () {},
+                    onViewAll: () => context.push(PATH_GAME),
                     context: context,
                   ),
                   SingleChildScrollView(
@@ -275,11 +285,11 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ...bannerImages
+                        ...state.listGame
                             .map(
-                              (url) => Padding(
+                              (item) => Padding(
                                 padding: const EdgeInsets.only(left: 16.0),
-                                child: _buildGameItem(url, url, () {}),
+                                child: _buildGameItem(item),
                               ),
                             )
                             .toList(),
@@ -312,22 +322,82 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildTVasItem(bannerImages[0]),
-                            _buildTVasItem(bannerImages[0]),
-                            _buildTVasItem(bannerImages[0]),
-                            _buildTVasItem(bannerImages[0]),
+                            _buildTVasItem(state.listVas[0]),
+                            _buildTVasItem(state.listVas[1]),
+                            _buildTVasItem(state.listVas[2]),
+                            _buildTVasItem(state.listVas[3]),
                           ],
                         ),
                       ],
                     ),
                   ),
 
+                  footerBanner(
+                    banners: state.bannerFooterList,
+                    context: context,
+                    currentIndex: state.currentFooterBannerIndex,
+                    onPageChanged: (index, reason) {
+                      context.read<EntertainmentBloc>().add(
+                        ChangeFooterBannerEvent(index),
+                      );
+                    },
+                  ),
                   SizedBox(height: 24),
                 ],
               ),
             );
           },
         ),
+      ),
+    );
+  }
+
+  Widget footerBanner({
+    required List<AdsModel> banners,
+    required BuildContext context,
+    required int currentIndex,
+    required Function(int, CarouselPageChangedReason) onPageChanged,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        spacing: 8,
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+              height: 150,
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 4),
+              viewportFraction: 1,
+              enlargeCenterPage: true,
+              onPageChanged: onPageChanged,
+            ),
+            items: banners.map((banner) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(12),
+                child: SafeImage(
+                  url: banner.adImgUrl,
+                  placeholder: AppImages.imgEntertainmentDefault,
+                  errorAsset: AppImages.imgEntertainmentDefault,
+                ),
+              );
+            }).toList(),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: banners.asMap().entries.map((entry) {
+              return Container(
+                width: currentIndex == entry.key ? 16 : 6,
+                height: 6,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: currentIndex == entry.key ? Colors.black : Colors.grey,
+                ),
+              );
+            }).toList(),
+          ),
+        ],
       ),
     );
   }
@@ -361,13 +431,10 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     );
   }
 
-  Widget _buildTv360Item(String url) {
-    final title = Uri.tryParse(url)?.pathSegments.isNotEmpty == true
-        ? Uri.parse(url).pathSegments.last
-        : 'Phim';
+  Widget _buildTv360Item(AdsModel item) {
     return GestureDetector(
       onTap: () {
-        // Xử lý khi nhấn vào item
+        openMiniApp(context, "https://tv360.metfone.com.kh/en");
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -377,7 +444,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
               ClipRRect(
                 borderRadius: BorderRadius.circular(12),
                 child: SafeImage(
-                  url: url,
+                  url: item.adImgUrl,
                   placeholder: AppImages.imgFilmDefault,
                   errorAsset: AppImages.imgFilmDefault,
                   height: 200,
@@ -385,34 +452,34 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                 ),
               ),
 
-              Positioned(
-                left: 8,
-                bottom: 8,
-                child: Container(
-                  constraints: const BoxConstraints(maxWidth: 140),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 8,
-                    vertical: 4,
-                  ),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withOpacity(0.6),
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Text(
-                    title,
-                    style: const TextStyle(color: Colors.white, fontSize: 12),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
+              // Positioned(
+              //   left: 8,
+              //   bottom: 8,
+              //   child: Container(
+              //     constraints: const BoxConstraints(maxWidth: 140),
+              //     padding: const EdgeInsets.symmetric(
+              //       horizontal: 8,
+              //       vertical: 4,
+              //     ),
+              //     decoration: BoxDecoration(
+              //       color: Colors.black.withOpacity(0.6),
+              //       borderRadius: BorderRadius.circular(8),
+              //     ),
+              //     child: Text(
+              //       item.sourceLink ?? "--",
+              //       style: const TextStyle(color: Colors.white, fontSize: 12),
+              //       maxLines: 1,
+              //       overflow: TextOverflow.ellipsis,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           const SizedBox(height: 8),
           SizedBox(
             width: 160,
             child: Text(
-              title,
+              item.des ?? "--",
               textAlign: TextAlign.left,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -424,10 +491,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     );
   }
 
-  Widget _buildTVasItem(String url) {
-    final title = Uri.tryParse(url)?.pathSegments.isNotEmpty == true
-        ? Uri.parse(url).pathSegments.last
-        : 'Phim';
+  Widget _buildTVasItem(AdsModel item) {
     return GestureDetector(
       onTap: () {
         // Xử lý khi nhấn vào item
@@ -438,7 +502,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
             child: SafeImage(
-              url: url,
+              url: item.adImgUrl,
               placeholder: AppImages.imgGameDefault,
               errorAsset: AppImages.imgGameDefault,
               height: 60,
@@ -448,7 +512,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
           SizedBox(
             width: 80,
             child: Text(
-              title,
+              item.des ?? "--",
               textAlign: TextAlign.left,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
@@ -460,7 +524,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
     );
   }
 
-  Widget _buildGameItem(String url, String title, VoidCallback onTap) {
+  Widget _buildGameItem(AdsModel item) {
     return Stack(
       alignment: AlignmentGeometry.center,
       children: [
@@ -501,7 +565,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
             ClipRRect(
               borderRadius: const BorderRadius.all(Radius.circular(16)),
               child: SafeImage(
-                url: url,
+                url: item.adImgUrl,
                 placeholder: AppImages.imgGameDefault,
                 errorAsset: AppImages.imgGameDefault,
                 height: 80,
@@ -513,14 +577,14 @@ class _EntertainmentPageState extends State<EntertainmentPage>
             SizedBox(
               width: 100,
               child: Text(
-                title,
+                item.des ?? "--",
                 style: const TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                   color: Colors.black87,
                 ),
                 textAlign: TextAlign.center,
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
             ),
@@ -532,7 +596,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
               width: 80,
               height: 40,
               child: ElevatedButton(
-                onPressed: onTap,
+                onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.red,
                   shape: RoundedRectangleBorder(
@@ -550,7 +614,7 @@ class _EntertainmentPageState extends State<EntertainmentPage>
                 ),
               ),
             ),
-            SizedBox(height: 16),
+            SizedBox(height: 4),
           ],
         ),
       ],

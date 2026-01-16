@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:cam_id/generated/app_localizations.dart';
 import 'package:cam_id/main/data/model/accounts_ocs_detail_v2_model.dart';
@@ -294,7 +295,9 @@ class _HomePageState extends State<HomePage>
                       Text(
                         UserInfoModel.instance.fullName.isNotEmpty
                             ? UserInfoModel.instance.fullName
-                            : Constant.normalizePhoneV2(UserInfoModel.instance.phoneNumber),
+                            : Constant.normalizePhoneV2(
+                                UserInfoModel.instance.phoneNumber,
+                              ),
                         style: AppTextFonts.poppinsRegular.copyWith(
                           fontSize: 12,
                           color: AppColors.color_FFFF,

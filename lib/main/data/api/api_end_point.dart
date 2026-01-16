@@ -25,6 +25,9 @@ class ApiEndPoint {
   static String API_GENERATE_OTP_FTTH = "$DOMAIN/camid-auth/api/v1/otp/get-otp";
 
   // chatbot
+  // https://openid.camid.app:8081/camid-auth/api/v1/game/games
+  // Game
+  static String API_GAME_GAMES = "$DOMAIN/camid-auth/api/v1/game/games";
 }
 
 class WSCode {

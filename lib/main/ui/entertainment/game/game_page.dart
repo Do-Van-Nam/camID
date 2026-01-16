@@ -1,7 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cam_id/generated/app_localizations.dart';
+import 'package:cam_id/main/data/model/game/category_model.dart';
+import 'package:cam_id/main/data/model/game/game_model.dart';
+import 'package:cam_id/main/utils/utility_fuctions.dart';
 import 'package:cam_id/main/utils/widget/common_widgets.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
+import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
@@ -76,10 +80,11 @@ class GamePage extends StatelessWidget {
                     else
                       CarouselSlider(
                         options: CarouselOptions(
-                          height: 180,
+                          height: 160,
                           autoPlay: true,
-                          viewportFraction: 0.9,
-                          enlargeCenterPage: true,
+                          viewportFraction: 0.8,
+                          enlargeCenterPage: false,
+                          enlargeFactor: 0.2,
                           onPageChanged: (index, reason) {
                             context.read<GameBloc>().add(
                               ChangeBannerEvent(index),
@@ -89,6 +94,7 @@ class GamePage extends StatelessWidget {
                         items: state.banners
                             .map(
                               (url) => Container(
+                                clipBehavior: Clip.antiAlias,
                                 margin: EdgeInsets.symmetric(horizontal: 18),
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(16),
@@ -108,6 +114,7 @@ class GamePage extends StatelessWidget {
                             )
                             .toList(),
                       ),
+                    SizedBox(height: 8),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: state.banners.asMap().entries.map((entry) {
@@ -118,7 +125,7 @@ class GamePage extends StatelessWidget {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(3),
                             color: state.currentBannerIndex == entry.key
-                                ? Colors.white
+                                ? AppColors.colorMain
                                 : Colors.grey,
                           ),
                         );
@@ -179,9 +186,6 @@ class GamePage extends StatelessWidget {
                         ],
                       ),
                     ),
-
-                    const SizedBox(height: 20),
-
                     // Trending now
                     viewAllHeader(
                       title: l10n.trendingNow,
@@ -284,50 +288,16 @@ class GamePage extends StatelessWidget {
                         },
                       ),
                     ),
-                    viewAllHeader(
-                      title: l10n.specialGame,
-                      onViewAll: () {
-                        context.push(PATH_GAME_LIST);
-                      },
-                      context: context,
-                    ),
-                    SizedBox(
-                      height: 180,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        itemCount: state.trendingGames.length,
-                        itemBuilder: (context, index) {
-                          final game = state.trendingGames[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: _buildGameItem(game.imageUrl),
-                          );
-                        },
-                      ),
-                    ),
 
-                    viewAllHeader(
-                      title: l10n.action,
-                      onViewAll: () {},
-                      context: context,
-                    ),
-                    SizedBox(
-                      height: 180,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        padding: EdgeInsets.symmetric(horizontal: 16),
-                        itemCount: state.trendingGames.length,
-                        itemBuilder: (context, index) {
-                          final game = state.trendingGames[index];
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: _buildGameItem(game.imageUrl),
-                          );
-                        },
-                      ),
-                    ),
-                    // Special Game
+                    const SizedBox(height: 20),
+                    ...List.generate(state.categoryItems.length, (index) {
+                      return _buildGameSection(
+                        context: context,
+                        cate: state.categoryItems[index],
+                        title: state.categoryItems[index].name ?? "",
+                      );
+                    }),
+
                     const SizedBox(height: 20),
                   ],
                 ),
@@ -336,6 +306,33 @@ class GamePage extends StatelessWidget {
           },
         ),
       ),
+    );
+  }
+
+  Widget _buildGameSection({
+    required BuildContext context,
+    required CategoryItem cate,
+    required String title,
+  }) {
+    return Column(
+      children: [
+        viewAllHeader(title: title, onViewAll: () {}, context: context),
+        SizedBox(
+          height: 160,
+          child: ListView.builder(
+            scrollDirection: Axis.horizontal,
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            itemCount: cate.games?.length,
+            itemBuilder: (context, index) {
+              final game = cate.games?[index];
+              return Padding(
+                padding: const EdgeInsets.only(right: 16.0),
+                child: _buildGameItem(game!, context),
+              );
+            },
+          ),
+        ),
+      ],
     );
   }
 
@@ -382,38 +379,29 @@ class GamePage extends StatelessWidget {
     );
   }
 
-  Widget _buildGameItem(String url) {
-    final title = Uri.tryParse(url)?.pathSegments.isNotEmpty == true
-        ? Uri.parse(url).pathSegments.last
-        : 'Phim';
+  Widget _buildGameItem(GameModel game, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Xử lý khi nhấn vào item
+        openMiniApp(context, game.link ?? "");
       },
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
             borderRadius: BorderRadius.circular(12),
-            child: CachedNetworkImage(
-              imageUrl: url,
+            child: SafeImage(
+              url: game.iconUrl ?? '',
               width: 120,
               height: 120,
               fit: BoxFit.cover,
-              placeholder: (context, url) =>
-                  Container(width: 120, height: 120, color: Colors.grey[200]),
-              errorWidget: (context, url, error) => Container(
-                width: 120,
-                height: 120,
-                color: Colors.grey,
-                child: const Icon(Icons.broken_image, color: Colors.white70),
-              ),
+              placeholder: AppImages.imgGameDefault,
+              errorAsset: AppImages.imgGameDefault,
             ),
           ),
           SizedBox(
             width: 120,
             child: Text(
-              title,
+              game.name ?? "--",
               textAlign: TextAlign.left,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,

@@ -6,6 +6,7 @@ class GameState {
   final List<GameItem> trendingGames;
   final List<GameItem> specialGames;
   final List<GameItem> actionGames;
+  final List<CategoryItem> categoryItems;
 
   final bool isLoadingBanners;
   final bool isLoadingTrending;
@@ -17,6 +18,7 @@ class GameState {
     required this.trendingGames,
     required this.specialGames,
     required this.actionGames,
+    required this.categoryItems,
     required this.isLoadingBanners,
     required this.isLoadingTrending,
     required this.isLoadingSpecial,
@@ -29,6 +31,7 @@ class GameState {
     trendingGames: [],
     specialGames: [],
     actionGames: [],
+    categoryItems: [],
     isLoadingBanners: true,
     isLoadingTrending: true,
     isLoadingSpecial: true,
@@ -41,6 +44,7 @@ class GameState {
     List<GameItem>? trendingGames,
     List<GameItem>? specialGames,
     List<GameItem>? actionGames,
+    List<CategoryItem>? categoryItems,
     bool? isLoadingBanners,
     bool? isLoadingTrending,
     bool? isLoadingSpecial,
@@ -52,6 +56,7 @@ class GameState {
       trendingGames: trendingGames ?? this.trendingGames,
       specialGames: specialGames ?? this.specialGames,
       actionGames: actionGames ?? this.actionGames,
+      categoryItems: categoryItems ?? this.categoryItems,
       isLoadingBanners: isLoadingBanners ?? this.isLoadingBanners,
       isLoadingTrending: isLoadingTrending ?? this.isLoadingTrending,
       isLoadingSpecial: isLoadingSpecial ?? this.isLoadingSpecial,

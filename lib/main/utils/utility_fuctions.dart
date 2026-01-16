@@ -1,4 +1,7 @@
+import 'package:cam_id/main/ui/miniapp/mini_app_bloc.dart';
+import 'package:cam_id/main/ui/miniapp/mini_app_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 // Hàm mở URL chung
@@ -93,4 +96,8 @@ Future<void> makePhoneCall(String phoneNumber) async {
     // Thông báo lỗi nếu không mở được (ví dụ: đang chạy trên trình giả lập)
     print('Could not launch $launchUri');
   }
+}
+
+void openMiniApp(BuildContext context, String url) {
+  context.read<MiniAppBloc>().add(MiniAppLoadUrl("$url?token=JWT"));
 }
