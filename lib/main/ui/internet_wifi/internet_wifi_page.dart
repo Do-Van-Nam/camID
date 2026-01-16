@@ -6,18 +6,24 @@ import 'package:cam_id/main/data/model/banner_model.dart';
 import 'package:cam_id/main/data/model/drop_down_model.dart';
 import 'package:cam_id/main/data/model/ftth_package_model.dart';
 import 'package:cam_id/main/data/model/tv_subscriber_model.dart';
+import 'package:cam_id/main/data/model/user_info_model.dart';
 import 'package:cam_id/main/data/repository/all_app_repository.dart';
 import 'package:cam_id/main/ui/internet_wifi/internet_wifi_bloc.dart';
 import 'package:cam_id/main/ui/internet_wifi/internet_wifi_event.dart';
 import 'package:cam_id/main/ui/internet_wifi/internet_wifi_state.dart';
+import 'package:cam_id/main/utils/dialog/ftth_package_dialog.dart';
+import 'package:cam_id/main/utils/logger.dart';
+import 'package:cam_id/main/utils/widget/app_toast_widget.dart';
 import 'package:cam_id/main/utils/widget/auto_marquee_text.widget.dart';
 import 'package:cam_id/main/utils/widget/drop_down_widget.dart';
 import 'package:cam_id/main/utils/widget/image_widget.dart';
+import 'package:cam_id/main/utils/widget/loading_overlay_widget.dart';
 import 'package:cam_id/main/utils/widget/loading_widget.dart';
 import 'package:cam_id/res/app_colors.dart';
 import 'package:cam_id/res/app_fonts.dart';
 import 'package:cam_id/res/app_images.dart';
 import 'package:cam_id/res/app_styles.dart';
+import 'package:cam_id/router.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -38,6 +44,7 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
   DropdownModel? selectedValue;
   final phoneNumberController = TextEditingController();
   String? selectedHint;
+  bool isAccount = true;
   FTTHAccountModel? ftthAcount;
   final fakeFtthAccount = FTTHAccountModel()
     ..phoneNumber = '0987654321'
@@ -62,7 +69,7 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
       ..contractId = 123456789
       ..subIdFtth = 987654321);
   late final List<DropdownModel> items;
-  late final List<(String, String)> itemsFunc;
+  late List<(String, String)> itemsFunc;
   List<PackageFtthModel>? listPackageFTTH = [];
   List<AdsModel>? listBannerFooter = [];
   int bannerIndex = 0;
@@ -70,25 +77,29 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
   void initState() {
     super.initState();
     _bloc = InternetWifiBloc(AppRepository());
-    _bloc.add(GetFTTHAccountEvent());
+    if(UserInfoModel.instance.username.isNotEmpty){
+      _bloc.add(GetFTTHAccountEvent());
+    }
     _bloc.add(GetFTTHPackageAppsEvent());
     _bloc.add(GetAllAppsEvent());
+
+    selectedValue = DropdownModel("", AppImages.icWifiFTTH);
+    items = [
+      DropdownModel("", AppImages.icWifiFTTH),
+      DropdownModel("", AppImages.icPhoneFTTH),
+    ];
   }
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    selectedValue = DropdownModel(
-      l10n.internet_wifi_account,
-      AppImages.icWifiFTTH,
-    );
-    selectedHint ??= AppLocalizations.of(
-      context,
-    )!.enter_your_internet_wifi_account;
-    items = [
-      DropdownModel(l10n.internet_wifi_account, AppImages.icWifiFTTH),
-      DropdownModel(l10n.phone_number, AppImages.icPhoneFTTH),
-    ];
+    selectedValue?.title = l10n.internet_wifi_account;
+
+    items[0].title = l10n.internet_wifi_account;
+    items[1].title = l10n.phone_number;
+
+    selectedHint ??= l10n.enter_your_internet_wifi_account;
+
     itemsFunc = [
       (AppImages.icFuncReferFriend, l10n.refer_friend),
       (AppImages.icFuncSpeedTest, l10n.speed_test),
@@ -101,8 +112,8 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
 
   @override
   void dispose() {
-    super.dispose();
     phoneNumberController.dispose();
+    super.dispose();
   }
 
   @override
@@ -111,36 +122,63 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
       value: _bloc,
       child: BlocListener<InternetWifiBloc, InternetWifiState>(
         listener: (context, state) {
-          if(state is InternetWifiLoading){
+          if (state is InternetWifiLoading) {
+            if (!mounted) return;
             setState(() {
               viewState = LoadingWidgetState.loading;
             });
           }
-          if(state is GetFTTHAccountSuccess){
+          if (state is LoginFTTHLoading) {
+            LoadingOverlayWidget.show(context);
+          }
+          if (state is GetFTTHAccountSuccess) {
+            if (!mounted) return;
             setState(() {
               viewState = LoadingWidgetState.success;
               ftthAcount = state.ftthAccount;
             });
           }
 
-          if(state is GetFTTHAccountFailure){
+          if (state is GetFTTHAccountFailure) {
+            if (!mounted) return;
             setState(() {
               viewState = LoadingWidgetState.success;
             });
           }
-          if(state is GetFTTHPackagesSuccess){
+          if (state is GetFTTHPackagesSuccess) {
+            if (!mounted) return;
             setState(() {
               listPackageFTTH = state.listPackageFTTH;
             });
           }
 
-          if(state is GetFTTHPackagesFailure){
-
-          }
+          if (state is GetFTTHPackagesFailure) {}
           if (state is GetAllAppSuccess) {
+            if (!mounted) return;
             setState(() {
               listBannerFooter = state.listBanner;
             });
+          }
+
+          if (state is SendIDFTTHSuccess) {
+            LoadingOverlayWidget.hide();
+            _bloc.add(GetFTTHAccountEvent());
+          }
+
+          if (state is SendIDFTTHFailure) {
+            LoadingOverlayWidget.hide();
+            AppToast.show(
+              context,
+              state.message == "" ? state.message : l10n.error_occurred,
+            );
+          }
+
+          if (state is SearchFTTHAccountByPhoneSuccess) {
+            LoadingOverlayWidget.hide();
+          }
+
+          if (state is SearchFTTHAccountByPhoneFailure) {
+            LoadingOverlayWidget.hide();
           }
         },
         child: Scaffold(
@@ -151,10 +189,7 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
             elevation: 0,
             systemOverlayStyle: SystemUiOverlayStyle.dark,
             centerTitle: true,
-            title: Text(
-              l10n.internet_wifi,
-              style: AppStyles.headerBlack,
-            ),
+            title: Text(l10n.internet_wifi, style: AppStyles.headerBlack),
             leading: IconButton(
               icon: const Icon(
                 Icons.arrow_back_ios_new,
@@ -199,7 +234,9 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
             borderRadius: BorderRadius.all(Radius.circular(16)),
           ),
           // child: _buildNoLoginFTTH(items),
-          child: ftthAcount != null ? _buildLoginFTTH() : _buildNoLoginFTTH(items),
+          child: ftthAcount != null
+              ? _buildLoginFTTH()
+              : _buildNoLoginFTTH(items),
         ),
         SizedBox(height: 16),
         Container(
@@ -254,11 +291,19 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
                 ),
               ),
               Spacer(),
-              Text(
-                l10n.viewAll,
-                style: AppTextFonts.poppinsMedium.copyWith(
-                  fontSize: 12,
-                  color: AppColors.color_E11B,
+              InkWell(
+                onTap: () {
+                  context.push(
+                    PATH_RECOMMEND_FOR_YOU,
+                    extra: listPackageFTTH,
+                  );
+                },
+                child: Text(
+                  l10n.viewAll,
+                  style: AppTextFonts.poppinsMedium.copyWith(
+                    fontSize: 12,
+                    color: AppColors.color_E11B,
+                  ),
                 ),
               ),
             ],
@@ -295,6 +340,9 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
               selectedHint = model?.title == l10n.internet_wifi_account
                   ? l10n.enter_your_internet_wifi_account
                   : l10n.enter_your_phone_number;
+              isAccount = model?.title == l10n.internet_wifi_account;
+              AppLogger().logInfo("Select drop - ${selectedValue?.title}");
+              AppLogger().logInfo("Select drop - ${selectedValue?.icon}");
             });
           },
           buttonHeight: 50,
@@ -339,7 +387,22 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
         ),
         SizedBox(height: 24),
         ElevatedButton(
-          onPressed: () => {},
+          onPressed: () {
+            AppLogger().logInfo("Select drop 2 - ${selectedValue?.title}");
+            AppLogger().logInfo("Select drop 2 - ${selectedValue?.icon}");
+            if (isAccount) {
+              _bloc.add(SendIDFTTHEvent(phoneNumberController.text));
+            } else {
+              if (isValidCambodiaPhone(phoneNumberController.text)) {
+                _bloc.add(
+                  SearchFTTHAccountByPhoneEvent(phoneNumberController.text),
+                );
+              } else {
+                AppToast.show(context, AppLocalizations.of(context)!.phone_number_is_not_valid);
+              }
+
+            }
+          },
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.color_E11B,
             minimumSize: const Size.fromHeight(48),
@@ -357,7 +420,7 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
   }
 
   Widget _buildLoginFTTH() {
-    ftthAcount = fakeFtthAccount;
+    // ftthAcount = fakeFtthAccount;
     return Column(
       children: [
         Row(
@@ -712,7 +775,7 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
                                           ),
                                     ),
                                     TextSpan(
-                                      text: "/month",
+                                      text: "/${l10n.month}",
                                       style: AppTextFonts.poppinsRegular
                                           .copyWith(
                                             fontSize: 16,
@@ -727,7 +790,18 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
                                 width: 105,
                                 height: 36,
                                 child: ElevatedButton(
-                                  onPressed: () => {},
+                                  onPressed: () => {
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (_) => FtthPackageDialog(
+                                        package: item!,
+                                        onYes: () {
+                                          context.push(PATH_REGISTER_FTTH);
+                                        },
+                                      ),
+                                    )
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: AppColors.color_FFFF,
                                     elevation: 0,
@@ -783,9 +857,9 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
   }
 
   Widget _buildBannerFooterSection(
-      BuildContext context,
-      AppLocalizations l10n,
-      ) {
+    BuildContext context,
+    AppLocalizations l10n,
+  ) {
     final banners = listBannerFooter ?? [];
     if (banners.isEmpty) {
       return SizedBox.shrink();
@@ -795,56 +869,57 @@ class _InternetWifiPagePageState extends State<InternetWifiPage> {
       margin: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         children: [
-          CarouselSlider(
-            options: CarouselOptions(
-              height: 120,
-              autoPlay: true,
-              viewportFraction: 1,
-              enlargeCenterPage: false,
-              onPageChanged: (index, reason) {
-                setState(() => bannerIndex = index);
-              },
-            ),
-            items: banners.map((banner) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.all(Radius.circular(12)),
-                child: SafeImage(
+          ClipRRect(
+            borderRadius: const BorderRadius.all(Radius.circular(12)),
+            child: CarouselSlider(
+              options: CarouselOptions(
+                height: 120,
+                autoPlay: true,
+                viewportFraction: 1,
+                enlargeCenterPage: false,
+                onPageChanged: (index, reason) {
+                  setState(() => bannerIndex = index);
+                },
+              ),
+              items: banners.map((banner) {
+                return SafeImage(
                   url: banner.adImgUrl ?? '',
                   width: MediaQuery.of(context).size.width,
                   height: 120,
                   fit: BoxFit.cover,
                   placeholder: AppImages.imgPromotionDefault,
                   errorAsset: AppImages.imgPromotionDefault,
-                ),
-              );
-            }).toList(),
-          ),
-          Positioned(
-            top: 100,
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: banners.asMap().entries.map((entry) {
-                final isActive = bannerIndex == entry.key;
-                return AnimatedContainer(
-                  duration: const Duration(milliseconds: 300),
-                  width: isActive ? 30 : 6,
-                  height: 6,
-                  margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(3),
-                    color: isActive
-                        ? AppColors.color_2121
-                        : AppColors.color_E4E6,
-                  ),
                 );
               }).toList(),
             ),
           ),
+
+          const SizedBox(height: 8),
+
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: banners.asMap().entries.map((entry) {
+              final isActive = bannerIndex == entry.key;
+              return AnimatedContainer(
+                duration: const Duration(milliseconds: 300),
+                width: isActive ? 30 : 6,
+                height: 6,
+                margin: const EdgeInsets.symmetric(horizontal: 4),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(3),
+                  color: isActive ? AppColors.color_2121 : AppColors.color_E4E6,
+                ),
+              );
+            }).toList(),
+          ),
         ],
       ),
     );
+  }
+
+  bool isValidCambodiaPhone(String phone) {
+    return (phone.startsWith('+855') || phone.startsWith('0')) &&
+        phone.length >= 9 &&
+        phone.length <= 14;
   }
 }

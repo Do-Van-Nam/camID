@@ -1080,4 +1080,37 @@ class AppLocalizationsKm extends AppLocalizations {
 
   @override
   String get recommend_for_you => 'Recommend for you';
+
+  @override
+  String get speed => 'Speed';
+
+  @override
+  String get validity => 'Validity';
+
+  @override
+  String get promotions => 'Promotions';
+
+  @override
+  String get month => 'month';
+
+  @override
+  String get province_city => 'Province/City';
+
+  @override
+  String get your_location => 'Your location';
+
+  @override
+  String get your_address => 'Your address';
+
+  @override
+  String get content_address => 'Example: 20, near the wholesale market';
+
+  @override
+  String get get_otp => 'Get OTP';
+
+  @override
+  String get choose_your_address => 'Choose your address';
+
+  @override
+  String get pls_select_address => 'Please select the store address.';
 }

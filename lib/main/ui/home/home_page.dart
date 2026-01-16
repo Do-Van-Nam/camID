@@ -294,7 +294,7 @@ class _HomePageState extends State<HomePage>
                       Text(
                         UserInfoModel.instance.fullName.isNotEmpty
                             ? UserInfoModel.instance.fullName
-                            : 'UserName',
+                            : Constant.normalizePhoneV2(UserInfoModel.instance.phoneNumber),
                         style: AppTextFonts.poppinsRegular.copyWith(
                           fontSize: 12,
                           color: AppColors.color_FFFF,
@@ -468,7 +468,6 @@ class _HomePageState extends State<HomePage>
               ),
               child: _buildLoginSection(),
             ),
-
           ],
         ),
       ],

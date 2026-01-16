@@ -12,3 +12,13 @@ class GetAllAppsEvent extends InternetWifiEvent {
   final bool isCallAPI;
   GetAllAppsEvent({this.isCallAPI = false});
 }
+
+class SendIDFTTHEvent extends InternetWifiEvent {
+  final String idFTTH;
+  SendIDFTTHEvent(this.idFTTH);
+}
+
+class SearchFTTHAccountByPhoneEvent extends InternetWifiEvent {
+  final String phoneNumber;
+  SearchFTTHAccountByPhoneEvent(this.phoneNumber);
+}
